@@ -3,12 +3,13 @@
 ##Contributing
 
 The documents have the following structure:
-
+~~~
 branch
 └── version
     └── language
         └── markdown files
-        
+~~~
+
 If you are interested in contributing a translation, please check the [issues list](https://github.com/pletfix/docs/issues) first. If someone is already working on it, we can collaborate on existing work.
 
 If there is no relevant translation in progress, please create an issue so others know you have started the work on that particular language.
@@ -26,105 +27,171 @@ If you have any questions feel free to ask the [Pletfix community](http://pletfi
 ###Examples
 Source: https://sindresorhus.com/github-markdown-css/
 
-*Headers*
+####Headers
 ~~~
 # H1
 ## H2
 ### H3
 #### H4
-##### H5
-###### H6
 ~~~
 
-*Emphasis*
+####Horizontal Rule
+Three or more Hyphens:
 ~~~
-Emphasis, aka italics, with *asterisks* or _underscores_.
+---
+~~~
 
-Strong emphasis, aka bold, with **asterisks** or __underscores__.
+####Emphasis
+~~~
+Emphasis, aka italics, with _underscores_.
 
-Combined emphasis with **asterisks and _underscores_**.
+Strong emphasis, aka bold, with **asterisks**.
 
 Strikethrough uses two tildes. ~~Scratch this.~~
 ~~~
 
-*Lists*
+####Lists
 ~~~
 1. First ordered list item
 2. Another item
-⋅⋅* Unordered sub-list.
-1. Actual numbers don't matter, just that it's a number
-⋅⋅1. Ordered sub-list
-4. And another item.
 
-⋅⋅⋅You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we'll use three here to also align the raw Markdown).
-
-⋅⋅⋅To have a line break without a paragraph, you will need to use two trailing spaces.⋅⋅
-⋅⋅⋅Note that this line is separate, but within the same paragraph.⋅⋅
-⋅⋅⋅(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)
-
-* Unordered list can use asterisks
-- Or minuses
-+ Or pluses
+- Unordered list item
+- Another item
 ~~~
 
-*Blockquotes*
+####Blockquotes
 ~~~
 >This is a block
 ~~~
 
-*Link*
+Tip (highlighted blockquote):
+> {tip} This is a tip.
+
+Note
+> {note} This is a note!
+
+####Links
 ~~~
 [Google's Homepage](https://www.google.com)
 ~~~
 
-*Images*
+Shortcut style:
+~~~
+<http://example.com/>
+~~~
+
+####Named Anchors
+
+Example using a name:
+~~~
+Take me to [pookie](#pookie)
+~~~
+
+And the destination anchor:
+~~~
+### <a name="pookie"></a>Some heading
+~~~
+
+####Images
 ~~~
 ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png)
 ~~~
 
-*Code and Syntax Highlighting*
+####Raw Output
+~~~
+~~~
+Raw Text
+~~~
+~~~
 
-Code blocks are part of the Markdown spec, but syntax highlighting isn't. However, many renderers -- like Github's and Markdown Here -- support syntax highlighting. Which languages are supported and how those language names should be written will vary from renderer to renderer. Markdown Here supports highlighting for dozens of languages (and not-really-languages, like diffs and HTTP headers); to see the complete list, and how to write the language names, see the highlight.js demo page.
+####Code and Syntax Highlighting
 
+Code blocks are part of the Markdown spec, but syntax highlighting isn't. However, many renderers -- like Github's and Markdown Here -- support syntax highlighting. Which languages are supported and how those language names should be written will vary from renderer to renderer. Markdown Here supports highlighting for dozens of languages (and not-really-languages, like diffs and HTTP headers); to see the complete list, and how to write the language names, see the [highlight.js](https://highlightjs.org/static/demo/) demo page.
+
+Inline code:
 ~~~
 Inline `code` has `back-ticks around` it.
 ~~~
 
-Blocks of code
-
-```javascript
-var s = "JavaScript syntax highlighting";
-alert(s);
-```
-
-```python
-s = "Python syntax highlighting"
-print s
-```
-
+Blocks of code (three or more backticks \` or tilde \~):
+~~~
 ```
 No language indicated, so no syntax highlighting.
 But let's throw in a <b>tag</b>.
 ```
+~~~
 
-*Tables*
+~~~
+```php
+$s = "PHP syntax highlighting";
+echo $s;
+```
+~~~
+
+~~~
+```html
+var s = "HTML syntax highlighting";
+alert(s);
+```
+~~~
+
+~~~
+```javascript
+var s = "JavaScript syntax highlighting";
+alert(s);
+```
+~~~
+
+~~~
+```sql
+SELECT * FROM mytable WHERE id = 1
+```
+~~~
+
+~~~
+```json
+{
+    foo: 'bar';
+}
+```
+~~~
+
+####Tables
 
 Tables aren't part of the core Markdown spec, but they are part of GFM and Markdown Here supports them. They are an easy way of adding tables to your email -- a task that would otherwise require copy-pasting from another application.
 
 Colons can be used to align columns.
-
-```
+~~~
 | Tables        | Are           | Cool  |
 | ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned |  |
-| col 2 is      | centered      |    |
-| zebra stripes | are neat      |     |
+| col 3 is      | right-aligned |       |
+| col 2 is      | centered      |       |
+| zebra stripes | are neat      |       |
+~~~
 
-The outer pipes (|) are optional, and you don't need to make the raw Markdown line up prettily. You can also use inline Markdown.
+####Inline HTML
 
-Markdown | Less | Pretty
---- | --- | ---
-*Still* | `renders` | **nicely**
-1 | 2 | 3
-```
+You can also use raw HTML in your Markdown, and it'll mostly work pretty well.
 
+####Backslash Escapes
+
+Markdown allows you to use backslash escapes to generate literal characters which would otherwise have special meaning in Markdown's formatting syntax. For example, if you wanted to surround a word with literal asterisks (instead of an HTML <em> tag), you can backslashes before the asterisks, like this:
+~~~
+\*literal asterisks\*
+~~~
+
+Markdown provides backslash escapes for the following characters:
+~~~
+\   backslash
+`   backtick
+*   asterisk
+_   underscore
+{}  curly braces
+[]  square brackets
+()  parentheses
+#   hash mark
++   plus sign
+-   minus sign (hyphen)
+.   dot
+!   exclamation mark
+~~~
