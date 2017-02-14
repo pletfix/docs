@@ -2,9 +2,25 @@
 
 ##Contributing
 
+The documents have the following structure:
+
+branch
+└── version
+    └── language
+        └── markdown files
+        
+If you are interested in contributing a translation, please check the [issues list](https://github.com/pletfix/docs/issues) first. If someone is already working on it, we can collaborate on existing work.
+
+If there is no relevant translation in progress, please create an issue so others know you have started the work on that particular language.
+
+You can then fork the repository and add the [two-letter language code (ISO 639-1)](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) and the translated contents.
+
+If you have any questions feel free to ask the [Pletfix community](http://pletfix.com/community).
+
 ##Introduction for Markdown Syntax
 
 [Full documentation of the Markdown syntax — Daring Fireball (John Gruber)](https://daringfireball.net/projects/markdown/)
+
 [Markdown Extra syntax — Michel Fortin](https://michelf.ca/projects/php-markdown/extra/)
 
 ###Examples
