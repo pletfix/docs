@@ -1,14 +1,17 @@
 # Pletfix Documentation
 
-##Contributing
+##Contribution Guidelines
 
 The documents have the following structure:
 ~~~
 branch
-└── version
-    └── language
-        └── markdown files
+ └── language
+      └── markdown files
 ~~~
+
+If you are submitting documentation for the current stable release, submit it to the corresponding branch. 
+For example, documentation for Pletfix 1.0 would be submitted to the 1.0 branch. 
+Documentation intended for the next release of Pletfix should be submitted to the master branch.
 
 If you are interested in contributing a translation, please check the [issues list](https://github.com/pletfix/docs/issues) first. If someone is already working on it, we can collaborate on existing work.
 
@@ -65,10 +68,14 @@ Strikethrough uses two tildes. ~~Scratch this.~~
 ~~~
 
 Tip (highlighted blockquote):
-> {tip} This is a tip.
+~~~
+<div class="tip">This is a tip.</div>
+~~~
 
 Note
-> {note} This is a note!
+~~~
+<div class="note">This is a note.</div>
+~~~
 
 ####Links
 ~~~
@@ -98,63 +105,36 @@ And the destination anchor:
 ~~~
 
 ####Raw Output
-~~~
+<pre>
 ~~~
 Raw Text
 ~~~
-~~~
+</pre>
 
 ####Code and Syntax Highlighting
 
 Code blocks are part of the Markdown spec, but syntax highlighting isn't. However, many renderers -- like Github's and Markdown Here -- support syntax highlighting. Which languages are supported and how those language names should be written will vary from renderer to renderer. Markdown Here supports highlighting for dozens of languages (and not-really-languages, like diffs and HTTP headers); to see the complete list, and how to write the language names, see the [highlight.js](https://highlightjs.org/static/demo/) demo page.
 
 Inline code:
+
 ~~~
 Inline `code` has `back-ticks around` it.
 ~~~
 
 Blocks of code (three or more backticks \` or tilde \~):
-~~~
-```
-No language indicated, so no syntax highlighting.
-But let's throw in a <b>tag</b>.
-```
-~~~
+<pre>
+ ```
+ No language indicated, so no syntax highlighting.
+ But let's throw in a <b>tag</b>.
+ ```
+</pre>
 
-~~~
+<pre>
 ```php
 $s = "PHP syntax highlighting";
 echo $s;
 ```
-~~~
-
-~~~
-```html
-var s = "HTML syntax highlighting";
-alert(s);
-```
-~~~
-
-~~~
-```javascript
-var s = "JavaScript syntax highlighting";
-alert(s);
-```
-~~~
-
-~~~
-```sql
-SELECT * FROM mytable WHERE id = 1
-```
-~~~
-
-~~~
-```json
-{
-    foo: 'bar';
-}
-```
-~~~
+</pre>
 
 ####Tables
 
