@@ -1,6 +1,10 @@
 # Pletfix Documentation
 
+This is the official documentation for the Pletfix Framework. It is available online at <http://pletfix.com/docs>.
+
 ##Contribution Guidelines
+
+Contributing to the documentation is pretty simple. 
 
 The documents have the following structure:
 ~~~
@@ -28,7 +32,6 @@ If you have any questions feel free to ask the [Pletfix community](http://pletfi
 [Markdown Extra syntax — Michel Fortin](https://michelf.ca/projects/php-markdown/extra/)
 
 ###Examples
-Source: https://sindresorhus.com/github-markdown-css/
 
 ####Headers
 ~~~

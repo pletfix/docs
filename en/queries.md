@@ -2,6 +2,8 @@
 
 [Since 1.0.0]
 
+TODO: Anpassen
+
 - [Introduction](#introduction)
 - [Retrieving Results](#retrieving-results)
     - [Chunking Results](#chunking-results)

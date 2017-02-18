@@ -1,6 +1,8 @@
-# General Topics: Collections
+# Collections
 
 [Since 1.0.0]
+
+TODO: Anpassen
 
 - [Introduction](#introduction)
     - [Creating Collections](#creating-collections)
@@ -20,7 +22,6 @@ The `Illuminate\Support\Collection` class provides a fluent, convenient wrapper 
     ->reject(function ($name) {
         return empty($name);
     });
-
 
 As you can see, the `Collection` class allows you to chain its methods to perform fluent mapping and reducing of the underlying array. In general, collections are immutable, meaning every `Collection` method returns an entirely new `Collection` instance.
 
