@@ -1,5 +1,13 @@
 # Scheduler
 
+_Run background tasks from the commandline or via a scheduler_
+
+[Since 1.0.0]
+
+TODO: Anpassen
+
+NOCH NICHT REALISIERT
+
 - [Introduction](#introduction)
 - [Defining Schedules](#defining-schedules)
     - [Schedule Frequency Options](#schedule-frequency-options)

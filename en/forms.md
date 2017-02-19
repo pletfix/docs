@@ -1,5 +1,9 @@
 # Forms
 
+_An object oriented way to generate HTML forms_
+
+_Utility class to generate HTML form elements_
+
 [Since 1.0.0]
 
 TODO: Anpassen
@@ -209,3 +213,10 @@ Now you can call your macro using its name:
 ##Generating URLs
 
 For more information on generating URL's, check out the documentation on [helpers](/docs/4.2/helpers#urls).
+
+
+##Upload FIles
+
+_Validate and process uploaded files_
+
+(s. FuelPHP, https://fuelphp.com/docs/classes/upload/usage.html)

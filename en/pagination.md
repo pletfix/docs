@@ -1,5 +1,7 @@
 # Pagination
 
+_Generate the HTML for paginating your tables_
+
 [Since 1.0.0]
 
 TODO: Anpassen

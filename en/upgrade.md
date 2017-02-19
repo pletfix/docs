@@ -1,4 +1,6 @@
-# Upgrade Guide
+# Upgrade Guide 
+
+_How do I upgrade an existing Pletfix application_
 
 [Since 1.0.0]
 

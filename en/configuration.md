@@ -1,5 +1,11 @@
 # Configuration
 
+[Since 1.0.0]
+
+_Global framework configuration_
+
+TODO: Anpassen
+
 - [Introduction](#introduction)
 - [Environment Configuration](#environment-configuration)
     - [Determining The Current Environment](#determining-the-current-environment)
@@ -14,6 +20,8 @@ All of the configuration files for the Laravel framework are stored in the `conf
 
 <a name="environment-configuration"></a>
 ## Environment Configuration
+
+_Running your application in different environments_
 
 It is often helpful to have different configuration values based on the environment the application is running in. For example, you may wish to use a different cache driver locally than you do on your production server.
 
@@ -52,6 +60,8 @@ You may also pass arguments to the `environment` method to check if the environm
 
 <a name="accessing-configuration-values"></a>
 ## Accessing Configuration Values
+
+_Access your applications configuration_
 
 You may easily access your configuration values using the global `config` helper function from anywhere in your application. The configuration values may be accessed using "dot" syntax, which includes the name of the file and option you wish to access. A default value may also be specified and will be returned if the configuration option does not exist:
 

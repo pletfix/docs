@@ -1,5 +1,7 @@
 # Command Line Interface
 
+_Utility class to interact with user on the commandline_
+
 [Since 1.0.0]
 
 TODO: Anpassen

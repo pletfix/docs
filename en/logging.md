@@ -1,5 +1,7 @@
 # Logging
 
+_Static interface on the Monolog logger package_
+
 [Since 1.0.0]
 
 TODO: Anpassen

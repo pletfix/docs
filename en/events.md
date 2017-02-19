@@ -1,5 +1,7 @@
 # Notification Events
 
+_Create an event-driven application_
+
 [Since 1.0.0]
 
 TODO: Anpassen

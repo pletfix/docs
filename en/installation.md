@@ -20,7 +20,9 @@ TODO: Xammp beschreiben, wie wird einen Workbench aufgesetzt, Xdebug nutzen
 <a name="server-requirements"></a>
 ### Server Requirements
 
-The Laravel framework has a few system requirements. Of course, all of these requirements are satisfied by the [Laravel Homestead](/docs/{{version}}/homestead) virtual machine, so it's highly recommended that you use Homestead as your local Laravel development environment.
+<!-- (FuelPHP:) What do I need to run Pletfix? -->
+
+The Pletfix framework has a few system requirements. Of course, all of these requirements are satisfied by the [Laravel Homestead](/docs/{{version}}/homestead) virtual machine, so it's highly recommended that you use Homestead as your local Laravel development environment.
 
 However, if you are not using Homestead, you will need to make sure your server meets the following requirements:
 
@@ -125,3 +127,16 @@ If you are using Nginx, the following directive in your site configuration will 
     }
 
 Of course, when using [Homestead](/docs/{{version}}/homestead) or [Valet](/docs/{{version}}/valet), pretty URLs will be automatically configured.
+
+
+## Third Party 
+
+### regex101.com
+### XAMPP Profiler
+### PHPStorm
+### XDebug
+
+### Profiling
+Where does my memory go? What queries are generated? Which ones are slow?
+
+## Troubleshooting

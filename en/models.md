@@ -1,4 +1,6 @@
-# Eloquent: Getting Started
+# Models
+
+_What are they, and how are they used?_
 
 [Since 1.0.0]
 
@@ -1943,3 +1945,17 @@ Once the cast is defined, you may access the `options` attribute and it will aut
     $user->options = $options;
 
     $user->save();
+    
+    
+    
+----
+    
+    
+## CRUD (Create, Read, Update and Delete)
+## Relating Models+
+### Introduction
+### Belongs To
+### Has One
+### Has Many
+### Many to Many
+## Observers    

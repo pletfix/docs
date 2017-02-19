@@ -1,5 +1,7 @@
 # Localization
 
+_Make your application support multiple languages_
+
 [Since 1.0.0]
 
 TODO: Anpassen

@@ -1,4 +1,6 @@
-# Database: Migrations
+# Database Migrations
+
+_List and run migrations_
 
 [Since 1.0.0]
 

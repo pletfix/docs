@@ -1,5 +1,7 @@
 # Contribution Guide
 
+_Make sure you read this before sending a pull request._
+
 [Since 1.0.0]
 
 TODO: Erweitern (Core Developing, Plugin Developing)
@@ -42,3 +44,21 @@ Below is an example of a valid Laravel documentation block. Note that the `@para
         //
     }
 
+
+<!--
+FuelPHP
+
+https://fuelphp.com
+
+We need more awesome!
+FuelPHP is a community driven framework. We welcome your input, comment, code contributions or bug fixes!
+Help us make Fuel even better!
+    Help out
+    Repositories on Github
+    Making pull-requests
+    Reporting bugs
+    Making feature requests
+    
+Namespacing    
+Use namespaces in your applications classes    
+-->

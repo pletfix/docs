@@ -1,5 +1,8 @@
 # HTTP Responses
 
+
+_Response to be returned_
+
 [Since 1.0.0]
 
 TODO: Anpassen

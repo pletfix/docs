@@ -1,4 +1,6 @@
-# Database: Query Builder
+# Query Builder
+
+_An object oriented Query Builder_
 
 [Since 1.0.0]
 

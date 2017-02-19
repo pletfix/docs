@@ -1,5 +1,7 @@
 # Sessions
 
+_Maintain state in a stateless environment_
+
 [Since 1.0.0]
 
 TODO: Anpassen

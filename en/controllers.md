@@ -1,4 +1,5 @@
-# Controllers
+<!-- # Controllers -->
+# MVC Principle
 
 [Since 1.0.0]
 
@@ -153,8 +154,8 @@ This single route declaration creates multiple routes to handle a variety of act
 
 #### Actions Handled By Resource Controller
 
-Verb      | URI                  | Action       | Route Name
-----------|-----------------------|--------------|---------------------
+Verb      | URI                    | Action       | Route Name
+----------|--------------------- --|--------------|---------------------
 GET       | `/photos`              | index        | photos.index
 GET       | `/photos/create`       | create       | photos.create
 POST      | `/photos`              | store        | photos.store

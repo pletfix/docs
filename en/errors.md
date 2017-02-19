@@ -1,5 +1,7 @@
 # Error & Exception Handling
 
+_Handling errors in your application_
+
 [Since 1.0.0]
 
 TODO: Anpassen

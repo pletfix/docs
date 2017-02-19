@@ -1,5 +1,9 @@
 # Routing
 
+_Route a URI request to a controller action_
+
+_Request routing engine_
+
 [Since 1.0.0]
 
 TODO: Anpassen
@@ -314,3 +318,17 @@ You may use the `current`, `currentRouteName`, and `currentRouteAction` methods 
     $action = Route::currentRouteAction();
 
 Refer to the API documentation for both the [underlying class of the Route facade](https://laravel.com/api/{{version}}/Illuminate/Routing/Router.html) and [Route instance](https://laravel.com/api/{{version}}/Illuminate/Routing/Route.html) to review all accessible methods.
+
+
+
+#### Actions Handled By Resource Controller
+
+Verb      | URI                    | Action       | Route Name
+----------|------------------------|--------------|---------------------
+GET       | `/photos`              | index        | photos.index
+GET       | `/photos/create`       | create       | photos.create
+POST      | `/photos`              | store        | photos.store
+GET       | `/photos/{photo}`      | show         | photos.show
+GET       | `/photos/{photo}/edit` | edit         | photos.edit
+PUT/PATCH | `/photos/{photo}`      | update       | photos.update
+DELETE    | `/photos/{photo}`      | destroy      | photos.destroy
