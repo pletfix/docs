@@ -1,5 +1,7 @@
 # Blade Templates
 
+_Lightweight and Simplified Clone of Laravel's Blade Template 5.3_
+
 [Since 1.0.0]
 
 TOD: Anpassen

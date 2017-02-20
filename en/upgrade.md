@@ -1,10 +1,12 @@
 # Upgrade Guide 
 
-_How do I upgrade an existing Pletfix application_
+_How do I upgrade an existing Pletfix application._
+
+Nothing to upgrade at the momenent. It's jsut the first version now :-) 
+
+<!--
 
 [Since 1.0.0]
-
-TODO: Datei aktualisieren
 
 - [Upgrading from 0.1.5 to 0.2.0](#0.1.5_to_0.2.0)
 - [Upgrading from 0.1.1 to 0.1.5](#0.1.1_to_0.1.5)
@@ -18,3 +20,5 @@ Hier wird bescchrieben, was sich von Version 0.1.5 zu Version 0.2.0 geändert ha
 ## Upgrading from 0.1.1 to 0.1.5
 
 Hier wird bescchrieben, was sich von Version 0.1.1 zu Version 0.1.5 geändert hat.
+
+-->

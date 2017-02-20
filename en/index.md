@@ -1,15 +1,14 @@
 # Documentation
 
-_Framework introduction_
+This is the official and community editable documentation for the Pletfix Framework. 
 
-TODO: evtl Datei umbenennen in "overview.md"
+<i class="fa fa-github fa-2x" aria-hidden="true"></i>
+Notice the pencil icon button fixated against the right wall. 
+It will direct you to the GitHub online editor of the active page.
+Feel free to contribute any additions, deletions, or corrections to the documentation.
 
-This is the official documentation for the Pletfix Framework. 
+**Licenses**
 
 A lot of this manuals originally based off of [Laravel](https://github.com/laravel/docs).
 
 It is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
-
-This documentation is an openly developed and community editable documentation project. 
-Notice the pencil icon button fixated against the right wall; it will direct you to the GitHub online editor of the active page, allowing you to contribute any additions, deletions, or corrections to the documentation.
-
