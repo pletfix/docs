@@ -2,11 +2,11 @@
 
 _How do I upgrade an existing Pletfix application._
 
+[Since 0.5.0]
+
 Nothing to upgrade at the momenent. It's jsut the first version now :-) 
 
 <!--
-
-[Since 1.0.0]
 
 - [Upgrading from 0.1.5 to 0.2.0](#0.1.5_to_0.2.0)
 - [Upgrading from 0.1.1 to 0.1.5](#0.1.1_to_0.1.5)

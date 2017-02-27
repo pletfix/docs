@@ -2,13 +2,16 @@
 
 _Working with dates, times and timezones_
 
-[Since 1.0.0]
+[Since 0.5.0]
 
-TODO: Anpassen
+Planned release: 0.5.4
 
-NOCH NICHT REALISIERT!
+Folgende Bibliotheken habe ich in die engere Auswahl gestellt: 
 
-Chronos is an immutable date and time object.
+<https://github.com/briannesbitt/Carbon Carbon on GitHub>
 
+<https://github.com/fightbulc/moment.php moment.php on GitHub>
 
-https://book.cakephp.org/3.0/en/chronos.html
+<https://github.com/cakephp/chronos Chronos on GitHub>, <https://book.cakephp.org/3.0/en/chronos.html>
+(immutable date/datetime objects)
+

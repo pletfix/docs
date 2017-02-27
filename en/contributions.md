@@ -2,10 +2,11 @@
 
 _Make sure you read this before sending a pull request._
 
-[Since 1.0.0]
+[Since 0.5.0]
 
 - [Git Workflow](#git-workflow)
 - [Core Development](#core-development)
+- [Translate Documentation](#translate)
 - [Coding Style](#coding-style)
 
 <a name="git-workflow"></a>
@@ -82,6 +83,11 @@ Then fork the repository and realize your ideas as follows:
 ## Core Development
 
 If you want to develop at the core, follow the instructions on <https://github.com/pletfix/core> to create a workbench. 
+
+<a name="translate"></a>
+## Translate Documentation
+
+If you are interested in contributing a translation, read the README of <https://github.com/pletfix/docs>.  
 
 <a name="coding-style"></a>
 ## Coding Style

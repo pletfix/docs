@@ -1,6 +1,6 @@
 # Installation
 
-[Since 1.0.0]
+[Since 0.5.0]
 
 - [Requirements](#requirements)
 - [Installing Pletfix Application Skeleton](#installation)
@@ -19,6 +19,8 @@ The Pletfix framework has a few system requirements:
 
 <a name="installation"></a>
 ## Installing Pletfix Application
+
+![Fresh Pletfix Application](https://raw.githubusercontent.com/pletfix/docs/master/images/pletfix_application.png)
 
 1. Download files
 
@@ -66,21 +68,19 @@ The Pletfix framework has a few system requirements:
     Open your browser and enter the URL of the application's public folder, e.g.
     
     ~~~
-    http://localhost/pletfix/app/public/
+    http://localhost/my-app/public/
     ~~~
     
-    ![Fresh Pletfix Application](https://github.com/pletfix/docs/tree/master/images/pletfix_application.png)
-    
 <a name="web-server"></a>
-# Web Server Configuration
+## Web Server Configuration
 
 <a name="apache"></a>
-## Apache
+### Apache
 
 Enable the `mod_rewrite` module so the `.htaccess` file in the `public` folder will be loaded correctly by the apache server.
 
 <a name="nginx"></a>
-## Nginx
+### Nginx
 
 If you are using Nginx, the following directive in your site configuration will direct all requests to the `index.php` front controller:
 

@@ -2,82 +2,83 @@
 
 _What are we working on?_
 
-[Since 1.0.0]
+[Since 0.5.0]
 
 ## Feature List
 
-Nachfolgend sind alle bisher geplanten und fertigegestellte Pletfix Versionen mit den angedachten Features aufgeführt.
+Nachfolgend sind alle bisher geplanten und fertigegestellte Pletfix Versionen mit den angedachten Features aufgeführt.    
 
-|Feature  | Release | Status|
-|:--------|:-------:|:-----:|
-| Composer Package Manager, Autoloading | 0.0.1
-| Testing (PHP Unit, Mink and Travic CI) | 0.0.1 | open 
-| Global Functions |  0.0.1
-| Dependency Injection | 0.0.2
-| Environment Support | 0.0.2
-| Configuration | 0.0.2
-| HTTP Routing | 0.0.3
-| Controller | 0.0.4
-| HTTP Request Services | 0.0.5
-| HTTP Response Services | 0.0.5
-| Logging | 0.0.6
-| Exception Handling | 0.0.7
-| Pretty Error Reporting |  0.0.7
-| Facades | 0.0.8 |Deprecated
-| Caching | 0.0.9
-| View Template Engine | 0.1.0
-| Database Access Layer | 0.2.0
-| Query Builder |  0.2.1
-| Migrator | 0.2.2
-| Seeder | 0.2.3 | open
-| Collection | 0.2.4
-| Console (Command line Interface) | 0.3.0 
-| Plugin Management | 0.4.0
-| Loading Bower-Packages via Composer | 0.4.1 
-| Asset Management | 0.4.2
-| Translator (l18n) | 0.4.2 | open
-| Model | 0.4.3 | open
-| Pletfix Application Skeleton | 0.5.0 | working
-| Session Handling | 0.5.1 | open
-| Cookies | 0.5.2 | open
-| DateTime | 0.5.3 | open
-| Str (Utility class for string operations) | 0.5.4 | open 
-| Pluralizer | 0.5.4 | open 
-| Middleware | 0.5.5 | open
-| Crypt (Encryption and Decryption)  | 0.5.6 | open
-| Mailer | 0.5.7 | open
-| FormBuilder| 0.5.8 | open
-| FormValidator| 0.5.8 | open
-| CSRF Protection| 0.5.9 | open
-| User Authenticate (with Login-Dialog) | 0.6.0 | open
-| User Authorize (Roles and Permissions) | 0.6.0 | open
-| User Registration Dialog | 0.6.1 | open
-| Password Reset Function | 0.6.2 | open
-| Password Remember Function | 0.6.3 | open
-| Token Authentication with Rate Limiting | 0.6.4 | open
-| Scheduled Tasks | 0.7.1 | open
-| Image Manipulation | 0.7.2 | open
-| Zipper | 0.7.3 | open
-| Scaffolder | 0.7.4 | open
-| Markdown Parser | 0.7.4 | open
-| PDF Writer | 0.7.5 | open
-| Pletfix Dokumentaton | 0.8.0 | working
-| Benchmark Test (Profiler) | 0.9.0 | open
-| SOUP Services | 0.9.1 | open
-| REST Services (with CURL) | 0.9.2 | open
-| WebSocket | 0.9.3 | open
-| Process Handling (inkl. Daemons) | 0.9.4 | open
-| Database Import, Export, Backup and Restore | 0.9.5 | open
-| Optional paramters for HTTP Routing | 0.9.6 | open
-| LUA Support (Inline Scripting) | &gt; 1.0.0 | open
-| FTP Client | &gt; 1.0.0 | open
-| OAuth2 | &gt; 1.0.0 | open
-| Agent (User agent information) | &gt; 1.0.0 | open
-| ExcelWriter | &gt; 1.0.0 | open
-| ExcelReader | &gt; 1.0.0 | open
-| Update-Manager | &gt; 1.0.0 | open
+| Feature  | Release | Status |
+|:---------|:-------:|:------:|
+| Composer Package Manager, Autoloading | 0.0.1 | Release Candidate |
+| Global Functions |  0.0.1 | Alpha |
+| Dependency Injection | 0.0.2 | Alpha | 
+| Environment Support | 0.0.2 | Alpha |
+| Configuration | 0.0.2 | Alpha |
+| Testing (PHP Unit, Mink and Travic CI) | 0.0.3 | |
+| HTTP Routing | 0.0.4 | Alpha |
+| Controller | 0.0.4 | Alpha |
+| HTTP Request Services | 0.0.5 | Alpha |
+| HTTP Response Services | 0.0.5 | Alpha |
+| Logging | 0.0.6 | Alpha |
+| Exception Handling | 0.0.7 | Alpha |
+| Pretty Error Reporting |  0.0.7 | Alpha |
+| Facades | 0.0.8 | Deprecated |
+| Caching | 0.0.9 | Alpha |
+| View Template Engine | 0.1.0 | Alpha |
+| Database Access Layer | 0.2.0 | Alpha |
+| Query Builder |  0.2.1 | Alpha |
+| Migrator | 0.2.2 | Alpha |
+| Seeder | 0.2.3 | |
+| Collection | 0.2.4 | Alpha |
+| Console (Command line Interface) | 0.3.0 | Alpha | 
+| Plugin Management | 0.4.0 | Alpha |
+| Loading Bower-Packages via Composer | 0.4.1 | Alpha | 
+| Asset Management | 0.4.2 | Alpha |
+| Markdown Parser | 0.4.3 | Alpha |
+| Pletfix Application Skeleton | 0.5.0 | Working |
+| Pletfix Documentation | 0.5.0 | Working |
+| Translator (l18n) | 0.5.1 | |
+| Session Handling | 0.5.2 | |
+| Cookies | 0.5.3 | |
+| DateTime | 0.5.4 | |
+| Str (Utility class for string operations) | 0.5.5 | | 
+| Pluralizer | 0.5.6 | |
+| Mailer | 0.5.7 | |
+| Model | 0.6.0 | |
+| FormBuilder| 0.6.1 | |
+| FormValidator| 0.6.2 | |
+| CSRF Protection| 0.6.3 | |
+| Middleware | 0.7.0 | |
+| Crypt (Encryption and Decryption)  | 0.7.1 | |
+| User Authenticate (with Login-Dialog) | 0.7.2 | |
+| User Authorize (Roles and Permissions) | 0.7.3 | |
+| User Registration Dialog | 0.7.4 | |
+| Password Reset Function | 0.7.5 | |
+| Password Remember Function | 0.7.6 | |
+| Token Authentication with Rate Limiting | 0.8.0 | |
+| Scheduled Tasks | 0.8.1 | |
+| Image Manipulation | 0.8.2 | |
+| Zipper | 0.8.3 | |
+| Scaffolder | 0.8.4 | |
+| PDF Writer | 0.8.5 | |
+| Benchmark Test (Profiler) | 0.9.0 | |
+| SOUP Services | 0.9.1 | |
+| REST Services (with CURL) | 0.9.2 | |
+| WebSocket | 0.9.3 | |
+| Process Handling (inkl. Daemons) | 0.9.4 | |
+| Database Import, Export, Backup and Restore | 0.9.5 | |
+| Optional paramters for HTTP Routing | 0.9.6 | |
+| LUA Support (Inline Scripting) | &gt; 1.0.0 | |
+| FTP Client | &gt; 1.0.0 | |
+| OAuth2 | &gt; 1.0.0 | |
+| Agent (User agent information) | &gt; 1.0.0 | |
+| ExcelWriter | &gt; 1.0.0 | |
+| ExcelReader | &gt; 1.0.0 | |
+| Update-Manager | &gt; 1.0.0 | |
 
-> Hinweis: Die geplanten Features bzw. die zugeordneten Versionen können und werden sich wahrscheinlich im Laufe der Entwicklung noch ändern. 
+> 
+<i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i> Die geplanten Features bzw. die zugeordneten Versionen können und werden sich wahrscheinlich im Laufe der Entwicklung noch ändern. 
 
 <!-- 
 Testing

@@ -1,7 +1,7 @@
 # Scaffolder
 
-[Since 1.0.0]
+[Since 0.5.0]
 
-## Server
+Planned release: 0.8.4
 
-## Client
+TODO

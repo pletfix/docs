@@ -1,5 +1,4 @@
-<!-- # Controllers -->
-# MVC Principle
+# Controllers
 
 [Since 1.0.0]
 
