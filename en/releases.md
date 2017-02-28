@@ -46,11 +46,17 @@ Nachfolgend sind alle bisher geplanten und fertigegestellte Pletfix Versionen mi
 | Pluralizer | 0.5.6 | |
 | Mailer | 0.5.7 | |
 | Model | 0.6.0 | |
-| FormBuilder| 0.6.1 | |
-| FormValidator| 0.6.2 | |
-| CSRF Protection| 0.6.3 | |
+| Old Input | 0.6.1 | |
+| Flash Messages | 0.6.2 | |
+| FormBuilder| 0.6.3 | |
+| CSRF Protection | 0.6.4 | |
+| File Upload | 0.6.5 | |
+| File Download | 0.6.5 | |
+| Ajax Request | 0.6.6 | |
+| FormValidator| 0.6.7 | |
+| Redirect for HTTP Response | 0.6.8 | |
 | Middleware | 0.7.0 | |
-| Crypt (Encryption and Decryption)  | 0.7.1 | |
+| Crypt (Encryption and Decryption) | 0.7.1 | |
 | User Authenticate (with Login-Dialog) | 0.7.2 | |
 | User Authorize (Roles and Permissions) | 0.7.3 | |
 | User Registration Dialog | 0.7.4 | |
@@ -69,6 +75,7 @@ Nachfolgend sind alle bisher geplanten und fertigegestellte Pletfix Versionen mi
 | Process Handling (inkl. Daemons) | 0.9.4 | |
 | Database Import, Export, Backup and Restore | 0.9.5 | |
 | Optional paramters for HTTP Routing | 0.9.6 | |
+| PSR-7 for HTTP Request/Response | 0.9.7 | |
 | LUA Support (Inline Scripting) | &gt; 1.0.0 | |
 | FTP Client | &gt; 1.0.0 | |
 | OAuth2 | &gt; 1.0.0 | |
@@ -142,6 +149,9 @@ Model (ORM, ActiveRecord, Repository)
     - Propel2
         http://propelorm.org/Propel/documentation/
         https://github.com/propelorm/Propel2     
+
+PSR-7: HTTP message interfaces (für HTTP Request/Response)
+    http://www.php-fig.org/psr/psr-7/
 -->
 
 

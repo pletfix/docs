@@ -1,332 +1,240 @@
 # HTTP Requests
 
-[Since 1.0.0]
+[Since 0.5.0]
 
-TODO: Anpassen
+- [Introduction](#introduction)
+    - [Accessing the HTTP Request](#accessing)
+- [Available Methods](#available-methods)
 
-- [Accessing The Request](#accessing-the-request)
-    - [Request Path & Method](#request-path-and-method)
-    - [PSR-7 Requests](#psr7-requests)
-- [Input Trimming & Normalization](#input-trimming-and-normaliation)
-- [Retrieving Input](#retrieving-input)
-    - [Old Input](#old-input)
-    - [Cookies](#cookies)
-- [Files](#files)
-    - [Retrieving Uploaded Files](#retrieving-uploaded-files)
-    - [Storing Uploaded Files](#storing-uploaded-files)
+<a name="introduction"></a>
+## Introduction
 
-<a name="accessing-the-request"></a>
-## Accessing The Request
+The Request object is the current context for the HTTP Request.
 
-To obtain an instance of the current HTTP request via dependency injection, you should type-hint the `Illuminate\Http\Request` class on your controller method. The incoming request instance will automatically be injected by the [service container](/docs/{{version}}/container):
+<a name="accessing"></a>
+### Accessing the HTTP Request
 
-    <?php
+You can get an instance of the HTTP Request from the Dependency Injector:
 
-    namespace App\Http\Controllers;
+    /** @var \Core\Services\Contracts\Request $request */
+    $request = DI::getInstance()->get('request');
+    
+    $name = $request->input('name);
+    
+You can also use the global `request()` function to get the HTTP Request, it's the most shorter way:
+       
+    $name = request()->input('name');
 
-    use Illuminate\Http\Request;
 
-    class UserController extends Controller
-    {
-        /**
-         * Store a new user.
-         *
-         * @param  Request  $request
-         * @return Response
-         */
-        public function store(Request $request)
-        {
-            $name = $request->input('name');
+<a name="available-methods"></a>
+## Available Methods
 
-            //
-        }
-    }
+The Request object has these methods:
 
-#### Dependency Injection & Route Parameters
+<div class="method-list" markdown="1">
 
-If your controller method is also expecting input from a route parameter you should list your route parameters after your other dependencies. For example, if your route is defined like so:
+[baseUrl](#method-base-url)
+[body](#method-body)
+[canonicalUrl](#method-canonical-url)
+[cookie](#method-cookie)
+[file](#method-file)
+[fullUrl](#method-full-url)
+[input](#method-input)
+[ip](#method-ip)
+[isAjax](#method-is-ajax)
+[isJson](#method-is-json)
+[isSecure](#method-is-secure)
+[method](#method-method)
+[path](#method-path)
+[url](#method-url)
+[wantsJson](#method-wants-json)
 
-    Route::put('user/{id}', 'UserController@update');
+</div>
 
-You may still type-hint the `Illuminate\Http\Request` and access your route parameter `id` by defining your controller method as follows:
+<a name="method-listing"></a>
+### Method Listing
 
-    <?php
+<a name="method-base-url"></a>
+#### `baseUrl()` {.method .first-method}
 
-    namespace App\Http\Controllers;
+> This method based on the post ["Get the full URL in PHP"](http://stackoverflow.com/questions/6768793/get-the-full-url-in-php) at stackoverflow.    
 
-    use Illuminate\Http\Request;
+The `baseUrl` gets the root URL for the application:
 
-    class UserController extends Controller
-    {
-        /**
-         * Update the specified user.
-         *
-         * @param  Request  $request
-         * @param  string  $id
-         * @return Response
-         */
-        public function update(Request $request, $id)
-        {
-            //
-        }
-    }
+    echo request()->baseUrl();
 
-#### Accessing The Request Via Route Closures
+    // https://www.example.com
+    
+> Notes:
+> - This function does not include username:password from a full URL or the fragment (hash).
+> - The host is lowercase as per RFC 952/2181.
+> - It will not show the default port 80 for HTTP and port 443 for HTTPS.    
 
-You may also type-hint the `Illuminate\Http\Request` class on a route Closure. The service container will automatically inject the incoming request into the Closure when it is executed:
+Im Pletfix Application Skeleton wird die Base-URL über ein Meta-Tag bereitgestellt, da Sie auch clientseitig nützlich sein kann: 
+  
+    <meta name="base-url" content="{{ request()->baseUrl() }}"/>
 
-    use Illuminate\Http\Request;
+Per JavaScript kann die Base-URL nun leicht ausgelesen werden:
 
-    Route::get('/', function (Request $request) {
-        //
-    });
+    window.baseUrl = $('meta[name="base-url"]').attr('content').replace(/\/$/, '') + '/';
 
-<a name="request-path-and-method"></a>
-### Request Path & Method
+See also [canonicalUrl](#method-canonical-url), [fullUrl](#method-full-url) and [url](#method-url).
 
-The `Illuminate\Http\Request` instance provides a variety of methods for examining the HTTP request for your application and extends the `Symfony\Component\HttpFoundation\Request` class. We will discuss a few of the most important methods below.
 
-#### Retrieving The Request Path
+<a name="method-body"></a>
+#### `body()` {.method}
 
-The `path` method returns the request's path information. So, if the incoming request is targeted at `http://domain.com/foo/bar`, the `path` method will return `foo/bar`:
+The `body` method gets the raw HTTP request body of the request:
 
-    $uri = $request->path();
+    echo request()->body();
+    
 
-The `is` method allows you to verify that the incoming request path matches a given pattern. You may use the `*` character as a wildcard when utilizing this method:
+<a name="method-canonical-url"></a>
+#### `canonicalUrl()` {.method}
 
-    if ($request->is('admin/*')) {
-        //
-    }
+The `canonicalUrl` gets method the canonical URL for the request:
 
-#### Retrieving The Request URL
+    //Example: fullUrl = "http://www.example.com/path?a=3"
 
-To retrieve the full URL for the incoming request you may use the `url` or `fullUrl` methods. The `url` method will return the URL without the query string, while the `fullUrl` method includes the query string:
+    echo request()->canonicalUrl();
 
-    // Without Query String...
-    $url = $request->url();
+    // https://example.de/path
+  
+Der Unterschied zu `url()` ist, dass `canonicalUrl()` die Base-URL aus der Konfiguration `config('app.url')` ausliest 
+und nur den Pfad aus dem Request übernimmt , während `url()` die URL ausschließlich aus der Anfrage des Browsers ermittelt.
 
-    // With Query String...
-    $url = $request->fullUrl();
+`canonicalUrl()` liefert also für eine bestimmte Seite immer die selbe URL, selbst wenn die Seite über verschiedene URLs erreichbar ist.
 
-#### Retrieving The Request Method
+> This URL is very important for SEO (Search Engine Optimizing), see the article 
+> [Use canonical URLs](https://support.google.com/webmasters/answer/139066?hl=en) by Googles Help Forum for more details.
 
-The `method` method will return the HTTP verb for the request. You may use the `isMethod` method to verify that the HTTP verb matches a given string:
+Über folgenden Verweis wird die Canonical URL für eine Seite festgelegt:
+ 
+     <link rel="canonical" href="@yield('canonical-url', request()->canonicalUrl())"/>
+     
+See also [baseUrl](#method-base-url), [fullUrl](#method-full-url) and [url](#method-url).
 
-    $method = $request->method();
 
-    if ($request->isMethod('post')) {
-        //
-    }
+<a name="method-cookie"></a>
+#### `cookie()` {.method}
 
-<a name="psr7-requests"></a>
-### PSR-7 Requests
+The `cookie` method retrieves a cookie from the request:
 
-The [PSR-7 standard](http://www.php-fig.org/psr/psr-7/) specifies interfaces for HTTP messages, including requests and responses. If you would like to obtain an instance of a PSR-7 request instead of a Laravel request, you will first need to install a few libraries. Laravel uses the *Symfony HTTP Message Bridge* component to convert typical Laravel requests and responses into PSR-7 compatible implementations:
+    echo request()->cookie($key, $default);
+    
 
-    composer require symfony/psr-http-message-bridge
-    composer require zendframework/zend-diactoros
+<a name="method-file"></a>
+#### `file()` {.method}
 
-Once you have installed these libraries, you may obtain a PSR-7 request by type-hinting the request interface on your route Closure or controller method:
+The `file` method retrieves a file from the request:
 
-    use Psr\Http\Message\ServerRequestInterface;
+    echo request()->file($key, $default);
+    
 
-    Route::get('/', function (ServerRequestInterface $request) {
-        //
-    });
+<a name="method-full-url"></a>
+#### `fullUrl()` {.method}
 
-> {tip} If you return a PSR-7 response instance from a route or controller, it will automatically be converted back to a Laravel response instance and be displayed by the framework.
+The `fullUrl` method gets the full [Uniform Resource Identifier](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) for the request:
 
-<a name="input-trimming-and-normaliation"></a>
-## Input Trimming & Normalization
+    echo request()->fullUrl();
 
-By default, Laravel includes the `TrimStrings` and `ConvertEmptyStringsToNull` middleware in your application's global middleware stack. These middleware are listed in the stack by the `App\Http\Kernel` class. These middleware will automatically trim all incoming string fields on the request, as well as convert any empty string fields to `null`. This allows you to not have to worry about these normalization concerns in your routes and controllers.
+    // https://www.example.com/path?a=4
+  
+> Notes:
+> - This function does not include username:password from a full URL or the fragment (hash).
+> - The host is lowercase as per RFC 952/2181.
+> - It will not show the default port 80 for HTTP and port 443 for HTTPS.
+> - The #fragment_id is not sent to the server by the client (browser) and will not be added to the full URL.    
 
-If you would like to disable this behavior, you may remove the two middleware from your application's middleware stack by removing them from the `$middleware` property of your `App\Http\Kernel` class.
+See also [baseUrl](#method-full-url), [canonicalUrl](#method-canonical-url) and [url](#method-url).
 
-<a name="retrieving-input"></a>
-## Retrieving Input
 
-#### Retrieving All Input Data
+<a name="method-input"></a>
+#### `input()` {.method}
 
-You may also retrieve all of the input data as an `array` using the `all` method:
+The `input` method retrieves an input item from the request ($_GET and $_POST).:
 
-    $input = $request->all();
+    echo request()->input($key, $default);
+    
 
-#### Retrieving An Input Value
+<a name="method-ip"></a>
+#### `ip()` {.method}
 
-Using a few simple methods, you may access all of the user input from your `Illuminate\Http\Request` instance without worrying about which HTTP verb was used for the request. Regardless of the HTTP verb, the `input` method may be used to retrieve user input:
+The `ip` method returns the client IP address:
 
-    $name = $request->input('name');
+    echo request()->ip();
+    
 
-You may pass a default value as the second argument to the `input` method. This value will be returned if the requested input value is not present on the request:
+<a name="method-is-ajax"></a>
+#### `isAjax()` {.method}
 
-    $name = $request->input('name', 'Sally');
+The `isAjax` method determines if the request is the result of an AJAX call:
 
-When working with forms that contain array inputs, use "dot" notation to access the arrays:
+    echo request()->isAjax();
+    
 
-    $name = $request->input('products.0.name');
+<a name="method-is-json"></a>
+#### `isJson()` {.method}
 
-    $names = $request->input('products.*.name');
+The `isJson` method determines if the request is sending JSON:
 
-#### Retrieving Input Via Dynamic Properties
+    echo request()->isJson();
+    
+See also [wantsJson](#method-wants-json)
 
-You may also access user input using dynamic properties on the `Illuminate\Http\Request` instance. For example, if one of your application's forms contains a `name` field, you may access the value of the field like so:
 
-    $name = $request->name;
+<a name="method-is-secure"></a>
+#### `isSecure()` {.method}
 
-When using dynamic properties, Laravel will first look for the parameter's value in the request payload. If it is not present, Laravel will search for the field in the route parameters.
+The `isSecure` method checks whether the request is secure or not:
 
-#### Retrieving JSON Input Values
+    echo request()->isSecure();
+    
 
-When sending JSON requests to your application, you may access the JSON data via the `input` method as long as the `Content-Type` header of the request is properly set to `application/json`. You may even use "dot" syntax to dig into JSON arrays:
+<a name="method-method"></a>
+#### `method()` {.method}
 
-    $name = $request->input('user.name');
+> This method based on getMethod() at [Symfony's Request Object](https://github.com/symfony/http-foundation/blob/3.2/Request.php).
 
-#### Retrieving A Portion Of The Input Data
+The `method` method gets the request method:
 
-If you need to retrieve a subset of the input data, you may use the `only` and `except` methods. Both of these methods accept a single `array` or a dynamic list of arguments:
+    echo request()->method();
 
-    $input = $request->only(['username', 'password']);
+    
+The method is always an uppercase string: GET, HEAD, POST, PUT, PATCH or DELETE
 
-    $input = $request->only('username', 'password');
+If the X-HTTP-Method-Override header is set, and if the method is a POST, then it is used to determine the "real" intended HTTP method.
 
-    $input = $request->except(['credit_card']);
+     
+<a name="method-path"></a>
+#### `path()` {.method}
 
-    $input = $request->except('credit_card');
+The `path` method gets the path for the request without query string:
 
-The `only` method returns all of the key / value pairs that you request, even if the key is not present on the incoming request. When the key is not present on the request, the value will be `null`. If you would like to retrieve a portion of input data that is actually present on the request, you may use the `intersect` method:
+    // Example: fullUrl = "https://www.example.com/test?a=4"
+    
+    echo request()->path();
 
-    $input = $request->intersect(['username', 'password']);
+    // test
+    
 
-#### Determining If An Input Value Is Present
+<a name="method-url"></a>
+#### `url()` {.method}
 
-You should use the `has` method to determine if a value is present on the request. The `has` method returns `true` if the value is present and is not an empty string:
+The `url` method gets the the URL for the request without query string:
 
-    if ($request->has('name')) {
-        //
-    }
+    echo request()->url();
 
-<a name="old-input"></a>
-### Old Input
+    // https://www.example.com/path
+  
+See also [baseUrl](#method-base-url), [canonicalUrl](#method-canonical-url) and [fullUrl](#method-full-url).
 
-Laravel allows you to keep input from one request during the next request. This feature is particularly useful for re-populating forms after detecting validation errors. However, if you are using Laravel's included [validation features](/docs/{{version}}/validation), it is unlikely you will need to manually use these methods, as some of Laravel's built-in validation facilities will call them automatically.
+    
+<a name="method-wants-json"></a>
+#### `wantsJson()` {.method}
 
-#### Flashing Input To The Session
+The `wantsJson` method determines if the current request is asking for JSON in return:
 
-The `flash` method on the `Illuminate\Http\Request` class will flash the current input to the [session](/docs/{{version}}/session) so that it is available during the user's next request to the application:
-
-    $request->flash();
-
-You may also use the `flashOnly` and `flashExcept` methods to flash a subset of the request data to the session. These methods are useful for keeping sensitive information such as passwords out of the session:
-
-    $request->flashOnly(['username', 'email']);
-
-    $request->flashExcept('password');
-
-#### Flashing Input Then Redirecting
-
-Since you often will want to flash input to the session and then redirect to the previous page, you may easily chain input flashing onto a redirect using the `withInput` method:
-
-    return redirect('form')->withInput();
-
-    return redirect('form')->withInput(
-        $request->except('password')
-    );
-
-#### Retrieving Old Input
-
-To retrieve flashed input from the previous request, use the `old` method on the `Request` instance. The `old` method will pull the previously flashed input data from the [session](/docs/{{version}}/session):
-
-    $username = $request->old('username');
-
-Laravel also provides a global `old` helper. If you are displaying old input within a [Blade template](/docs/{{version}}/blade), it is more convenient to use the `old` helper. If no old input exists for the given field, `null` will be returned:
-
-    <input type="text" name="username" value="{{ old('username') }}">
-
-<a name="cookies"></a>
-### Cookies
-
-#### Retrieving Cookies From Requests
-
-All cookies created by the Laravel framework are encrypted and signed with an authentication code, meaning they will be considered invalid if they have been changed by the client. To retrieve a cookie value from the request, use the `cookie` method on a `Illuminate\Http\Request` instance:
-
-    $value = $request->cookie('name');
-
-#### Attaching Cookies To Responses
-
-You may attach a cookie to an outgoing `Illuminate\Http\Response` instance using the `cookie` method. You should pass the name, value, and number of minutes the cookie should be considered valid to this method:
-
-    return response('Hello World')->cookie(
-        'name', 'value', $minutes
-    );
-
-The `cookie` method also accepts a few more arguments which are used less frequently. Generally, these arguments have the same purpose and meaning as the arguments that would be given to PHP's native [setcookie](https://secure.php.net/manual/en/function.setcookie.php) method:
-
-    return response('Hello World')->cookie(
-        'name', 'value', $minutes, $path, $domain, $secure, $httpOnly
-    );
-
-#### Generating Cookie Instances
-
-If you would like to generate a `Symfony\Component\HttpFoundation\Cookie` instance that can be given to a response instance at a later time, you may use the global `cookie` helper. This cookie will not be sent back to the client unless it is attached to a response instance:
-
-    $cookie = cookie('name', 'value', $minutes);
-
-    return response('Hello World')->cookie($cookie);
-
-<a name="files"></a>
-## Files
-
-<a name="retrieving-uploaded-files"></a>
-### Retrieving Uploaded Files
-
-You may access uploaded files from a `Illuminate\Http\Request` instance using the `file` method or using dynamic properties. The `file` method returns an instance of the `Illuminate\Http\UploadedFile` class, which extends the PHP `SplFileInfo` class and provides a variety of methods for interacting with the file:
-
-    $file = $request->file('photo');
-
-    $file = $request->photo;
-
-You may determine if a file is present on the request using the `hasFile` method:
-
-    if ($request->hasFile('photo')) {
-        //
-    }
-
-#### Validating Successful Uploads
-
-In addition to checking if the file is present, you may verify that there were no problems uploading the file via the `isValid` method:
-
-    if ($request->file('photo')->isValid()) {
-        //
-    }
-
-#### File Paths & Extensions
-
-The `UploadedFile` class also contains methods for accessing the file's fully-qualified path and its extension. The `extension` method will attempt to guess the file's extension based on its contents. This extension may be different from the extension that was supplied by the client:
-
-    $path = $request->photo->path();
-
-    $extension = $request->photo->extension();
-
-#### Other File Methods
-
-There are a variety of other methods available on `UploadedFile` instances. Check out the [API documentation for the class](http://api.symfony.com/3.0/Symfony/Component/HttpFoundation/File/UploadedFile.html) for more information regarding these methods.
-
-<a name="storing-uploaded-files"></a>
-### Storing Uploaded Files
-
-To store an uploaded file, you will typically use one of your configured [filesystems](/docs/{{version}}/filesystem). The `UploadedFile` class has a `store` method which will move an uploaded file to one of your disks, which may be a location on your local filesystem or even a cloud storage location like Amazon S3.
-
-The `store` method accepts the path where the file should be stored relative to the filesystem's configured root directory. This path should not contain a file name, since a unique ID will automatically be generated to serve as the file name.
-
-The `store` method also accepts an optional second argument for the name of the disk that should be used to store the file. The method will return the path of the file relative to the disk's root:
-
-    $path = $request->photo->store('images');
-
-    $path = $request->photo->store('images', 's3');
-
-If you do not want a file name to be automatically generated, you may use the `storeAs` method, which accepts the path, file name, and disk name as its arguments:
-
-    $path = $request->photo->storeAs('images', 'filename.jpg');
-
-    $path = $request->photo->storeAs('images', 'filename.jpg', 's3');
+    echo request()->wantsJson();
+    
+See also [isJson](#method-is-json)
