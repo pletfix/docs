@@ -78,31 +78,33 @@ The Request object has these methods:
 <a name="method-cache"></a>
 #### `cache()` {.method .first-method}
 
-The `cache` gets the root URL for the application:
+The `cache` sets caching headers for the response:
 
-    echo response()->cache();
+    response()->cache();
+    
+    response()->cache('2017-02-25 00:00:00);
     
     
 <a name="method-clear"></a>
 #### `clear()` {.method}
 
-The `clear` method gets the raw HTTP request body of the request:
+The `clear` method clears the response:
 
-    echo response()->clear();
+    response()->clear();
         
         
 <a name="method-get-headers"></a>
 #### `getHeaders()` {.method}
 
-The `getHeaders` method gets the raw HTTP request body of the request:
+The `getHeaders` method returns the headers from the response:
 
-    echo response()->getHeaders();
+    $headers = response()->getHeaders();
         
         
 <a name="method-get-status-code"></a>
 #### `getStatusCode()` {.method}
 
-The `getStatusCode` method gets the raw HTTP request body of the request:
+The `getStatusCode` method gets the HTTP status code:
 
     echo response()->getStatusCode();
         
@@ -110,7 +112,7 @@ The `getStatusCode` method gets the raw HTTP request body of the request:
 <a name="method-get-status-text"></a>
 #### `getStatusText()` {.method}
 
-The `getStatusText` method gets the raw HTTP request body of the request:
+The `getStatusText` gets the HTTP status text:
 
     echo response()->getStatusText();
     
@@ -118,14 +120,9 @@ The `getStatusText` method gets the raw HTTP request body of the request:
 <a name="method-header"></a>
 #### `header()` {.method}
 
-The `header` method gets the raw HTTP request body of the request:
+The `header` method adds a header to the response:
 
-    echo response()->header();     
-     
-Keep in mind that most response methods are chainable, allowing for the fluent construction of response instances. 
-For example, you may use the `header` method to add a series of headers to the response before sending it back to the user:
-
-    return response($content)
+    return response()->output($content)
                 ->header('Content-Type', $type)
                 ->header('X-Header-One', 'Header Value')
                 ->header('X-Header-Two', 'Header Value');

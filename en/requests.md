@@ -18,7 +18,6 @@ You can get an instance of the HTTP Request from the Dependency Injector:
 
     /** @var \Core\Services\Contracts\Request $request */
     $request = DI::getInstance()->get('request');
-    
     $name = $request->input('name);
     
 You can also use the global `request()` function to get the HTTP Request, it's the most shorter way:

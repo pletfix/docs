@@ -2,24 +2,15 @@
 
 _Maintain state in a stateless environment_
 
-[Since 1.0.0]
+[Since 0.5.0]
 
-TODO: Anpassen
+Planned release: 0.5.2
 
-NOCH NICHT REALISIERT!
+<!-- 
 
 - [Introduction](#introduction)
     - [Configuration](#configuration)
-    - [Driver Prerequisites](#driver-prerequisites)
 - [Using The Session](#using-the-session)
-    - [Retrieving Data](#retrieving-data)
-    - [Storing Data](#storing-data)
-    - [Flash Data](#flash-data)
-    - [Deleting Data](#deleting-data)
-    - [Regenerating The Session ID](#regenerating-the-session-id)
-- [Adding Custom Session Drivers](#adding-custom-session-drivers)
-    - [Implementing The Driver](#implementing-the-driver)
-    - [Registering The Driver](#registering-the-driver)
 
 <a name="introduction"></a>
 ## Introduction
@@ -275,3 +266,5 @@ Once your driver has been implemented, you are ready to register it with the fra
     }
 
 Once the session driver has been registered, you may use the `mongo` driver in your `config/session.php` configuration file.
+
+-->

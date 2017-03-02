@@ -1,16 +1,24 @@
 # REST Service
 
-[Since 1.0.0]
-
-## Server
-
 _A base controller for RESTful API's_
 
-## Client
+[Since 0.5.0]
 
-Curl - Load external data using the Curl library
+Planned release: 0.9.2
 
+- [Introduction](#introduction)
+- [RESTful Server](#server)
+- [RESTful Client](#client)
 
+<a name="introduction"></a>
+## Introduction
+
+TODO...
+
+<a name="server"></a>
+## RESTful Server
+
+TODO...
 
 #### Actions Handled By Resource Controller
 
@@ -23,3 +31,11 @@ GET       | `/photos/{photo}`      | show         | photos.show
 GET       | `/photos/{photo}/edit` | edit         | photos.edit
 PUT/PATCH | `/photos/{photo}`      | update       | photos.update
 DELETE    | `/photos/{photo}`      | destroy      | photos.destroy
+
+<a name="client"></a>
+## RESTful Client
+
+TODO...
+
+Curl - Load external data using the Curl library
+

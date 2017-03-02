@@ -76,7 +76,7 @@ The `index.php` is starting first the Autoloader and second the application by c
         });
 
 4. Once the application has been bootstrapped and all service providers have been registered, the HTTP request will be handed off to the HTTP Router for dispatching. 
-   The router will dispatch the request to a route or controller, as well as run any route specific middleware.
+   The router will dispatch the request to a route or controller:
 
         /*
          * Dispatch the HTTP request and send the response to the browser.

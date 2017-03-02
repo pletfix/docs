@@ -1,327 +1,104 @@
-# Routing
+# HTTP Routing
 
 _Route a URI request to a controller action_
 
-_Request routing engine_
+[Since 0.5.0]
 
-[Since 1.0.0]
+- [Introduction](#introduction)
+- [Usage](#usage)
+	- [Accessing](#accessing)
+	- [HTTP Method](#http-method)
+	- [Route Parameters](#parameters)
+	- [Route Name](#name)
+	- [Middleware](#middleware)
+	- [Caching](#caching)
+	
+	
+<a name="introduction"></a>
+## Introduction
 
-TODO: Anpassen
+<!--
+	Slim Framework’s router is built on top of the [FastRoute](https://github.com/nikic/FastRoute) component, and it is remarkably fast and stable.
+-->
 
-- [Basic Routing](#basic-routing)
-- [Route Parameters](#route-parameters)
-    - [Required Parameters](#required-parameters)
-    - [Optional Parameters](#parameters-optional-parameters)
-    - [Regular Expression Constraints](#parameters-regular-expression-constraints)
-- [Named Routes](#named-routes)
-- [Route Groups](#route-groups)
-    - [Middleware](#route-group-middleware)
-    - [Namespaces](#route-group-namespaces)
-    - [Sub-Domain Routing](#route-group-sub-domain-routing)
-    - [Route Prefixes](#route-group-prefixes)
-- [Route Model Binding](#route-model-binding)
-    - [Implicit Binding](#implicit-binding)
-    - [Explicit Binding](#explicit-binding)
-- [Form Method Spoofing](#form-method-spoofing)
-- [Accessing The Current Route](#accessing-the-current-route)
+The Route class represents an HTTP routing.
 
-<a name="basic-routing"></a>
-## Basic Routing
+All web requests to a Pletfix application will be handled by the HTTP Router. 
+The router will dispatch again the request to a function or controller action.
 
-The most basic Laravel routes simply accept a URI and a `Closure`, providing a very simple and expressive method of defining routes:
+You can define the routes in `config/boot/routes.php`. 
+As example, the Pletfix Application Skeleton have two route entries by default:
 
-    Route::get('foo', function () {
+    $route = \Core\Application::route();
+    
+    $route->get('', 'HomeController@index');
+    
+    $route->get('test', function() {
+    });
+
+	
+<a name="usage"></a>
+## Usage
+
+<a name="accessing"></a>	
+### Accessing
+
+You can get an instance of the HTTP Route directly from the Application:
+
+    $route = \Core\Application::route();
+
+The most basic Pletfix routes simply accept a URI and a Closure:
+
+    $route->get('foo', function () {
         return 'Hello World';
     });
 
-#### The Default Route Files
+You can also route the request to a controller action. 
 
-All Laravel routes are defined in your route files, which are located in the `routes` directory. These files are automatically loaded by the framework. The `routes/web.php` file defines routes that are for your web interface. These routes are assigned the `web` middleware group, which provides features like session state and CSRF protection. The routes in `routes/api.php` are stateless and are assigned the `api` middleware group.
+	$route->get('', 'HomeController@index');
 
-For most applications, you will begin by defining routes in your `routes/web.php` file.
+The member function `index` of `\App\Controllers\HomeController` will receive the root request in the exmple above:
 
-#### Available Router Methods
-
+    class HelloController extends Controller
+    {
+        public function index()
+        {
+            return 'Hello World';
+        }
+    }
+    
+> You only need to specify the portion of the namespace that comes after the base \App\Controllers namespace.   
+	
+<a name="http-method"></a>	
+### HTTP Method
+	
 The router allows you to register routes that respond to any HTTP verb:
 
-    Route::get($uri, $callback);
-    Route::post($uri, $callback);
-    Route::put($uri, $callback);
-    Route::patch($uri, $callback);
-    Route::delete($uri, $callback);
-    Route::options($uri, $callback);
+    $route->get($uri, $callback);
+	$route->head($uri, $callback);
+    $route->post($uri, $callback);
+    $route->put($uri, $callback);
+    $route->patch($uri, $callback);
+    $route->delete($uri, $callback);
+	    
+Sometimes you may need to register a route that responds to multiple HTTP verbs. 
+You may do so using the `addRoute` method. 
 
-Sometimes you may need to register a route that responds to multiple HTTP verbs. You may do so using the `match` method. Or, you may even register a route that responds to all HTTP verbs using the `any` method:
-
-    Route::match(['get', 'post'], '/', function () {
+    $route->addRoute(['GET', 'POST'], 'foo', function () {
         //
     });
 
-    Route::any('foo', function () {
+Or, you may even register a route that responds to all HTTP verbs ('GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE') using the `any` method:
+	
+    $route->any('foo', function () {
         //
     });
-
-#### CSRF Protection
-
-Any HTML forms pointing to `POST`, `PUT`, or `DELETE` routes that are defined in the `web` routes file should include a CSRF token field. Otherwise, the request will be rejected. You can read more about CSRF protection in the [CSRF documentation](/docs/{{version}}/csrf):
-
-    <form method="POST" action="/profile">
-        {{ csrf_field() }}
-        ...
-    </form>
-
-<a name="route-parameters"></a>
-## Route Parameters
-
-<a name="required-parameters"></a>
-### Required Parameters
-
-Of course, sometimes you will need to capture segments of the URI within your route. For example, you may need to capture a user's ID from the URL. You may do so by defining route parameters:
-
-    Route::get('user/{id}', function ($id) {
-        return 'User '.$id;
-    });
-
-You may define as many route parameters as required by your route:
-
-    Route::get('posts/{post}/comments/{comment}', function ($postId, $commentId) {
-        //
-    });
-
-Route parameters are always encased within `{}` braces and should consist of alphabetic characters. Route parameters may not contain a `-` character. Use an underscore (`_`) instead.
-
-<a name="parameters-optional-parameters"></a>
-### Optional Parameters
-
-Occasionally you may need to specify a route parameter, but make the presence of that route parameter optional. You may do so by placing a `?` mark after the parameter name. Make sure to give the route's corresponding variable a default value:
-
-    Route::get('user/{name?}', function ($name = null) {
-        return $name;
-    });
-
-    Route::get('user/{name?}', function ($name = 'John') {
-        return $name;
-    });
-
-<a name="parameters-regular-expression-constraints"></a>
-### Regular Expression Constraints
-
-You may constrain the format of your route parameters using the `where` method on a route instance. The `where` method accepts the name of the parameter and a regular expression defining how the parameter should be constrained:
-
-    Route::get('user/{name}', function ($name) {
-        //
-    })->where('name', '[A-Za-z]+');
-
-    Route::get('user/{id}', function ($id) {
-        //
-    })->where('id', '[0-9]+');
-
-    Route::get('user/{id}/{name}', function ($id, $name) {
-        //
-    })->where(['id' => '[0-9]+', 'name' => '[a-z]+']);
-
-<a name="parameters-global-constraints"></a>
-#### Global Constraints
-
-If you would like a route parameter to always be constrained by a given regular expression, you may use the `pattern` method. You should define these patterns in the `boot` method of your `RouteServiceProvider`:
-
-    /**
-     * Define your route model bindings, pattern filters, etc.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        Route::pattern('id', '[0-9]+');
-
-        parent::boot();
-    }
-
-Once the pattern has been defined, it is automatically applied to all routes using that parameter name:
-
-    Route::get('user/{id}', function ($id) {
-        // Only executed if {id} is numeric...
-    });
-
-<a name="named-routes"></a>
-## Named Routes
-
-Named routes allow the convenient generation of URLs or redirects for specific routes. You may specify a name for a route by chaining the `name` method onto the route definition:
-
-    Route::get('user/profile', function () {
-        //
-    })->name('profile');
-
-You may also specify route names for controller actions:
-
-    Route::get('user/profile', 'UserController@showProfile')->name('profile');
-
-#### Generating URLs To Named Routes
-
-Once you have assigned a name to a given route, you may use the route's name when generating URLs or redirects via the global `route` function:
-
-    // Generating URLs...
-    $url = route('profile');
-
-    // Generating Redirects...
-    return redirect()->route('profile');
-
-If the named route defines parameters, you may pass the parameters as the second argument to the `route` function. The given parameters will automatically be inserted into the URL in their correct positions:
-
-    Route::get('user/{id}/profile', function ($id) {
-        //
-    })->name('profile');
-
-    $url = route('profile', ['id' => 1]);
-
-<a name="route-groups"></a>
-## Route Groups
-
-Route groups allow you to share route attributes, such as middleware or namespaces, across a large number of routes without needing to define those attributes on each individual route. Shared attributes are specified in an array format as the first parameter to the `Route::group` method.
-
-<a name="route-group-middleware"></a>
-### Middleware
-
-To assign middleware to all routes within a group, you may use the `middleware` key in the group attribute array. Middleware are executed in the order they are listed in the array:
-
-    Route::group(['middleware' => 'auth'], function () {
-        Route::get('/', function ()    {
-            // Uses Auth Middleware
-        });
-
-        Route::get('user/profile', function () {
-            // Uses Auth Middleware
-        });
-    });
-
-<a name="route-group-namespaces"></a>
-### Namespaces
-
-Another common use-case for route groups is assigning the same PHP namespace to a group of controllers using the `namespace` parameter in the group array:
-
-    Route::group(['namespace' => 'Admin'], function () {
-        // Controllers Within The "App\Http\Controllers\Admin" Namespace
-    });
-
-Remember, by default, the `RouteServiceProvider` includes your route files within a namespace group, allowing you to register controller routes without specifying the full `App\Http\Controllers` namespace prefix. So, you only need to specify the portion of the namespace that comes after the base `App\Http\Controllers` namespace.
-
-<a name="route-group-sub-domain-routing"></a>
-### Sub-Domain Routing
-
-Route groups may also be used to handle sub-domain routing. Sub-domains may be assigned route parameters just like route URIs, allowing you to capture a portion of the sub-domain for usage in your route or controller. The sub-domain may be specified using the `domain` key on the group attribute array:
-
-    Route::group(['domain' => '{account}.myapp.com'], function () {
-        Route::get('user/{id}', function ($account, $id) {
-            //
-        });
-    });
-
-<a name="route-group-prefixes"></a>
-### Route Prefixes
-
-The `prefix` group attribute may be used to prefix each route in the group with a given URI. For example, you may want to prefix all route URIs within the group with `admin`:
-
-    Route::group(['prefix' => 'admin'], function () {
-        Route::get('users', function ()    {
-            // Matches The "/admin/users" URL
-        });
-    });
-
-<a name="route-model-binding"></a>
-## Route Model Binding
-
-When injecting a model ID to a route or controller action, you will often query to retrieve the model that corresponds to that ID. Laravel route model binding provides a convenient way to automatically inject the model instances directly into your routes. For example, instead of injecting a user's ID, you can inject the entire `User` model instance that matches the given ID.
-
-<a name="implicit-binding"></a>
-### Implicit Binding
-
-Laravel automatically resolves Eloquent models defined in routes or controller actions whose type-hinted variable names match a route segment name. For example:
-
-    Route::get('api/users/{user}', function (App\User $user) {
-        return $user->email;
-    });
-
-Since the `$user` variable is type-hinted as the `App\User` Eloquent model and the variable name matches the `{user}` URI segment, Laravel will automatically inject the model instance that has an ID matching the corresponding value from the request URI. If a matching model instance is not found in the database, a 404 HTTP response will automatically be generated.
-
-#### Customizing The Key Name
-
-If you would like model binding to use a database column other than `id` when retrieving a given model class, you may override the `getRouteKeyName` method on the Eloquent model:
-
-    /**
-     * Get the route key for the model.
-     *
-     * @return string
-     */
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-
-<a name="explicit-binding"></a>
-### Explicit Binding
-
-To register an explicit binding, use the router's `model` method to specify the class for a given parameter. You should define your explicit model bindings in the `boot` method of the `RouteServiceProvider` class:
-
-    public function boot()
-    {
-        parent::boot();
-
-        Route::model('user', App\User::class);
-    }
-
-Next, define a route that contains a `{user}` parameter:
-
-    Route::get('profile/{user}', function (App\User $user) {
-        //
-    });
-
-Since we have bound all `{user}` parameters to the `App\User` model, a `User` instance will be injected into the route. So, for example, a request to `profile/1` will inject the `User` instance from the database which has an ID of `1`.
-
-If a matching model instance is not found in the database, a 404 HTTP response will be automatically generated.
-
-#### Customizing The Resolution Logic
-
-If you wish to use your own resolution logic, you may use the `Route::bind` method. The `Closure` you pass to the `bind` method will receive the value of the URI segment and should return the instance of the class that should be injected into the route:
-
-    public function boot()
-    {
-        parent::boot();
-
-        Route::bind('user', function ($value) {
-            return App\User::where('name', $value)->first();
-        });
-    }
-
-<a name="form-method-spoofing"></a>
-## Form Method Spoofing
-
-HTML forms do not support `PUT`, `PATCH` or `DELETE` actions. So, when defining `PUT`, `PATCH` or `DELETE` routes that are called from an HTML form, you will need to add a hidden `_method` field to the form. The value sent with the `_method` field will be used as the HTTP request method:
-
-    <form action="/foo/bar" method="POST">
-        <input type="hidden" name="_method" value="PUT">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    </form>
-
-You may use the `method_field` helper to generate the `_method` input:
-
-    {{ method_field('PUT') }}
-
-<a name="accessing-the-current-route"></a>
-## Accessing The Current Route
-
-You may use the `current`, `currentRouteName`, and `currentRouteAction` methods on the `Route` facade to access information about the route handling the incoming request:
-
-    $route = Route::current();
-
-    $name = Route::currentRouteName();
-
-    $action = Route::currentRouteAction();
-
-Refer to the API documentation for both the [underlying class of the Route facade](https://laravel.com/api/{{version}}/Illuminate/Routing/Router.html) and [Route instance](https://laravel.com/api/{{version}}/Illuminate/Routing/Route.html) to review all accessible methods.
-
-
-
-#### Actions Handled By Resource Controller
+	
+If you wish to route a resource to a controller, you could use the `resource`function: 
+
+	 $route->resource('photos', 'PhotoController');
+	 
+The example above will define the follwing route entries:
 
 Verb      | URI                    | Action       | Route Name
 ----------|------------------------|--------------|---------------------
@@ -332,3 +109,151 @@ GET       | `/photos/{photo}`      | show         | photos.show
 GET       | `/photos/{photo}/edit` | edit         | photos.edit
 PUT/PATCH | `/photos/{photo}`      | update       | photos.update
 DELETE    | `/photos/{photo}`      | destroy      | photos.destroy
+	
+> A Note on HEAD Requests
+>
+> Source: <https://github.com/nikic/FastRoute>
+> 
+> The HTTP spec requires servers to [support both GET and HEAD methods](https://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html#sec5.1.1):
+> 
+> The methods GET and HEAD MUST be supported by all general-purpose servers
+> To avoid forcing users to manually register HEAD routes for each resource we fallback to matching an available GET route for a given resource. The PHP web SAPI transparently removes the entity body from HEAD responses so this behavior has no effect on the vast majority of users.
+> 
+> However, implementers using FastRoute outside the web SAPI environment (e.g. a custom server) MUST NOT send entity bodies generated in response to HEAD requests. If you are a non-SAPI user this is your responsibility; FastRoute has no purview to prevent you from breaking HTTP in such cases.
+> 
+> Finally, note that applications MAY always specify their own HEAD method route for a given resource to bypass this behavior entirely.	
+	
+	
+<a name="parameters"></a>	
+### Route Parameters
+
+#### Required Parameters
+
+You may capture segments of the URI within your route by defining route parameters:
+
+    $route->get('user/{id}', function ($id) {
+        return 'User '.$id;
+    });
+
+You may define as many route parameters as required by your route:
+
+    $route->get('posts/{post}/comments/{comment}', function ($postId, $commentId) {
+        //
+    });
+
+Route parameters are always encased within `{}` braces and should consist of alphanumeric characters, minus (`-`), dot (`.`) and underscore (`_`).
+
+#### Optional Parameters
+
+Not supported yet, planned in future.
+
+<!--
+Occasionally you may need to specify a route parameter, but make the presence of that route parameter optional. 
+You may do so by placing a `?` mark after the parameter name. Make sure to give the route's corresponding variable a default value:
+
+    $route->get('user/{name?}', function ($name = null) {
+        return $name;
+    });
+
+    $route->get('user/{name?}', function ($name = 'John') {
+        return $name;
+    });
+-->
+
+s. [Slim Framework](https://www.slimframework.com/docs/objects/router.html)
+To make a section optional, simply wrap in square brackets:
+
+	$route->get('/users[/{id}]', function ($id = null) {
+		// responds to both `/users` and `/users/123`, but not to `/users/`
+	});
+	
+Multiple optional parameters are supported by nesting:
+
+	$route->get('/news[/{year}[/{month}]]', function ($year = null, $month = null) {
+		// reponds to `/news`, `/news/2016` and `/news/2016/03`
+	});	
+	
+Geplant ist die Möglichkeit wie bei [FastRoute](https://github.com/nikic/FastRoute):
+
+Furthermore parts of the route enclosed in [...] are considered optional, so that /foo[bar] will match both /foo and /foobar. Optional parts are only supported in a trailing position, not in the middle of a route.
+
+	// This route...
+	$route->get('/user/{id:\d+}[/{name}]', $callback);
+	// ...is equivalent to these two routes
+	$route->get('/user/{id:\d+}', 'handler');
+	$route->get('/user/{id:\d+}/{name}', $callback);
+
+	// Multiple nested optional parts are possible as well
+	$route->get('/user[/{id:\d+}[/{name}]]', $callback);
+
+	// This route is NOT valid, because optional parts can only occur at the end
+	$route->get('/user[/{id:\d+}]/{name}', $callback);
+
+	
+<a name="name"></a>	
+### Route Name
+
+Not supported yet, planned in future.
+
+s. [Slim Framework](https://www.slimframework.com/docs/objects/router.html#route-names)
+
+Application routes can be assigned a name. This is useful if you want to programmatically generate a URL to a specific route with the router’s `pathFor()` method. 
+Each routing method described above returns a Route object, and this object exposes a `setName()` method.
+
+	$app = new \Slim\App();
+	$app->get('/hello/{name}', function ($request, $response, $args) {
+		echo "Hello, " . $args['name'];
+	})->setName('hello');
+	
+You can generate a URL for this named route with the application router’s `pathFor()` method.
+
+	echo $app->getContainer()->get('router')->pathFor('hello', [
+		'name' => 'Josh'
+	]);
+	// Outputs "/hello/Josh"
+	
+The router’s `pathFor()` method accepts two arguments:
+- The route name
+- Associative array of route pattern placeholders and replacement values	
+
+
+<a name="middleware"></a>
+### Middleware
+
+Not supported yet, planned in future.
+
+s.[Slim Framework](https://www.slimframework.com/docs/objects/router.html#route-middleware)
+You can also attach middleware to any route or route group.
+
+To assign middleware to a route, you have to only set the name of the middleware as third argument:
+
+	$route->get('/', function () {
+		// Uses Auth Middleware
+	}, 'auth');
+
+To set the the `middleware` for one or more routes, you have to use the `middleware`function:
+	
+    $route->middleware('auth', function () {
+        $route->get('/', function ()    {
+            // Uses Auth Middleware
+        });
+
+        $route->get('user/profile', function () {
+            // Uses Auth Middleware
+        });
+    });
+	
+	
+<a name="caching"></a>
+### Route Caching	
+	
+It’s possible to enable router cache by setting valid filename in default settings:
+
+s. [Slim Framework](https://www.slimframework.com/docs/objects/router.html#container-resolution)
+
+- routerCacheFile
+	Filename for caching the FastRoute routes. Must be set to to a valid filename within a writeable directory. 
+	If the file does not exist, then it is created with the correct cache information on first run.
+	Set to false to disable the FastRoute cache system. 
+	(Default: false)	
+	

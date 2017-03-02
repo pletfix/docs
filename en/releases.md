@@ -76,6 +76,8 @@ Nachfolgend sind alle bisher geplanten und fertigegestellte Pletfix Versionen mi
 | Database Import, Export, Backup and Restore | 0.9.5 | |
 | Optional paramters for HTTP Routing | 0.9.6 | |
 | PSR-7 for HTTP Request/Response | 0.9.7 | |
+| Notification Events | 0.9.8 | |
+| **First Stable Release** | **1.0.0** | |
 | LUA Support (Inline Scripting) | &gt; 1.0.0 | |
 | FTP Client | &gt; 1.0.0 | |
 | OAuth2 | &gt; 1.0.0 | |
@@ -83,6 +85,7 @@ Nachfolgend sind alle bisher geplanten und fertigegestellte Pletfix Versionen mi
 | ExcelWriter | &gt; 1.0.0 | |
 | ExcelReader | &gt; 1.0.0 | |
 | Update-Manager | &gt; 1.0.0 | |
+| Extending Blade Feature | &gt; 1.0.0 | |
 
 > 
 <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i> Die geplanten Features bzw. die zugeordneten Versionen können und werden sich wahrscheinlich im Laufe der Entwicklung noch ändern. 
