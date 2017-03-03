@@ -421,6 +421,7 @@ As you can see, we will chain the `format` method onto whatever expression is pa
 @forelse, @endforelse, @empty
 @includeIf
 @inject (Service Injection)
+$lang
 $loop (Loop variables)
 @push, @endpush (Stacks)
 @unless, @endunless

@@ -38,8 +38,8 @@ Nachfolgend sind alle bisher geplanten und fertigegestellte Pletfix Versionen mi
 | Markdown Parser | 0.4.3 | Alpha |
 | Pletfix Application Skeleton | 0.5.0 | Working |
 | Pletfix Documentation | 0.5.0 | Working |
-| Translator (l18n) | 0.5.1 | |
-| Session Handling | 0.5.2 | |
+| Session Handling | 0.5.1 | |
+| Translator (l18n) | 0.5.2 | |
 | Cookies | 0.5.3 | |
 | DateTime | 0.5.4 | |
 | Str (Utility class for string operations) | 0.5.5 | | 
