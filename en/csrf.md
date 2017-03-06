@@ -101,3 +101,20 @@ HTML forms do not support `PUT`, `PATCH` or `DELETE` actions. So, when defining 
 You may use the `method_field` helper to generate the `_method` input:
  
     {{ method_field('PUT') }}
+
+
+----------
+
+<a name="method-csrf-field"></a>
+#### `csrf_field()` {.method}
+
+The `csrf_field` function generates an HTML `hidden` input field containing the value of the CSRF token. For example, using [Blade syntax](/docs/{{version}}/blade):
+
+    {{ csrf_field() }}
+
+<a name="method-csrf-token"></a>
+#### `csrf_token()` {.method}
+
+The `csrf_token` function retrieves the value of the current CSRF token:
+
+    $token = csrf_token();

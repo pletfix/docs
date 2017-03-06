@@ -164,6 +164,22 @@ Security
     CSRF tokens, output encoding, and more security measures
     https://fuelphp.com
     
+    
+<a name="method-auth"></a>
+#### `auth()` {.method}
+
+The `auth` function returns an authenticator instance. You may use it instead of the `Auth` facade for convenience:
+
+    $user = auth()->user();
+
+
+<a name="method-bcrypt"></a>
+#### `bcrypt()` {.method}
+
+The `bcrypt` function hashes the given value using Bcrypt. You may use it as an alternative to the `Hash` facade:
+
+    $password = bcrypt('my-secret-password');
+    
 -->
 
 

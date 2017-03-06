@@ -1,4 +1,4 @@
-# Error & Exception Handling
+# Errors & Exceptions
 
 _Handling errors in your application_
 
@@ -63,20 +63,20 @@ The handler uses the [Pletfix Logger](logging) to write the log files. To config
 
 The views of the error pages are stored in the `resources/views/errors` directory by default.
 
-If the debug mode is disabled, the simple error page is shown Depending on the HTTP status code. You may customize this 
+If the debug mode is disabled, the simple error page is shown depending on the HTTP status code. You may customize this 
 error pages for various HTTP status codes. For example, if you wish to customize the error page for 501 HTTP status codes, 
 create a `501.blade.php`. If the appropriate view is not exists, `default.blade.php` is rendered.
 
 #### Debug Mode
 
-When your application is in debug mode, detailed error messages with stack traces (and SQL dump unless it is an SQL error) 
-will be shown on every error that occurs. In this case `resources/views/errors/debug.blade.php` is rendered.
-
-![Pretty Error Page](https://raw.githubusercontent.com/pletfix/docs/master/images/error_page.png)
-
 You can set the debug mode in the configuration file `config/app.php`:
     
     'debug' => env('APP_DEBUG', false),
+
+When your application is in debug mode, detailed error messages with stack traces (and SQL dump unless it is an SQL error) 
+will be shown on every error that occurs. In this case `resources/views/errors/debug.blade.php` is rendered: 
+
+![Pretty Error Page](https://raw.githubusercontent.com/pletfix/docs/master/images/error_page.png)
 
 
 <a name="exceptions"></a>

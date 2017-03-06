@@ -5,28 +5,33 @@ _Route a URI request to a controller action_
 [Since 0.5.0]
 
 - [Introduction](#introduction)
-- [Usage](#usage)
+- [Creating Routes](#creating)
 	- [Accessing](#accessing)
+	- [Route Handler](#handler)	
 	- [HTTP Method](#http-method)
 	- [Route Parameters](#parameters)
 	- [Named Routes](#name)
 	- [Middleware](#middleware)
-	- [Caching](#caching)
+- [Caching](#caching)
 	
 	
 <a name="introduction"></a>
 ## Introduction
 
-<!--
-	Slim Framework’s router is built on top of the [FastRoute](https://github.com/nikic/FastRoute) component, and it is remarkably fast and stable.
--->
-
 The Route class represents an HTTP routing.
+
+It was inspirated by the Router of [Slim Framework](https://www.slimframework.com/docs/objects/router.html) 
+which built on top of the [FastRoute](https://github.com/nikic/FastRoute) component.
+The idea for the syntax of optional parameters was adopted by [Laravel](https://laravel.com/docs/5.4/routing#parameters-optional-parameters).
 
 All web requests to a Pletfix application will be handled by the HTTP Router. 
 The router will dispatch again the request to a function or controller action.
 
-You can define the routes in `config/boot/routes.php`. 
+
+<a name="creating"></a>
+## Creating Routes
+
+You can create the routing table in `config/boot/routes.php`. 
 As example, the Pletfix Application Skeleton have two route entries by default:
 
     $route = \Core\Application::route();
@@ -35,18 +40,19 @@ As example, the Pletfix Application Skeleton have two route entries by default:
     
     $route->get('test', function() {
     });
-
 	
-<a name="usage"></a>
-## Usage
-
+	
 <a name="accessing"></a>	
 ### Accessing
 
-You can get an instance of the HTTP Route directly from the Application:
+As you can see in the example above, you get an instance of the HTTP Route directly from the Application:
 
     $route = \Core\Application::route();
 
+	
+<a name="handler"></a>	
+### Route Handler
+	
 The most basic Pletfix routes simply accept a URI and a Closure:
 
     $route->get('foo', function () {
@@ -73,6 +79,7 @@ The member function `index` of `\App\Controllers\HomeController` will receive th
 >
 >       $route->get('users/{id}', 'Admin\UserController@show');
 	
+	
 <a name="http-method"></a>	
 ### HTTP Method
 	
@@ -84,49 +91,66 @@ The router allows you to register routes that respond to any HTTP verb:
     $route->put($uri, $callback);
     $route->patch($uri, $callback);
     $route->delete($uri, $callback);
+	$route->options($uri, $callback);
 	    
 Sometimes you may need to register a route that responds to multiple HTTP verbs. 
-You may do so using the `addRoute` method. 
+You may do so using the `multi` method. 
 
-    $route->addRoute(['GET', 'POST'], 'foo', function () {
+    $route->multi(['GET', 'POST'], 'foo', function () {
         //
     });
 
-Or, you may even register a route that responds to all HTTP verbs ('GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE') using the `any` method:
+Or, you may even register a route that responds to all HTTP verbs ('GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE') 
+using the `any` method:
 	
     $route->any('foo', function () {
         //
     });
 	
-If you wish to route a resource to a [controller](controllers#resource), you could use the `resource`function: 
+If you wish to route a resource to a [CRUD controller](controllers#resource), you could use the `resource`function: 
 
 	 $route->resource('photos', 'PhotoController');
 	 
 The example above will define the follwing route entries:
 
-Verb      | URI                 | Action       | Route Name
-----------|---------------------|--------------|---------------
-GET       | `/photos`           | index        | photos.index
-GET       | `/photos/create`    | create       | photos.create
-POST      | `/photos`           | store        | photos.store
-GET       | `/photos/{id}`      | show         | photos.show
-GET       | `/photos/{id}/edit` | edit         | photos.edit
-PUT/PATCH | `/photos/{id}`      | update       | photos.update
-DELETE    | `/photos/{id}`      | destroy      | photos.destroy
-	
-> A Note on HEAD Requests
+HTTP Method | Path                | Action       | Route Name     | Used for
+------------|---------------------|--------------|----------------|---------------------------------------------
+GET         | `/photos`           | index        | photos.index	  | Display a list of all photos.
+GET         | `/photos/create`    | create       | photos.create  | Return an HTML form for creating a new photo.
+POST        | `/photos`           | store        | photos.store   | Store a new photo.
+GET         | `/photos/{id}`      | show         | photos.show    | Display a specific photo.
+GET         | `/photos/{id}/edit` | edit         | photos.edit    | Return an HTML form for editing a photo.
+PUT/PATCH   | `/photos/{id}`      | update       | photos.update  | Update a specific photo.
+DELETE      | `/photos/{id}`      | destroy      | photos.destroy | Delete a specific photo.
+
+
+> **What is the HTTP OPTIONS method?**
 >
-> Source: <https://github.com/nikic/FastRoute>
-> 
-> The HTTP spec requires servers to [support both GET and HEAD methods](https://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html#sec5.1.1):
-> 
-> The methods GET and HEAD MUST be supported by all general-purpose servers
-> To avoid forcing users to manually register HEAD routes for each resource we fallback to matching an available GET route for a given resource. The PHP web SAPI transparently removes the entity body from HEAD responses so this behavior has no effect on the vast majority of users.
-> 
-> However, implementers using FastRoute outside the web SAPI environment (e.g. a custom server) MUST NOT send entity bodies generated in response to HEAD requests. If you are a non-SAPI user this is your responsibility; FastRoute has no purview to prevent you from breaking HTTP in such cases.
-> 
-> Finally, note that applications MAY always specify their own HEAD method route for a given resource to bypass this behavior entirely.	
-	
+> To quote the spec: 
+> _"This method allows the client to determine the options and/or requirements associated with a resource, or the 
+> capabilities of a server, without implying a resource action or initiating a resource retrieval."_
+> ([HTTP RFC 2616 Specification, 9.2](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html)). 
+>
+> Minimally, the response should be a 200 OK and have an Allow header with a list of HTTP methods that may be used on 
+> this resource. As an authorized user on an API, if you were to request OPTIONS /users/me, you should receive something 
+> like:
+>
+>     200 OK
+>     Allow: HEAD,GET,PUT,DELETE,OPTIONS
+>
+> Source: <http://zacstewart.com/2012/04/14/http-options-method.html> by Zac Stewart
+
+> **A Note on HTTP HEAD method**
+>
+> To quote the spec ones more: 
+> - _"The methods GET and HEAD MUST be supported by all general-purpose servers. All other methods are OPTIONAL."_ 
+> ([HTTP RFC 2616 Specification, 5.1.1](https://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html#sec5.1.1)) 
+> - _"The HEAD method is identical to GET except that the server MUST NOT return a message-body in the response."_ 
+> ([HTTP RFC 2616 Specification, 9.4](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html))
+>
+> To avoid forcing users to manually register HEAD routes for each resource we fallback to matching an available GET 
+> route for a given resource. If you wish - for whatever reason - to define a route explicitly for the HEAD method, 
+> define this after the GET route to override the default.
 	
 <a name="parameters"></a>	
 ### Route Parameters
@@ -145,27 +169,24 @@ You may define as many route parameters as required by your route:
         //
     });
 
-Route parameters are always encased within `{}` braces and should consist of alphanumeric characters, minus (`-`), dot (`.`) and underscore (`_`).
+Route parameters are always encased within `{}` braces and should consist of alphanumeric characters, minus (`-`), 
+dot (`.`) and underscore (`_`).
 
 #### Optional Parameters
 
-Not supported yet, planned in future.
+Not supported yet.
+Planned release: 0.9.6
 
-<!--
-Occasionally you may need to specify a route parameter, but make the presence of that route parameter optional. 
-You may do so by placing a `?` mark after the parameter name. Make sure to give the route's corresponding variable a default value:
+To make a segment optional, simply add a `?` mark after the parameter name: 
+	
+	$route->get('/users/{id?}', function ($id = null) {
+		// responds to both `/users` and `/users/123`, but not to `/users/`
+	});
 
-    $route->get('user/{name?}', function ($name = null) {
-        return $name;
-    });
-
-    $route->get('user/{name?}', function ($name = 'John') {
-        return $name;
-    });
--->
-
-s. [Slim Framework](https://www.slimframework.com/docs/objects/router.html)
-To make a section optional, simply wrap in square brackets:
+---	
+**Possible alternative solution 2 - I'm still not sure which solution I'll choose.**
+	
+To make a segment optional, simply wrap in square brackets:
 
 	$route->get('/users[/{id}]', function ($id = null) {
 		// responds to both `/users` and `/users/123`, but not to `/users/`
@@ -177,49 +198,32 @@ Multiple optional parameters are supported by nesting:
 		// reponds to `/news`, `/news/2016` and `/news/2016/03`
 	});	
 	
-Geplant ist die Möglichkeit wie bei [FastRoute](https://github.com/nikic/FastRoute):
+Optional parts are only supported in a trailing position, not in the middle of a route. As example this route is NOT valid:
 
-Furthermore parts of the route enclosed in [...] are considered optional, so that /foo[bar] will match both /foo and /foobar. Optional parts are only supported in a trailing position, not in the middle of a route.
-
-	// This route...
-	$route->get('/user/{id:\d+}[/{name}]', $callback);
-	// ...is equivalent to these two routes
-	$route->get('/user/{id:\d+}', 'handler');
-	$route->get('/user/{id:\d+}/{name}', $callback);
-
-	// Multiple nested optional parts are possible as well
-	$route->get('/user[/{id:\d+}[/{name}]]', $callback);
-
-	// This route is NOT valid, because optional parts can only occur at the end
 	$route->get('/user[/{id:\d+}]/{name}', $callback);
-
+---
+	
 	
 <a name="name"></a>	
 ### Named Routes
 
 Not supported yet, planned in future.
 
-s. [Slim Framework](https://www.slimframework.com/docs/objects/router.html#route-names)
+Application routes can be assigned a name. This is useful if you want to programmatically generate a URL to a specific 
+route.
+ 
+Each [routing method](#http-method) described above returns a `Route` object, and this object exposes a `setName()` method.
 
-Application routes can be assigned a name. This is useful if you want to programmatically generate a URL to a specific route with the router’s `pathFor()` method. 
-Each routing method described above returns a Route object, and this object exposes a `setName()` method.
-
-	$app = new \Slim\App();
-	$app->get('/hello/{name}', function ($request, $response, $args) {
-		echo "Hello, " . $args['name'];
+	$route->get('/hello/{name}', function ($name) {
+		echo "Hello, " . $name;
 	})->setName('hello');
 	
-You can generate a URL for this named route with the application router’s `pathFor()` method.
+You can generate a URL for this named route with the `route()` helper function.
 
-	echo $app->getContainer()->get('router')->pathFor('hello', [
-		'name' => 'Josh'
-	]);
+	echo route('hello', ['name' => 'Josh']);
+	
 	// Outputs "/hello/Josh"
 	
-The router’s `pathFor()` method accepts two arguments:
-- The route name
-- Associative array of route pattern placeholders and replacement values	
-
 
 <a name="middleware"></a>
 ### Middleware
@@ -227,16 +231,15 @@ The router’s `pathFor()` method accepts two arguments:
 Not supported yet.
 Planned release: 0.7.0	
 
-s.[Slim Framework](https://www.slimframework.com/docs/objects/router.html#route-middleware)
 You can also attach middleware to any route or route group.
 
-To assign middleware to a route, you have to only set the name of the middleware as third argument:
+To assign middleware to a route, use the `setMiddleware()` function like this:
 
 	$route->get('/', function () {
 		// Uses Auth Middleware
-	}, 'auth');
+	})->setMiddleware('auth');
 
-To set the the `middleware` for one or more routes, you have to use the `middleware`function:
+To set the the middleware for one or more routes, you also could use the `middleware` function:
 	
     $route->middleware('auth', function () {
         $route->get('/', function ()    {
@@ -248,23 +251,18 @@ To set the the `middleware` for one or more routes, you have to use the `middlew
         });
     });
 	
-	
+
 <a name="caching"></a>
 ### Route Caching
 	
 Not supported yet.
 Planned release: 0.5.7	
 	
-It’s possible to enable router cache by setting valid filename in default settings:
+It’s possible to enable router cache in the `config/app.php` configuration file:
 
-s. [Slim Framework](https://www.slimframework.com/docs/objects/router.html#container-resolution)
+	'router_cache' => true,
 
-- routerCacheFile
-	Filename for caching the FastRoute routes. Must be set to to a valid filename within a writeable directory. 
-	If the file does not exist, then it is created with the correct cache information on first run.
-	Set to false to disable the FastRoute cache system. 
-	(Default: false)	
+The default ist false. 
 	
-
-> Closure based routes cannot be cached. To use route caching, you must convert any Closure routes to controller classes.
-
+Note that Closure based routes cannot be cached. To use route caching, you must convert any Closure routes to controller 
+classes!

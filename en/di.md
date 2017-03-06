@@ -26,9 +26,10 @@ You may also use the global `di()` function:
 <a name="registering"></a>
 ## Registering Services
 
-A "service" is an class or an object registered in the Dependency Injection Container under a unique name. 
+A service is an class or an object bound in the Dependency Injection Container under a unique name. 
 
-The services are registered in `config/boot/services.php`. Feel free to add your own services to this file like this:
+The services are registered in `config/boot/services.php`. Feel free to add your own services to this file 
+like this:
 
     $di = \Core\Services\DI::getInstance();
     
@@ -46,7 +47,7 @@ If you like to bind the service as singleton service, set `true` as the second a
 Now any time you get the named service, you always get back the same object instance.
 Note that a shared service needs a standard constructor (constructor without arguments)!
 
-> The Pletfix Core provides a few services that all are defined in `vendor/pletfix/core/services`.
+> The Pletfix Core provides a few [services](helpers) that all are defined in `vendor/pletfix/core/services`.
 > A good place for your own service classes is `app/services`.  
 
 #### Bind Object Instances
