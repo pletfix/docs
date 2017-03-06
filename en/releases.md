@@ -6,8 +6,6 @@ _What are we working on?_
 
 ## Feature List
 
-Nachfolgend sind alle bisher geplanten und fertigegestellte Pletfix Versionen mit den angedachten Features aufgeführt.    
-
 | Feature  | Release | Status |
 |:---------|:-------:|:------:|
 | Composer Package Manager, Autoloading | 0.0.1 | Release Candidate |
@@ -45,6 +43,8 @@ Nachfolgend sind alle bisher geplanten und fertigegestellte Pletfix Versionen mi
 | Str (Utility class for string operations) | 0.5.5 | | 
 | Pluralizer | 0.5.6 | |
 | Mailer | 0.5.7 | |
+| Route Caching | 0.5.7 | |
+| DI Caching | 0.5.8 | |
 | Model | 0.6.0 | |
 | Old Input | 0.6.1 | |
 | Flash Messages | 0.6.2 | |
@@ -55,6 +55,7 @@ Nachfolgend sind alle bisher geplanten und fertigegestellte Pletfix Versionen mi
 | Ajax Request | 0.6.6 | |
 | FormValidator| 0.6.7 | |
 | Redirect for HTTP Response | 0.6.8 | |
+| Pagination | 0.6.9 | |
 | Middleware | 0.7.0 | |
 | Crypt (Encryption and Decryption) | 0.7.1 | |
 | User Authenticate (with Login-Dialog) | 0.7.2 | |
@@ -78,40 +79,39 @@ Nachfolgend sind alle bisher geplanten und fertigegestellte Pletfix Versionen mi
 | PSR-7 for HTTP Request/Response | 0.9.7 | |
 | Notification Events | 0.9.8 | |
 | **First Stable Release** | **1.0.0** | |
+| Named Routes | &gt; 1.0.0 | |
 | LUA Support (Inline Scripting) | &gt; 1.0.0 | |
-| FTP Client | &gt; 1.0.0 | |
+| SFTP Client | &gt; 1.0.0 | |
 | OAuth2 | &gt; 1.0.0 | |
+| reCAPTCHA | &gt; 1.0.0 | |
 | Agent (User agent information) | &gt; 1.0.0 | |
 | ExcelWriter | &gt; 1.0.0 | |
 | ExcelReader | &gt; 1.0.0 | |
 | Update-Manager | &gt; 1.0.0 | |
 | Extending Blade Feature | &gt; 1.0.0 | |
 
-> 
-<i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i> Die geplanten Features bzw. die zugeordneten Versionen können und werden sich wahrscheinlich im Laufe der Entwicklung noch ändern. 
-
-<!-- 
-Testing
-    PHPUnit
-        http://florianherlings.de/artikel/php_integration_testing_phpunit_mink
-    Mink
-        http://mink.behat.org/en/latest/
-    Travis CI
-        https://travis-ci.org
-        https://www.thewebhatesme.com/entwicklung/travis-ci/
--->
+> <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i> 
+> This is a living document. The features and release numbers probably will be changed during development. 
 
 <!--
-Session-Handling 
-    https://github.com/auraphp/Aura.Session/blob/2.x/README.md
+
+// todos
+
+Travis CI
+    https://travis-ci.org
+    https://www.thewebhatesme.com/entwicklung/travis-ci/
 
 Cookies - Work with cookies
     https://fuelphp.com/docs/classes/cookie.html
     in Laravel ist es Teil vom Request-Objekt
     
 Crypt - Encryption and Decryption
+    Handles encryption, decryption and hashing using the powerfull PHPSecLib.
     https://laravel.com/docs/5.4/encryption
     https://fuelphp.com/docs/classes/crypt/usage.html   
+     
+SFTP Client 
+    Send or receive files using FTP (s. FuelPHP)     
      
 DateTime (\Carbon\Carbon)
     - https://github.com/fightbulc/moment.php
@@ -120,10 +120,7 @@ DateTime (\Carbon\Carbon)
     - https://github.com/cakephp/chronos
    
 Image   
-   Image manipulation using GD or ImageMagick (s. FuelPHP)
-   
-FTP Client 
-    Send or receive files using FTP (s. FuelPHP)
+   Image manipulation using GD or ImageMagick (s. https://fuelphp.com)
      
 Pluralizer
     https://github.com/propelorm/Propel2/tree/master/src/Propel/Common/Pluralizer
@@ -134,7 +131,6 @@ Str
 Agent 
     User agent information (s. https://fuelphp.com/docs/classes/agent/usage.html)
    
-     
 Database Access Layer:
     - Rückgabe von query() ändern-> collection() (lediet die Performance?)
     - database-Objekt, Wording ändern: "column type supported by Database Layer" -> "database abstract type"
@@ -155,6 +151,19 @@ Model (ORM, ActiveRecord, Repository)
 
 PSR-7: HTTP message interfaces (für HTTP Request/Response)
     http://www.php-fig.org/psr/psr-7/
+    
+File 
+    securily dealing with your filesystem
+    https://fuelphp.com
+        
+Profiler 
+    application profiler, a customized version of phpquickprofiler
+    https://fuelphp.com
+
+Security 
+    CSRF tokens, output encoding, and more security measures
+    https://fuelphp.com
+    
 -->
 
 

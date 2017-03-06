@@ -4,7 +4,7 @@ _How do I upgrade an existing Pletfix application._
 
 [Since 0.5.0]
 
-Nothing to upgrade at the momenent. It's jsut the first version now :-) 
+Nothing to upgrade at the moment. It's just the first version now :-) 
 
 <!--
 

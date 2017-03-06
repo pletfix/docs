@@ -133,11 +133,13 @@ Of course you may access various cache stores:
 <a name="get"></a>
 ### Get Items
 
-The `get` method is used to retrieve items from the cache. If the item does not exist in the cache, `null` will be returned. 
+The `get` method is used to retrieve items from the cache. If the item does not exist in the cache, `null` will be 
+returned. 
 
     $value = cache()->get('key');
 
-If you wish, you may pass a second argument to the `get` method specifying the default value you wish to be returned if the item doesn't exist:
+If you wish, you may pass a second argument to the `get` method specifying the default value you wish to be returned if 
+the item doesn't exist:
 
     $value = cache()->get('key', 'default');
 

@@ -54,7 +54,7 @@ Returning a full `Response` instance allows you to customize the response's HTTP
 <a name="available-methods"></a>
 ## Available Methods
 
-The Request object has these methods:
+The Response object has these methods:
 
 <div class="method-list" markdown="1">
 

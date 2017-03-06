@@ -10,6 +10,7 @@ _Test your code with PHPUnit and Mink_
     TODO: Travis CI
         https://travis-ci.org
         https://www.thewebhatesme.com/entwicklung/travis-ci/
+        https://tester.nette.org/en/testing-with-travis
 -->
 
 [Since 0.5.0]

@@ -24,6 +24,11 @@ Laravel makes interacting with databases extremely simple across a variety of da
 - SQL Server
 </div>
 
+<!--
+Sicherheit:
+    Session hijacking, session stealing, session fixation
+-->
+
 <a name="configuration"></a>
 ### Configuration
 

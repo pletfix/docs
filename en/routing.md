@@ -9,7 +9,7 @@ _Route a URI request to a controller action_
 	- [Accessing](#accessing)
 	- [HTTP Method](#http-method)
 	- [Route Parameters](#parameters)
-	- [Route Name](#name)
+	- [Named Routes](#name)
 	- [Middleware](#middleware)
 	- [Caching](#caching)
 	
@@ -53,13 +53,13 @@ The most basic Pletfix routes simply accept a URI and a Closure:
         return 'Hello World';
     });
 
-You can also route the request to a controller action. 
+You can also route the request to a [controller](controllers) action: 
 
 	$route->get('', 'HomeController@index');
 
-The member function `index` of `\App\Controllers\HomeController` will receive the root request in the exmple above:
+The member function `index` of `\App\Controllers\HomeController` will receive the root request in the example above:
 
-    class HelloController extends Controller
+    class HomeController extends Controller
     {
         public function index()
         {
@@ -67,7 +67,11 @@ The member function `index` of `\App\Controllers\HomeController` will receive th
         }
     }
     
-> You only need to specify the portion of the namespace that comes after the base \App\Controllers namespace.   
+> You only need to specify the portion of the namespace that comes after the base `\App\Controllers` namespace.   
+> So, if your controller class is `App\Controllers\Admin\UserController`, you should register routes to the 
+> controller like this:
+>
+>       $route->get('users/{id}', 'Admin\UserController@show');
 	
 <a name="http-method"></a>	
 ### HTTP Method
@@ -94,21 +98,21 @@ Or, you may even register a route that responds to all HTTP verbs ('GET', 'HEAD'
         //
     });
 	
-If you wish to route a resource to a controller, you could use the `resource`function: 
+If you wish to route a resource to a [controller](controllers#resource), you could use the `resource`function: 
 
 	 $route->resource('photos', 'PhotoController');
 	 
 The example above will define the follwing route entries:
 
-Verb      | URI                    | Action       | Route Name
-----------|------------------------|--------------|---------------------
-GET       | `/photos`              | index        | photos.index
-GET       | `/photos/create`       | create       | photos.create
-POST      | `/photos`              | store        | photos.store
-GET       | `/photos/{photo}`      | show         | photos.show
-GET       | `/photos/{photo}/edit` | edit         | photos.edit
-PUT/PATCH | `/photos/{photo}`      | update       | photos.update
-DELETE    | `/photos/{photo}`      | destroy      | photos.destroy
+Verb      | URI                 | Action       | Route Name
+----------|---------------------|--------------|---------------
+GET       | `/photos`           | index        | photos.index
+GET       | `/photos/create`    | create       | photos.create
+POST      | `/photos`           | store        | photos.store
+GET       | `/photos/{id}`      | show         | photos.show
+GET       | `/photos/{id}/edit` | edit         | photos.edit
+PUT/PATCH | `/photos/{id}`      | update       | photos.update
+DELETE    | `/photos/{id}`      | destroy      | photos.destroy
 	
 > A Note on HEAD Requests
 >
@@ -191,7 +195,7 @@ Furthermore parts of the route enclosed in [...] are considered optional, so tha
 
 	
 <a name="name"></a>	
-### Route Name
+### Named Routes
 
 Not supported yet, planned in future.
 
@@ -220,7 +224,8 @@ The router’s `pathFor()` method accepts two arguments:
 <a name="middleware"></a>
 ### Middleware
 
-Not supported yet, planned in future.
+Not supported yet.
+Planned release: 0.7.0	
 
 s.[Slim Framework](https://www.slimframework.com/docs/objects/router.html#route-middleware)
 You can also attach middleware to any route or route group.
@@ -245,7 +250,10 @@ To set the the `middleware` for one or more routes, you have to use the `middlew
 	
 	
 <a name="caching"></a>
-### Route Caching	
+### Route Caching
+	
+Not supported yet.
+Planned release: 0.5.7	
 	
 It’s possible to enable router cache by setting valid filename in default settings:
 
@@ -257,3 +265,6 @@ s. [Slim Framework](https://www.slimframework.com/docs/objects/router.html#conta
 	Set to false to disable the FastRoute cache system. 
 	(Default: false)	
 	
+
+> Closure based routes cannot be cached. To use route caching, you must convert any Closure routes to controller classes.
+
