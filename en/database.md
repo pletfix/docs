@@ -6,236 +6,278 @@ TODO: Anpassen
 
 - [Introduction](#introduction)
     - [Configuration](#configuration)
-    - [Read & Write Connections](#read-and-write-connections)
-    - [Using Multiple Database Connections](#using-multiple-database-connections)
-- [Running Raw SQL Queries](#running-queries)
-    - [Listening For Query Events](#listening-for-query-events)
-- [Database Transactions](#database-transactions)
+        - [MySQL](#mysql)
+        - [Postgres](#postgres)
+        - [SQLite](#sqlite)
+        - [SQL Server](#sqlserver)
+- [Connection](#connection)
+- [Select Query](#select-query)
+    - [query](#query)
+    - [single](#single)
+    - [scalar](#scalar)
+    - [cursor](#cursor)
+- [Data Manipulation](#data-manipulation)
+    - [exec](#exec)
+    - [insert](#insert)
+    - [update](#update)
+    - [delete](#delete)
+    - [truncate](#truncate)
+- [Transactions](#transactions)
 
 <a name="introduction"></a>
 ## Introduction
 
-Laravel makes interacting with databases extremely simple across a variety of database backends using either raw SQL, the [fluent query builder](/docs/{{version}}/queries), and the [Eloquent ORM](/docs/{{version}}/eloquent). Currently, Laravel supports four databases:
+Pletfix's Database Access Layer takes care of the connection setup and abstracts access to the database engine.
+Furthermore, field types are abstracted over all supported database providers to translation to PHP data-types.
 
-<div class="content-list" markdown="1">
+Currently, Pletfix provides a Database Access Layer for the the following database systems: 
+
 - MySQL
 - Postgres
 - SQLite
 - SQL Server
-</div>
 
-<!--
-Sicherheit:
-    Session hijacking, session stealing, session fixation
--->
 
 <a name="configuration"></a>
 ### Configuration
 
-The database configuration for your application is located at `config/database.php`. In this file you may define all of your database connections, as well as specify which connection should be used by default. Examples for most of the supported database systems are provided in this file.
+The database configuration is located at `config/database.php`. 
+As you can see, the most entries are environment variables. 
 
-By default, Laravel's sample [environment configuration](/docs/{{version}}/configuration#environment-configuration) is ready to use with [Laravel Homestead](/docs/{{version}}/homestead), which is a convenient virtual machine for doing Laravel development on your local machine. Of course, you are free to modify this configuration as needed for your local database.
+<a name="mysql"></a>
+#### MySQL
 
-#### SQLite Configuration
+The required connection parameters for a MySQL database are:
 
-After creating a new SQLite database using a command such as `touch database/database.sqlite`, you can easily configure your environment variables to point to this newly created database by using the database's absolute path:
+    DB_STORE=mysql    
+    DB_MYSQL_HOST=localhost
+    DB_MYSQL_DATABASE=mydatabase
+    DB_MYSQL_USERNAME=myusername
+    DB_MYSQL_PASSWORD=mypassword
 
-    DB_CONNECTION=sqlite
-    DB_DATABASE=/absolute/path/to/database.sqlite
+<a name="postgres"></a>
+#### Postgres
 
-#### SQL Server Configuration
+Postgres requires the same information:
 
-Laravel supports SQL Server out of the box; however, you will need to add the connection configuration for the database to your `config/database.php` configuration file:
+    DB_STORE=pgsql
+    DB_PGSQL_HOST=localhost
+    DB_PGSQL_DATABASE=mydatabase
+    DB_PGSQL_USERNAME=myusername
+    DB_PGSQL_PASSWORD=mypassword
 
-    'sqlsrv' => [
-        'driver' => 'sqlsrv',
-        'host' => env('DB_HOST', 'localhost'),
-        'database' => env('DB_DATABASE', 'forge'),
-        'username' => env('DB_USERNAME', 'forge'),
-        'password' => env('DB_PASSWORD', ''),
-        'charset' => 'utf8',
-        'prefix' => '',
-    ],
+<a name="sqlite"></a>
+#### SQLite
 
-<a name="read-and-write-connections"></a>
-### Read & Write Connections
+Set the environment variables for SQLite like this:
 
-Sometimes you may wish to use one database connection for SELECT statements, and another for INSERT, UPDATE, and DELETE statements. Laravel makes this a breeze, and the proper connections will always be used whether you are using raw queries, the query builder, or the Eloquent ORM.
+    DB_STORE=sqlite
+    DB_SQLITE_DATABASE=db/sqlite.db
 
-To see how read / write connections should be configured, let's look at this example:
+The path for the database file is relative to the storage folder.
 
-    'mysql' => [
-        'read' => [
-            'host' => '192.168.1.1',
-        ],
-        'write' => [
-            'host' => '196.168.1.2'
-        ],
-        'driver'    => 'mysql',
-        'database'  => 'database',
-        'username'  => 'root',
-        'password'  => '',
-        'charset'   => 'utf8',
-        'collation' => 'utf8_unicode_ci',
-        'prefix'    => '',
-    ],
+> You may enter this command into a terminal to create a new SQLite database:
+>  
+>     touch storage/db/sqlite.db
+  
+<a name="sqlserver"></a>
+#### SQL Server
 
-Note that two keys have been added to the configuration array: `read` and `write`. Both of these keys have array values containing a single key: `host`. The rest of the database options for the `read` and `write` connections will be merged from the main `mysql` array.
+Microsoft SQL Server also requires the typical connection parameters:
 
-You only need to place items in the `read` and `write` arrays if you wish to override the values from the main array. So, in this case, `192.168.1.1` will be used as the host for the "read" connection, while `192.168.1.2` will be used for the "write" connection. The database credentials, prefix, character set, and all other options in the main `mysql` array will be shared across both connections.
+    DB_STORE=sqlsrv
+    DB_SQLSRV_HOST=127.0.0.1
+    DB_SQLSRV_DATABASE=mydatabase
+    DB_SQLSRV_USERNAME=sa
+    DB_SQLSRV_PASSWORD=xxxx   
+
 
 <a name="using-multiple-database-connections"></a>
-### Using Multiple Database Connections
+## Connection
 
-When using multiple connections, you may access each connection via the `connection` method on the `DB` facade. The `name` passed to the `connection` method should correspond to one of the connections listed in your `config/database.php` configuration file:
+You may access each connection via the `database` function:
+ 
+    $db = database('foo');
 
-    $users = DB::connection('foo')->select(...);
+The argument of `database` method should correspond to one of the connections listed in your `config/database.php` 
+configuration file. If you call the function without an argument, the default connection specified in the configuration 
+file is established.
 
-You may also access the raw, underlying PDO instance using the `getPdo` method on a connection instance:
+    $db = database();
 
-    $pdo = DB::connection()->getPdo();
+The `database` function returns a `Database` instance so you select could queries or manipulate the data.  
 
-<a name="running-queries"></a>
-## Running Raw SQL Queries
 
-Once you have configured your database connection, you may run queries using the `DB` facade. The `DB` facade provides methods for each type of query: `select`, `update`, `insert`, `delete`, and `statement`.
+<a name="select-query"></a>
+## Select Query
 
-#### Running A Select Query
+<a name="method-query"></a>
+#### `query()`
 
-To run a basic query, you may use the `select` method on the `DB` facade:
+You may run queries using the `query` method:
 
-    <?php
-
-    namespace App\Http\Controllers;
-
-    use Illuminate\Support\Facades\DB;
-    use App\Http\Controllers\Controller;
-
-    class UserController extends Controller
-    {
-        /**
-         * Show a list of all of the application's users.
-         *
-         * @return Response
-         */
-        public function index()
-        {
-            $users = DB::select('select * from users where active = ?', [1]);
-
-            return view('user.index', ['users' => $users]);
-        }
-    }
-
-The first argument passed to the `select` method is the raw SQL query, while the second argument is any parameter bindings that need to be bound to the query. Typically, these are the values of the `where` clause constraints. Parameter binding provides protection against SQL injection.
-
-The `select` method will always return an `array` of results. Each result within the array will be a PHP `StdClass` object, allowing you to access the values of the results:
-
-    foreach ($users as $user) {
-        echo $user->name;
-    }
-
-#### Using Named Bindings
+    $users = database()->query('SELECT * FROM users WHERE role = ?', ['guest']);
+    
+The first argument passed to the select method is the raw SQL query, while the second argument is any parameter 
+bindings that need to be bound to the query. Parameter binding provides protection against SQL injection.
 
 Instead of using `?` to represent your parameter bindings, you may execute a query using named bindings:
 
-    $results = DB::select('select * from users where id = :id', ['id' => 1]);
+    $users = database()->query('SELECT * FROM users WHERE role = :role', ['role => 'guest]);
 
-#### Running An Insert Statement
+The `query` method will always return an `array` of records. 
 
-To execute an `insert` statement, you may use the `insert` method on the `DB` facade. Like `select`, this method takes the raw SQL query as its first argument and bindings as its second argument:
+If you net set a third argument for the `query` function, each record within the array will be an associative array:
 
-    DB::insert('insert into users (id, name) values (?, ?)', [1, 'Dayle']);
-
-#### Running An Update Statement
-
-The `update` method should be used to update existing records in the database. The number of rows affected by the statement will be returned:
-
-    $affected = DB::update('update users set votes = 100 where name = ?', ['John']);
-
-#### Running A Delete Statement
-
-The `delete` method should be used to delete records from the database. Like `update`, the number of rows affected will be returned:
-
-    $deleted = DB::delete('delete from users');
-
-#### Running A General Statement
-
-Some database statements do not return any value. For these types of operations, you may use the `statement` method on the `DB` facade:
-
-    DB::statement('drop table users');
-
-<a name="listening-for-query-events"></a>
-### Listening For Query Events
-
-If you would like to receive each SQL query executed by your application, you may use the `listen` method. This method is useful for logging queries or debugging. You may register your query listener in a [service provider](/docs/{{version}}/providers):
-
-    <?php
-
-    namespace App\Providers;
-
-    use Illuminate\Support\Facades\DB;
-    use Illuminate\Support\ServiceProvider;
-
-    class AppServiceProvider extends ServiceProvider
-    {
-        /**
-         * Bootstrap any application services.
-         *
-         * @return void
-         */
-        public function boot()
-        {
-            DB::listen(function ($query) {
-                // $query->sql
-                // $query->bindings
-                // $query->time
-            });
-        }
-
-        /**
-         * Register the service provider.
-         *
-         * @return void
-         */
-        public function register()
-        {
-            //
-        }
+    foreach ($users as $user) {
+        echo $user['id'] . ':' . $user['role'] . '<br/>';    
     }
 
-<a name="database-transactions"></a>
-## Database Transactions
+If you net set a class name of a Model as the third argument, each record will be an instance of this class.
 
-You may use the `transaction` method on the `DB` facade to run a set of operations within a database transaction. If an exception is thrown within the transaction `Closure`, the transaction will automatically be rolled back. If the `Closure` executes successfully, the transaction will automatically be committed. You don't need to worry about manually rolling back or committing while using the `transaction` method:
+    $users = database()->query('SELECT * FROM users WHERE id = ?', [4711], User::class);
+    foreach ($users as $user) {
+        echo $user->id . ':' . $user->role . '<br/>';    
+    }
 
-    DB::transaction(function () {
-        DB::table('users')->update(['votes' => 1]);
+<a name="method-singe"></a>
+#### `single()`
 
-        DB::table('posts')->delete();
+Sometimes it's only possible to receive a single record. In this case it is more comfortable to use the `single` 
+function unsteady the query function:  
+
+    $user = database()->single('SELECT * FROM users WHERE id = ?', [4711], User::class);
+    if ($user !== null) {
+        echo $user->id . ':' . $user->role . '<br/>';
+    }
+    
+<a name="method-scalar"></a>
+#### `scalar()`
+
+The `scalar` method fetches the first value (means the first column of the first record).
+
+    $count = database()->single('SELECT COUNT(*) FROM users WHERE role = :role', ['role => 'guest]);
+
+<a name="method-cursor"></a>
+#### `cursor()`
+
+The `cursor` method runs a select statement against the database and returns a 
+[generator](http://php.net/manual/de/language.generators.syntax.php). 
+With the cursor you could iterate the rows (via foreach) without fetch all the data at one time.
+This method is useful to handle big data.
+
+    foreach (database()->cursor('SELECT * FROM users WHERE role = ?', ['guest'], User::class) as $row) {
+        echo $user->id . ':' . $user->role . '<br/>';
+    };
+
+
+<a name="data-manipulation"></a>
+## Data Manipulation
+
+<a name="method-exec"></a>
+#### `exec()`
+
+If you want to manipulate data, you could use the `exec` method.
+`exec` is faster as `query` because no record will be fetched to an array.
+
+    database()->exec('INSERT INTO users (firstname, lastname) VALUES (?, ?)', ['Stephen', 'Hawking']);
+
+But Pletfix provides the following functions, which are more convenient than `exec`:
+
+<a name="method-insert"></a>
+#### `insert()`
+
+The `insert` method insert a record to the given table:
+
+    $affected = database()->insert('users', ['firstname' => 'Stephen', 'lastname' => 'Hawking']);
+
+Bulk inserting is possible too, `insert()` returns the number of affected rows:
+
+    $affected = database()->insert('users', [
+        ['firstname' => 'Stephen', 'lastname' => 'Hawking']
+        ['firstname' => 'Albert', 'lastname' => 'Einstein'],
+    ]);
+
+The `lastInsertId` function returns the last inserted autoincrement sequence value:
+ 
+    $userId = database()->lastInsertId 
+
+<a name="method-update"></a>
+#### `update()`
+    
+The `update` function updates a table with th given data and returns the number of affected rows.
+
+    $affected = database()->update('users', ['lastname' => 'Hawking'], 'role=?', ['guest']);
+
+<a name="method-delete"></a>
+#### `delete()`
+    
+The `delete` function deletes records rom a table and returns the number of affected rows:
+
+    $affected = database()->delete('users', 'role=?', ['guest']);
+
+<a name="method-truncate"></a>
+#### `truncate()`
+    
+The `truncate` removes all records from a table:
+
+    truncate('users);
+
+
+<a name="Transactions"></a>
+## Transactions
+
+The `beginTransaction` method starts a database transaction, the `commit` function finished this one and the `rollback`
+function will roll back the transaction.
+
+    $db->beginTransaction();
+    try {
+        $db->insert('users', ['firstname' => 'Stephen', 'lastname' => 'Hawking']);
+        $db->insert('users', ['firstname' => 'Albert',  'lastname' => 'Einstein']);
+        $db->commit();
+
+    } catch (\Exception $e) {
+        $db->rollBack();
+    }
+
+The `supportsSavepoints` method determines if the database driver can marks the current point within a transaction.
+If it's like that, transactions can also be nested. The `transactionLevel` method is then helpful to determine the 
+number of active transactions:
+
+    $db->beginTransaction();
+    echo $db->transactionLevel(); // 1
+    $db->insert('users', ['firstname' => 'Stephen', 'lastname' => 'Hawking']);
+    $db->insert('users', ['firstname' => 'Albert',  'lastname' => 'Einstein']);
+    
+    $db->beginTransaction();
+    echo $db->transactionLevel(); // 2
+    $db->insert('users', ['firstname' => 'Carl', 'lastname' => 'Friedrich Gauß']);
+    $db->insert('users', ['firstname' => 'Pierre-Simon', 'lastname' => 'Laplace']);
+    $db->rollBack();
+
+    $db->commit();
+
+    $rows = $db->query('SELECT * FROM users');
+    if ($db->supportsSavepoints()) {
+        if (count($rows) != 2) {
+            dd('Test failed!');
+        }
+    }
+    else {
+        if (count($rows) != 4) {
+            dd('Test failed!');
+        }
+    }
+    
+#### Closures
+    
+Pletfix also offers the `transaction` method which executes a Closure within a transaction:
+
+    $db->transaction(function(Database $db) {
+        $db->insert('users', ['firstname' => 'Stephen', 'lastname' => 'Hawking']);
+        $db->insert('users', ['firstname' => 'Albert',  'lastname' => 'Einstein']);
     });
 
-#### Handling Deadlocks
+If an exception is thrown within the transaction Closure, the transaction will automatically be rolled back. 
+And of course, if the Closure executes successfully, the transaction will automatically be committed. 
 
-The `transaction` method accepts an optional second argument which defines the number of times a transaction should be reattempted when a deadlock occurs. Once these attempts have been exhausted, an exception will be thrown:
-
-    DB::transaction(function () {
-        DB::table('users')->update(['votes' => 1]);
-
-        DB::table('posts')->delete();
-    }, 5);
-
-#### Manually Using Transactions
-
-If you would like to begin a transaction manually and have complete control over rollbacks and commits, you may use the `beginTransaction` method on the `DB` facade:
-
-    DB::beginTransaction();
-
-You can rollback the transaction via the `rollBack` method:
-
-    DB::rollBack();
-
-Lastly, you can commit a transaction via the `commit` method:
-
-    DB::commit();
-
-> {tip} Using the `DB` facade's transaction methods also controls transactions for the [query builder](/docs/{{version}}/queries) and [Eloquent ORM](/docs/{{version}}/eloquent).

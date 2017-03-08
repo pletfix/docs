@@ -29,7 +29,7 @@ return [
     'General' => [ // General Topics
         'cache' => 'Cache',                         // todo Kapitel ändern: "Introduction" ("Configuration", "Creating Cache"), "Available Methods"
         'collections' => 'Collections',             // todo kennzeichnen, welche Funktionen mutable sind
-        'configuration' => 'Configuration',         // todo (s. Kommentar in der Datei)
+        'configuration' => 'Configuration',
         'controllers' => 'Controllers',
         'datetime' => 'DateTime',
         'di' => 'Dependency Injection',
