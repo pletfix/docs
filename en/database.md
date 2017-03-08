@@ -2,26 +2,11 @@
 
 [Since 1.0.0]
 
-TODO: Anpassen
-
 - [Introduction](#introduction)
-    - [Configuration](#configuration)
-        - [MySQL](#mysql)
-        - [Postgres](#postgres)
-        - [SQLite](#sqlite)
-        - [SQL Server](#sqlserver)
+- [Configuration](#configuration)
 - [Connection](#connection)
 - [Select Query](#select-query)
-    - [query](#query)
-    - [single](#single)
-    - [scalar](#scalar)
-    - [cursor](#cursor)
 - [Data Manipulation](#data-manipulation)
-    - [exec](#exec)
-    - [insert](#insert)
-    - [update](#update)
-    - [delete](#delete)
-    - [truncate](#truncate)
 - [Transactions](#transactions)
 
 <a name="introduction"></a>
@@ -30,7 +15,7 @@ TODO: Anpassen
 Pletfix's Database Access Layer takes care of the connection setup and abstracts access to the database engine.
 Furthermore, field types are abstracted over all supported database providers to translation to PHP data-types.
 
-Currently, Pletfix provides a Database Access Layer for the the following database systems: 
+Currently, Pletfix provides a Database Access Layer for the the following database driver: 
 
 - MySQL
 - Postgres
@@ -39,10 +24,21 @@ Currently, Pletfix provides a Database Access Layer for the the following databa
 
 
 <a name="configuration"></a>
-### Configuration
+## Configuration
 
 The database configuration is located at `config/database.php`. 
 As you can see, the most entries are environment variables. 
+
+<div class="method-list" markdown="1">
+
+### Available Database Drivers
+
+[MySQL](#mysql)
+[Postgres](#postgres)
+[SQLite](#sqlite)
+[SQL Server](#sqlserver)
+
+</div>
 
 <a name="mysql"></a>
 #### MySQL
@@ -111,8 +107,19 @@ The `database` function returns a `Database` instance so you select could querie
 <a name="select-query"></a>
 ## Select Query
 
+### Available Methods
+
+<div class="method-list" markdown="1">
+
+[query](#method-query)
+[single](#method-single)
+[scalar](#method-scalar)
+[cursor](#method-cursor)
+
+</div>
+
 <a name="method-query"></a>
-#### `query()`
+#### `query()` {.method}
 
 You may run queries using the `query` method:
 
@@ -141,7 +148,7 @@ If you net set a class name of a Model as the third argument, each record will b
     }
 
 <a name="method-singe"></a>
-#### `single()`
+#### `single()` {.method}
 
 Sometimes it's only possible to receive a single record. In this case it is more comfortable to use the `single` 
 function unsteady the query function:  
@@ -152,14 +159,14 @@ function unsteady the query function:
     }
     
 <a name="method-scalar"></a>
-#### `scalar()`
+#### `scalar()` {.method}
 
 The `scalar` method fetches the first value (means the first column of the first record).
 
     $count = database()->single('SELECT COUNT(*) FROM users WHERE role = :role', ['role => 'guest]);
 
 <a name="method-cursor"></a>
-#### `cursor()`
+#### `cursor()` {.method}
 
 The `cursor` method runs a select statement against the database and returns a 
 [generator](http://php.net/manual/de/language.generators.syntax.php). 
@@ -173,6 +180,19 @@ This method is useful to handle big data.
 
 <a name="data-manipulation"></a>
 ## Data Manipulation
+
+### Available Methods
+
+<div class="method-list" markdown="1">
+
+[exec](#method-exec)
+[insert](#method-insert)
+[update](#method-update)
+[delete](#method-delete)
+[truncate](#method-truncate)
+
+</div>
+
 
 <a name="method-exec"></a>
 #### `exec()`

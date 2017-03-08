@@ -50,9 +50,8 @@ return [
         'localization' => 'Localization',
         'forms' => 'Forms',                         // todo Validation
     ],
-    // todo ab hier überarbeiten
     'Database' => [
-        'database' => 'Database Access Layer',      // todo !!
+        'database' => 'Database Access Layer',
         'models' => 'Models',                       // todo !!
         'queries' => 'Query Builder',               // todo !! // evtl zu Models packen
         'pagination' => 'Pagination',               // todo !! // evtl zu Frontend hinzufügen
