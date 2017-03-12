@@ -266,25 +266,6 @@ be mass assignable via `update()` and `insert()`:
         protected $guarded = ['id', 'created_by', 'updated_by', 'created_at', 'updated_at'];
     }
         
-
-<!--     
-<a name="fillable"></a>
-#### Fillable Attributes
- 
-The `$fillable` property should contain an array of attributes that you do not want to be mass assignable. 
-In the example below, all attributes except for 'id', 'created_by', 'updated_by', 'created_at' and 'updated_at' will 
-be mass assignable via `update()` and `insert()`:
-
-    class Flight extends Model
-    {
-        /**
-         * The attributes that are mass assignable.
-         *
-         * @var array
-         */
-        protected $fillable = ['name'];
-    }
--->  
       
 <a name="searching"></a>
 #### Searching Attributes
@@ -355,64 +336,189 @@ instance:
 </div>
 
 <a name="one-to-one"></a>
-#### 1:1 - One To One
+#### One To One
 
 A one-to-one relationship is a very basic relation. 
+For example, each user in your application could (but does not have to) define their own avatar. So you need the 
+following tables:    
 
-For example, each user in your application could define one own avatar. So you need the following table relationship:    
-
-    suppliers.id <----> accounts.supplier_id
-    users.id <----> avatars.user_id
+![One-To-One-Relationship](https://raw.githubusercontent.com/pletfix/docs/master/images/one-to-one.png)
 
 And your models looks like this:
-
-You'd declare the supplier model like this:
 
     class User extends Model
     {
         /**
          * Define one-to-one relationships.
          */
-        protected $hasOne = [Avartar::class];
+        protected $hasOne = [
+            App\Model\Avartar::class
+        ];
+        
+        /**
+         * Get the avatar associated with the user.
+         */
+        public function avartar()
+        {
+            return $this->hasOne(App\Model\Avartar::class);
+        }
     }
     
     class Avartar extends Model
     {
         /**
-         * Define inverse one-to-one or one-to-many relationships.
-         *
-        protected $belongsTo = [User::class];
+         * Define inverse one-to-one or inverse one-to-many relationships.
+         */
+        protected $belongsTo = [
+            App\Model\User::class
+        ];
+
+        /**
+         * Get the user that owns the avartar.
+         */
+        public function user()
+        {
+            return $this->belongsTo(App\Model\User::class);
+        }
     }
     
-<a name="one-to-many"></a>
-#### 1:N - One To Many
-
-TODO
-
-customers.id <----> articles.customer_id
- 
-    Customer->hasMany(Article)
+TODO: Remove one of the two variants in the example above.    
     
-    Article->belongsTo(Customer)
+<a name="one-to-many"></a>
+#### One To Many
 
+This is similar to the one-to-one-relationship. 
+For example, in an application containing authors and books, the models could be declared like this:
+
+![One-To-Many-Relationship](https://raw.githubusercontent.com/pletfix/docs/master/images/one-to-many.png)
+
+    class Author extends Model
+    {
+        /**
+         * Define one-to-many relationships.
+         */
+        protected $hasMany = [
+            App\Model\Book::class
+        ];
+        
+        /**
+         * Get the author's books.
+         */
+        public function books()
+        {
+            return $this->hasMany(App\Model\Book::class);
+        }
+    }
+    
+    class Book extends Model
+    {
+        /**
+         * Define inverse one-to-one or inverse one-to-many relationships.
+         */
+        protected $belongsTo = [
+            App\Model\Author::class
+        ];
+        
+        /**
+         * Get the author of the book.
+         */
+        public function author()
+        {
+            return $this->belongsTo(App\Model\Author::class);
+        }
+    }
+
+TODO: Remove one of the two variants in the example above.
 
 <a name="many-to-many"></a>
-#### N:M - Many To Many
+#### Many To Many
 
-TODO
+In this example, movies can be associated with one or more genres. On the other hand, you can find for a certain genre 
+several films. The relevant association declarations could look like this:
 
-articles.id <----> article_category.article_id, 
-article_category.category_id <----> categories.id
+![Many-To-Many-Relationship](https://raw.githubusercontent.com/pletfix/docs/master/images/many-to-many.png)
 
-    Article->belongsToMany(Category)
+    class Movie extends Model
+    {
+        /**
+         * Define many-to-many relationships.
+         */
+        protected $belongsToMany = [
+            App\Model\Genre::class
+        ];
+        
+        /**
+         * The genres of the film.
+         */
+        public function genres()
+        {
+            return $this->belongsToMany(App\Model\Genre::class);
+        }
+    }
     
-    Category->belongsToMany(Article)
-
-
+    class Genre extends Model
+    {
+        /**
+         * Define many-to-many relationships.
+         */
+        protected $belongsToMany = [
+            App\Model\Movie::class
+        ];
+        
+        /**
+         * The movies that belong to the genre.
+         */
+        public function movies()
+        {
+            return $this->belongsToMany(App\Model\Movies::class);
+        }
+    }
+    
+TODO: Remove one of the two variants in the example above.    
+    
 <a name="polymorphic"></a>
 #### Polymorphic Relations
 
-TODO
+Polymorphic relations allow a model to belong to more than one other model on a single association.
+For example, you might have a picture that belongs to either an employee or a product. 
+First, let's examine the table structure required to build this relationship:
+
+![Polymorphic-Relations](https://raw.githubusercontent.com/pletfix/docs/master/images/polymorphic.png)
+
+Next, let's examine the model definitions needed to build this relationship:
+
+    class Picture extends Model
+    {
+        /**
+         * Get all of the owning imageable models.
+         */
+        public function imageable()
+        {
+            return $this->morphTo();
+        }
+    }
+    
+    class Employee extends Model
+    {
+        /**
+         * Get all of the employee's images.
+         */
+        public function images()
+        {
+            return $this->morphMany('App\Model\Picture', 'imageable');
+        }
+    }
+    
+    class Product extends Model
+    {
+        /**
+         * Get all of the products's images.
+         */
+        public function images()
+        {
+            return $this->morphMany('App\Model\Picture', 'imageable');
+        }
+    }
 
 <a name="validations"></a>
 ### Validations
