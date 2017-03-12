@@ -13,7 +13,8 @@
 
 The entry point for all web requests to a Pletfix application is the `public/index.php` file. 
 All requests are directed to this file by your web server (Apache / Nginx) configuration. 
-The `index.php` is starting first the Autoloader and second the application by calling `\Core\Application::run()` for loading the rest of the framework.
+The `index.php` is starts the autoloader first and your application second by calling `\Core\Application::run()` for 
+loading the rest of the framework.
     
         /*
          * Save the start time for benchmark tests.
@@ -41,7 +42,8 @@ The `index.php` is starting first the Autoloader and second the application by c
 
 1. Load Services
 
-    On the first time the `Application::run()` will do is to push the services, which defined in `config/boot/services.php` (and in enabled plugins), into the Dependency Injector:
+    The `Application::run()` pushes services into the [Dependency Injector](di).
+    The services are defined in `config/boot/services.php` and in enabled plugins.
 
         /*
          * Push the Services into the Dependency Injector.
@@ -53,7 +55,8 @@ The `index.php` is starting first the Autoloader and second the application by c
 
 2. Execute Bootstraps 
 
-    After loading the services the bootstrap, which defined in `config/boot/bootstrap.php` (and in enabled plugins), will be executed:
+    After loading the services the bootstraps, which are defined in `config/boot/bootstrap.php` (and in enabled plugins), 
+    will be executed:
 
         /*
          * Bootstrap the framework
@@ -65,7 +68,7 @@ The `index.php` is starting first the Autoloader and second the application by c
 
 3. Register Routes
 
-    Next the Routes defined in `config/boot/routes.php` (and in enabled plugins) will be loaded:
+    Next the routes will be loaded. They are defined in `config/boot/routes.php` and in enabled plugins.
        
         /*
          * Register routes.
@@ -75,8 +78,8 @@ The `index.php` is starting first the Autoloader and second the application by c
             @include __DIR__ . '/../../../../.manifest/plugins/routes.php';
         });
 
-4. Once the application has been bootstrapped and all service providers have been registered, the HTTP request will be handed off to the HTTP Router for dispatching. 
-   The router will dispatch the request to a route or controller:
+4. Once the application has been bootstrapped and all service providers have been registered, the HTTP request will be 
+   handed off to the HTTP Router for dispatching. The router will dispatch the request to a action handler or controller:
 
         /*
          * Dispatch the HTTP request and send the response to the browser.
@@ -87,7 +90,7 @@ The `index.php` is starting first the Autoloader and second the application by c
 
 ### Controller
 
-The controller action, which called by the HTTP Router, will be handle the request and generated a HTTP response:
+The controller, which is called by the HTTP Router, will handle the request and generate a HTTP response:
     
     /**
      * Show the index page.
@@ -104,9 +107,10 @@ The controller action, which called by the HTTP Router, will be handle the reque
 
 ### Executable Script
 
-The executable script to start a Pletfix console commands is the `console` file. 
+The executable script to start a Pletfix console command is the `console` file. 
   
-The script is starting first the Autoloader and second the console by calling `\Core\Console::run()` for loading the rest of the framework.
+The script starts the autoloader first and second the console by calling `\Core\Console::run()` for loading the 
+rest of the framework.
     
     #!/usr/bin/env php
     <?php
@@ -139,7 +143,8 @@ The script is starting first the Autoloader and second the console by calling `\
 
 1. Load Services
 
-    On the first time the `Console::run()` will do is to push the services, which defined in `config/boot/services.php` (and in enabled plugins), into the Dependency Injector:
+    The `Console::run()` pushes the services into the [Dependency Injector](di). The services are defined in 
+    `config/boot/services.php` and in enabled plugins.
 
         /*
          * Push the Services into the Dependency Injector.
@@ -151,7 +156,8 @@ The script is starting first the Autoloader and second the console by calling `\
 
 2. Execute Bootstraps 
 
-    After loading the services the bootstrap, which defined in `config/boot/bootstrap.php` (and in enabled plugins), will be executed:
+    After loading the services the bootstraps will be executed. THe bootsraps are defined in `config/boot/bootstrap.php` 
+    and in enabled plugins:
 
         /*
          * Bootstrap the framework
@@ -162,8 +168,8 @@ The script is starting first the Autoloader and second the console by calling `\
         });
 
 
-3. Once the application has been bootstrapped and all service providers have been registered, the the command arguments 
-   will be handed off to the Command Factory for running the command which ist defined in app/Commands (or in enabled plugins). 
+3. Once the application has been bootstrapped and all service providers have been registered, the command arguments 
+   will be handed to the Command Factory for running the command which ist defined in `app/Commands` or in enabled plugins. 
 
         /*
          * Get the command line parameters
@@ -181,7 +187,7 @@ The script is starting first the Autoloader and second the console by calling `\
 
 ### Command
 
-The Command, which created by the Command Factory, will be handle the request and generated a console output:
+The command, which is created by the Command Factory, will handle the request and generate a console output:
     
     /**
      * Execute the console command.
@@ -203,13 +209,12 @@ The Command, which created by the Command Factory, will be handle the request an
     
 The executable script to start a Pletfix test is the `vendow/bin/phpunit` file. 
   
-The script is reading `phpunit.xml` and execute a Bootstrap to set the testing environment.
+The script is reading `phpunit.xml` and execute a bootstrap to set the testing environment.
     
 ### Bootstrap
     
-PHPUnit run the Bootstrap before test are executed. 
-The Bootstrap is defined in `vendor/pletfix/core/tests/bootstrap.php`.
-The Bootstrap is principle only starting the Autoloader:
+PHPUnit runs the bootstrap before tests are executed. The bootstrap is defined in `vendor/pletfix/core/tests/bootstrap.php`.
+It starts in principle just the autoloader:
      
     /*
      * Save the start time for benchmark tests.
@@ -230,8 +235,8 @@ The Bootstrap is principle only starting the Autoloader:
  
 ### Test Case
  
-1. After execute the Bootstrap the `setUp` method of `TestCase` (or `MinkTestCase`) is called by PHPUnit to load the 
-   Services defined in `config/boot/services.php` and the application's bootstraps defined in `config/boot/bootstrap.php`: 
+1. After executing the bootstrap the `setUp` method of `TestCase` (or `MinkTestCase`) is called by PHPUnit to load the 
+   services defined in `config/boot/services.php` and your application bootstraps defined in `config/boot/bootstrap.php`: 
 
         protected function setUp()
         {

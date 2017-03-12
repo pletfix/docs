@@ -19,12 +19,12 @@
 return [
 
     'Getting Started' => [
-        'index' => 'Overview',                      // bereits Korrektur gelesen  // todo: Allgemeine Beschreibung, wie die Anwendung funktioniert, MVC, DI, usw..., alle Third Party auflisten
-        'installation' => 'Installation',
+        'index' => 'Overview',                      // bereits Korrektur gelesen todo: Allgemeine Beschreibung, wie die Anwendung funktioniert, MVC, DI, usw..., alle Third Party auflisten
+        'installation' => 'Installation',           // bereits Korrektur gelesen
         'upgrade' => 'Upgrade Guide',               // bereits Korrektur gelesen
-        'lifecycle' => 'Lifecycle',                 // todo: Auf Request- und Repsonse-Objekt eingehen
-        'hello' => 'Hello World',                   // todo "Create a Table", "Add a Model" beschreiben
-        'testing' => 'Testing',
+        'lifecycle' => 'Lifecycle',                 // bereits Korrektur gelesen todo: Auf Request- und Repsonse-Objekt eingehen
+        'hello' => 'Hello World',                   // bereits Korrektur gelesen todo "Create a Table", "Add a Model" beschreiben
+        'testing' => 'Testing',                     // bereits Korrektur gelesen
     ],
     'General' => [ // General Topics
         'cache' => 'Cache',                         // todo Kapitel ändern: "Introduction" ("Configuration", "Creating Cache"), "Available Methods"
@@ -51,9 +51,9 @@ return [
         'forms' => 'Forms',                         // todo Validation
     ],
     'Database' => [
-        'database' => 'Database Access Layer',
+        'database' => 'Database Access Layer',      // todo Misc und Scheam ausformulieren
         'models' => 'Models',                       // todo !!
-        'queries' => 'Query Builder',               // todo !! // evtl zu Models packen
+        'queries' => 'Query Builder',
         'pagination' => 'Pagination',               // todo !! // evtl zu Frontend hinzufügen
         'migrations' => 'Migrations',               // todo !!
         'seeding' => 'Seeding',                     // todo !! // evtl zu migrations packen

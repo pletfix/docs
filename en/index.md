@@ -19,6 +19,13 @@ Sources:
 
 
 <!--
+This library attempts to comply with [PSR-1][], [PSR-2][], and [PSR-4][]. 
+Ifyou notice compliance oversights, please send a patch via pull request.
+
+[PSR-1]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
+[PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
+[PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
+
 Modern Framework
 AJAX / AJAJ, Dependency Injection, SEO, DRY, KISS , MVC, Web 2.0, cool URL – a sophisticated support for all advanced technologies and concepts.
 

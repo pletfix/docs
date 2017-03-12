@@ -45,6 +45,7 @@ _What are we working on?_
 | Mailer | 0.5.7 | |
 | Route Caching | 0.5.7 | |
 | DI Caching | 0.5.8 | |
+| Improved QueryBuilder | 0.6.0 | |
 | Model | 0.6.0 | |
 | Old Input | 0.6.1 | |
 | Flash Messages | 0.6.2 | |

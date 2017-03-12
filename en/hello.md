@@ -10,11 +10,11 @@
 <a name="first-steps"></a>
 ## First Steps
 
-Jede Einführung in der Software-Entwicklung beginnt mit der ultimativen Hello World Anwendung, oder nicht?
+Every software development tutorial starts with the ultimative Hello World programm, isn't it?
 
-Ok, so geht es mit Pletfix:
+Ok, let's start like this with Pletfix:
 
-1. Install a fresh [Pletfix Application](https://github.com/pletfix/app)
+1. Install a fresh [Pletfix Application](https://github.com/pletfix/app).
 
 2. Open `config/boot/routes.php` and add a new route:
 
@@ -30,14 +30,14 @@ Ok, so geht es mit Pletfix:
     http://localhost/my-first-app/public/hello
     ~~~
 
-    Vola! You will see: "Hello". What a surprise! 
+    Voilà! You will see: "Hello". What a surprise! 
     
 <a name="view"></a>    
 ## Use a View
 
-Pletfix is a MVC (Model-View-Controller) framework, so we will use a View to output the greetings:
+Pletfix is a MVC (Model-View-Controller) framework, so we will use a `View` for the greetings output.
  
-4. Create a new File `hello.blade.php` in the subfolder `resources/views` and add the following content:
+4. Create a new file `hello.blade.php` in the subfolder `resources/views` and add the following content:
 
     ~~~html
     @extends('app')
@@ -67,8 +67,7 @@ Pletfix is a MVC (Model-View-Controller) framework, so we will use a View to out
 ## Use a Controller
 
 Our application is really simple - so it is ok adding the logic into the route file directly.
-But as soon as something more logic is added, it quickly becomes confusing.
-To prevent this let's add a controller:
+But as soon as more logic is added, it becomes quickly confusing. To prevent this let's add a controller:
 
 7. Create a new Controller `HelloController.php` in the subfolder `app/Controllers`:
 
@@ -86,7 +85,7 @@ To prevent this let's add a controller:
     }
     ~~~
     
-8. We modify the route in ones more so our Controller is called:
+8. We modify the route once more so our controller is called:
  
     ~~~php
     $route->get('hello', 'HelloController@index');

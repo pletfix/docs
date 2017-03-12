@@ -30,17 +30,17 @@ and [Mink](http://mink.behat.org/) for [Integration Testing](https://en.wikipedi
 
 You can open the `phpunit.xml` file to modify the test environment.
   
-Please note the test cases have some conventions:
+Please note that the test cases have some conventions:
 
 - PHP files containing tests should be in your `tests` directory.
-- The filenames of these files should end in "Test.php".
+- The names of these files should end in "Test.php".
 - The classes containing tests should extend `Core\Testing\TestCase` (for unit tests) or `Core\Testing\MinkTestCase` (for integration tests).
 - The name of any method containing a test should begin with "test". 
 
 <a name="cli"></a>
 ## Running Tests
 
-Simply run `vendor/bin/phpunit` on the command line to run all tests you are defined.
+Just enter `vendor/bin/phpunit` in the terminal to run all tests you have defined.
 
 You can enter a class as argument to run only one test case:
 
@@ -707,7 +707,7 @@ Attaches a file in a file input.
 <a name="method-attachFileToField"></a>
 #### `attachFileToField()` {.method}
      
-Attach file to file field with specified locator (input id, name or label).
+Attaches file to file field with specified locator (input id, name or label).
 
     $page = $this->session->getPage();   
     $page->attachFileToField($locator, $path);
@@ -759,7 +759,7 @@ See also [uncheckField](#method-uncheckField) and [hasCheckedField](#method-hasC
 <a name="method-click"></a>
 #### `click()` {.method}
      
-This method let you click the links on the page.
+This method lets you click the links on the page.
 
 See also [clickLink](#method-clickLink), [doubleClick](#method-doubleClick), [rightClick](#method-rightClick) and [press](#method-press)
 
@@ -805,7 +805,7 @@ Drags current node onto other node.
 <a name="method-evaluateScript"></a>
 #### `evaluateScript()` {.method}
 
-Execute JS in browser and return it's response.
+Executes JS in browser and return it's response.
 
     $this->session->evaluateScript($script);
     
@@ -813,7 +813,7 @@ Execute JS in browser and return it's response.
 <a name="method-executeScript"></a>
 #### `executeScript()` {.method}
 
-Execute JS in browser.
+Executes JS in browser.
 
     $this->session->executeScript($script);
     
@@ -1368,7 +1368,7 @@ Selects option from select field with specified locator (input id, name or label
 <a name="method-selectOption"></a>
 #### `selectOption()` {.method}
      
-Select an option in a select box or in a radio group.
+Selects an option in a select box or in a radio group.
 
     $page = $this->session->getPage();
     $el = $page->find('css', '.something');    

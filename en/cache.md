@@ -108,21 +108,19 @@ For more information on configuring Redis, consult the [Redis Documentation](htt
 <a name="instance"></a>
 ### Create A Cache Instance
 
-The `Core\Services\CacheFactory` and `Core\Services\Cache` provide access to Pletfix's cache services. 
-The `Factory` contract provides access to all cache drivers defined in `config/cache.php` for your application. 
-
-However, you may also use the global `cache()` function to access the default cache store:
+You may also use the `cache()` function to access the default cache store:
 
     $cache = cache();
     
-You can set the driver name if you use an another driver as the default.
-The driver name should correspond to one of the stores listed in the `stores` configuration array in your `cache` configuration file.
+You can set the store name if you use an another store as the default. The store name should correspond to one of the 
+stores listed in the `stores` configuration array in your `cache` configuration file:
     
     $cache = cache('my-memcached-store');
     
-> The `cache()` function is just a shortcut to get the cache store via the Cache Factory supported by Dependency Injector: 
+> The `cache()` function is just a shortcut to get the `Cache` instance via the `CacheFactory` supported by 
+> [Dependency Injector](di): 
 >    
->       $cache = DI::getInstance()->get('cache-factory')->store('my-memcached-store');
+>       $cache = DI::getInstance()->get('cache-factory')->store($store);
 
 Of course you may access various cache stores:
 
