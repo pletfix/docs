@@ -705,8 +705,8 @@ You can also use the `create` method to insert a new record in the database.
 The `create` method returns the saved model instance.
 
 > <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
-> If you use the `create` method, you will need to specify either a `fillable` or `guarded` attribute on the 
-> model, as all Models protect against mass-assignment by default.
+> If you use the `create` method, you should specify the `guarded` attribute on the model, as all Models protect 
+> against mass-assignment by default.
 
 <a name="updating"></a>
 ### Updating
@@ -726,8 +726,8 @@ You can also use the `update` method to update one or more model instances:
 The `update` method expects an array of column and value pairs representing the columns that should be updated.
 
 > <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
-> If you use the `update` method, you will need to specify either a `fillable` or `guarded` attribute on the 
-> model, as all Models protect against mass-assignment by default.
+> If you use the `update` method, you should specify the `guarded` attribute on the model, as all Models protect
+> against mass-assignment by default.
 
 #### Fill Existing Model
 
