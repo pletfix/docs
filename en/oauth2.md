@@ -1,8 +1,8 @@
 # OAuth2
 
-[Since 1.0.0]
+[Since 0.5.0]
 
-NOCH NICHT REALISISERT!
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: &gt; 1.0.0
 
 ## Introduction
 

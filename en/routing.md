@@ -174,8 +174,7 @@ dot (`.`) and underscore (`_`).
 
 #### Optional Parameters
 
-Not supported yet.
-Planned release: 0.9.6
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.9.6
 
 To make a segment optional, simply add a `?` mark after the parameter name: 
 	
@@ -228,8 +227,7 @@ You can generate a URL for this named route with the `route()` helper function.
 <a name="middleware"></a>
 ### Middleware
 
-Not supported yet.
-Planned release: 0.7.0	
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.7.0	
 
 You can also attach middleware to any route or route group.
 
@@ -255,8 +253,7 @@ To set the the middleware for one or more routes, you also could use the `middle
 <a name="caching"></a>
 ### Route Caching
 	
-Not supported yet.
-Planned release: 0.5.7	
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.5.7	
 	
 It’s possible to enable router cache in the `config/app.php` configuration file:
 

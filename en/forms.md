@@ -4,9 +4,7 @@ _Convenient way to generate HTML forms_
 
 [Since 0.5.0]
 
-Not implemented yet!
-
-Planned release: 0.6.3
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.6.3
 
 - [Introduction](#introduction)
 - [Form Building](#building)
@@ -199,6 +197,8 @@ Drop-Down List with a range:
 	
 <a name="validation"></a>
 ## Form Validation
+
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.6.7
 
 - validate sent data both client-side (JavaScript) and server-side
 

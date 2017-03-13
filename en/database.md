@@ -44,7 +44,7 @@ As you can see, the most entries are environment variables.
 </div>
 
 <a name="mysql"></a>
-#### MySQL
+#### MySQL {.method .first-method}
 
 The required connection parameters for a MySQL database are:
 
@@ -55,7 +55,7 @@ The required connection parameters for a MySQL database are:
     DB_MYSQL_PASSWORD=mypassword
 
 <a name="postgres"></a>
-#### Postgres
+#### Postgres {.method}
 
 Postgres requires the same information:
 
@@ -66,7 +66,7 @@ Postgres requires the same information:
     DB_PGSQL_PASSWORD=mypassword
 
 <a name="sqlite"></a>
-#### SQLite
+#### SQLite {.method}
 
 Set the environment variables for SQLite like this:
 
@@ -80,7 +80,7 @@ The path for the database file is relative to the storage folder.
 >     touch storage/db/sqlite.db
   
 <a name="sqlserver"></a>
-#### SQL Server
+#### SQL Server {.method}
 
 Microsoft SQL Server also requires the typical connection parameters:
 
@@ -125,7 +125,7 @@ The `database` function returns a Database instance so you select could queries 
 </div>
 
 <a name="method-query"></a>
-#### `query()` {.method}
+#### `query()` {.method .first-method}
 
 You may run queries using the `query` method:
 
@@ -215,7 +215,7 @@ This method is useful to handle big data.
 </div>
 
 <a name="method-exec"></a>
-#### `exec()`
+#### `exec()` {.method .first-method}
 
 If you want to manipulate data, you could use the `exec` method, which is faster as `query` because no record have to 
 be fetched to an array.
@@ -227,7 +227,7 @@ be fetched to an array.
 > are therefore independent of the database system!
 
 <a name="method-insert"></a>
-#### `insert()`
+#### `insert()` {.method}
 
 The `insert` method creates a new record to the given table:
 
@@ -245,21 +245,21 @@ The `lastInsertId` function returns the last inserted autoincrement sequence val
     $userId = database()->lastInsertId 
 
 <a name="method-update"></a>
-#### `update()`
+#### `update()` {.method}
     
 The `update` function updates a table with th given data and returns the number of affected rows.
 
     $affected = database()->update('users', ['lastname' => 'Hawking'], 'role=?', ['guest']);
 
 <a name="method-delete"></a>
-#### `delete()`
+#### `delete()` {.method}
     
 The `delete` function deletes records rom a table and returns the number of affected rows:
 
     $affected = database()->delete('users', 'role=?', ['guest']);
 
 <a name="method-truncate"></a>
-#### `truncate()`
+#### `truncate()` {.method}
     
 The `truncate` removes all records from a table:
 
@@ -392,7 +392,7 @@ The Table based on [Doctrine's Mapping Matrix](http://docs.doctrine-project.org/
 </div>
 
 <a name="method-tables"></a>
-#### `tables()`
+#### `tables()` {.method .first-method}
 
     /**
      * Returns aa array of tables in the database.
@@ -407,7 +407,7 @@ The Table based on [Doctrine's Mapping Matrix](http://docs.doctrine-project.org/
     public function tables();
 
 <a name="method-columns"></a>
-#### `columns()`
+#### `columns()` {.method}
 
 The `columns` method returns an associative array of information about the columns of the table. 
 
@@ -427,7 +427,7 @@ The key of the returned array is the column name and the value lists following c
 The column type is mapped to an abstract type, see also [Field Type Mapping](#type-mapping). 
 
 <a name="method-indexes"></a>
-#### `indexes()`
+#### `indexes()` {.method}
 
     /**
      * Returns an array of indexes in a table.
@@ -444,7 +444,7 @@ The column type is mapped to an abstract type, see also [Field Type Mapping](#ty
     public function indexes($table);
 
 <a name="method-createTable"></a>
-#### `create-table()`
+#### `create-table()` {.method}
 
     /**
      * Create a new table on the schema.
@@ -473,7 +473,7 @@ The column type is mapped to an abstract type, see also [Field Type Mapping](#ty
 The column type should be given as an abstract type, see also [Field Type Mapping](#type-mapping). 
 
 <a name="method-drop-table"></a>
-#### `dropTable()`
+#### `dropTable()` {.method}
 
     /**
      * Drop a table from the schema.
@@ -483,7 +483,7 @@ The column type should be given as an abstract type, see also [Field Type Mappin
     public function dropTable($table);
 
 <a name="method-rename-table"></a>
-#### `renameTable()`
+#### `renameTable()` {.method}
 
     /**
      * Rename a table on the schema.
@@ -494,7 +494,7 @@ The column type should be given as an abstract type, see also [Field Type Mappin
     public function renameTable($from, $to);
 
 <a name="method-add-column"></a>
-#### `addColumn()`
+#### `addColumn()` {.method}
 
     /**
      * Add a new column on the table.
@@ -517,7 +517,7 @@ The column type should be given as an abstract type, see also [Field Type Mappin
 The column type should be given as an abstract type, see also [Field Type Mapping](#type-mapping).
 
 <a name="method-drop-column"></a>
-#### `dropColumn()`
+#### `dropColumn()` {.method}
 
     /**
      * Drop a column from the table
@@ -528,7 +528,7 @@ The column type should be given as an abstract type, see also [Field Type Mappin
     public function dropColumn($table, $column);
 
 <a name="method-rename-column"></a>
-#### `renameColumn()`
+#### `renameColumn()` {.method}
 
     /**
      * Rename a column for the table.
@@ -540,7 +540,7 @@ The column type should be given as an abstract type, see also [Field Type Mappin
     public function renameColumn($table, $from, $to);
 
 <a name="method-add-index"></a>
-#### `addIndex()`
+#### `addIndex()` {.method}
 
     /**
      * Create an index on the table.
@@ -557,7 +557,7 @@ The column type should be given as an abstract type, see also [Field Type Mappin
     public function addIndex($table, $name, array $options = []);
 
 <a name="method-drop-index"></a>
-#### `dropIndex()`
+#### `dropIndex()` {.method}
 
     /**
      * Drop a index from the table.
@@ -574,7 +574,7 @@ The column type should be given as an abstract type, see also [Field Type Mappin
     public function dropIndex($table, $name, array $options = []);
 
 <a name="method-zero"></a>
-#### `zero()`
+#### `zero()` {.method}
 
     /**
      * Get a Zero-Value by given column type.
@@ -602,7 +602,7 @@ The column type should be given as an abstract type, see also [Field Type Mappin
 </div>
 
 <a name="method-config"></a>
-#### `config()`
+#### `config()` {.method .first-method}
 
     /**
      * Gets the database configuration.
@@ -614,7 +614,7 @@ The column type should be given as an abstract type, see also [Field Type Mappin
 
 
 <a name="method-connect"></a>
-#### `connect()`
+#### `connect()` {.method}
 
     /**
      * Connects to the database.
@@ -622,7 +622,7 @@ The column type should be given as an abstract type, see also [Field Type Mappin
     public function connect();
 
 <a name="method-errorCode"></a>
-#### `errorCode()`
+#### `errorCode()` {.method}
 
     /**
      * Gets the most recent error code.
@@ -632,7 +632,7 @@ The column type should be given as an abstract type, see also [Field Type Mappin
     public function errorCode();
 
 <a name="method-errorInfo"></a>
-#### `errorInfo()`
+#### `errorInfo()` {.method}
 
     /**
      * Gets the most recent error info.
@@ -642,7 +642,7 @@ The column type should be given as an abstract type, see also [Field Type Mappin
     public function errorInfo();    
     
 <a name="method-disconnect"></a>
-#### `disconnect()`
+#### `disconnect()` {.method}
 
     /**
      * Disconnects from the database.
@@ -650,7 +650,7 @@ The column type should be given as an abstract type, see also [Field Type Mappin
     public function disconnect();
 
 <a name="method-quote"></a>
-#### `quote()`
+#### `quote()` {.method}
 
     /**
      * Quotes a value for use in an SQL statement.
@@ -664,7 +664,7 @@ The column type should be given as an abstract type, see also [Field Type Mappin
     public function quote($value, $type = PDO::PARAM_STR);
 
 <a name="method-quote-name"></a>
-#### `quoteName()`
+#### `quoteName()` {.method}
 
     /**
      * Quotes a single identifier name (e.g. table, column or index name).
@@ -674,7 +674,7 @@ The column type should be given as an abstract type, see also [Field Type Mappin
     public function quoteName($name);
     
 <a name="method-reconnect"></a>
-#### `reconnect()`
+#### `reconnect()` {.method}
 
     /**
      * Reconnect to the database.
@@ -686,7 +686,7 @@ The column type should be given as an abstract type, see also [Field Type Mappin
     public function reconnect();
 
 <a name="method-version"></a>
-#### `version()`
+#### `version()` {.method}
 
     /**
      * Return server version.

@@ -1,12 +1,9 @@
 # Models
 
-_What are they, and how are they used?_
-
 [Since 0.5.0]
 
---  IN ARBEIT!! --
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.6.0 
 
-Planned release: 0.6.0
 
 - [Introduction](#introduction1)
 - [Defining Models](#defining)
@@ -15,7 +12,7 @@ Planned release: 0.6.0
     - [Attributes](#attributes)
     - [Getter and Setter](#getter-and-setter)
     - [Relationships](#relationships)
-    - [Validations](#validations)    
+    - [Validation Rules](#validations)    
     - [Events](#events)    
 - [Retrieving Models](#retrieving)
     - [Retrieving All Models](#all)
@@ -26,6 +23,7 @@ Planned release: 0.6.0
     - [Inserting](#inserting)
     - [Updating](#updating)
     - [Deleting](#deleting)
+- [Miscellanea Functions](#misc)
     
 <a name="introduction"></a>
 ## Introduction
@@ -77,7 +75,7 @@ By default, Pletfix uses the following naming conventions:
 </div>
 
 <a name="store"></a>
-#### Database Store
+#### Database Store {.method .first-method}
 
 By default, all models will use the default database store configured for your application. 
 If you would like to specify a different store for the model, use the `$store` property:
@@ -93,7 +91,7 @@ If you would like to specify a different store for the model, use the `$store` p
     }    
 
 <a name="table"></a>
-#### Database Table
+#### Database Table {.method}
 
 Note that we did not set which table to use for our `Flight` model. 
 By convention, the "snake case", plural name of the class will be used as the table name unless another name is 
@@ -111,7 +109,7 @@ You may specify a custom table by defining a `table` property on your model:
     }
 
 <a name="identity"></a>
-#### Identity Field
+#### Identity Field {.method}
 
 The Model will also assume that each table has a primary key column named `id`. You may define a `$primaryKey` property 
 to override this convention.
@@ -127,7 +125,7 @@ to override this convention.
     }
 
 <a name="timestamps"></a>
-#### Timestamps
+#### Timestamps {.method}
 
 By default, Pletfix expects `created_at` and `updated_at` columns to exist on your tables. If you do not wish to have 
 these columns automatically managed by Pletfix, set the `$timestamps` property on your model to `false`.
@@ -160,7 +158,7 @@ If you need to customize the names of the columns used to store the timestamps, 
     }
 
 <a name="creater-and-updater"></a>
-#### Creater and Updater
+#### Creater and Updater {.method}
 
 If you wish to store the user automatically who created the model and who updated it last, set the `$creatorAndUpdater` 
 property on your model to `true`. By default, this feature is disabled.
@@ -208,7 +206,7 @@ The model automatically supplies all table columns of the tables as attributes, 
 </div>
 
 <a name="casting"></a>
-#### Type Casting
+#### Type Casting {.method .first-method}
 
 To enjoy autocomplete of your IDE (e.g. PhpStorm) or to cast the type of the attribute, set the 
 [PHPDoc's](https://www.phpdoc.org/docs/latest/references/phpdoc/tags/property.html) `@property` for each column:
@@ -250,7 +248,7 @@ The `$casts` property lists the attributes that should be cast to native types. 
 -->
     
 <a name="guarding"></a>
-#### Guarding Attributes
+#### Guarding Attributes {.method}
  
 The `$guarded` property should contain an array of attributes that you do not want to be mass assignable. 
 In the example below, all attributes except for 'id', 'created_by', 'updated_by', 'created_at' and 'updated_at' will 
@@ -268,26 +266,59 @@ be mass assignable via `update()` and `insert()`:
         
       
 <a name="searching"></a>
-#### Searching Attributes
+#### Searching Attributes {.method}
     
-TODO
+The `$searchable` property is a convenient way to search for entries using search terms. For example, an application 
+containing authors and books. For searching a book the user can enter one or more terms using a form like this:
+  
+    <form action="{{ url('books') }}" accept-charset="UTF-8" method="GET">
+        <input name="search" type="text" placeholder="term1 term2 term3 ..."/>
+        <button type="submit">Search</button>
+    </form>
+    
+The relationship for this example is explained in the chapter about [one-to-many-relationship](#one-to-many).
+
+It is to be searched for both the title and the author's name, so the `$searchable` property of the `Book` model have 
+to be define like below:
+
+    class Book extends Model
+    {
+        /**
+         * Searchable fields.
+         *
+         * @var array
+         */
+        protected $searchable = [
+            'title',
+            'authors.name',
+        ];      
+    }
+        
+If you have set this property, the controller is able to call the `seach` method that takes the search terms as 
+argument and returns a [`QueryBuilder`](queries) instance:
 
     /**
-     * Searchable fields.
+     * Lists all articles.
      *
-     * @var array
+     * @return Response|string
      */
-    protected $searchable = [
-        'filename',
-        'articles.id',
-        'articles.title',
-        'newsletters.id',
-        'newsletters.subject',
-    ];      
+    public function index()
+    {
+        $builder = new Article::builder();
+
+        $searchTerms = request()->input('search');
+        if (!empty($searchTerms)) {
+            $builder = Article::search($searchTerms);
+        }
+
+        $articles = $builder->paginate(20);
+
+        return view('articles.index', compact('articles'));
+    }
     
     
 <a name="accessors-and-mutators"></a>
-#### Accessors and Mutators
+#### Accessors and Mutators {.method}
 
 The model stores the values of the table columns in the protected `$attributes` property. 
 Accessors and mutators allow you to modifier the attribute values when you retrieve or set them on model instances. 
@@ -336,7 +367,7 @@ instance:
 </div>
 
 <a name="one-to-one"></a>
-#### One To One
+#### One To One {.method .first-method}
 
 A one-to-one relationship is a very basic relation. 
 For example, each user in your application could (but does not have to) define their own avatar. So you need the 
@@ -385,7 +416,7 @@ And your models looks like this:
 TODO: Remove one of the two variants in the example above.    
     
 <a name="one-to-many"></a>
-#### One To Many
+#### One To Many {.method}
 
 This is similar to the one-to-one-relationship. 
 For example, in an application containing authors and books, the models could be declared like this:
@@ -431,10 +462,10 @@ For example, in an application containing authors and books, the models could be
 TODO: Remove one of the two variants in the example above.
 
 <a name="many-to-many"></a>
-#### Many To Many
+#### Many To Many {.method}
 
 In this example, movies can be associated with one or more genres. On the other hand, you can find for a certain genre 
-several films. The relevant association declarations could look like this:
+several movies. The relevant association declarations could look like this:
 
 ![Many-To-Many-Relationship](https://raw.githubusercontent.com/pletfix/docs/master/images/many-to-many.png)
 
@@ -448,7 +479,7 @@ several films. The relevant association declarations could look like this:
         ];
         
         /**
-         * The genres of the film.
+         * The genres of the movie.
          */
         public function genres()
         {
@@ -477,7 +508,7 @@ several films. The relevant association declarations could look like this:
 TODO: Remove one of the two variants in the example above.    
     
 <a name="polymorphic"></a>
-#### Polymorphic Relations
+#### Polymorphic Relations {.method}
 
 Polymorphic relations allow a model to belong to more than one other model on a single association.
 For example, you might have a picture that belongs to either an employee or a product. 
@@ -521,7 +552,9 @@ Next, let's examine the model definitions needed to build this relationship:
     }
 
 <a name="validations"></a>
-### Validations
+### Validation Rules
+
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.6.7
 
     /**
      * Validation rules.
@@ -530,12 +563,40 @@ Next, let's examine the model definitions needed to build this relationship:
      */
     protected static $rules = [
     ];
-
+    
 
 <a name="events"></a>
 ### Events
     
-TODO
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.9.8
+
+Events allow you to hook into the life cycle of your model, e.g. just before saving:  
+
+    class Flight extends Model
+    {
+        /**
+         * Called before a model is saved.
+         */
+        public function onSaving() {
+            // ...
+        });
+    }
+
+Pletfix support the following event handlers:
+ 
+#### Before
+
+- `onSaving`:   Called before a model is saved into the database.
+- `onCreating`: Called before a new model is to be inserted into the database.
+- `onUpdating`: Called before an existing model has been updated into the database.
+- `onDeleting`: Called before a model has been deleted from the database
+
+#### After
+
+- `onSaved`:    Called after a model is saved into the database.
+- `onCreated`:  Called after a new model has been inserted into the database.
+- `onUpdated`:  Called after an existing model has been saved into the database.
+- `onDeleted`:  Called after a model has been deleted from the database.
 
 
 <a name="retrieving"></a>
@@ -583,13 +644,43 @@ See [Query Builder](queries) for more details.
 <a name="eager-loading"></a>
 ### Eager Loading
 
-TODO
- 
-The `with` method returns a [`QueryBuilder`](queries) instance.
- 
-- Difference between Lazy and Eager Loading
+This point is important to understand! To explain, let's take our [book-author example](#one-to-many) once again. 
+For each book you want to list their author. So you might write something like this:  
 
+    $books = Books::all();     
+    foreach($books as $book)
+    {
+        echo $book->author->name;
+    }
+    
+By default the relationship attributes are **"lazy loading"**, meaning they will only load their data when you actually 
+access them. So, if you run the code above, you would be execute the following database queries:
 
+    SELECT * FROM books;
+    SELECT * FROM authors WHERE id = 47;
+    SELECT * FROM authors WHERE id = 98;
+    SELECT * FROM authors WHERE id = 3;
+    ...
+    
+You see, that is not very efficient. If you have 100 books, your database would be running 100 + 1 queries to run 
+this little chunk of code. This is also known as the N + 1 problem.  
+
+In this case it is better to use **"eager loading"** by calling the `with` method. 
+The `with` method takes the relation table as argument and returns a [`QueryBuilder`](queries) instance, so you get 
+all books as below:
+
+    $books = Books::with('authors')->all();    // todo or ->get()? 
+    foreach($books as $book)
+    {
+        echo $book->author->name;
+    }
+ 
+That reduce the operation to just two queries:
+ 
+    SELECT * FROM books;
+    SELECT * FROM authors WHERE id IN (47, 98, 3, ...)
+ 
+ 
 <a name="modification"></a>
 ## Modification Models
 
@@ -657,3 +748,36 @@ you know the primary key of the model, you may delete the model without retrievi
 
     Flight::destroy(1);
     Flight::destroy([1, 2, 3]);
+
+<a name="misc"></a>
+## Miscellanea Functions
+
+<div class="method-list" markdown="1">
+
+[getOriginal](#method-get-original)
+[isDirty](#method-is-dirty)
+
+</div>
+
+<a name="method-listing"></a>
+### Method Listing
+
+<a name="method-get-original"></a>
+#### `getOriginal()` {.method .first-method}
+
+Get the model's original attribute values.
+
+    $flight = Flight::find(1);
+    $flight->name = 'New Flight Name';
+    echo $flight->getOriginal
+
+<a name="method-is-dirty"></a>
+#### `isDirty()`  {.method}
+
+Determine if the model or given attribute(s) have been modified.
+
+    $flight = Flight::find(1);
+    $flight->name = 'New Flight Name';
+    if ($flight->isDirty(['name'])) {
+        echo 'The name was modified.!';
+    }

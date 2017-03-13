@@ -2,4 +2,4 @@
 
 [Since 0.5.0]
 
-Planned release: 0.5.7
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.5.7

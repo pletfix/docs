@@ -27,7 +27,6 @@ _What are we working on?_
 | Database Access Layer | 0.2.0 | Alpha |
 | Query Builder |  0.2.1 | Alpha |
 | Migrator | 0.2.2 | Alpha |
-| Seeder | 0.2.3 | |
 | Collection | 0.2.4 | Alpha |
 | Console (Command line Interface) | 0.3.0 | Alpha | 
 | Plugin Management | 0.4.0 | Alpha |
@@ -45,6 +44,7 @@ _What are we working on?_
 | Mailer | 0.5.7 | |
 | Route Caching | 0.5.7 | |
 | DI Caching | 0.5.8 | |
+| Seeder | 0.5.9 | |
 | Improved QueryBuilder | 0.6.0 | |
 | Model | 0.6.0 | |
 | Old Input | 0.6.1 | |
@@ -54,7 +54,7 @@ _What are we working on?_
 | File Upload | 0.6.5 | |
 | File Download | 0.6.5 | |
 | Ajax Request | 0.6.6 | |
-| FormValidator| 0.6.7 | |
+| Validation| 0.6.7 | |
 | Redirect for HTTP Response | 0.6.8 | |
 | Pagination | 0.6.9 | |
 | Middleware | 0.7.0 | |

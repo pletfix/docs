@@ -4,7 +4,7 @@ _Preserve certain data across subsequent accesses._
 
 [Since 0.5.0]
 
-Planned release: 0.5.2
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.5.2
 
 - [Introduction](#introduction)
     - [Configuration](#configuration)

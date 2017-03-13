@@ -2,9 +2,7 @@
 
 _Handling errors in your application_
 
-[Since 1.0.0]
-
-TODO: Anpassen
+[Since 0.5.0]
 
 - [Introduction](#introduction)
 - [Exception Handler](#handler)

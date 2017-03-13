@@ -48,5 +48,6 @@ If you are interested in contributing a translation this documents, read the REA
 <a name="plugins"></a>
 ### Plugins
 
-TODO  
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> This manual is not finished yet!
 
+TODO

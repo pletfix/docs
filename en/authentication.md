@@ -2,13 +2,12 @@
 
 _Making sure you build secure applications_
 
-[Since 1.0.0]
+[Since 0.5.0]
 
-TODO: Anpassen
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.7.2
 
-Siehe auch:
-
-<https://www.php-einfach.de/experte/php-sicherheit/authentifizierung-und-autorisierung-in-php/>
+See also:
+- <https://www.php-einfach.de/experte/php-sicherheit/authentifizierung-und-autorisierung-in-php/>
 
 ## Login
 

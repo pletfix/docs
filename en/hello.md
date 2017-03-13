@@ -99,10 +99,13 @@ But as soon as more logic is added, it becomes quickly confusing. To prevent thi
     
 ## Create a Table
 
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet!
+
 TODO
 
 ## Add a Model 
     
-Planned release: 0.6.0
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.6.0
+
 TODO    
     

@@ -4,7 +4,7 @@ _Application interaction using SOAP_
 
 [Since 0.5.0]
 
-Planned release: 0.9.1
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.9.1
 
 - [Introduction](#introduction)
 - [SOAP Server](#server)

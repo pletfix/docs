@@ -13,6 +13,8 @@
     // Controllers
     // Services
 
+// Alle Inhaltsverzeichnisse angleichen
+
 // Revision Mark einführen:
 // [Revision 0.6.3]
 
@@ -52,23 +54,23 @@ return [
     ],
     'Database' => [
         'database' => 'Database Access Layer',      // todo Misc und Scheam ausformulieren
-        'models' => 'Models',                       // todo !!
+        'models' => 'Models',                       // todo Validation
         'queries' => 'Query Builder',
-        'pagination' => 'Pagination',               // todo !! // evtl zu Frontend hinzufügen
+        'pagination' => 'Pagination',               // evtl zu Frontend hinzufügen
         'migrations' => 'Migrations',               // todo !!
-        'seeding' => 'Seeding',                     // todo !! // evtl zu migrations packen
+        'seeding' => 'Seeding',                     // evtl zu migrations packen
     ],
     'Security' => [
-        'authentication' => 'Authentication',       // todo !!
-        'oauth2' => 'OAuth2', // Global Token Authentication    // todo !!
-        'middleware' => 'Middleware',               // todo !!
-        'csrf' => 'CSRF Protection',                // todo !!
+        'authentication' => 'Authentication',
+        'oauth2' => 'OAuth2', // Global Token Authentication
+        'middleware' => 'Middleware',
+        'csrf' => 'CSRF Protection',
     ],
     'Command Line Interface' => [                   // evtl alles zusammenfassen und zu Generals packen
         'console' => 'Console', // Commands         // todo !!
         'stdio' => 'Stdio',                         // todo !!
-        'scheduler' => 'Scheduler',                 // todo !!
-        'daemons' => 'Daemons',                     // todo !!
+        'scheduler' => 'Scheduler',
+        'daemons' => 'Daemons',
     ],
     'Plugin Management' => [                        // evtl beides zusammenfassen und zu zu Getting Started packen
         'plugins' => 'Plugin Installation',         // todo !!

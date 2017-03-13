@@ -24,6 +24,7 @@ _An object oriented Query Builder_
 > and therefore this manual based on Aura's original Documentation.
 > It's open-sourced software licensed under the [BSD license](https://github.com/auraphp/Aura.SqlQuery/blob/3.x/LICENSE).
 
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i>
 **Revision notice**
 
 The QueryBuilder will be improved from 0.6.0: 
@@ -243,7 +244,7 @@ find the total number of rows to be paginated over).
 <a name="aggregates"></a>
 ### Aggregate Methods
 
-Planned release: 0.6.0
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.6.0
 
 TODO
 
