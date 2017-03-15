@@ -57,8 +57,7 @@ return [
         'models' => 'Models',                       // todo Validation
         'queries' => 'Query Builder',
         'pagination' => 'Pagination',               // evtl zu Frontend hinzufügen
-        'migrations' => 'Migrations',               // todo !!
-        'seeding' => 'Seeding',                     // evtl zu migrations packen
+        'migrations' => 'Migrations',
     ],
     'Security' => [
         'authentication' => 'Authentication',

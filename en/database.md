@@ -331,9 +331,8 @@ The `schema` function returns an instance of `Schema` that allows you to change 
 
     $schema = database()->schema();
     
-Normally you don't need the schema functions directly. Rather, you should use [migration files](migrations) to define 
-or modify the database schema.
-
+The schema functions are mainly used in [migration files](migrations).
+    
 <a name="type-mapping"></a>
 ### Field Type Mapping
     

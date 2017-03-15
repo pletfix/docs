@@ -69,7 +69,7 @@ The `baseUrl` gets the root URL for the application:
 > - The host is lowercase as per RFC 952/2181.
 > - It will not show the default port 80 for HTTP and port 443 for HTTPS.    
 
-Im Pletfix Application Skeleton wird die Base-URL über ein Meta-Tag bereitgestellt, da Sie auch clientseitig nützlich sein kann: 
+Im [Pletfix Application Skeleton](https://github.com/pletfix/app) wird die Base-URL über ein Meta-Tag bereitgestellt, da Sie auch clientseitig nützlich sein kann: 
   
     <meta name="base-url" content="{{ request()->baseUrl() }}"/>
 

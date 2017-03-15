@@ -20,7 +20,7 @@ You may customize the handler and the error messages as you wish.
 <a name="handler"></a>
 ## Exception Handler
 
-The Pletfix Application Skeleton provides an exception handler that stored in `app/Handler/ExceptionHandler.php`.
+The [Pletfix Application Skeleton](https://github.com/pletfix/app) provides an exception handler that stored in `app/Handler/ExceptionHandler.php`.
 
 If you wish you can define an another exception-handler. For do this open the `config/boot/services.php` file. 
 In this file is the handler bound to the [Dependency Injection Container](di).
