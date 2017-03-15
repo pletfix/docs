@@ -21,7 +21,8 @@
 ## Introduction
 
 Pletfix Cache System is just only an adapter for [Doctrine's Cache Provider](http://doctrine-orm.readthedocs.io/projects/doctrine-orm/en/latest/reference/caching.html), 
-see also [Doctrine Cache on GitHub](https://github.com/doctrine/cache). 
+licensed under [MIT License](https://github.com/doctrine/cache/blob/master/LICENSE). 
+See also [Doctrine Cache on GitHub](https://github.com/doctrine/cache). 
 
 <a name="configuration"></a>
 ### Configuration

@@ -6,7 +6,7 @@
 - [Lifecycle Console Command](#console)
 - [Lifecycle Testing](#testing)
 
-<a name="lifecycle-web"></a>
+<a name="web"></a>
 ## Lifecycle Web Request
 
 ### Entry Point
@@ -102,7 +102,7 @@ The controller, which is called by the HTTP Router, will handle the request and 
         return view('home');
     }
     
-<a name="lifecycle-console"></a>
+<a name="console"></a>
 ## Lifecycle Console Command
 
 ### Executable Script
@@ -202,7 +202,7 @@ The command, which is created by the Command Factory, will handle the request an
         }
     }
         
-<a name="lifecycle-testing"></a>
+<a name="testing"></a>
 ## Lifecycle Testing
 
 ### Executable Script

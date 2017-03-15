@@ -11,12 +11,7 @@ This is the official and community editable documentation for the Pletfix framew
 
 **Licenses**
 
-This documentation is free and open-source software licensed under the [MIT license](http://opensource.org/licenses/MIT).
-
-Sources:
-- A few manuals originally are based on [Laravel](https://github.com/laravel/docs).
-- The Cache is an adapter for [Doctrine's Cache Provider](https://github.com/doctrine/cache) (MIT License, Copyright (c) 2006-2012 Doctrine Project).
-
+Pletfix is free and open-source software licensed under the [MIT license](http://opensource.org/licenses/MIT).
 
 <!--
 This library attempts to comply with [PSR-1][], [PSR-2][], and [PSR-4][]. 

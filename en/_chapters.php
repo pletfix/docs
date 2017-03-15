@@ -4,15 +4,7 @@
  * Table of Contents
  */
 
-// todo:
-// Core Concept => zu Prologue packen oder Getting Started?
-// Unterpunkte:
-    // DI
-    // HTTP Routing
-    // Error Handling
-    // Controllers
-    // Services
-
+// todo
 // Alle Inhaltsverzeichnisse angleichen
 
 // Revision Mark einführen:
@@ -32,6 +24,7 @@ return [
         'cache' => 'Cache',                         // todo Kapitel ändern: "Introduction" ("Configuration", "Creating Cache"), "Available Methods"
         'collections' => 'Collections',             // todo kennzeichnen, welche Funktionen mutable sind
         'configuration' => 'Configuration',
+        'commands' => 'Commands',                   // todo Ausformulieren, Querverweise setzen
         'controllers' => 'Controllers',
         'datetime' => 'DateTime',
         'di' => 'Dependency Injection',
@@ -65,12 +58,6 @@ return [
         'middleware' => 'Middleware',
         'csrf' => 'CSRF Protection',
     ],
-    'Command Line Interface' => [                   // evtl alles zusammenfassen und zu Generals packen
-        'console' => 'Console', // Commands         // todo !!
-        'stdio' => 'Stdio',                         // todo !!
-        'scheduler' => 'Scheduler',
-        'daemons' => 'Daemons',
-    ],
     'Plugin Management' => [                        // evtl beides zusammenfassen und zu zu Getting Started packen
         'plugins' => 'Plugin Installation',         // todo !!
         'packages' => 'Plugin Development',         // todo !! // evtl in Contribution Guide verschieben
@@ -85,6 +72,8 @@ return [
         'rest' => 'REST Service',                   // inkl. Clients, evtl zu "Getting Started" packen
         'soap' => 'SOAP Service',                   // inkl. Clients, evtl zu "Getting Started" packen
         'websocket' => 'WebSockets',                // inkl. Clients, evtl zu "Getting Started" packen
+        'scheduler' => 'Scheduler',
+        'daemons' => 'Daemons',
     ],
 
 ];

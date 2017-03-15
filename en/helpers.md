@@ -17,6 +17,7 @@ Additional helper function are defined in `vendor/pletfix/core/functions/helpers
 
 You are free to use them in your own applications if you find them convenient.
 
+
 <a name="available-methods"></a>
 ## Available Methods
 
@@ -85,10 +86,10 @@ You are free to use them in your own applications if you find them convenient.
 ## Method Listing
 
 <a name="paths"></a>
-### Paths  {.method}
+### Paths
 
 <a name="method-app-path"></a>
-#### `app_path()` {.method}
+#### `app_path()` {.method .first-method}
 
 The `app_path` function returns the fully qualified path to the `app` directory. 
 You may also use the `app_path` function to generate a fully qualified path to a file relative to the application directory:
@@ -170,10 +171,10 @@ You may also use the `vendor_path` function to generate a fully qualified path t
 
 
 <a name="miscellaneous"></a>
-### Miscellaneous {.method}
+### Miscellaneous
 
 <a name="method-abort"></a>
-#### `abort()` {.method}
+#### `abort()` {.method .first-method}
 
 The `abort` function throws a HTTP exception which will be rendered by the exception handler:
 
@@ -352,10 +353,10 @@ The `url` function generates a absolute URL to the given path.
 
     
 <a name="services"></a>
-### Services  {.method}
+### Services
 
 <a name="method-asset-manager"></a>
-#### `asset_manager()` {.method}
+#### `asset_manager()` {.method .first-method}
 
 The `asset_manager` function gets the [AssetManager](assets) instance:
 
