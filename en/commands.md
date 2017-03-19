@@ -1,6 +1,6 @@
 # Commands
 
-_Utility class to interact with user on the command line_
+_Utility class to interact with users on the command line_
 
 [Since 0.5.0]
 
@@ -21,7 +21,7 @@ _Utility class to interact with user on the command line_
 
 Pletfix includes a command line interface. It provides helpful commands for developing.
 
-#### Source Hints for the Stdio Class 
+### Source Hints for the Stdio Class 
 
 `Stdio` is a wrapper for standard input/output streams. The command uses it under the hood for the input and output
 methods to interact with the user. 
@@ -638,8 +638,12 @@ Returns a `Stdio` instance, a Standard Input/Output stream to interact with the 
 
     $stdio = $this->stdio();
     
+`Stdio` provides methods for input and output messages. The basically method for outputting messages is `write`. 
+All other messages that output messages used this function. And the basically input method is `read`, which is used by 
+all functions that get the users input (except: `secret`).     
+    
 You can access the most of the methods of the `Stdio` class directly from the `AbstractCommand` so you normally do not 
-need the roundabout way over stdio(). Exception are the following functions which are not served by the command class: 
+need the roundabout way over `stdio()`. Exception are the following functions which are not served by the command class: 
      
     $stdio->err($text = null);    // Prints text to Standard Error.
     $stdio->getStdin();           // Returns the Standard Input handle.     
@@ -676,6 +680,14 @@ The style constants of `Stdio` class based on the [ANSI/VT100 Terminal Control r
     const STYLE_MAGENTA_BG = 45;
     const STYLE_CYAN_BG    = 46;
     const STYLE_WHITE_BG   = 47;
+
+#### Verbose level.
+
+    const VERBOSITY_QUIET   = 0;
+    const VERBOSITY_NORMAL  = 1;
+    const VERBOSITY_VERBOSE = 2;
+    const VERBOSITY_DEBUG   = 3;
+
 
 See also [PHP's manual](http://php.net/manual/en/features.commandline.io-streams.php).
            

@@ -25,10 +25,10 @@ _Test your code with PHPUnit and Mink_
 <a name="introduction"></a>
 ## Introduction
         
-Pletfix comes with integration for [PHPUnit](https://phpunit.de/) for [Unit Testing](https://en.wikipedia.org/wiki/Unit_testing)
+Pletfix comes with [PHPUnit](https://phpunit.de/) for [Unit Testing](https://en.wikipedia.org/wiki/Unit_testing)
 and [Mink](http://mink.behat.org/) for [Integration Testing](https://en.wikipedia.org/wiki/Integration_testing).
 
-You can open the `phpunit.xml` file to modify the test environment.
+You can open the `phpunit.xml` file (or within plugins `phpunit.xml.dist`) file to modify the test environment.
   
 Please note that the test cases have some conventions:
 
@@ -45,7 +45,11 @@ Just enter `vendor/bin/phpunit` in the terminal to run all tests you have define
 You can enter a class as argument to run only one test case:
 
     vendor/bin/phpunit ExampleTest
-
+    
+To run a test that comes with a plugin (or another third party package), set the path to the plugin as argument:
+    
+    vendor/bin/phpunit ./vendor/pletfix/hello/
+    
 The following code shows how to run tests with the PHPUnit command-line test runner:
 
     HPUnit 5.7.14 by Sebastian Bergmann and contributors.
@@ -64,6 +68,10 @@ For each test run, the PHPUnit command-line tool prints one character to indicat
 - R - The test has been marked as risky.
 - S - The test has been skipped.
 - I - Test is marked as being incomplete or not yet implemented.
+
+>The `--testdox` option prints all possible tests:
+>
+>     vendor/bin/phpunit --testdox
 
 See <https://phpunit.de/manual/current/en/textui.html> for more information.
 

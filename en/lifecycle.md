@@ -49,8 +49,8 @@ loading the rest of the framework.
          * Push the Services into the Dependency Injector.
          */
         call_user_func(function() {
-            require __DIR__ . '/../../../../config/boot/services.php';
             @include __DIR__ . '/../../../../.manifest/plugins/services.php';
+            require __DIR__ . '/../../../../config/boot/services.php';
         });
 
 2. Execute Bootstraps 
@@ -74,8 +74,8 @@ loading the rest of the framework.
          * Register routes.
          */
         call_user_func(function() {
-            require __DIR__ . '/../../../../config/boot/routes.php';
             @include __DIR__ . '/../../../../.manifest/plugins/routes.php';
+            require __DIR__ . '/../../../../config/boot/routes.php';
         });
 
 4. Once the application has been bootstrapped and all service providers have been registered, the HTTP request will be 
@@ -150,8 +150,8 @@ rest of the framework.
          * Push the Services into the Dependency Injector.
          */
         call_user_func(function() {
-            require __DIR__ . '/../../../../config/boot/services.php';
             @include __DIR__ . '/../../../../.manifest/plugins/services.php';
+            require __DIR__ . '/../../../../config/boot/services.php';
         });
 
 2. Execute Bootstraps 
@@ -209,7 +209,8 @@ The command, which is created by the Command Factory, will handle the request an
     
 The executable script to start a Pletfix test is the `vendow/bin/phpunit` file. 
   
-The script is reading `phpunit.xml` and execute a bootstrap to set the testing environment.
+The script reads `phpunit.xml` (or `phpunit.xml.dist`, if the file not exists) and executes a bootstrap to set the 
+testing environment.
     
 ### Bootstrap
     
@@ -244,8 +245,8 @@ It starts in principle just the autoloader:
              * Push the Services into the Dependency Injector.
              */
             call_user_func(function() {
-                require __DIR__ . '/../../../../../config/boot/services.php';
                 @include __DIR__ . '/../../../../../.manifest/plugins/services.php';
+                require __DIR__ . '/../../../../../config/boot/services.php';
             });
     
             /*

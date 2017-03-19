@@ -13,12 +13,10 @@
 return [
 
     'Getting Started' => [
-        'index' => 'Overview',                      // bereits Korrektur gelesen todo: Allgemeine Beschreibung, wie die Anwendung funktioniert, MVC, DI, usw..., alle Third Party auflisten
+        'index' => 'Overview, Licenses',            // bereits Korrektur gelesen
         'installation' => 'Installation',           // bereits Korrektur gelesen
         'upgrade' => 'Upgrade Guide',               // bereits Korrektur gelesen
-        'lifecycle' => 'Lifecycle',                 // bereits Korrektur gelesen todo: Auf Request- und Repsonse-Objekt eingehen
         'hello' => 'Hello World',                   // bereits Korrektur gelesen todo "Create a Table", "Add a Model" beschreiben
-        'testing' => 'Testing',                     // bereits Korrektur gelesen
     ],
     'General' => [ // General Topics
         'cache' => 'Cache',                         // todo Kapitel ändern: "Introduction" ("Configuration", "Creating Cache"), "Available Methods"
@@ -30,6 +28,7 @@ return [
         'di' => 'Dependency Injection',
         'errors' => 'Errors &amp; Exceptions',
         'helpers' => 'Helpers &amp; Services',
+        'plugins' => 'Plugins',
         'requests' => 'HTTP Requests',              // todo "various ways to get the url" in der Einführung
         'responses' => 'HTTP Responses',
         'routing' => 'HTTP Routing',
@@ -37,6 +36,7 @@ return [
         'mailer' => 'Mailer',
         'events' => 'Notification Events',
         'sessions' => 'Sessions',
+        'testing' => 'Testing',                     // bereits Korrektur gelesen
     ],
     'Frontend' => [                                 // evtl "Tables" inkl. pagination hinzufügen
         'views' => 'Views',
@@ -58,15 +58,12 @@ return [
         'middleware' => 'Middleware',
         'csrf' => 'CSRF Protection',
     ],
-    'Plugin Management' => [                        // evtl beides zusammenfassen und zu zu Getting Started packen
-        'plugins' => 'Plugin Installation',         // todo !!
-        'packages' => 'Plugin Development',         // todo !! // evtl in Contribution Guide verschieben
-    ],
     'Appendix' => [
         'releases' => 'Release Notes',              // bereits Korrektur gelesen
         'directories' => 'Directory Structure',
-        'contributions' => 'Contribution Guide',    // bereits Korrektur gelesen // todo Die Philosophie auflisten, Link für Plugin hinterlegen, Link für Git Workflow, Pull Request erwähnen
+        'contributions' => 'Contribution Guide',    // bereits Korrektur gelesen // todo Link für Git Workflow, Pull Request erwähnen
         'git' => 'Git Guide',                       // todo in den Block verschieben
+        'lifecycle' => 'Lifecycle',                 // bereits Korrektur gelesen todo: Auf Request- und Repsonse-Objekt eingehen
         'facades' => 'Facades',
         'scaffolder' => 'Scaffolder',
         'rest' => 'REST Service',                   // inkl. Clients, evtl zu "Getting Started" packen

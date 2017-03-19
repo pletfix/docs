@@ -4,23 +4,53 @@
 
 This is the official and community editable documentation for the Pletfix framework. 
 
+## About Pletfix
+
+Pletfix is a modern framework written in PHP, with proven concepts like 
+[MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern, [Dependency Injection](di) or
+[HTTP Routing](routing) to name just a few. 
+
+The main principle is [KISS principle](https://en.wikipedia.org/wiki/KISS_principle) - Keep it simple, stupid!
+What that means? Read the [Contribution Guide](contributions) to learn more Pletfix philosophy.
+
+### Licenses
+
+Pletfix is free and open-source software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+## Gettting Started
+
+Ok, let's starting...
+
+
+<a href="installation"><h3><i class="fa fa-cloud-download fa-2x" aria-hidden="true"></i> Installation Guide</h3></a>
+
+Follow the installation instructions to download und install a Pletfix application.
+
+
+<a href="upgrade"><h3><i class="fa fa-retweet fa-2x" aria-hidden="true"></i> Upgrade Guide</h3></a>
+
+Read the upgrade instructions to install the current release over your existing Pletfix application.
+
+
+<a href="hello"><h3><i class="fa fa-graduation-cap fa-2x" aria-hidden="true"></i> Tutorial</h3></a>
+
+If you have not already worked with Pletfix, we recommend reading the "Hello World" tutorial.
+
+
+<a href="plugins"><h3><i class="fa fa-plug fa-2x" aria-hidden="true"></i> Plugin Development</h3></a>
+
+Create your own Plugin!
+
+
+
+<!--
 > <i class="fa fa-github fa-2x" aria-hidden="true"></i>
 > Notice the pencil icon at the right side of the screen. 
 > It will direct you to the GitHub online editor of the active page.
 > Feel free to contribute any additions and corrections to the documentation.
-
-**Licenses**
-
-Pletfix is free and open-source software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+-->
 
 <!--
-This library attempts to comply with [PSR-1][], [PSR-2][], and [PSR-4][]. 
-Ifyou notice compliance oversights, please send a patch via pull request.
-
-[PSR-1]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
-[PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
-[PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
-
 Modern Framework
 AJAX / AJAJ, Dependency Injection, SEO, DRY, KISS , MVC, Web 2.0, cool URL – a sophisticated support for all advanced technologies and concepts.
 

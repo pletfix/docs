@@ -139,10 +139,10 @@
          |  |-de.php            Deutsche Überstzung
          |  |-en.php            Englische Überstzung
          |-migrations/          Migration-Dateien
-         |-public               Dateien, die in den Public-Ordner der Anwendung kopiert werden
+         |-public/              Dateien, die in den Public-Ordner der Anwendung kopiert werden
          |-src/                 Autoload-Verzeichnis nach PSR-4-Standard, Namespace \&lt;vendor&gt;\&lt;plugin&gt;
-         |  |-Bootsraps         Plugin-spezifische Bootstrapper
-         |  |-Commands          Konsolenbefehle
+         |  |-Bootstraps/       Plugin-spezifische Bootstrapper
+         |  |-Commands/         Konsolenbefehle
          |-tests/               The tests directory contains your automated tests.
          |-views/               Views (werden beim ersten Zugriff kompiliert und im Cache abgelegt)
          |-.gitignore           Liste der von git ausgeschlossenen Dateien und Ordner

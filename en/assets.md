@@ -1,4 +1,4 @@
-# Asset Management
+# Assets
 
 _Work with images, scripts, CSS files_
 
@@ -37,7 +37,7 @@ You may define your assets in `resources/assets/build.php`. It looks like this:
 
     return [
         'js/app.js' => [
-            vendor_path('npm-asset/jquery/dist/jquery.min.js'),
+            vendor_path('vendor/npm-asset/jquery/dist/jquery.min.js'),
             vendor_path('npm-asset/bootstrap/dist/js/bootstrap.min.js'),
             resource_path('assets/js/base.js'),
         ],
@@ -65,8 +65,8 @@ If you would like to minimize one or more JavaScript files or just combine them 
     ],
 
 The destination file on the left side is relative to the `public` folder and requires `.js` as file extension. 
-The source list on the right side should contain absolute file names of JavaScript and folders. 
-Files in the folders which are not JavaScript will be ignored.
+The source list on the right side should contain JavaScript files or folders, with an absolute path or relative to 
+the [base path](helpers#method-base-path). Files in the folders which are not JavaScript will be ignored.
 
 <a name="stylesheets"></a>
 ### Stylesheets
