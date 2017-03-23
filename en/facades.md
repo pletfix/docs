@@ -27,7 +27,7 @@ Pletfix's facades, and any custom facades you create, will extend the base `Core
 
 If we call as example `Logger::debug('foo')`, the `debug` method of an instance of `Core\Services\Logger` will be called.  
 
-If you look at that `Logger` class in file `library/facades/Logger.php`, you'll see that there is nothing:
+If you look at that `Logger` class in `library/facades/Logger.php`, you'll see that there is nothing:
 
     class Logger extends \Core\Services\Facade
     {
@@ -37,8 +37,10 @@ How is that possible?
 
 Pletfix's facades, and any custom facades you create, will extend the base `Core\Services\Facade` class.
 
-The magic is the `__callStatic()` method using the extended Facade. `__callStatic()` (see [PHP Documentation](http://php.net/manual/en/language.oop5.overloading.php#object.callstatic)) is executed if the called method is not exists.
-In this case the service instance with the same name as the facade is get from the Dependency Injector to call the method:  
+The magic is the `__callStatic()` method using the extended facade. `__callStatic()` 
+(see [PHP Documentation](http://php.net/manual/en/language.oop5.overloading.php#object.callstatic)) is executed if the 
+called method does not exist. In this case the service instance with the same name as the facade is get from the 
+Dependency Injector to call the method:  
 
     namespace Core\Services;
 
@@ -60,12 +62,14 @@ In this case the service instance with the same name as the facade is get from t
 <a name="facades-vs-helper-functions"></a>
 ## Facades vs. Helper Functions
 
-Facades have many benefits. They provide a terse, memorable syntax that allows you to use Pletfix's features without remembering long class names that must be injected or configured manually. 
+Facades have many benefits. They provide a terse, memorable syntax that allows you to use Pletfix's features without 
+remembering long class names that must be injected or configured manually. 
 Furthermore, because of their unique usage of PHP's dynamic methods, they are easy to test.
 
 However, some care must be taken when using facades:
 - The primary danger of facades is class scope creep.
-- The IDE have no information about the available methods unless you copy the php documentation block from the service class to the facade like below:
+- The IDE have no information about the available methods unless you copy the PHP documentation block from the service 
+  class to the facade like below:
 
         /**
          * Logger
@@ -78,7 +82,7 @@ However, some care must be taken when using facades:
          
 - The execution speed gets worse by numerous calls of the magic method `__callStatic()`.
 
-The last point is the reason that the Facade is not Pletfix's prefer kind to access a service.
+The last point is the reason that the facade is not Pletfix's preferred kind to access a service.
 It's better to use "helper" functions.  
 
 For example, this facade call and helper call are equivalent:
@@ -87,7 +91,8 @@ For example, this facade call and helper call are equivalent:
 
     logger()->debug('foo');
 
-There is absolutely no practical difference between facades and helper functions expect the function gets the service from the Dependency Injector directly without any magic:
+There is absolutely no practical difference between facades and helper functions except the function gets the service 
+from the Dependency Injector directly without any magic:
 
     function logger()
     {

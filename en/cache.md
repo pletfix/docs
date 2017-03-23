@@ -3,46 +3,37 @@
 [Since 0.5.0]
 
 - [Introduction](#introduction)
-    - [Configuration](#configuration)
-        - [APC](#configuration-apc)
-        - [Array](#configuration-array) 
-        - [File](#configuration-file) (Default)          
-        - [Memcached](#configuration-memcached)
-        - [Redis](#configuration-redis)
-- [Cache Usage](#usage)
-    - [Create A Cache Instance](#instance)
-    - [Get Items](#get)
-    - [Set Items](#set)
-    - [Checking](#has)
-    - [Delete Items](#delete)
-    - [Clear the Cache](#clear)
+- [Configuration](#configuration)
+- [Create a Cache Instance](#instance)
+- [Available Methods](#available-methods)
 
 <a name="introduction"></a>
 ## Introduction
 
-Pletfix Cache System is just only an adapter for [Doctrine's Cache Provider](http://doctrine-orm.readthedocs.io/projects/doctrine-orm/en/latest/reference/caching.html), 
+Pletfix Cache System is just an adapter for [Doctrine's Cache Provider](http://doctrine-orm.readthedocs.io/projects/doctrine-orm/en/latest/reference/caching.html), 
 licensed under [MIT License](https://github.com/doctrine/cache/blob/master/LICENSE). 
 See also [Doctrine Cache on GitHub](https://github.com/doctrine/cache). 
 
 <a name="configuration"></a>
-### Configuration
+## Configuration
 
-The cache configuration is located at `config/cache.php`. In this file you may specify which cache driver you would like used by default throughout your application. 
-The cache configuration file also contains various other options, which are documented within the file, so make sure to read over these options. 
+The cache configuration is located at `config/cache.php`. In this file you may specify which cache driver you would like 
+to be used by default throughout your application. The cache configuration file also contains various other options, 
+which are documented within the file, so make sure to read over these options. 
 
 Pletfix supports following popular cache driver:
 - [APC](#configuration-apc)
 - [Array](#configuration-array) 
-- [File](#configuration-file) (Default)          
+- [File](#configuration-file)          
 - [Memcached](#configuration-memcached)
 - [Redis](#configuration-redis)
  
-By default, Pletfix is configured to use the `file` cache driver, which stores the serialized, cached objects in the filesystem. 
-For larger applications, it is recommended that you use a more robust driver such as Memcached or Redis. 
+By default, Pletfix is configured to use the `file` cache driver, which stores the serialized, cached objects in the 
+filesystem. For larger applications, it is recommended that you use a more robust driver such as Memcached or Redis. 
 You may even configure multiple cache configurations for the same driver.
 
 <a name="configuration-apc"></a>
-#### APC
+### APC
 
 In order to use the APC cache driver you must have it compiled and enabled in your php.ini. 
 You can read about APC in the [PHP Documentation](http://us2.php.net/apc). 
@@ -51,14 +42,15 @@ It will give you a little background information about what it is and how you ca
 There's nothing to configuration in `config/cache.php`.
 
 <a name="configuration-array"></a>
-#### Array
+### Array
 
-When using the Array Cache Driver, the cache does not persist between requests, but this is useful for testing in a testing environment.
+When using the Array Cache Driver, the cache does not persist between requests, but this is useful for testing in a 
+testing environment.
 
-There's nothing to configuration in `config/cache.php`.
+There's nothing to configurate in `config/cache.php`.
 
 <a name="configuration-file"></a>
-#### File System
+### File System
 
 In the configuration file `config/cache.php` you can define where the cache files will be stored:
 
@@ -68,7 +60,7 @@ In the configuration file `config/cache.php` you can define where the cache file
     ],
         
 <a name="configuration-memcached"></a>
-#### Memcached
+### Memcached
 
 Using the Memcached driver requires the [Memcached PECL package](https://pecl.php.net/package/memcached) to be installed. 
 You may list all of your Memcached servers in the `config/cache.php` configuration file:
@@ -90,9 +82,10 @@ You may also set the `host` option to a UNIX socket path. If you do this, the `p
 See [Memcached](https://memcached.org) for additional information.
 
 <a name="configuration-redis"></a>
-#### Redis
+### Redis
 
-Before using a Redis cache, you will need to either install the `predis/predis` package (~1.0) via Composer or install the PhpRedis PHP extension via PECL.
+Before using a Redis cache, you will need to either install the `predis/predis` package (~1.0) via Composer or install 
+the [PhpRedis PHP extension](https://github.com/phpredis/phpredis) via PECL.
 
 For more information on configuring Redis, consult the [Redis Documentation](https://redis.io/documentation).
 
@@ -103,18 +96,15 @@ For more information on configuring Redis, consult the [Redis Documentation](htt
         'timeout' => 0.0,
     ],
     
-<a name="usage"></a>
-## Cache Usage
-
 <a name="instance"></a>
-### Create A Cache Instance
+## Create a Cache Instance
 
 You may also use the `cache()` function to access the default cache store:
 
     $cache = cache();
     
-You can set the store name if you use an another store as the default. The store name should correspond to one of the 
-stores listed in the `stores` configuration array in your `cache` configuration file:
+You can set the store name if you use another store as the default. The store name should be listed in the `stores` 
+configuration array in your `cache` configuration file:
     
     $cache = cache('my-memcached-store');
     
@@ -128,9 +118,38 @@ Of course you may access various cache stores:
     $value = cache('file')->get('foo');
     cache('redis')->put('bar', $value);
 
+<a name="available-methods"></a>
+## Available Methods
 
-<a name="get"></a>
-### Get Items
+<div class="method-list" markdown="1">
+
+[clear](#method-clear)
+[delete](#method-delete)
+[get](#method-get)
+[has](#method-has)
+[set](#method-set)
+
+</div>
+
+<a name="method-listing"></a>
+### Method Listing
+
+<a name="method-clear"></a>
+#### `clear()` {.method .first-method}
+
+You may clear the entire cache using the `clear` method:
+
+    cache()->clear();
+
+<a name="method-delete"></a>
+#### `delete()` {.method}
+
+You may remove items from the cache using the `delete` method:
+
+    cache()->delete('key');
+
+<a name="method-get"></a>
+#### `get()` {.method}
 
 The `get` method is used to retrieve items from the cache. If the item does not exist in the cache, `null` will be 
 returned. 
@@ -142,26 +161,8 @@ the item doesn't exist:
 
     $value = cache()->get('key', 'default');
 
-<a name="set"></a>
-### Set Items
-
-The `set` method may be used to store an item in the cache: 
-
-    $value = cache()->set('key', 'foo');
-        
-You can set a lifetime in number of minutes if the entry entry should be expire:
-         
-    $value = cache()->set('key', 'foo', 60);
-    
-You can save any type of data whether it be a string, array, object, etc. 
-
-    $value = cache()->set('my_array', [
-        'key1' => 'value1',
-        'key2' => 'value2',
-    ]);
-
-<a name="has"></a>
-### Checking
+<a name="method-has"></a>
+#### `has()` {.method}
 
 The `has` method may be used to determine if an item exists in the cache:
 
@@ -169,16 +170,20 @@ The `has` method may be used to determine if an item exists in the cache:
         //
     }
 
-<a name="delete"></a>
-### Delete Items
+<a name="method-set"></a>
+#### `set()` {.method}
 
-You may remove items from the cache using the `delete` method:
+The `set` method may be used to store an item in the cache: 
 
-    cache()->delete('key');
+    $value = cache()->set('key', 'foo');
+        
+You can set a lifetime in number of minutes if the entry should be expire:
+         
+    $value = cache()->set('key', 'foo', 60);
+    
+You can save any type of data whether it is a string, array, object, etc. 
 
-<a name="clear"></a>
-### Clear the Cache
-
-You may clear the entire cache using the `clear` method:
-
-    cache()->clear();
+    $value = cache()->set('my_array', [
+        'key1' => 'value1',
+        'key2' => 'value2',
+    ]);

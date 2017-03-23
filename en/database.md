@@ -366,7 +366,7 @@ The Table based on [Doctrine's Mapping Matrix](http://docs.doctrine-project.org/
 
 - (#1) Before SQL Server 2008: DATETIME 
 - (#2) Extra: ON UPDATE CURRENT_TIMESTAMP; Default: CURRENT_TIMESTAMP
-- (#3) Before MxSql 5.7.8: TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT 
+- (#3) Before MySql 5.7.8: TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT 
 - (#4) Before PostgreSQL 9.2: TEXT; before PostgreSQL 9.4: JSON 
   
   

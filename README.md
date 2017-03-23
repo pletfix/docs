@@ -2,12 +2,6 @@
 
 This is the official documentation for the Pletfix Framework. It is available online at <http://pletfix.com/docs>.
 
-## Licence
-
-A lot of the markdown files in this package originally based off of [Laravel](https://github.com/laravel/docs).
-
-It is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
-
 ## Contribution Guidelines
 
 Contributing to the documentation is pretty simple. 

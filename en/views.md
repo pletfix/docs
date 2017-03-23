@@ -5,22 +5,16 @@ _Creating output_
 [Since 0.5.0]
 
 - [Introduction](#introduction)
-- [Usage](#usage)
-    - [Creating Views](#blade)
-    - [Rendering Views](#rendering)
-    - [Response's Status and Headers](#response)
-    - [Determining if a View exists](#exists)
+- [Creating Views](#blade)
+- [Rendering Views](#rendering)
 
 <a name="introduction"></a>
 ## Introduction
 
 Views contain the HTML served by your application and separate your business logic from your presentation logic. 
 
-<a name="usage"></a>
-## Usage
-
 <a name="blade"></a>
-### Creating Views
+## Creating Views
 
 Pletfix supported a kind of [Laravel's Blade Engine](https://laravel.com/docs/5.3/blade).
  
@@ -33,9 +27,9 @@ A simple view might look something like this:
     </html>
 
 See Chapter [Blade Templates](blade) for the detailed description of the template syntax.
- 
+
 <a name="rendering"></a>
-### Rendering Views
+## Rendering Views
 
 Suppose a view is stored at `resources/views/greeting.blade.php`, we may return it as raw PHP code like so:
 
@@ -55,7 +49,7 @@ As you can see, the first argument passed to the `view` helper (or `render` func
 The second argument is an array of data that should be made available to the view. 
 In this case, we are passing the `name` variable, which is displayed in the view.
 
-#### Sub-Directories
+### Sub-Directories
 
 Of course, views may also be nested within sub-directories of the `resources/views` directory. 
 "Dot" notation may be used to reference nested views. 

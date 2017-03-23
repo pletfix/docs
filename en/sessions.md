@@ -7,8 +7,8 @@ _Preserve certain data across subsequent accesses._
 <i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.5.2
 
 - [Introduction](#introduction)
-    - [Configuration](#configuration)
-    - [Accessing](#accessing)
+- [Configuration](#configuration)
+- [Accessing the Session](#accessing)
 - [Available Methods](#available-methods)
 
 <a name="introduction"></a>
@@ -17,7 +17,7 @@ _Preserve certain data across subsequent accesses._
 The Session Object is an adapter of the [PHP Session](http://php.net/manual/en/session.examples.basic.php).
 
 <a name="configuration"></a>
-### Configuration
+## Configuration
 
 Pletfix stores the session files in the `storage/sessions` directory by default. 
 To configure the Pletfix Session, you should modify the `session` option in your `config/app.php` configuration file: 
@@ -30,7 +30,7 @@ To configure the Pletfix Session, you should modify the `session` option in your
     
     
 <a name="accessing"></a>
-### Accessing
+## Accessing the Session
 
 You can get an instance of the Session from the Dependency Injector:
 
@@ -64,7 +64,6 @@ The Session object has these methods:
 [set](#method-set)
 
 </div>
-
 
 <a name="method-listing"></a>
 ### Method Listing

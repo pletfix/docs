@@ -16,7 +16,7 @@ _Extending the core_
 <a name="introduction"></a>
 ## Introduction
 
-Postfix offers a powerful plugin system, which allows you to expand your application quickly with other features that 
+Postfix offers a powerful plugin system, which allows you to expand your application quickly by other features that 
 the community has developed. Of course, you can also develop plugins themselves and provide the community.
 
 You will see that this is not very complicated.
@@ -27,13 +27,13 @@ You will see that this is not very complicated.
 <a name="downloading"></a>
 ### Downloading
 
-Like the Pletfix Application, a Pletfix plugin is also a [composer](https://getcomposer.org/) package. So it can be 
+Like the Pletfix Application, a Pletfix plugin is also a [Composer](https://getcomposer.org/) package. So it can be 
 installed the same way. 
 
-As example, let's install the actual useless Pletfix `Hello` plugin as below:
+For example, let's install the actual useless Pletfix `Hello` plugin as below:
     
 1. We have not deployed our `Hello` plugin on [Packagist](https://packagist.org/), the Composers default package archive.
-   Therefore Composer cannon find the plugin if we not say where it is. To do this, add this into your `composer.json`: 
+   Therefore Composer cannot find the plugin if we don't say where it is. To do this, add this into your `composer.json`: 
 
         "repositories": [
             {
@@ -42,8 +42,8 @@ As example, let's install the actual useless Pletfix `Hello` plugin as below:
             }
         ],
 
-> <i class="fa fa-info fa-2x" aria-hidden="true"></i>
-> You can step over this step if you find the plugin on [Pletfix Plugin List](plugin) or on [Packagist](https://packagist.org/).
+   > <i class="fa fa-info fa-2x" aria-hidden="true"></i>
+   > You can step over this point if you find the plugin on [Pletfix Plugin List](../../../plugins) or on [Packagist](https://packagist.org/).
 
 2. Fetch the package by running the following terminal command:
 
@@ -54,12 +54,12 @@ As example, let's install the actual useless Pletfix `Hello` plugin as below:
 
 After downloading, the plugin has to be registered. 
 
-As example, enter this command in your terminal to register our `Hello` plugin:
+For example, enter this command in your terminal to register our `Hello` plugin:
 
     php console plugin pletfix/hello 
  
 > <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
-> The help screen of the `plugin`command lists all enabled packages. 
+> The help screen of the `plugin` command lists all enabled packages. 
 >
 >      php console plugin --help
              
@@ -70,19 +70,19 @@ If you register a plugin, the following things will happen:
 1. **Publish configuration**
 
    If available and if not already done, the configuration file of the plugin will be copied into the `config` directory.
-   As an example, for our `Hello` plugin, the filename would be` hello.php`.
+   For example, for our `Hello` plugin, the filename would be` hello.php`.
    
-   > The configuration file is not updated if it already exists.
+   > The configuration file will be not updated if it already exists.
    
 2. **Publish `public` folder**
 
-    If available, public files of the plugin will be copied into the applicaton's public folder. 
+    If available, public files of the plugin will be copied into the application's public folder. 
 
 3. **Publish assets**
 
-    If available, the asset build file of the plugin will be add to the `.manifest/plugins/assets.php` manifest.
-    After then the `AssetManager` publish the assets of the plugin. 
-    As example, our `Hello` plugin provides a `hello.js` script which will be published to `public/js/hello.js`.
+    If available, the asset build file of the plugin will be added to the `.manifest/plugins/assets.php` manifest.
+    After this the `AssetManager` publishes the assets of the plugin. 
+    For example, our `Hello` plugin provides a `hello.js` script which will be published to `public/js/hello.js`.
 
     You may repeat publishing the assets manually if you enter this command in a terminal:   
     
@@ -90,43 +90,43 @@ If you register a plugin, the following things will happen:
 
 4. **Publish commands**
 
-   If available, the commands embedded in the plugin will be add to the `.manifest/plugins/commands.php` manifest.   
+   If available, the commands embedded in the plugin will be added to the `.manifest/plugins/commands.php` manifest.   
    The command factory reads this manifest if you enter `php console` to list all files.
    
 5. **Publish migration files**
 
-   If available, the migration files embedded in the plugin will be add to the `.manifest/plugins/migrations.php` manifest.   
+   If available, the migration files embedded in the plugin will be added to the `.manifest/plugins/migrations.php` manifest.   
    This manifest will be read if you [run the migration](migrations#running).
 
 6. **Publish language files**
 
-    If available, the language files of the plugin will be add to the `.manifest/plugins/lang` manifest.
-    Pletfix load this manifest for translating. 
+    If available, the language files of the plugin will be added to the `.manifest/plugins/lang` manifest.
+    Pletfix loads this manifest for translating. 
 
 7. **Publish views**
 
-    If available, the path of the plugin's views will be add to the `.manifest/plugins/views.php` manifest.
-    Pletfix need this manifest to find the template for rendering.
+    If available, the path of the plugin's views will be added to the `.manifest/plugins/views.php` manifest.
+    Pletfix needs this manifest to find the template for rendering.
 
 8. **Publish routes**
 
-   If available, the embedded route entries will be add to the `.manifest/plugins/routes.php` manifest.   
+   If available, the embedded route entries will be added to the `.manifest/plugins/routes.php` manifest.   
    When the application is started, the [HTTP router](routing) loads this manifest.
    
 9. **Publish services**
 
-   If available, the services, which provided by the plugin, will be add to the `.manifest/plugins/services.php` manifest.   
+   If available, the services, provided by the plugin, will be added to the `.manifest/plugins/services.php` manifest.   
    The [Dependency Injector](di) loads this manifest when the application is started. 
 
 10. **Publish bootstraps**
 
-   If available, the bootstraps, which the plugin includes, will be add to the `.manifest/plugins/bootstrap.php` manifest.   
+   If available, the bootstraps, which the plugin includes, will be added to the `.manifest/plugins/bootstrap.php` manifest.   
    The application loads this manifest when booting, see also [Lifecycle Web Request](lifecycle#web)
    
 11. **Enable Package**
         
    Finally, the plugin will be added to the `.manifest/plugins/packages.php` manifest to mark that the plugin has 
-   been successfully registered.   
+   been registered successfully.   
         
 <a name="updating"></a>        
 ### Updating
@@ -143,14 +143,14 @@ Use the `--remove` option to unregister the plugin. Again the example with our `
 
     php console plugin pletfix/hello --update 
     
-> The plugin remains in the vendor directory. So you can register the plugin at any time again.
+> The plugin package remains in the vendor directory. So you can register the plugin at any time again.
             
             
 <a name="writing"></a>
 ## Writing Plugins
  
 If you want to write your own plugin, follow the instructions on <https://github.com/pletfix/hello> to create a
-workbench with a fresh plugin skeleton. After then you are ready to add services, assets, commands or what ever you like.  
+workbench with a fresh plugin skeleton. After this you are ready to add services, assets, commands or what ever you like.  
 
 <div class="method-list" markdown="1">
 
@@ -222,7 +222,7 @@ The class implements a `boot` method that is executed while booting.
 <a name="commands"></a>
 ### Commands
 
-You may also add commands to your plugin. The right place for the class files is `crs/Commands`:
+You may also add commands to your plugin. The right place for the class files is `src/Commands`:
 
 <pre class="tree">
 |-workbench/
@@ -233,7 +233,7 @@ You may also add commands to your plugin. The right place for the class files is
                 |-WhateverCommand.php
 </pre>
 
-Read chapter [Commands](commands) to learn how you writing commands.
+Read chapter [Commands](commands) to learn how you write commands.
 
 <a name="configuration"></a>
 ### Configuration
@@ -256,7 +256,7 @@ Read chapter [Configuration](configuration) to learn more about configuration an
 <a name="language-files"></a>
 ### Language Files
 
-If the plugin have to translate anything text, save the language files under the plugins `lang` folder like this:  
+If the plugin have to translate something, save the language files under the plugins `lang` folder like this:  
  
 <pre class="tree">
 |-workbench/
@@ -273,7 +273,7 @@ language file itself does not differ.
 <a name="migrations"></a>
 ### Migrations
 
-Does your plugin needs a own database table? No problem, add a migration file to the plugin under the `migrations` 
+Does your plugin need an own database table? No problem, add a migration file to the plugin under the `migrations` 
 folder.
  
 <pre class="tree">
@@ -284,12 +284,17 @@ folder.
             |-20170204121100_CreateWhatever.php
 </pre>
 
-The structure of the migration file corresponds to the application's [migration file](migrations).    
+The structure of the migration file corresponds to the application's [migration file](migrations). 
+   
+Note, that the migration won't run automatically. You have to execute the `migrate` command after the registration procedure:
+ 
+    php console migrate
+     
 
 <a name="public-folder"></a>
 ### Public Folder
 
-Put all things, that should be publish into the applications `public` folder, into the plugin under the `public` folder.
+Put all things, that finally should be placed in the applications `public` folder, into the `public` folder of your plugin.
  
 <pre class="tree">
 |-vendor/
@@ -304,7 +309,7 @@ Put all things, that should be publish into the applications `public` folder, in
 <a name="routes"></a>
 ### Routes
 
-Add default route entries to the plugin's 'config/routes.php' file.
+Add default route entries to the plugin's `config/routes.php` file.
 
 <pre class="tree">
 |-workbench/
@@ -314,15 +319,15 @@ Add default route entries to the plugin's 'config/routes.php' file.
             |-routes.php
 </pre>
 
-Note, the default routes of the plugin could be overridden by the application's `config/boot/routes.php` file. 
+Note, the default routes of the plugin could be overwritten by the application's `config/boot/routes.php` file. 
 
-Read chapter [HTTP Routing](routing) for more details about routing.
+Read chapter [HTTP Routing](routing) for more details on routing.
 
 <a name="services"></a>
 ### Services
 
-You should the services, which are provide by the plugin, into the [Dependency Injection Container](di). 
-As like the services of the Application, you may register the services in the Plugin's `config/services.php` file.
+You should set the services, which are provided by the plugin, into the [Dependency Injection Container](di). 
+As like the services of the application, you may register the services in the Plugin's `config/services.php` file.
 
 <pre class="tree">
 |-workbench/
@@ -332,7 +337,7 @@ As like the services of the Application, you may register the services in the Pl
             |-services.php
 </pre>
 
-Note, the Dependency Injection entries of the plugin could be overridden by the application's `config/boot/services.php`. 
+Note, the Dependency Injection entries of the plugin could be overwritten by the application's `config/boot/services.php`. 
 
 <a name="views"></a>
 ### Views
@@ -346,7 +351,7 @@ If your plugin needs views, add the templates into the `view` folder under the p
          |-views/
 </pre>
 
-Your embedded view will be overridden, if the view is stored with the same name into the application's `resources/view` 
+Your embedded view will be overwritten, if the view is stored with the same name in the application's `resources/view` 
 folder as below:
 
 <pre class="tree">
@@ -361,9 +366,9 @@ folder as below:
 <a name="deploying"></a>
 ## Deploying Plugins
 
-When you finish your plugin, you can upload it on [Packagist](https://packagist.org/) to sharing with the community.
+When you have finished your plugin, you can upload it on [Packagist](https://packagist.org/) to share with the community.
 
-It is also a good idea to add a entry on the [Pletfix plugin page](../../../plugins).
+It is also a good idea to add an entry on the [Pletfix plugin page](../../../plugins).
 
 > <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
-> Don't forget for [testing](testing) before upload the plugin. 
+> Don't forget to [test](testing) before uploading the plugin. 

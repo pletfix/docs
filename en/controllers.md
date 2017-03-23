@@ -6,7 +6,6 @@ TODO: Anpassen
 
 - [Introduction](#introduction)
 - [Basic Controllers](#basic)
-    - [Routes](#routes)
 - [Resource Controllers](#resource)
 
 <a name="introduction"></a>

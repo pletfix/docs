@@ -31,15 +31,15 @@ You should follow the proven software design paradigm, in particular:
 - [SRP principle](https://en.wikipedia.org/wiki/Single_responsibility_principle) - Single Responsibility Principle
 
 The most important thing for Pletfix is the first point: **Keep it simple**! If you want to implement something, try to 
-find the easiest way possible with as little code as possible. 
+find the most easiest way with as little code as possible. 
 
-> <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
-> Do not construct an erroneous construct with hundreds of objects and files, even if there are only a few classes!
+> <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
+> Do not write an insane construct with hundreds of objects and files, if you can also do it with just a few classes!
 
-Also make sure that the external packets you are using are equally slim. Of course, the packages themselves should not 
+Also make sure that the external packages you are using are slim as well. Of course, the packages themselves should not 
 include tons of other packages.
 
-> <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
+> <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
 > Choose third-party packages carefully so that the KISS principle is not violated!
 
 <a name="coding-style"></a>
@@ -70,8 +70,6 @@ If you want to develop at the Pletfix Core, follow the instructions on <https://
 If you are interested in contributing a translation this documents, read the README of <https://github.com/pletfix/docs>.  
 
 <a name="plugins"></a>
-### Plugins
+### Plugin Example
 
-<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> This manual is not finished yet!
-
-TODO
+Do you have an idea to extend the framework? Then write a plugin. You can download a example from [GitHub](https://github.com/pletfix/hello). 

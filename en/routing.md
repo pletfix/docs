@@ -5,7 +5,7 @@ _Route a URI request to a controller action_
 [Since 0.5.0]
 
 - [Introduction](#introduction)
-- [Creating Routes](#creating)
+- [Defining Routes](#defining)
 	- [Accessing](#accessing)
 	- [Route Handler](#handler)	
 	- [HTTP Method](#http-method)
@@ -28,8 +28,8 @@ All web requests to a Pletfix application will be handled by the HTTP Router.
 The router will dispatch again the request to a function or controller action.
 
 
-<a name="creating"></a>
-## Creating Routes
+<a name="defining"></a>
+## Defining Routes
 
 You can create the routing table in `config/boot/routes.php`. 
 As example, the [Pletfix Application Skeleton](https://github.com/pletfix/app) have two route entries by default:

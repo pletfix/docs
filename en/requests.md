@@ -3,7 +3,7 @@
 [Since 0.5.0]
 
 - [Introduction](#introduction)
-    - [Accessing the HTTP Request](#accessing)
+- [Accessing the HTTP Request](#accessing)
 - [Available Methods](#available-methods)
 
 <a name="introduction"></a>
@@ -12,7 +12,7 @@
 The Request object is the current context for the HTTP Request.
 
 <a name="accessing"></a>
-### Accessing the HTTP Request
+## Accessing the HTTP Request
 
 You can get an instance of the HTTP Request from the Dependency Injector:
 

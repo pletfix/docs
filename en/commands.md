@@ -204,6 +204,7 @@ Additional, the Command class provides a [variety of methods](#available-methods
         }
     }
 
+<a name="exit-code"></a>
 #### Exit Code
 
 The return value of the `handle` method should be the exit code for the command. 
@@ -214,6 +215,7 @@ be `static::EXIT_SUCCESS` (equal 0).
 And if the return value is `false`, the exit code will be converted to `static::EXIT_FAILURE` (equal 1).
   
 
+<a name="help-screen"></a>
 ### Help Screen
 
 It's poosible to extends the default help screen:

@@ -13,64 +13,64 @@
 return [
 
     'Getting Started' => [
-        'index' => 'Overview, Licenses',            // bereits Korrektur gelesen
-        'installation' => 'Installation',           // bereits Korrektur gelesen
-        'upgrade' => 'Upgrade Guide',               // bereits Korrektur gelesen
-        'hello' => 'Hello World',                   // bereits Korrektur gelesen todo "Create a Table", "Add a Model" beschreiben
+        'index' => 'Overview, Licenses',
+        'installation' => 'Installation',
+        'upgrade' => 'Upgrade Guide',
+        'hello' => 'Hello World',                   // todo "Create a Table", "Add a Model" beschreiben
     ],
     'General' => [ // General Topics
         'cache' => 'Cache',                         // todo Kapitel ändern: "Introduction" ("Configuration", "Creating Cache"), "Available Methods"
-        'collections' => 'Collections',             // todo kennzeichnen, welche Funktionen mutable sind
-        'configuration' => 'Configuration',
-        'commands' => 'Commands',                   // todo Ausformulieren, Querverweise setzen
-        'controllers' => 'Controllers',
-        'datetime' => 'DateTime',
-        'di' => 'Dependency Injection',
-        'errors' => 'Errors &amp; Exceptions',
-        'helpers' => 'Helpers &amp; Services',
+        'collections' => 'Collections',             // todo Korrektur lesen, kennzeichnen, welche Funktionen mutable sind
+        'configuration' => 'Configuration',         // todo Korrektur lesen
+        'commands' => 'Commands',                   // todo Korrektur lesen, Ausformulieren, Querverweise setzen
+        'controllers' => 'Controllers',             // todo Korrektur lesen
+        'datetime' => 'DateTime',                   // todo Korrektur lesen
+        'di' => 'Dependency Injection',             // todo Korrektur lesen
+        'errors' => 'Errors &amp; Exceptions',      // todo Korrektur lesen
+        'helpers' => 'Helpers &amp; Services',      // todo Korrektur lesen
         'plugins' => 'Plugins',
-        'requests' => 'HTTP Requests',              // todo "various ways to get the url" in der Einführung
-        'responses' => 'HTTP Responses',
-        'routing' => 'HTTP Routing',
-        'logging' => 'Logging',
-        'mailer' => 'Mailer',
-        'events' => 'Notification Events',
-        'sessions' => 'Sessions',
-        'testing' => 'Testing',                     // bereits Korrektur gelesen
+        'requests' => 'HTTP Requests',              // todo Korrektur lesen, "various ways to get the url" in der Einführung
+        'responses' => 'HTTP Responses',            // todo Korrektur lesen
+        'routing' => 'HTTP Routing',                // todo Korrektur lesen
+        'logging' => 'Logging',                     // todo Korrektur lesen
+        'mailer' => 'Mailer',                       // Not implemented yet!
+        'events' => 'Notification Events',          // Not implemented yet!
+        'sessions' => 'Sessions',                   // todo Korrektur lesen
+        'testing' => 'Testing',
     ],
-    'Frontend' => [                                 // evtl "Tables" inkl. pagination hinzufügen
-        'views' => 'Views',
-        'blade' => 'Blade Templates',
-        'assets' => 'Asset Manager',                // bereits Korrektur gelesen
-        'localization' => 'Localization',
-        'forms' => 'Forms',                         // todo Validation
+    'Frontend' => [
+        'views' => 'Views',                         // todo Korrektur lesen
+        'blade' => 'Blade Templates',               // todo Korrektur lesen
+        'assets' => 'Asset Manager',
+        'localization' => 'Localization',           // todo Korrektur lesen
+        'forms' => 'Forms',                         // todo Korrektur lesen, Validation
     ],
     'Database' => [
-        'database' => 'Database Access Layer',      // todo Misc und Scheam ausformulieren
-        'models' => 'Models',                       // todo Validation
-        'queries' => 'Query Builder',
-        'pagination' => 'Pagination',               // evtl zu Frontend hinzufügen
-        'migrations' => 'Migrations',
+        'database' => 'Database Access Layer',      // todo Korrektur lesen, Misc und Scheam ausformulieren
+        'models' => 'Models',                       // todo Korrektur lesen, Validation
+        'queries' => 'Query Builder',               // todo Korrektur lesen
+        'pagination' => 'Pagination',               // Not implemented yet!, evtl zu Frontend hinzufügen
+        'migrations' => 'Migrations',               // todo Korrektur lesen
     ],
     'Security' => [
-        'authentication' => 'Authentication',
-        'oauth2' => 'OAuth2', // Global Token Authentication
-        'middleware' => 'Middleware',
-        'csrf' => 'CSRF Protection',
+        'authentication' => 'Authentication',       // Not implemented yet!
+        'oauth2' => 'OAuth2',                       // Not implemented yet!, evt. umbenennen in Global Token Authentication
+        'middleware' => 'Middleware',               // Not implemented yet!
+        'csrf' => 'CSRF Protection',                // Not implemented yet!
     ],
     'Appendix' => [
-        'releases' => 'Release Notes',              // bereits Korrektur gelesen
-        'directories' => 'Directory Structure',
-        'contributions' => 'Contribution Guide',    // bereits Korrektur gelesen // todo Link für Git Workflow, Pull Request erwähnen
+        'releases' => 'Release Notes',
+        'directories' => 'Directory Structure',     // todo Übersetzen
+        'contributions' => 'Contribution Guide',    // todo Link für Git Workflow, Pull Request erwähnen
         'git' => 'Git Guide',                       // todo in den Block verschieben
-        'lifecycle' => 'Lifecycle',                 // bereits Korrektur gelesen todo: Auf Request- und Repsonse-Objekt eingehen
+        'lifecycle' => 'Lifecycle',                 // todo Auf Request- und Repsonse-Objekt eingehen
         'facades' => 'Facades',
-        'scaffolder' => 'Scaffolder',
-        'rest' => 'REST Service',                   // inkl. Clients, evtl zu "Getting Started" packen
-        'soap' => 'SOAP Service',                   // inkl. Clients, evtl zu "Getting Started" packen
-        'websocket' => 'WebSockets',                // inkl. Clients, evtl zu "Getting Started" packen
-        'scheduler' => 'Scheduler',
-        'daemons' => 'Daemons',
+        'scaffolder' => 'Scaffolder',               // Not implemented yet!
+        'rest' => 'REST Service',                   // Not implemented yet!, inkl. Clients, evtl zu "Getting Started" packen
+        'soap' => 'SOAP Service',                   // Not implemented yet!, inkl. Clients, evtl zu "Getting Started" packen
+        'websocket' => 'WebSockets',                // Not implemented yet!, inkl. Clients, evtl zu "Getting Started" packen
+        'scheduler' => 'Scheduler',                 // Not implemented yet!
+        'daemons' => 'Daemons',                     // Not implemented yet!
     ],
 
 ];

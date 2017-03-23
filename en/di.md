@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
 - [Registering Services](#registering)
-- [Receiving a Services](#receiving)
+- [Receiving a Service](#receiving)
 
 <a name="introduction"></a>
 ## Introduction

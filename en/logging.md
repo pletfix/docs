@@ -5,8 +5,8 @@ _PSR-3 Logger Interface_
 [Since 0.5.0]
 
 - [Introduction](#introduction)
-    - [Configuration](#configuration)
-- [Logging](#logging)
+- [Configuration](#configuration)
+- [Usage the Logger](#usage)
 
 <a name="introduction"></a>
 ## Introduction
@@ -16,7 +16,7 @@ The Pletfix Logger is a PSR-3 compatible Adapter of the powerful [Monolog Logger
 See also [PSR-3 Specification](http://www.php-fig.org/psr/psr-3). 
  
 <a name="configuration"></a>
-### Configuration
+## Configuration
 
 Pletfix create the log files in the `storage/logs` directory. 
 To configure the Pletfix Logger, you should modify the `log` option in your `config/app.php` configuration file: 
@@ -48,8 +48,8 @@ To configure the Pletfix Logger, you should modify the `log` option in your `con
         'permission' => 0664,
     ],
 
-<a name="logging"></a>
-## Using Logger
+<a name="usage"></a>
+## Usage the Logger
 
 You may write information to the logs using the global helper function `logger()`:
 

@@ -10,16 +10,16 @@ Pletfix is a modern framework written in PHP, with proven concepts like
 [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern, [Dependency Injection](di) or
 [HTTP Routing](routing) to name just a few. 
 
-The main principle is [KISS principle](https://en.wikipedia.org/wiki/KISS_principle) - Keep it simple, stupid!
-What that means? Read the [Contribution Guide](contributions) to learn more Pletfix philosophy.
+The main principle is [KISS](https://en.wikipedia.org/wiki/KISS_principle) - Keep it simple, stupid!
+What does that mean? Read the [Contribution Guide](contributions) to learn more Pletfix philosophy.
 
 ### Licenses
 
-Pletfix is free and open-source software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Pletfix is free and open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
 
 ## Gettting Started
 
-Ok, let's starting...
+Ok, let's start...
 
 
 <a href="installation"><h3><i class="fa fa-cloud-download fa-2x" aria-hidden="true"></i> Installation Guide</h3></a>

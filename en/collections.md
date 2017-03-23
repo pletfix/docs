@@ -3,7 +3,7 @@
 [Since 0.5.0]
 
 - [Introduction](#introduction)
-    - [Creating Collections](#creating)
+- [Creating Collections](#creating)
 - [Available Methods](#available-methods)
 
 > The Pletfix Collections based on [Laravel's Framework 5.3](https://github.com/illuminate/support/blob/5.3/Collection.php)
@@ -18,7 +18,7 @@
 The `Core\Services\Collection` class provides a fluent, convenient wrapper for working with arrays of data.
 
 <a name="creating"></a>
-### Creating Collections
+## Creating Collections
 
 As mentioned above, the `collect` helper returns a new `Core\Services\Collection` instance for the given array. 
 So, creating a collection is as simple as:

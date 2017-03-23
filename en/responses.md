@@ -5,7 +5,7 @@ _Response to be returned_
 [Since 0.5.0]
 
 - [Introduction](#introduction)
-    - [Creating HTTP Responses](#creating)
+- [Creating HTTP Responses](#creating)
 - [Available Methods](#available-methods)
 
 > The Pletfix HTTP Response class based on [Flight, an extensible micro-framework](https://github.com/mikecao/flight/blob/master/flight/net/Response.php).
@@ -17,7 +17,7 @@ _Response to be returned_
 The Response class represents an HTTP response. The object contains the response headers, HTTP status code, and response body.
 
 <a name="creating"></a>
-### Creating HTTP Responses
+## Creating HTTP Responses
 
 All routes and controllers should return a response to be sent back to the user's browser. 
 
