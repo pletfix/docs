@@ -4,53 +4,40 @@ _Working with dates, times and timezones_
 
 [Since 0.5.0]
 
-<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.5.4
-
 - [Introduction](#introduction)
 - [Configuration](#configuration)
     - [Timezone](#timezone)
     - [Locale & Date Format](#locale)
 - [Create a DateTime Instance](#instance)
-    - [Cloning](#cloning)
+    - [Static Functions](#create)
+    - [datetime](#method-datetime)
+    - [copy](#method-copy)
 - [String Formatting](#formatting)
+- [Date Time Parts](#parts)
+    - [Getter](#getter)
+    - [Setter](#setter)
 - [Date Calculation](#calculation)
-    - [Date Time Parts](#parts)
     - [Addition and Subtraction](#add-and-sub)
     - [Differences](#differences)
     - [Start Of and End Of](#start-and-end)
     - [Comparison Methods](#comparison)
 
-<!--
-evtl so aufteielen:
-    use Traits\ComparisonTrait;
-    use Traits\DifferenceTrait;
-    use Traits\FactoryTrait;
-    use Traits\FormattingTrait;
-    use Traits\MagicPropertyTrait;
-    use Traits\ModifierTrait;
-    use Traits\RelativeKeywordTrait;
-    use Traits\TestingAidTrait;
-    use Traits\TimezoneTrait;
--->
-
 <a name="introduction"></a>
 ## Introduction
 
 Pletfix's `DateTime` class extends PHP's [`DateTimeImmutable`](http://php.net/manual/en/class.datetimeimmutable.php) class.
+It is very useful to calculate dates and times.
 
 The implementation was also inspired by CakePHP's [Chronos](https://github.com/cakephp/chronos) as well as by 
 [Carbon](https://github.com/briannesbitt/Carbon/tree/1.22.1/src/Carbon/Lang), licensed under the MIT license (see 
 [here](https://cakephp.org/) and [here](https://github.com/briannesbitt/Carbon/blob/1.22.1/LICENSE)). 
-
 Therefore, this documentation has taken over a few passages from [CakePHP Documentation](https://book.cakephp.org/3.0/en/chronos.html)
 and [Carbon Introduction](http://carbon.nesbot.com/docs/).
-
 The language files based on [moment.php](https://github.com/fightbulc/moment.php/tree/1.26.2/src/Locales) by Tino Ehrich, 
 licensed under the [MIT License](https://github.com/fightbulc/moment.php/tree/1.26.2#license).
 
-The date values are [immutable](<https://en.wikipedia.org/wiki/Immutable_object>), so you don't have to worry about the 
-underlying data being changed by another entity.
-TODO letztes stimmt wahrscheinlch nicht
+Except for the setters the methods are [immutable](<https://en.wikipedia.org/wiki/Immutable_object>), so you don't have 
+to worry about the underlying data being unintentionally changed by another entity.
 
 <a name="configuration"></a>
 ## Configuration
@@ -65,7 +52,7 @@ You may set the default timezone in `config/app.php`:
      */
 	'timezone' => 'UTC' // 'Europe/London',
 	
-#### Switch Timezones
+#### Get and Set the Timezone
 
 Use `setDefaultTimezone` to switch the active timezone at runtime:
 
@@ -80,6 +67,10 @@ The `getDefaultTimezone` and `getTimezone` methods return the default and actual
     $tz = DateTime::getDefaultTimezone();    
     $tz = $dt->getTimezone(); // 'Europe/London'	
 	
+The `getOffset` method returns the timezone offset:
+                       
+    $offset = $dt->getOffset();
+
 #### Supported Timezones
 
 You can use the abbreviations of timezone identifier like 'UTC', or the full name like 'Europe/London'. 
@@ -88,10 +79,10 @@ A completely table of valid timezones is available in the PHP's [List of Support
 
 The supported abbreviations are:
 
-Abbr. | Name | UTC offset
---------------------------------------
-UTC | Coordinated Universal | [UTC±00](https://en.wikipedia.org/wiki/UTC%C2%B100:00)
-CET | Central European Time | UTC+01
+| Abbr. | Name                  | UTC offset|
+|-------|-----------------------|-----------|
+| UTC   | Coordinated Universal | [UTC±00](https://en.wikipedia.org/wiki/UTC%C2%B100:00) |
+| CET   | Central European Time | UTC+01    |
 
 See PHP's [`DateTimeZone`] (http://php.net/manual/en/class.datetimezone.php) class.
 See also [List of time zone abbreviations](https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations) by Wikipedia.
@@ -102,70 +93,52 @@ TODO Liste vervollständigen
 ### Locale & Date Format
 
 Read chapter [Localization](localization#configuration) to learn how to configure the default locale and switch it at 
-runtime. It will be used by the translation service. 
+runtime. It is used to set the locale date and time formats.
 
-The translation files for the `DateTime` class are defined in `resources/lang/<lang>/datetime.php`, where the locale date 
-formats are also defined. Apply the format options from PHP's [`date`](http://php.net/manual/en/function.date.php) function.
+The translation files for the `DateTime` class are defined in `datetime.php` under the `resources/lang` directory. 
+Apply the format options for this files from PHP's [date_create_from_format](http://php.net/manual/en/datetime.createfromformat.php) 
+function.
 
-#### Switch Locale
+#### Set the Locale Date and Time Formats
 
-The `setDefaultLocale` method switches the default local for the `DateTime`class:
+The `setLocale` method switches the locale for the `DateTime`class:
 	
-	DateTime::setDefaultLocale('de');	
+	DateTime::setLocale('de');	
 
-> You can also use the global `locale` method instead, which makes the setting not only for the `DateTime` class, 
-> but also for the `Translater`.	
-
-If you like to set the locale just for a once `DateTime` instance, use the `setLocale` method:
-
-	datetime()->setLocale('de');
+> You can also use the global [`locale` method](localization#runtime) instead, which makes the setting not only for the 
+> `DateTime` class, but also for the `Translater`.	
 
 Of course, there are also the getters:
 	
-    $lang = DateTime::getDefaultLocale();    
-    $lang = $dt->getLocale(); // 'de'	
+    $lang = DateTime::getLocale();    
 	
-#### Supported Languages
-
-The supported locales for the `DateTime` class are:
- 
-	ar Arabic
-	ca Catalan
-	zh Chinese
-	cs Czech
-	da Danish
-	nl Dutch
-	en English
-	fr French
-	de German
-	hu Hungarian
-	in Indonesian
-	it Italian
-	ja Japanese
-	oc Lengadocian
-	pl Polish
-	pt Portuguese
-	ru Russian
-	es Spanish
-	se Swedish
-	uk Ukrainian
-	th Thai
-	tr Turkish
-	vi Vietnamese
-
-The language files based on [moment.php](https://github.com/fightbulc/moment.php/tree/1.26.2/src/Locales) by Tino Ehrich, 
-licensed under the [MIT License](https://github.com/fightbulc/moment.php/tree/1.26.2#license).
-
-The language files based on [Carbon](https://github.com/briannesbitt/Carbon/tree/1.22.1/src/Carbon/Lang) by Brian Nesbitt, 
-licensed under the [MIT License](https://github.com/briannesbitt/Carbon/blob/master/LICENSE).
-
-TODO Liste abgleichen oder entfernen
-
 
 <a name="instance"></a>	
 ## Create a DateTime Instance
 
-You may use the `datetime` method to get the current time:
+<a name="create"></a>	
+### Static Functions
+
+Pletfix's `DateTime` class provide some static member functions to create a new `DataTime` instance:
+
+    use Core\Services\DateTime;
+    
+    DateTime::instance($dateTimeObject);
+	DateTime::createFromParts($parts, $timezone);
+	DateTime::createFromFormat($format, $dateTimeString, $timezone);
+	DateTime::createFromLocaleFormat($format, $dateTimeString, $timezone);
+	DateTime::createFromLocaleDateFormat($format, $datetring, $timezone);
+	DateTime::createFromLocaleTimeFormat($format, $timeString, $timezone);
+	DateTime::createFromTimestamp($timestamp, $timezone);
+	DateTime::createFromTimestampUTC($timestamp, $timezone);
+
+> Of course, you could use these functions directly. Disadvantage is then that you create direct dependencies. 
+> If you do not like this, use the helper function `datetime` (see below), which takes itself the [Dependency Injector](di).
+
+<a name="method-datetime"></a>	
+### `datetime()`
+
+You may use the `datetime` method without arguments to get the current time:
 
 	$now = datetime();
 
@@ -175,7 +148,7 @@ The `datetime` method accept also a date formatted string as argument and option
 
 If you don't set a timezone, the [default setting](#timezone) is taken.  
 
-Supported date and time formats are listed on the PHP's [DateTime documentation](http://php.net/manual/de/datetime.formats.php)	.
+Supported formats for the datetime string are listed on the PHP's [documentation](http://php.net/manual/de/datetime.formats.php).
 For example, you may set `'today'` as date string if you want to set the time to '00:00:00'.
 
 Furthermore, you can define a specified format as third argument: 
@@ -184,7 +157,7 @@ Furthermore, you can define a specified format as third argument:
 
 Apply the formatting options from PHP's [date_create_from_format](http://php.net/manual/en/datetime.createfromformat.php) function. 
 As an additional option, you can set `'locale'`, `'locale.date'` and `'locale.time'` if you like to use the actual 
-locale format. 
+locale format:
 
     $dt = datetime('21.10.2015', null, 'locale.date');
 
@@ -201,19 +174,13 @@ Last but not least, any `DateTimeInterface` object can also used as argument:
 
 	$dt = datetime(Carbon::now());
 	
-> The `datetime` function is just a shortcut to get the `Core\Services\DateTime` instance supported by [Dependency Injector](di): 
->    
->       $dt = DI::getInstance()->get('date-time', [$value, $timezone, $format]);
+<a name="method-copy"></a>
+### `copy()`
 
-<a name="cloning"></a>
-### Cloning
-
-TODO kann weg?
-
-The `cloning`method create a new `DateTime` instance from another:
+The `copy`method create a new `DateTime` instance from another:
 
     $dt = datetime('1970-12-15 00:00:00');
-	$dt2 = $dt->cloning()->addDays(1);
+	$dt2 = $dt->copy()->addDays(1);
 	echo $dt->getDay();  // 15
 	echo $dt2->getDay(); // 16
 	
@@ -227,17 +194,11 @@ The base function for formatting date times is `format`:
 
     echo $dt->format('l jS \\of F Y h:i:s A'); // Thursday 25th of December 1975 02:15:16 PM
 
-Apply the options to build the format string from PHP's [date](http://php.net/manual/en/function.date.php) function. 
-
-TODO: Ist der Link richtig?
+Apply the options to build the format string from PHP's [date_create_from_format](http://php.net/manual/en/datetime.createfromformat.php) function. 
 
 <a name="default-and-local-formats"></a>
 #### Default and Locale Formats
 
-If you do not specify a format string, the [locale format](locale) is used:
-
-    echo $dt->format(); // 25.12.1975 14:15:16
-    
 For convenience, there are a few other format functions that ultimately call the `format` method: 
 
     echo $dt->toDateTimeString();       // 1975-12-25 14:15:16  == format('Y-m-d H:i:s') 
@@ -246,7 +207,7 @@ For convenience, there are a few other format functions that ultimately call the
     echo $dt->toLocaleDateTimeString(); // 25.12.1975 14:15:16  == format(null)
     echo $dt->toLocaleDateString();     // 25.12.1975           == format(t('datetime.date_format'))
     echo $dt->toLocaleTimeString();     // 14:15:16             == format(t('datetime.time_format'))
-    
+ 
 <a name="common-formats"></a>
 #### Common Formats
     
@@ -268,8 +229,8 @@ class.
 <a name="string"></a>	
 #### String Representation
 
-Because the `__toString()` method is defined, the datetime will be print [locale](locale) formatted if you use a
-`DateTime` instance in a string context: 
+Because the `__toString()` method is defined, the datetime will be print locale formatted if you use a `DateTime` 
+instance in a string context: 
 
     echo 'Date/Time:' . $dt; // Date/Time: 25.12.1975 14:15:16
 
@@ -278,34 +239,21 @@ Because the `__toString()` method is defined, the datetime will be print [locale
 
 The `DateTime` object are serialized into ISO-8601 strings:
 
-    $date = new DateTime("2014-10-23 13:50:10", "Europe/Paris");
-    
-    echo json_encode([ 'date' => $date ]);
-    // {"date":"2014-10-23T13:50:10+0200"}
+    $dt = new DateTime('2017-12-24 20:00:00', 'Europe/Paris');
+    echo json_encode([ 'date' => $dt ]); // {"date":"2017-12-24T20:00:10+0200"}
 
-<a name="calculation"></a>	
-## Date Calculation
-	
 <a name="parts"></a>
 ### Date Time Parts	
 
-#### Setter
+<a name="getter"></a>
+### Getter
 
-You may set the parts of the datetime like this:
+Get the unix timestamp like this:
 
-	$halloween = datetime()
-		->setYear(2015)
-		->setMonth(10)
-		->setDay(31)
-		->setHour(20)
-		->setMinute(30)
-		->setSecond(0);
-
-    $hallowen = $dt->setDateTime(2015, 10, 31, 20, 30, 0);
-
-> Note that these methods modifies their own instance. No new instance is created.
-
-#### Getter
+    $unixtimestamp = $dt->getTimestamp();
+    
+> Note that for dates before the unix epoch (1970-01-01 00:00:00 GMT) `getTimestamp()` will return false, wheres 
+> `timestamp()` will return a negative number.    
 
 Getting parts of a date object can be done like below:
 
@@ -338,13 +286,53 @@ In addition, there are a few other features to get special date parts:
     $b   = $dt->isFriday();    // false
     $b   = $dt->isSaturday();  // false 
 		
-		
+<a name="setter"></a>	
+### Setter
+
+You can set the date and time based on a Unix timestamp like this:
+
+    $dt->setTimestamp($unixtimestamp);
+
+You may set the parts of the datetime like this:
+
+	$halloween = datetime()
+		->setYear(2015)
+		->setMonth(10)
+		->setDay(31)
+		->setHour(20)
+		->setMinute(30)
+		->setSecond(0);
+
+    $hallowen = datetime()
+        ->setDate (2015, 10, 31)
+        ->setTime (20, 30, 0);
+
+    $hallowen = datetime()
+        ->setDateTime(2015, 10, 31, 20, 30, 0);
+
+    $hallowen = datetime()->setISODate( 2015, 44, 6); arguments: year, week, day    
+
+See PHP' [setISODate](http://php.net/manual/en/datetime.setisodate.php) to read more about `setISODate` method.
+
+> Note that these methods modifies their own instance. No new instance is created.
+
+
+<a name="calculation"></a>	
+## Date Calculation
+			
 <a name="add-and-sub"></a>		
 ### Addition and Subtraction
 
-You can also modify parts of a date relatively:
+The PHP's `DateTime` class provides the functions `add`, `sub` and `modify` for addition an subtraction dates and times, 
+for example:  
 
-	$future = datetime()->addYear(1);
+    $dt->add(new DateInterval('P10D'));
+    $dt->sub(new DateInterval('P10D'));
+    $dt->modify('+1 day'); 
+    
+See the PHP's [documentation](http://de2.php.net/manual/en/datetime.add.php) to read more details.    
+
+However, it may be easier to use the following extended functions for modify dates and times relatively:
 
 #### Add
 		
@@ -371,7 +359,11 @@ You can also modify parts of a date relatively:
 <a name="differences"></a>
 ### Differences
 
-The methods below calculate the difference between two date times:
+The PHP's base function `diff` returns the difference between two `DateTime` objects represented as a `DateInterval`.
+
+    $interval = $dt1->diff($dt2);
+
+The methods below calculate also the difference between two `DateTime` objects, but returns an integer: 
 
 	$dt1->diffInYears($dt2);
 	$dt1->diffInQuarters($dt2);

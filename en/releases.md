@@ -35,13 +35,13 @@ _What are we working on?_
 | Markdown Parser | 0.4.3 | Alpha |
 | Pletfix Application Skeleton | 0.5.0 | Working |
 | Pletfix Documentation | 0.5.0 | Working |
-| Session Handling | 0.5.1 | |
+| DateTime | 0.5.1 | Working |
 | Translator (l18n) | 0.5.2 | |
+| Session Handling | 0.5.3 | |
 | Cookies | 0.5.3 | |
-| DateTime | 0.5.4 | |
-| Str (Utility class for string operations) | 0.5.5 | | 
-| Pluralizer | 0.5.6 | |
-| Mailer | 0.5.7 | |
+| Str (Utility class for string operations) | 0.5.4 | | 
+| Pluralizer | 0.5.5 | |
+| Mailer | 0.5.6 | |
 | Route Caching | 0.5.7 | |
 | DI Caching | 0.5.8 | |
 | Seeder | 0.5.9 | |

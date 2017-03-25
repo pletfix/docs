@@ -57,6 +57,11 @@ You are free to use them in your own applications if you find them convenient.
 [list_classes](#method-list-classes)
 [remove_folder](#method-remove-folder)
 [url](#method-url)
+<!--
+[format_datetime](#method-format-datetime)
+[format_date](#method-format-date)
+[format_time](#method-format-time)
+-->
 
 </div>
 
@@ -283,6 +288,31 @@ The `env` function gets the value of an environment variable or returns a defaul
 > IMPORTANT:
 > If the config was cached the environment file ".env" is not read. Therefore you should never use this function directly, instead only in the configuration files.
     
+<!--
+
+<a name="method-format-datetime"></a>
+#### `format_datetime()` {.method}
+
+Returns the given datetime formatted by the apps settings.
+
+    echo format_datetime('2017-03-18 15:30:00'); // '18.03.2017 15:30:00'
+    
+<a name="method-format-date"></a>
+#### `format_date()` {.method}
+
+Returns the given date formatted by the apps settings.
+
+    echo format_datetime('2017-03-18 15:30:00'); // '18.03.2017'
+
+
+<a name="method-format-time"></a>
+#### `format_time()` {.method}
+
+Returns the given time formatted by the apps settings.
+
+    echo format_datetime('2017-03-18 15:30:00'); // '15:30'
+
+-->
     
 <a name="method-is-console"></a>
 #### `is_console()` {.method}
@@ -395,10 +425,12 @@ The `database` function retrieves the [Database](database) instance for the give
 <a name="method-datetime"></a>
 #### `datetime()` {.method}
 
-The `datetime` function creates a [DateTime](datetime) instance:
+The `datetime` function creates a advanced [DateTime](datetime) instance:
 
     $now = datetime();
-
+    
+    $christmas = datetime('2017-12-24');
+    
 
 <a name="method-di"></a>
 #### `di()` {.method}
