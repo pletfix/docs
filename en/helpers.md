@@ -52,10 +52,10 @@ You are free to use them in your own applications if you find them convenient.
 [is_console](#method-is-console)
 [is_testing](#method-is-testing)
 [is_win](#method-is-win)
-[lang](#method-lang)
 [list_files](#method-list-files)
 [list_classes](#method-list-classes)
-[remove_folder](#method-remove-folder)
+[remove_dir](#method-remove-dir)
+[t](#method-t)
 [url](#method-url)
 <!--
 [format_datetime](#method-format-datetime)
@@ -342,14 +342,6 @@ The `is_win` function determines if the os is windows:
     $win = is_win();
 
     
-<a name="method-lang"></a>
-#### `lang()` {.method}
-
-The `lang` function translates the given language line using your localization:
-
-    echo lang('validation.required');
-
-    
 <a name="method-list-files"></a>
 #### `list_files()` {.method}
 
@@ -365,15 +357,32 @@ The `list_classes` function reads available PHP classes recursive from given pat
 
     list_classes($result, app_path('Commands'), 'App\Commands');
 
+
+<a name="method-locale"></a>
+#### `locale()` {.method}
+
+The `locale` function gets and sets the current locale:
+
+    locale('fr');
+    $locale = locale();
+        
+        
+<a name="method-remove-dir"></a>
+#### `remove_dir()` {.method}
+
+The `remove_dir` function deletes a folder (or file):
+
+    remove_dir(storage_path('temp'));
+
     
-<a name="method-remove-folder"></a>
-#### `remove_folder()` {.method}
+<a name="method-t"></a>
+#### `t()` {.method}
 
-The `remove_folder` function deletes a folder (or file):
+The `t` function translates the given language line using your localization:
 
-    remove_folder(storage_path('temp'));
-
-    
+    echo t('validation.required');
+        
+        
 <a name="method-url"></a>
 #### `url()` {.method}
 

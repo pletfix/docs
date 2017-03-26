@@ -33,8 +33,6 @@ The implementation was also inspired by CakePHP's [Chronos](https://github.com/c
 [here](https://cakephp.org/) and [here](https://github.com/briannesbitt/Carbon/blob/1.22.1/LICENSE)). 
 Therefore, this documentation has taken over a few passages from [CakePHP Documentation](https://book.cakephp.org/3.0/en/chronos.html)
 and [Carbon Introduction](http://carbon.nesbot.com/docs/).
-The language files based on [moment.php](https://github.com/fightbulc/moment.php/tree/1.26.2/src/Locales) by Tino Ehrich, 
-licensed under the [MIT License](https://github.com/fightbulc/moment.php/tree/1.26.2#license).
 
 Except for the setters the methods are [immutable](<https://en.wikipedia.org/wiki/Immutable_object>), so you don't have 
 to worry about the underlying data being unintentionally changed by another entity.
@@ -73,29 +71,26 @@ The `getOffset` method returns the timezone offset:
 
 #### Supported Timezones
 
-You can use the abbreviations of timezone identifier like 'UTC', or the full name like 'Europe/London'. 
+You can use the official abbreviations of timezone identifier like 'UTC', or the full name like 'Europe/London'. 
 
 A completely table of valid timezones is available in the PHP's [List of Supported Timezones](http://php.net/manual/en/timezones.php).
 
-The supported abbreviations are:
-
-| Abbr. | Name                  | UTC offset|
-|-------|-----------------------|-----------|
-| UTC   | Coordinated Universal | [UTC±00](https://en.wikipedia.org/wiki/UTC%C2%B100:00) |
-| CET   | Central European Time | UTC+01    |
-
-See PHP's [`DateTimeZone`] (http://php.net/manual/en/class.datetimezone.php) class.
 See also [List of time zone abbreviations](https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations) by Wikipedia.
 
-TODO Liste vervollständigen 	
-	
 <a name="locale"></a>
 ### Locale & Date Format
 
 Read chapter [Localization](localization#configuration) to learn how to configure the default locale and switch it at 
 runtime. It is used to set the locale date and time formats.
 
-The translation files for the `DateTime` class are defined in `datetime.php` under the `resources/lang` directory. 
+The translation files for the `DateTime` class are defined in `datetime.php` under the `resources/lang` directory:
+ 
+    return [
+        'datetime' => 'Y-m-d H:i',
+        'date'     => 'Y-m-d',
+        'time'     => 'H:i',
+    ];
+ 
 Apply the format options for this files from PHP's [date_create_from_format](http://php.net/manual/en/datetime.createfromformat.php) 
 function.
 
