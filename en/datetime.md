@@ -7,6 +7,7 @@ _Working with dates, times and timezones_
 - [Introduction](#introduction)
 - [Configuration](#configuration)
     - [Timezone](#timezone)
+    - [First Day of Week](#first-dow)
     - [Locale & Date Format](#locale)
 - [Create a DateTime Instance](#instance)
     - [Static Functions](#create)
@@ -46,7 +47,9 @@ to worry about the underlying data being unintentionally changed by another enti
 You may set the default timezone in `config/app.php`:
 
     /**
+     * ----------------------------------------------------------------
      * Default Timezone
+     * ----------------------------------------------------------------
      */
 	'timezone' => 'UTC' // 'Europe/London',
 	
@@ -77,6 +80,30 @@ A completely table of valid timezones is available in the PHP's [List of Support
 
 See also [List of time zone abbreviations](https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations) by Wikipedia.
 
+<a name="first-dow"></a>
+### First Day of Week
+
+According to international standard ISO 8601, Monday is the first day of the week.
+Yet several countries, including the United States and Canada, consider Sunday as the start of the week.
+
+Like the timezone, you can set the first day of week in `config/app.php`:
+ 
+    /**
+     * ----------------------------------------------------------------
+     * First day of the week.
+     * ----------------------------------------------------------------
+     */
+    'first_dow' => 1, // Monday 
+
+The day of week is an integer between 0 (for Sunday) and 6 (for Saturday).
+
+#### Set the First Day of Week
+
+However, you could determine and redefine the first day of week at runtime:
+	
+	$dow = DateTime::getFirstDayOfWeek();	
+	DateTime::setFirstDayOfWeek('0); // Sunday
+	  
 <a name="locale"></a>
 ### Locale & Date Format
 

@@ -51,6 +51,7 @@ The Session object has these methods:
 <div class="method-list" markdown="1">
 
 [all](#method-all)
+[cancel](#method-cancel)
 [clear](#method-clear)
 [csrf](#method-csrf)
 [delete](#method-delete)
@@ -73,7 +74,17 @@ The Session object has these methods:
 
 The `all` method gets all session items:
 
-    echo session()->all();
+    var_dump(session()->all());
+
+
+<a name="method-cancel"></a>
+#### `cancel()` {.method}
+
+The `cancel` discards the changes made during the current request.
+
+    session()->cancel();
+
+See also [delete](#method-delete).
 
 
 <a name="method-clear"></a>
@@ -81,7 +92,7 @@ The `all` method gets all session items:
 
 The `clear` method removes all items from the session:
 
-    echo session()->clear();
+    session()->clear();
 
 See also [delete](#method-delete).
 
@@ -99,7 +110,7 @@ The `csrf` method gets a [CSRF token value](https://en.wikipedia.org/wiki/Cross-
 
 The `delete` method removes an entry from the session:
 
-    echo session()->delete('key');
+    session()->delete('key');
     
 See also [clear](#method-clear).
     
@@ -111,7 +122,7 @@ Sometimes you may wish to store items in the session only for the next request. 
 Data stored in the session using this method will only be available during the subsequent HTTP request, and then will 
 be deleted:
 
-    echo session()->flash('Operation was successfull!');
+    session()->flash('key', Operation was successfull!');
     
 See also [reflash](#method-reflash).
     
@@ -145,7 +156,7 @@ The `has` method may be used to determine if an item exists in the session:
 
 We can set the session lifetime in minutes using the `lifetime` function. 
 
-    echo session()->lifetime(1440); // one day
+    session()->lifetime(1440); // one day
     
     
 <a name="method-reflash"></a>
@@ -153,9 +164,9 @@ We can set the session lifetime in minutes using the `lifetime` function.
 
 If you need to keep your flash data for an additional request, you may use the `reflash` method:
 
-    echo session()->reflash(); // keeps all flash data
+    session()->reflash(); // keeps all flash data
     
-    echo session()->reflash(['name', 'age', 'gender']);
+    session()->reflash(['name', 'age', 'gender']);
     
 See also [flash](#method-flash).
     
@@ -163,9 +174,9 @@ See also [flash](#method-flash).
 <a name="method-regenerate"></a>
 #### `regenerate()` {.method}	
 
-Any time a user has a change in privilege be sure to regenerate the session ID:
+Any time a user has a change in privilege be sure to regenerate the session id:
 
-    echo session()->regenerate();
+    session()->regenerate();
     
 > The `regenerate()` method also regenerates the CSRF token value.
     
@@ -175,7 +186,7 @@ Any time a user has a change in privilege be sure to regenerate the session ID:
 
 To save the session data and end its use during the current request, call the save() method:
 
-    echo session()->save();
+    session()->save();
     
 > Normally you do not need to call the save() method explicitly because the Session will automatically save the items 
 when PHP is finished executing a script.
@@ -186,6 +197,6 @@ when PHP is finished executing a script.
 
 The `set` method may be used to store an item in the session: 
 
-    echo session()->set();
+    session()->set($key, $value);
         
    
