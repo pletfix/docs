@@ -31,20 +31,17 @@ _What are we working on?_
 | Console (Command line Interface) | 0.3.0 | Alpha | 
 | Plugin Management | 0.4.0 | Alpha |
 | Loading Bower-Packages via Composer | 0.4.1 | Alpha | 
-| Asset Management | 0.4.2 | Alpha |
-| Markdown Parser | 0.4.3 | Alpha |
-| Pletfix Application Skeleton | 0.5.0 | Working |
-| Pletfix Documentation | 0.5.0 | Working |
-| DateTime | 0.5.1 | Working |
-| Translator (l18n) | 0.5.2 | |
-| Session Handling | 0.5.3 | |
+| Markdown Parser | 0.4.2 | Alpha |
+| Asset Management | 0.5.0 | Alpha |
+| DateTime | 0.5.1 | Alpha |
+| Translator (l18n) | 0.5.2 | Alpha |
+| Session Handling | 0.5.3 | Working |
 | Cookies | 0.5.3 | |
 | Str (Utility class for string operations) | 0.5.4 | | 
 | Pluralizer | 0.5.5 | |
 | Mailer | 0.5.6 | |
 | Route Caching | 0.5.7 | |
 | DI Caching | 0.5.8 | |
-| Seeder | 0.5.9 | |
 | Improved QueryBuilder | 0.6.0 | |
 | Model | 0.6.0 | |
 | Old Input | 0.6.1 | |

@@ -49,6 +49,7 @@ You are free to use them in your own applications if you find them convenient.
 [dd](#method-dd)
 [e](#method-e)
 [env](#method-env)
+[generate_token](#method-generate-token)
 [is_console](#method-is-console)
 [is_testing](#method-is-testing)
 [is_win](#method-is-win)
@@ -313,6 +314,14 @@ Returns the given time formatted by the apps settings.
     echo format_datetime('2017-03-18 15:30:00'); // '15:30'
 
 -->
+  
+<a name="method-generate-token"></a>
+#### `generate_token()` {.method}
+
+The `remove_dir` generates cryptographically secure pseudo-random alpha-numeric string.
+
+    $token = generate_token(40);
+            
     
 <a name="method-is-console"></a>
 #### `is_console()` {.method}

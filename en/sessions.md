@@ -1,6 +1,6 @@
 # Sessions
 
-_Preserve certain data across subsequent accesses._
+_A non-blocking session manager._
 
 [Since 0.5.0]
 
@@ -13,22 +13,21 @@ _Preserve certain data across subsequent accesses._
 
 <a name="introduction"></a>
 ## Introduction
+ 
+Postfix provides a simple, non-blocking session manager. Other scripts will not be blocked in execution, even if they 
+share the same session. It is an extension of the [PHP Session](http://php.net/manual/en/session.examples.basic.php). 
 
-The Session Object is an adapter of the [PHP Session](http://php.net/manual/en/session.examples.basic.php).
+See also the interesting blog post [https://ma.ttias.be/php-session-locking-prevent-sessions-blocking-in-requests/](PHP Session Locking) 
+on the topic of ma.ttias.be.
+
 
 <a name="configuration"></a>
 ## Configuration
 
 Pletfix stores the session files in the `storage/sessions` directory by default. 
-To configure the Pletfix Session, you should modify the `session` option in your `config/app.php` configuration file: 
+To configure the Pletfix Session, you should modify the `session` option in your `config/session.php` configuration file. 
 
-    'session' => [
-        'name'     => env('SESSION_NAME', 'pletfix'),
-        'lifetime' => env('SESSION_LIFETIME', '30'),
-        'path'     => storage('sessions'),
-    ],
-    
-    
+
 <a name="accessing"></a>
 ## Accessing the Session
 
@@ -36,12 +35,42 @@ You can get an instance of the Session from the Dependency Injector:
 
     /** @var \Core\Services\Contracts\Session $session */
     $session = DI::getInstance()->get('session');
-    $name = $session->get('name');
-    
-You can also use the global `session()` function to get the Session, it is more comfortable:
-       
-    $name = session()->get('name');
 
+You can also use the global `session()` function to get the Session, it is more comfortable:
+
+    $session = session();
+
+### Read Data
+
+The `get` method reads the data from the session:
+ 
+    session()->get('foo', 'default');
+
+### Write Data
+
+The `set` method writes the data to the session:
+ 
+    session()->set('foo', $foo);
+               
+Write needs an exclusive lock for the session. Therefore, if the session was not started explicitly, the `set` method 
+opens the session first and commits it immediately after writing so that other scripts do not block.
+ 
+To prevent the session from being started and committed for every single write operation, you should start the session 
+explicitly if several values are stored:
+ 
+    session()
+        ->start()
+        ->set('foo', $foo)
+        ->set('bar', $bar)
+        ->commit();
+ 
+However, you can also use a closure that start and commit the session for you:  
+ 
+    session(function(Session $session) use ($foo, $bar) {
+        $session->set('foo', $foo);
+        $session->set('bar', $bar);
+    });
+               
     
 <a name="available-methods"></a>
 ## Available Methods
@@ -50,39 +79,35 @@ The Session object has these methods:
 
 <div class="method-list" markdown="1">
 
-[all](#method-all)
-[cancel](#method-cancel)
+[abort](#method-abort)
 [clear](#method-clear)
+[commit](#method-commit)
 [csrf](#method-csrf)
 [delete](#method-delete)
 [flash](#method-flash)
 [get](#method-get)
+[isStarted](#method-is-started)
 [has](#method-has)
-[lifetime](#method-lifetime)
+[kill](#method-kill)
+[lock](#method-lock)
 [reflash](#method-reflash)
 [regenerate](#method-regenerate)
-[save](#method-save)
 [set](#method-set)
+[start](#method-start)
 
 </div>
 
 <a name="method-listing"></a>
 ### Method Listing
 
-<a name="method-all"></a>
-#### `all()` {.method .first-method}
-
-The `all` method gets all session items:
-
-    var_dump(session()->all());
-
-
-<a name="method-cancel"></a>
-#### `cancel()` {.method}
+<a name="method-abort"></a>
+#### `abort()` {.method}
 
 The `cancel` discards the changes made during the current request.
 
     session()->cancel();
+
+This function calls `session_abort()` internally.
 
 See also [delete](#method-delete).
 
@@ -95,6 +120,16 @@ The `clear` method removes all items from the session:
     session()->clear();
 
 See also [delete](#method-delete).
+
+
+<a name="method-commit"></a>
+#### `commit()` {.method}	
+
+To save the session data and end its use during the current request, call the `commit` method:
+
+    session()->commit();
+    
+> The Session will automatically commit the changes when PHP is finished executing a script.
 
 
 <a name="method-csrf"></a>
@@ -140,7 +175,11 @@ the item doesn't exist:
 
     $value = session()->get('key', 'default');
     
+There is also a shortlier way to get a session value:
     
+     session('key', 'default');
+ 
+ 
 <a name="method-has"></a>
 #### `has()` {.method}	
 
@@ -151,13 +190,34 @@ The `has` method may be used to determine if an item exists in the session:
     }
     
     
-<a name="method-lifetime"></a>
-#### `lifetime()` {.method}	
+<a name="method-is-started"></a>
+#### `isStarted()` {.method}	
 
-We can set the session lifetime in minutes using the `lifetime` function. 
+The `isStarted` method determines if the session is started and therefore writable. 
 
-    session()->lifetime(1440); // one day
+    $isStarted = session()->isStarted(); 
+
+
+<a name="method-kill"></a>
+#### `kill()` {.method}	
+
+The `kill` method removes the session completely (both values as well as session cookie).
     
+    session()->kill(); 
+    
+    
+<a name="method-lock"></a>
+#### `lock()` {.method}	
+
+This method will pass a closure for writing session data. The session is started and committed automatically.
+    
+See also [flash](#method-flash).
+
+    session()->lock(function(Session $session) use ($foo, $bar) {
+        $session->set('foo', $foo);
+        $session->set('bar', $bar);
+    });
+
     
 <a name="method-reflash"></a>
 #### `reflash()` {.method}	
@@ -180,23 +240,20 @@ Any time a user has a change in privilege be sure to regenerate the session id:
     
 > The `regenerate()` method also regenerates the CSRF token value.
     
-    
-<a name="method-save"></a>
-#### `save()` {.method}	
-
-To save the session data and end its use during the current request, call the save() method:
-
-    session()->save();
-    
-> Normally you do not need to call the save() method explicitly because the Session will automatically save the items 
-when PHP is finished executing a script.
-
-    
+        
 <a name="method-set"></a>
 #### `set()` {.method}	
 
 The `set` method may be used to store an item in the session: 
 
     session()->set($key, $value);
+        
+
+<a name="method-start"></a>
+#### `start()` {.method}	
+
+The `set` method starts new or resume existing session: 
+
+    session()->start();
         
    
