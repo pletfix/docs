@@ -1,7 +1,5 @@
 # Sessions
 
-_A non-blocking session manager._
-
 [Since 0.5.0]
 
 <i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.5.3
@@ -14,8 +12,10 @@ _A non-blocking session manager._
 <a name="introduction"></a>
 ## Introduction
  
-Postfix provides a simple, non-blocking session manager. Other scripts will not be blocked in execution, even if they 
-share the same session. It is an extension of the [PHP Session](http://php.net/manual/en/session.examples.basic.php). 
+Pletfix's session is an extension of the [PHP Session](http://php.net/manual/en/session.examples.basic.php). 
+
+Pletfix starts the session automatically and ends it at soon as possible. Other scripts that share the same session 
+are not blocked longer than necessary. 
 
 See also the interesting blog post [https://ma.ttias.be/php-session-locking-prevent-sessions-blocking-in-requests/](PHP Session Locking) 
 on the topic of ma.ttias.be.
@@ -39,6 +39,9 @@ You can get an instance of the Session from the Dependency Injector:
 You can also use the global `session()` function to get the Session, it is more comfortable:
 
     $session = session();
+
+> Note, you can only write data to the cookie-based session as long as nothing has been sent to the browser.
+> This also applies to the first read access, because the response header will be changed then.
 
 ### Read Data
 
