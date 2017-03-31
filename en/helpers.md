@@ -36,6 +36,25 @@ You are free to use them in your own applications if you find them convenient.
 
 </div>
 
+### Strings
+
+<div class="method-list" markdown="1">
+
+[plural](#method-plural)
+[singular](#method-singular)
+[camel_case](#method-camel-case)
+[lower_case](#method-lower-case)
+[pascal_case](#method-pascal-case)
+[random_string](#method-random_string)
+[snake_case](#method-snake-case)
+[title_case](#method-title-case)
+[upper_case](#method-upper-case)
+[limit_string](#method-limit-string)
+[slug](#method-slug)
+[utf8_to_ascii](#method-utf8-to-ascii)
+
+</div>
+
 ### Miscellaneous
 
 <div class="method-list" markdown="1">
@@ -49,7 +68,6 @@ You are free to use them in your own applications if you find them convenient.
 [dd](#method-dd)
 [e](#method-e)
 [env](#method-env)
-[generate_token](#method-generate-token)
 [is_console](#method-is-console)
 [is_testing](#method-is-testing)
 [is_win](#method-is-win)
@@ -73,6 +91,7 @@ You are free to use them in your own applications if you find them convenient.
 [asset_manager](#method-asset-manager)
 [cache](#method-cache)
 [collect](#method-collect)
+[cookie](#method-cookie)
 [database](#method-database)
 [datetime](#method-datetime)
 [di](#method-di)
@@ -174,6 +193,111 @@ You may also use the `vendor_path` function to generate a fully qualified path t
     $path = vendor_path();
 
     $file = vendor_path('npm-asset/jquery/dist/jquery.min.js');
+
+
+<a name="strings"></a>
+### Strings
+
+<a name="method-plural"></a>
+#### `plural` {.method}
+
+Get the plural form of an english word.
+
+    $s = plural('person'); // people
+
+
+<a name="method-singular"></a>
+#### `singular()` {.method}
+
+Get the singular form of an english word.
+
+    $s = singular('children'); // child
+
+
+<a name="method-camel-case"></a>
+#### `camel_case()` {.method}
+
+Converts a word to camel case (camelCase).
+
+This is useful to convert a word into the format for a variable or method name.
+
+    $s = camel_case('Cogito ergo sum'); // cogitoErgoSum
+
+
+<a name="method-lower-case"></a>
+#### `lower_case()` {.method}
+
+Convert the given word to lower case.
+
+    $s = lower_case('Cogito ergo sum'); // cogito ergo sum
+
+
+<a name="method-pascal-case"></a>
+#### `pascal_case()` {.method}
+
+Converts the given word to pascal case, also known as studly caps case (PascalCase).
+
+This is useful to convert a word into the format for a class name.
+
+    $s = pascal_case('Cogito ergo sum'); // CogitoErgoSum
+
+
+<a name="method-random_string"></a>
+#### `random_string()` {.method}
+
+The `random_string` generates cryptographically secure pseudo-random alpha-numeric string.
+
+    $token = random_string(40); // 6L1oKbruRg71YT4bjtsgdndxVQzXn8dUNHIrTQql
+
+
+<a name="method-snake-case"></a>
+#### `snake_case()` {.method}
+
+Convert the given word to snake case (snake_case).
+
+This is useful to converts a word into the format for a table or a global function name.
+
+    $s = snake_case('CogitoErgoSum'); // cogito_ergo_sum
+
+
+<a name="method-title-case"></a>
+#### `title_case()` {.method}
+
+Convert the given word to title case (Title Case).
+
+    $s = title_case('Cogito ergo sum'); // Cogito Ergo Sum
+
+
+<a name="method-upper-case"></a>
+#### `upper_case()` {.method}
+
+Convert the given word to upper case.
+
+    $s = upper_case('Cogito ergo sum'); // COGITO ERGO SUM
+
+
+<a name="method-limit-string"></a>
+#### `limit_string()` {.method}
+
+Limit the number of characters in a string.
+
+    $s = limit_string('If you can dream it, you can do it.', 20); // If you can dream it,...
+
+
+<a name="method-slug"></a>
+#### `slug()` {.method}
+
+Generate a URL friendly "slug" from a given string.
+
+    $s = slug('If you can dream it, you can do it.'); // if-you-can-dream-it-you-can-do-it
+
+
+<a name="method-utf8-to-ascii"></a>
+#### `utf8_to_ascii()` {.method}
+
+Transliterate a UTF-8 value to ASCII.
+
+    $s = utf8_to_ascii('© 2017'); // (c) 2017
 
 
 <a name="miscellaneous"></a>
@@ -315,14 +439,7 @@ Returns the given time formatted by the apps settings.
 
 -->
   
-<a name="method-generate-token"></a>
-#### `generate_token()` {.method}
 
-The `remove_dir` generates cryptographically secure pseudo-random alpha-numeric string.
-
-    $token = generate_token(40);
-            
-    
 <a name="method-is-console"></a>
 #### `is_console()` {.method}
 
@@ -373,6 +490,7 @@ The `list_classes` function reads available PHP classes recursive from given pat
 The `locale` function gets and sets the current locale:
 
     locale('fr');
+    
     $locale = locale();
         
         
@@ -428,6 +546,16 @@ The `cache` function retrieves the [Cache](cache) instance for the given store:
 The `collect` function creates a [Collection](collections) instance:
 
     $collect = collect(['red', 'yellow', 'green']);
+      
+      
+<a name="method-cookie"></a>
+#### `cookie()` {.method}
+
+The `cookie` function creates a [Cookie](cookie) instance:
+
+    cookie()->set('foo', 'bar', 1440);
+    
+    $foo = cookie()->get('foo');
       
 
 <a name="method-database"></a>

@@ -99,7 +99,7 @@ For more information on configuring Redis, consult the [Redis Documentation](htt
 <a name="instance"></a>
 ## Create a Cache Instance
 
-You may also use the `cache()` function to access the default cache store:
+You may use the `cache()` function to access the default cache store:
 
     $cache = cache();
     

@@ -2,7 +2,7 @@
 
 _Working with dates, times and timezones_
 
-[Since 0.5.0]
+[Since 0.5.1]
 
 - [Introduction](#introduction)
 - [Configuration](#configuration)

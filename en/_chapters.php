@@ -21,7 +21,7 @@ return [
     'General' => [ // General Topics
         'cache' => 'Cache',                         // todo Kapitel ändern: "Introduction" ("Configuration", "Creating Cache"), "Available Methods"
         'collections' => 'Collections',             // todo Korrektur lesen, kennzeichnen, welche Funktionen mutable sind
-        'configuration' => 'Configuration',         // todo Korrektur lesen
+        'configuration' => 'Configuration',
         'commands' => 'Commands',                   // todo Korrektur lesen, Ausformulieren, Querverweise setzen
         'controllers' => 'Controllers',             // todo Korrektur lesen
         'datetime' => 'DateTime',                   // todo Korrektur lesen
@@ -44,13 +44,14 @@ return [
         'assets' => 'Asset Manager',
         'localization' => 'Localization',           // todo Korrektur lesen
         'forms' => 'Forms',                         // todo Korrektur lesen, Validation
+        'cookies' => 'Cookies',                     // todo Korrektur lesen evtl nach Request und Response verlegen (s. https://laravel.com/docs/5.4/requests#cookies)
     ],
     'Database' => [
         'database' => 'Database Access Layer',      // todo Korrektur lesen, Misc und Scheam ausformulieren
         'models' => 'Models',                       // todo Korrektur lesen, Validation
         'queries' => 'Query Builder',               // todo Korrektur lesen
         'pagination' => 'Pagination',               // Not implemented yet!, evtl zu Frontend hinzufügen
-        'migrations' => 'Migrations',               // todo Korrektur lesen
+        'migrations' => 'Migrations',
     ],
     'Security' => [
         'authentication' => 'Authentication',       // Not implemented yet!

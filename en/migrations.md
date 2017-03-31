@@ -12,8 +12,8 @@ _List and run migrations_
 <a name="introduction"></a>
 ## Introduction
 
-Migrations are like version control for your database, allowing your team to easily modify and share the application's 
-database schema. 
+Migrations are like a version control for your database, allowing your team to modify and share the application's 
+database schema easily. 
 
 
 <a name="writing"></a>
@@ -21,7 +21,7 @@ database schema.
 
 ### Migration Files
 
-The migration are stored in the `resources/migrations` directory. 
+The migrations are stored in the `resources/migrations` directory. 
 
 The name of the migration file have to contains first a timestamp which is used to determine the order of the 
 migrations and second the name of the migration class. In fact, the expected format is `<timestamp>_<classname>.php`, 
@@ -32,7 +32,7 @@ e.g. `20170118123000_CreateTestTable.php`.
 A migration class contains two methods: `up` and `down`. The `up` method is used to modify the schema or records of the 
 database, while the `down` method should simply reverse the operations performed by the `up` method.
 
-For example, this migration example creates a `books` table:
+E.g., this migration example creates a `books` table:
     
     use Core\Services\Contracts\Database;
     use Core\Services\Contracts\Migration;

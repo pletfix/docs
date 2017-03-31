@@ -9,10 +9,11 @@ _What are we working on?_
 | Feature  | Release | Status |
 |:---------|:-------:|:------:|
 | Composer Package Manager, Autoloading | 0.0.1 | Release Candidate |
-| Global Functions |  0.0.1 | Alpha |
-| Dependency Injection | 0.0.2 | Alpha | 
-| Environment Support | 0.0.2 | Alpha |
-| Configuration | 0.0.2 | Alpha |
+| Loading Bower-Packages via Composer | 0.0.1 | Release Candidate | 
+| Global Functions |  0.0.1 | Release Candidate |
+| Dependency Injection | 0.0.2 | Release Candidate | 
+| Environment Support | 0.0.2 | Release Candidate |
+| Configuration | 0.0.2 | Release Candidate |
 | Testing (PHP Unit, Mink and Travic CI) | 0.0.3 | |
 | HTTP Routing | 0.0.4 | Alpha |
 | Controller | 0.0.4 | Alpha |
@@ -30,15 +31,13 @@ _What are we working on?_
 | Collection | 0.2.4 | Alpha |
 | Console (Command line Interface) | 0.3.0 | Alpha | 
 | Plugin Management | 0.4.0 | Alpha |
-| Loading Bower-Packages via Composer | 0.4.1 | Alpha | 
 | Markdown Parser | 0.4.2 | Alpha |
 | Asset Management | 0.5.0 | Alpha |
 | DateTime | 0.5.1 | Alpha |
 | Translator (l18n) | 0.5.2 | Alpha |
-| Session Handling | 0.5.3 | Working |
-| Cookies | 0.5.3 | |
-| Str (Utility class for string operations) | 0.5.4 | | 
-| Pluralizer | 0.5.5 | |
+| Session Handling | 0.5.3 | Alpha |
+| Cookies | 0.5.4 | Alpha |
+| String Capitalization, Pluralizer | 0.5.5 | Alpha |
 | Mailer | 0.5.6 | |
 | Route Caching | 0.5.7 | |
 | DI Caching | 0.5.8 | |

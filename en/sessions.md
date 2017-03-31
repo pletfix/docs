@@ -1,8 +1,6 @@
 # Sessions
 
-[Since 0.5.0]
-
-<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.5.3
+[Since 0.5.3]
 
 - [Introduction](#introduction)
 - [Configuration](#configuration)
@@ -12,7 +10,7 @@
 <a name="introduction"></a>
 ## Introduction
  
-Pletfix's session is an extension of the [PHP Session](http://php.net/manual/en/session.examples.basic.php). 
+Pletfix's session is an simple adapter for the [PHP Session](http://php.net/manual/en/session.examples.basic.php). 
 
 Pletfix starts the session automatically and ends it at soon as possible. Other scripts that share the same session 
 are not blocked longer than necessary. 
@@ -40,6 +38,7 @@ You can also use the global `session()` function to get the Session, it is more 
 
     $session = session();
 
+> <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
 > Note, you can only write data to the cookie-based session as long as nothing has been sent to the browser.
 > This also applies to the first read access, because the response header will be changed then.
 
