@@ -63,7 +63,7 @@ This routes allows to perform the four basic "CRUD" operations: **create**, **re
 The controller for this routes should extends the `ResourceController` contract which contains a method for each of the 
 available resource operations:
 
-    class ArticleController extends \Core\Services\Contracts\ResourceController
+    class ArticleController extends \Core\Controllers\Contracts\ResourceController
     {
         // ...
     }

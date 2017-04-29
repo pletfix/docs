@@ -1,9 +1,6 @@
 # Models
 
-[Since 0.5.0]
-
-<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.6.0 
-
+[Since 0.6.0]
 
 - [Introduction](#introduction1)
 - [Defining Models](#defining)
@@ -17,19 +14,22 @@
 - [Retrieving Models](#retrieving)
     - [Retrieving All Models](#all)
     - [Retrieving a Single Model](#find)
-    - [Using Query Builder](#queries)
-    - [Eager Loading](#eager-loading)
+    - [Using Query Builder](#builder)
+    - [Eager Loading](#eager)
 - [Modification Models](#modification)
-    - [Inserting](#inserting)
+    - [Creating](#creating)
     - [Updating](#updating)
     - [Deleting](#deleting)
+    - [Replicating](#replicating)
 - [Miscellanea Functions](#misc)
     
 <a name="introduction"></a>
 ## Introduction
 
-Pletfix provides a simple ActiveRecord implementation for working with your database. 
-It is inspirated by [Ruby On Rails](http://guides.rubyonrails.org/active_record_basics.html).
+Pletfix provides a simple but powerful ActiveRecord implementation for working with your database. 
+
+It is inspirated by [CakePHP's ORM](https://github.com/cakephp/orm/blob/3.2/Table.php) ([MIT License](https://cakephp.org/)),
+and by Laravel's Active Record called [Eloquent](https://github.com/illuminate/database/blob/5.3/Eloquent/Model.php) ([MIT License](https://github.com/laravel/laravel/tree/5.3)).
 
 Each database table has a corresponding "Model" which is used to interact with that table. Models allow you to query 
 for data in your tables, as well as insert new records into the table.
@@ -39,7 +39,7 @@ Before getting started, be sure to [configure a database connection](database#co
 <a name="defining"></a>
 ## Defining Models
 
-A Pletfix model extends the `Core\Services\Contracts\Model` contract and is stored in the `app/Models` directory.
+A Pletfix model extends the `Core\Models\Contracts\Model` contract and is stored in the `app/Models` directory.
 Here is an minimal example of what such a model class might look like:
 
     class Flight extends Model
@@ -59,7 +59,7 @@ By default, Pletfix uses the following naming conventions:
 - Primary keys:    By default, the model will use an integer column named `id` as the table's primary key. 
 - Table Column:    Underscores separating words (snake_case, e.g. `created_at`).
 - Model Attribute: Like the bounded table column (snake_case, e.g. `created_at`).
-- N:M Relationship Table: Singular with an underscore separated table names, alphabetical ordered (e.g. `role_user`)
+- N:M Join Table:  Singular with an underscore separated table names, alphabetical ordered (e.g. `role_user`)
 
 <a name="general-settings"></a>
 ### General Settings
@@ -70,7 +70,7 @@ By default, Pletfix uses the following naming conventions:
 [Database Table](#table)
 [Identity Field](#identity)
 [Timestamps](#timestamps)
-[Create and Updater](#creater-and-updater)
+[Creater and Updater](#creater-and-updater)
 
 </div>
 
@@ -83,7 +83,7 @@ If you would like to specify a different store for the model, use the `$store` p
     class Flight extends Model
     {
         /**
-         * The database store name for the model.
+         * The name of the database store.
          *
          * @var string
          */
@@ -111,8 +111,8 @@ You may specify a custom table by defining a `table` property on your model:
 <a name="identity"></a>
 #### Identity Field {.method}
 
-The Model will also assume that each table has a primary key column named `id`. You may define a `$primaryKey` property 
-to override this convention.
+The Model will also assume that each table has a primary key column named `id`. You may define a `$key` property to
+override this convention.
 
     class Flight extends Model
     {
@@ -121,7 +121,7 @@ to override this convention.
          *
          * @var string
          */
-        protected $primaryKey = 'id';
+        protected $key = 'id';
     }
 
 <a name="timestamps"></a>
@@ -190,7 +190,6 @@ If you need to customize the names of the columns used to store the user, you ma
         const UPDATED_BY = 'updated_by';
     }
 
-
 <a name="attributes"></a>
 ### Attributes
 
@@ -221,7 +220,7 @@ To enjoy autocomplete of your IDE (e.g. PhpStorm) or to cast the type of the att
         
 The attributes types will be cast if you define it as above. The supported types are: 
 
-`'int'`, `'float'`, `'string'`, `'boolean'`, `'object'`, `'array'`, `'collection'`, `'datetime'` and `'timestamp'`.
+`'integer'`, `'float'`, `'string'`, `'boolean'`, `'object'`, `'array'`, `'collection'`, `'datetime'` and `'timestamp'`.
 
 If you omit it, the attributes are treated as string.
        
@@ -263,8 +262,7 @@ be mass assignable via `update()` and `insert()`:
          */
         protected $guarded = ['id', 'created_by', 'updated_by', 'created_at', 'updated_at'];
     }
-        
-      
+
 <a name="searching"></a>
 #### Searching Attributes {.method}
     
@@ -277,7 +275,6 @@ containing authors and books. For searching a book the user can enter one or mor
     </form>
     
 The relationship for this example is explained in the chapter about [one-to-many-relationship](#one-to-many).
-
 It is to be searched for both the title and the author's name, so the `$searchable` property of the `Book` model have 
 to be define like below:
 
@@ -294,8 +291,8 @@ to be define like below:
         ];      
     }
         
-If you have set this property, the controller is able to call the `seach` method that takes the search terms as 
-argument and returns a [`QueryBuilder`](queries) instance:
+If you have set this property, the controller is able to call the `search` method that takes the search terms as 
+argument and returns a [`QueryBuilder`](builder) instance:
 
     /**
      * Lists all articles.
@@ -315,15 +312,14 @@ argument and returns a [`QueryBuilder`](queries) instance:
 
         return view('articles.index', compact('articles'));
     }
-    
-    
+
 <a name="accessors-and-mutators"></a>
 #### Accessors and Mutators {.method}
 
 The model stores the values of the table columns in the protected `$attributes` property. 
 Accessors and mutators allow you to modifier the attribute values when you retrieve or set them on model instances. 
 
-To define an accessor, create a `getFooAttribute` method on your model where `Foo` is the "studly" cased name of the 
+To define an accessor, create a `getFooAttribute` method on your model where `Foo` is the pascal-cased name of the 
 column you wish to access. In the same way to define a mutator, create a `setFooAttribute` method:
 
     /**
@@ -353,7 +349,6 @@ instance:
     $user->first_name = 'Sally';
     echo $user->first_name;
 
-      
 <a name="relationships"></a>
 ### Relationships
 
@@ -369,9 +364,8 @@ instance:
 <a name="one-to-one"></a>
 #### One To One {.method .first-method}
 
-A one-to-one relationship is a very basic relation. 
-For example, each user in your application could (but does not have to) define their own avatar. So you need the 
-following tables:    
+A one-to-one relationship is a very basic relation. For example, each user in your application could (but does not 
+have to) define their own avatar. So you need the following tables:    
 
 ![One-To-One-Relationship](https://raw.githubusercontent.com/pletfix/docs/master/images/one-to-one.png)
 
@@ -379,13 +373,6 @@ And your models looks like this:
 
     class User extends Model
     {
-        /**
-         * Define one-to-one relationships.
-         */
-        protected $hasOne = [
-            App\Model\Avartar::class
-        ];
-        
         /**
          * Get the avatar associated with the user.
          */
@@ -398,13 +385,6 @@ And your models looks like this:
     class Avartar extends Model
     {
         /**
-         * Define inverse one-to-one or inverse one-to-many relationships.
-         */
-        protected $belongsTo = [
-            App\Model\User::class
-        ];
-
-        /**
          * Get the user that owns the avartar.
          */
         public function user()
@@ -413,25 +393,16 @@ And your models looks like this:
         }
     }
     
-TODO: Remove one of the two variants in the example above.    
-    
 <a name="one-to-many"></a>
 #### One To Many {.method}
 
-This is similar to the one-to-one-relationship. 
-For example, in an application containing authors and books, the models could be declared like this:
+This is similar to the one-to-one-relationship. For example, in an application containing authors and books, the models 
+could be declared like this:
 
 ![One-To-Many-Relationship](https://raw.githubusercontent.com/pletfix/docs/master/images/one-to-many.png)
 
     class Author extends Model
     {
-        /**
-         * Define one-to-many relationships.
-         */
-        protected $hasMany = [
-            App\Model\Book::class
-        ];
-        
         /**
          * Get the author's books.
          */
@@ -444,13 +415,6 @@ For example, in an application containing authors and books, the models could be
     class Book extends Model
     {
         /**
-         * Define inverse one-to-one or inverse one-to-many relationships.
-         */
-        protected $belongsTo = [
-            App\Model\Author::class
-        ];
-        
-        /**
          * Get the author of the book.
          */
         public function author()
@@ -458,8 +422,6 @@ For example, in an application containing authors and books, the models could be
             return $this->belongsTo(App\Model\Author::class);
         }
     }
-
-TODO: Remove one of the two variants in the example above.
 
 <a name="many-to-many"></a>
 #### Many To Many {.method}
@@ -472,13 +434,6 @@ several movies. The relevant association declarations could look like this:
     class Movie extends Model
     {
         /**
-         * Define many-to-many relationships.
-         */
-        protected $belongsToMany = [
-            App\Model\Genre::class
-        ];
-        
-        /**
          * The genres of the movie.
          */
         public function genres()
@@ -490,13 +445,6 @@ several movies. The relevant association declarations could look like this:
     class Genre extends Model
     {
         /**
-         * Define many-to-many relationships.
-         */
-        protected $belongsToMany = [
-            App\Model\Movie::class
-        ];
-        
-        /**
          * The movies that belong to the genre.
          */
         public function movies()
@@ -505,14 +453,12 @@ several movies. The relevant association declarations could look like this:
         }
     }
     
-TODO: Remove one of the two variants in the example above.    
-    
 <a name="polymorphic"></a>
 #### Polymorphic Relations {.method}
 
-Polymorphic relations allow a model to belong to more than one other model on a single association.
-For example, you might have a picture that belongs to either an employee or a product. 
-First, let's examine the table structure required to build this relationship:
+Polymorphic relations allow a model to belong to more than one other model on a single association. For example, you 
+might have a picture that belongs to either an employee or a product. First, let's examine the table structure required 
+to build this relationship:
 
 ![Polymorphic-Relations](https://raw.githubusercontent.com/pletfix/docs/master/images/polymorphic.png)
 
@@ -598,17 +544,9 @@ Pletfix support the following event handlers:
 - `onUpdated`:  Called after an existing model has been saved into the database.
 - `onDeleted`:  Called after a model has been deleted from the database.
 
-
 <a name="retrieving"></a>
 ## Retrieving Models
 
-<a name="all"></a>
-### Retrieving All Models
-
-The `all` method will return a [`Collection`](collections) with all of the results in the model's table:
-
-    $flights = Flight::all();
-    
 <a name="find"></a>
 ### Retrieving a Single Model
 
@@ -617,39 +555,51 @@ if the model does not exist:
 
     $flight = Flight::find(4711);
 
-You may also call the `find` method with an array of primary keys, which will return a [`Collection`](collections) of 
-the matching records:
+Sometimes it does not matter which entry you get, e.g. for test purposes. In this cas you may use the `first` method:
 
-    $flights = Flight::find([1, 2, 3]);
+    $flights = Flight::first();
 
-<a name="queries"></a>
+<a name="all"></a>
+### Retrieving All Models
+
+The `all` method will return a [`Collection`](collections) with all of the results in the model's table:
+
+    $flights = Flight::all();
+    
+If you have to handle big data, you may receive the entities with the `cursor`method. With the cursor you could iterate 
+the entities (via foreach) without fetch all the data at one time:
+
+    foreach (Flight->cursor() as $flight) {
+        // ...
+    };
+
+<a name="builder"></a>
 ### Using Query Builder
 
-Since each `Model` serves as a [query builder](queries), you may add constraints to queries, and then use the `all`, 
-`cursor`, `first` or `get` method to retrieve the results:
+Since each `Model` serves as a [query builder](builder), you may add clauses to a query, and then use the `find`, 
+`all`, `cursor` or `first` method to retrieve the results:
 
     $flights = Flight::where('active', 1)
        ->orderBy('name', 'desc')
        ->take(10)
        ->all();
 
-You may also use the `count`, `sum`, `max`, and other [aggregate methods](queries#aggregates) provided by the 
+You may also use the `count`, `sum`, `max`, and other [aggregate methods](builder#aggregates) provided by the 
 query builder. These methods return the appropriate scalar value instead of a full model instance:
 
-    $count = App\Flight::where('active', 1)->count();
+    $count = App\Flight::count();
     $max   = App\Flight::where('active', 1)->max('price');
 
-See [Query Builder](queries) for more details.
+See [Query Builder](builder) to learn all the possibilities that the QueryBuilder offers.
 
-<a name="eager-loading"></a>
+<a name="eager"></a>
 ### Eager Loading
 
 This point is important to understand! To explain, let's take our [book-author example](#one-to-many) once again. 
 For each book you want to list their author. So you might write something like this:  
 
     $books = Books::all();     
-    foreach($books as $book)
-    {
+    foreach($books as $book) {
         echo $book->author->name;
     }
     
@@ -666,12 +616,11 @@ You see, that is not very efficient. If you have 100 books, your database would 
 this little chunk of code. This is also known as the N + 1 problem.  
 
 In this case it is better to use **"eager loading"** by calling the `with` method. 
-The `with` method takes the relation table as argument and returns a [`QueryBuilder`](queries) instance, so you get 
+The `with` method takes the relation table as argument and returns a [`QueryBuilder`](builder) instance, so you get 
 all books as below:
 
     $books = Books::with('authors')->all();    // todo or ->get()? 
-    foreach($books as $book)
-    {
+    foreach($books as $book) {
         echo $book->author->name;
     }
  
@@ -680,12 +629,11 @@ That reduce the operation to just two queries:
     SELECT * FROM books;
     SELECT * FROM authors WHERE id IN (47, 98, 3, ...)
  
- 
 <a name="modification"></a>
 ## Modification Models
 
-<a name="inserting"></a>
-### Inserting
+<a name="creating"></a>
+### Creating
 
 To create a new record in the database, simply create a new model instance, set attributes on the model, then call the 
 `save` method:
@@ -749,35 +697,173 @@ you know the primary key of the model, you may delete the model without retrievi
     Flight::destroy(1);
     Flight::destroy([1, 2, 3]);
 
+<a name="replicating"></a>
+### Replicating
+
+You may clone the model into a new, non-existing instance like this:
+
+    $flight = Flight::find(1);
+    $anotherFlight = $flight->replicate();
+    
+You can specify attributes that should be not copied:
+    
+    $flight->replicate(['name']);
+
+<i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
+Note, the `replicate` method does not save the new model into the database. Therefore, the new model does not have a 
+primary key yet.
+
 <a name="misc"></a>
 ## Miscellanea Functions
 
 <div class="method-list" markdown="1">
 
-[getOriginal](#method-get-original)
-[isDirty](#method-is-dirty)
+[builder](#method-builder)
+[database](#method-database)
+[getAttribute](#method-getAttribute)
+[getAttributes](#method-getAttributes)
+[getDirty](#method-getDirty)
+[getGuarded](#method-getGuarded)
+[getId](#method-getId)
+[getOriginal](#method-getOriginal)
+[getPrimaryKey](#method-getPrimaryKey)
+[getTable](#method-getTable)
+[isDirty](#method-isDirty)
+[isFillable](#method-isFillable)
+[setAttribute](#method-setAttribute)
 
 </div>
 
 <a name="method-listing"></a>
 ### Method Listing
 
-<a name="method-get-original"></a>
-#### `getOriginal()` {.method .first-method}
+<a name="method-builder"></a>
+#### `builder()` {.first-method .method}
 
-Get the model's original attribute values.
+The `builder` static method creates a new [QueryBuilder](builder) instance.
+
+    $builder = Flight::builder();
+
+> <i class="fa fa-lightbulb-o fa-2x" aria-hidden="true"></i>
+> The model provides the methods of QueryBuilder, that are suitable for this purpose, as static methods. So you can 
+> start with them without explicitly invoke the `builder`method, such as:
+>
+>     $flight = Flight::whereIs('name', 'Albatros')->all();
+
+<a name="method-database"></a>
+#### `database()` {.method}
+
+The `database` method gets the [Database](database) instance.
+
+    $db = $flight->database();
+    
+<a name="method-getAttribute"></a>
+#### `getAttribute()` {.method}
+
+The `getAttribute` method gets the attribute (or relationship!) from the model.
+
+If neither the attribute nor the relationship exists, null is returned.
+
+    $attribute = $flight->getAttribute('name');
+
+See also [setAttribute](method-setAttribute), [getAttributes](method-getAttributes) and [getOriginal](method-getOriginal).
+
+<a name="method-getAttributes"></a>
+#### `getAttributes()` {.method}
+
+The `getAttributes` method gets the current attributes of the model.
+
+    $attributes = $flight->getAttributes();
+
+See also [getAttribute](method-getAttribute).
+
+<a name="method-getDirty"></a>
+#### `getDirty()` {.method}
+
+The `getDirty` method gets the attributes that have been changed since last save.
+
+    $dirtyAttributes = $flight->getDirty();
+
+See also [isDirty](method-isDirty).
+
+<a name="method-getGuarded"></a>
+#### `getGuarded()` {.method}
+
+The `getGuarded` method gets the guarded attributes for the model.
+
+    $guardedAttributes = $flight->getGuarded();
+
+See also [isFillable](method-isFillable).
+
+<a name="method-getId"></a>
+#### `getId()` {.method}
+
+The `getId` method gets the identity.
+
+If the model is just created and not saved yet, the method returns null.
+
+    $id = $flight->getId();
+
+See also [getPrimaryKey](method-getPrimaryKey).
+
+<a name="method-getOriginal"></a>
+#### `getOriginal()` {.method}
+
+The `getOriginal` method gets the model's original attribute values.
 
     $flight = Flight::find(1);
     $flight->name = 'New Flight Name';
-    echo $flight->getOriginal
+    echo $flight->getOriginal('name');
 
-<a name="method-is-dirty"></a>
-#### `isDirty()`  {.method}
+See also [getAttribute](method-getAttribute).
 
-Determine if the model or given attribute(s) have been modified.
+<a name="method-getPrimaryKey"></a>
+#### `getPrimaryKey()` {.method}
+
+The `getPrimaryKey` method gets the name of the primary key for the model's table.
+     
+    $key = $flight->getPrimaryKey();
+
+See also [getId](method-getId).
+
+<a name="method-getTable"></a>
+#### `getTable()` {.method}
+
+The `getTable` method gets the table name associated with the model.
+
+    $tableName = $flight->getTable();
+
+<a name="method-isDirty"></a>
+#### `isDirty()` {.method}
+
+The `isDirty` method determines if the model or given attribute(s) have been modified.
 
     $flight = Flight::find(1);
     $flight->name = 'New Flight Name';
     if ($flight->isDirty(['name'])) {
         echo 'The name was modified.!';
     }
+
+If you omit the argument, all attributes are checked.
+
+    $isDirty = $flight->isDirty();
+
+See also [getDirty](method-getDirty).
+
+<a name="method-isFillable"></a>
+#### `isFillable()` {.method}
+
+The `isFillable` method determines if the given attribute may be mass assigned.
+
+    $isFillable = $flight->isFillable('name');
+    
+See also [getGuarded](method-getGuarded).
+    
+<a name="method-setAttribute"></a>
+#### `setAttribute()` {.method}
+
+The `setAttribute` method sets a given attribute of the model.
+
+    $flight->setAttribute('name', 'Albatros');
+
+See also [getAttribute](method-setAttribute).

@@ -66,11 +66,7 @@ You can also set the timezone just for a once `DateTime` instance:
 The `getDefaultTimezone` and `getTimezone` methods return the default and actual timezone:
 
     $tz = DateTime::getDefaultTimezone();    
-    $tz = $dt->getTimezone(); // 'Europe/London'	
-	
-The `getOffset` method returns the timezone offset:
-                       
-    $offset = $dt->getOffset();
+    $tz = $dt->getTimezone(); // 'Europe/London'
 
 #### Supported Timezones
 
@@ -332,7 +328,7 @@ You may set the parts of the datetime like this:
     $hallowen = datetime()
         ->setDateTime(2015, 10, 31, 20, 30, 0);
 
-    $hallowen = datetime()->setISODate( 2015, 44, 6); arguments: year, week, day    
+    $hallowen = datetime()->setISODate(2015, 44, 6); // arguments: year, week, day    
 
 See PHP' [setISODate](http://php.net/manual/en/datetime.setisodate.php) to read more about `setISODate` method.
 

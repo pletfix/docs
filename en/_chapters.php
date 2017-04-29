@@ -33,7 +33,7 @@ return [
         'responses' => 'HTTP Responses',            // todo Korrektur lesen
         'routing' => 'HTTP Routing',                // todo Korrektur lesen
         'logging' => 'Logging',                     // todo Korrektur lesen
-        'mailer' => 'Mailer',                       // Not implemented yet!
+        'mailer' => 'Mailer',                       // todo Korrektur lesen
         'events' => 'Notification Events',          // Not implemented yet!
         'sessions' => 'Sessions',                   // todo Korrektur lesen
         'testing' => 'Testing',
@@ -48,8 +48,8 @@ return [
     ],
     'Database' => [
         'database' => 'Database Access Layer',      // todo Korrektur lesen, Misc und Scheam ausformulieren
+        'builder' => 'Query Builder',               // todo Korrektur lesen
         'models' => 'Models',                       // todo Korrektur lesen, Validation
-        'queries' => 'Query Builder',               // todo Korrektur lesen
         'pagination' => 'Pagination',               // Not implemented yet!, evtl zu Frontend hinzufügen
         'migrations' => 'Migrations',
     ],

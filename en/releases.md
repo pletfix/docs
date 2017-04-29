@@ -26,7 +26,6 @@ _What are we working on?_
 | Caching | 0.0.9 | Alpha |
 | View Template Engine | 0.1.0 | Alpha |
 | Database Access Layer | 0.2.0 | Alpha |
-| Query Builder |  0.2.1 | Alpha |
 | Migrator | 0.2.2 | Alpha |
 | Collection | 0.2.4 | Alpha |
 | Console (Command line Interface) | 0.3.0 | Alpha | 
@@ -38,11 +37,9 @@ _What are we working on?_
 | Session Handling | 0.5.3 | Alpha |
 | Cookies | 0.5.4 | Alpha |
 | String Capitalization, Pluralizer | 0.5.5 | Alpha |
-| Mailer | 0.5.6 | |
-| Route Caching | 0.5.7 | |
-| DI Caching | 0.5.8 | |
-| Improved QueryBuilder | 0.6.0 | |
-| Model | 0.6.0 | |
+| Mailer | 0.5.6 | Alpha |
+| Query Builder |  0.6.0 | Alpha |
+| Model | 0.6.0 | Alpha |
 | Old Input | 0.6.1 | |
 | Flash Messages | 0.6.2 | |
 | FormBuilder| 0.6.3 | |
@@ -66,6 +63,8 @@ _What are we working on?_
 | Zipper | 0.8.3 | |
 | Scaffolder | 0.8.4 | |
 | PDF Writer | 0.8.5 | |
+| Route Caching | 0.8.6 | |
+| DI Caching | 0.8.7 | |
 | Benchmark Test (Profiler) | 0.9.0 | |
 | SOUP Services | 0.9.1 | |
 | REST Services (with CURL) | 0.9.2 | |

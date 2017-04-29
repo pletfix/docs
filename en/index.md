@@ -15,7 +15,8 @@ What does that mean? Read the [Contribution Guide](contributions) to learn more 
 
 ### Licenses
 
-Pletfix is free and open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Pletfix is free and open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+which makes it perfect for use in commercial applications.
 
 ## Gettting Started
 

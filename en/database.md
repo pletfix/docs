@@ -6,9 +6,9 @@
 - [Configuration](#configuration)
 - [Connections](#connections)
 - [Data Queries](#queries)
-- [Data Manipulation](#manipulation)
 - [Transactions](#transactions)
 - [Schema](#schema)
+- [Table](#table)
 - [Miscellanea Functions](#misc)
 
 
@@ -18,13 +18,19 @@
 Pletfix's Database Access Layer takes care of the connection setup and abstracts access to the database engine.
 Furthermore, field types are abstracted over all supported database providers to translation to PHP data-types.
 
+Pletfix has studied these libraries, picked up ideas from them, and partly adopted codes:
+- [Aura.Sql Extended PDO](https://github.com/auraphp/Aura.Sql/blob/3.x/src/AbstractExtendedPdo.php) ([MIT License](https://github.com/auraphp/Aura.Sql/blob/3.x/LICENSE)),
+- [Aura.Sql Column Factory](https://github.com/auraphp/Aura.SqlSchema/blob/2.x/src/ColumnFactory.php) ([BSD 2-clause "Simplified" License](https://github.com/auraphp/Aura.SqlSchema/blob/2.x/LICENSE)),
+- [Dontrine's Mapping Matrix](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html#mapping-matrix) ([MIT License](https://github.com/doctrine/dbal/blob/2.5/LICENSE)),
+- [Doctrine's Schema Manager](https://github.com/doctrine/dbal/blob/2.5/lib/Doctrine/DBAL/Schema/AbstractSchemaManager.php) ([MIT License](https://github.com/doctrine/dbal/blob/2.5/LICENSE)) and
+- [Laravel's Connection Class](https://github.com/illuminate/database/blob/5.3/Connection.php) ([MIT License](https://github.com/laravel/laravel/tree/5.3)).
+
 Currently, Pletfix provides a Database Access Layer for the the following database driver: 
 
 - MySQL
 - Postgres
 - SQLite
 - SQL Server
-
 
 <a name="configuration"></a>
 ## Configuration
@@ -121,8 +127,13 @@ The `database` function returns a Database instance so you select could queries 
 [single](#method-single)
 [scalar](#method-scalar)
 [cursor](#method-cursor)
+[exec](#method-exec)
 
 </div>
+
+> <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
+> Note! Because this methods expect pure SQL as the first argument, but the SQL syntax in detail varies depending 
+> on the database system, you should not call these methods directly and instead better use the [QueryBuilder](builder)!
 
 <a name="method-query"></a>
 #### `query()` {.method .first-method}
@@ -131,30 +142,25 @@ You may run queries using the `query` method:
 
     $users = database()->query('SELECT * FROM users WHERE role = ?', ['guest']);
     
-The first argument passed to the select method is the raw SQL query.
-
-> <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
-> Because the SQL syntax of database systems varies in detail, maybe you can not easily change the database system later 
-> if you write raw SQL directly. Therefore, it is advisable to use a [QueryBuilder](queries) to generate the SQL syntax.  
-
+The first argument passed to this method is raw SQL query. 
 The second argument is any parameter bindings that need to be bound to the query. 
 
 Instead of using `?` to represent your parameter bindings, you may execute a query using named bindings:
 
     $users = database()->query('SELECT * FROM users WHERE role = :role', ['role => 'guest]);
 
-> <i class="fa fa-info fa-2x" aria-hidden="true"></i>
+> <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
 > No matter how, it is highly recommended to use parameter binding because its provides protection against 
 > [SQL injection](http://php.net/manual/en/security.database.sql-injection.php).
 
-The `query` method will always return an `array` of records. If you net set a third argument for the `query` function, 
+The `query` method will always return an `array` of records. If you not set a third argument for the `query` function, 
 each record within the array will be an associative array:
 
     foreach ($users as $user) {
         echo $user['id'] . ':' . $user['role'] . '<br/>';    
     }
 
-If you set a class name of a Model as the third argument, each record will be an instance of this class.
+If you set a class name as the third argument, each record will be an instance of this class:
 
     $users = database()->query('SELECT * FROM users WHERE id = ?', [4711], User::class);
     foreach ($users as $user) {
@@ -168,7 +174,7 @@ If you use a class, the query will be assigned to the corresponding class proper
 3. If `__set()` method is not defined for the class, then a public property will be created and a column value assigned to it.<br/>
    You could create an empty `__set()` method if you like to avoid the automated property creation.
 
-<a name="method-singe"></a>
+<a name="method-single"></a>
 #### `single()` {.method}
 
 Sometimes it's only possible to receive a single record. In this case it is more comfortable to use the `single` 
@@ -184,7 +190,7 @@ function unsteady the query function:
 
 The `scalar` method fetches the first value (means the first column of the first record).
 
-    $count = database()->single('SELECT COUNT(*) FROM users WHERE role = :role', ['role => 'guest]);
+    $count = database()->scalar('SELECT COUNT(*) FROM users WHERE role = :role', ['role => 'guest]);
 
 <a name="method-cursor"></a>
 #### `cursor()` {.method}
@@ -198,22 +204,6 @@ This method is useful to handle big data.
         echo $user->id . ':' . $user->role . '<br/>';
     };
 
-
-<a name="manipulation"></a>
-## Data Manipulation
-
-### Available Methods
-
-<div class="method-list" markdown="1">
-
-[exec](#method-exec)
-[insert](#method-insert)
-[update](#method-update)
-[delete](#method-delete)
-[truncate](#method-truncate)
-
-</div>
-
 <a name="method-exec"></a>
 #### `exec()` {.method .first-method}
 
@@ -222,56 +212,13 @@ be fetched to an array.
 
     database()->exec('INSERT INTO users (firstname, lastname) VALUES (?, ?)', ['Stephen', 'Hawking']);
 
-> <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
-> However, you should prefer the following functions to manipulate the data, because they do not use raw SQL and 
-> are therefore independent of the database system!
-
-<a name="method-insert"></a>
-#### `insert()` {.method}
-
-The `insert` method creates a new record to the given table:
-
-    $affected = database()->insert('users', ['firstname' => 'Stephen', 'lastname' => 'Hawking']);
-
-Bulk inserting is possible too, `insert()` returns the number of affected rows:
-
-    $affected = database()->insert('users', [
-        ['firstname' => 'Stephen', 'lastname' => 'Hawking']
-        ['firstname' => 'Albert', 'lastname' => 'Einstein'],
-    ]);
-
-The `lastInsertId` function returns the last inserted autoincrement sequence value:
- 
-    $userId = database()->lastInsertId 
-
-<a name="method-update"></a>
-#### `update()` {.method}
-    
-The `update` function updates a table with th given data and returns the number of affected rows.
-
-    $affected = database()->update('users', ['lastname' => 'Hawking'], 'role=?', ['guest']);
-
-<a name="method-delete"></a>
-#### `delete()` {.method}
-    
-The `delete` function deletes records rom a table and returns the number of affected rows:
-
-    $affected = database()->delete('users', 'role=?', ['guest']);
-
-<a name="method-truncate"></a>
-#### `truncate()` {.method}
-    
-The `truncate` removes all records from a table:
-
-    truncate('users);
-
-
 <a name="Transactions"></a>
 ## Transactions
 
 The `beginTransaction` method starts a database transaction, the `commit` function finished this one and the `rollback`
 function will roll back the transaction.
 
+    $db = database();
     $db->beginTransaction();
     try {
         $db->insert('users', ['firstname' => 'Stephen', 'lastname' => 'Hawking']);
@@ -288,41 +235,28 @@ number of active transactions:
 
     $db->beginTransaction();
     echo $db->transactionLevel(); // 1
-    $db->insert('users', ['firstname' => 'Stephen', 'lastname' => 'Hawking']);
-    $db->insert('users', ['firstname' => 'Albert',  'lastname' => 'Einstein']);
-    
+    ...    
     $db->beginTransaction();
     echo $db->transactionLevel(); // 2
-    $db->insert('users', ['firstname' => 'Carl', 'lastname' => 'Friedrich Gauß']);
-    $db->insert('users', ['firstname' => 'Pierre-Simon', 'lastname' => 'Laplace']);
+    ...
     $db->rollBack();
-
+    echo $db->transactionLevel(); // 1
+    ...
     $db->commit();
+    echo $db->transactionLevel(); // 0
 
-    $rows = $db->query('SELECT * FROM users');
-    if ($db->supportsSavepoints()) {
-        if (count($rows) != 2) {
-            dd('Test failed!');
-        }
-    }
-    else {
-        if (count($rows) != 4) {
-            dd('Test failed!');
-        }
-    }
     
 #### Closures
     
 Pletfix also offers the `transaction` method which executes a closure function within a transaction:
 
-    $db->transaction(function(Database $db) {
+    database()->transaction(function(Database $db) {
         $db->insert('users', ['firstname' => 'Stephen', 'lastname' => 'Hawking']);
         $db->insert('users', ['firstname' => 'Albert',  'lastname' => 'Einstein']);
     });
 
 If an exception is thrown within the transaction closure, the transaction will automatically be rolled back. 
 And of course, if the closure executes successfully, the transaction will automatically be committed. 
-
 
 <a name="schema"></a>
 ## Schema
@@ -390,27 +324,29 @@ The Table based on [Doctrine's Mapping Matrix](http://docs.doctrine-project.org/
 
 </div>
 
+<a name="schema-method-listing"></a>
+### Method Listing
+
 <a name="method-tables"></a>
 #### `tables()` {.method .first-method}
 
-    /**
-     * Returns aa array of tables in the database.
-     *
-     * Each return item is a array with the following values:
-     * - name:      (string) The table name
-     * - collation: (string) The default collation of the table.
-     * - comment:   (string) A hidden comment.
-     *
-     * @return array An associative array where the key is the table name and the value is the table attributes.
-     */
-    public function tables();
+The `tables` method returns an associative array of tables in the database.
+
+    $tables = database()->schema()->tables();
+
+The key of the returned array is the table name and the value lists following table attributes:
+
+Each return item is a array with the following values:
+- name:      (string) The table name
+- collation: (string) The default collation of the table.
+- comment:   (string) A hidden comment.
 
 <a name="method-columns"></a>
 #### `columns()` {.method}
 
 The `columns` method returns an associative array of information about the columns of the table. 
 
-    $columns = database()->schema()->columns($table);
+    $columns = database()->schema()->columns('books');
 
 The key of the returned array is the column name and the value lists following column attributes:
 
@@ -428,271 +364,256 @@ The column type is mapped to an abstract type, see also [Field Type Mapping](#ty
 <a name="method-indexes"></a>
 #### `indexes()` {.method}
 
-    /**
-     * Returns an array of indexes in a table.
-     *
-     * Each return item is a array with the following values:
-     * - name:      (string) The index name.
-     * - columns:   (array)  The list of column names.
-     * - unique:    (bool)   Is the index a unique index?
-     * - primary:   (bool)   Is the index the primary key?
-     *
-     * @param string $table Name of the table.
-     * @return array An associative array where the key is the index name and the value is the index attributes.
-     */
-    public function indexes($table);
+The `indexes` method returns an associative array of indexes in the table:
+
+    $indexes = database()->schema()->indexes('books');
+
+The key of the returned array is the index name and the value lists following index attributes:
+
+- name:      (string) The index name.
+- columns:   (array)  The list of column names.
+- unique:    (bool)   Is the index a unique index?
+- primary:   (bool)   Is the index the primary key?
 
 <a name="method-createTable"></a>
 #### `create-table()` {.method}
 
-    /**
-     * Create a new table on the schema.
-     *
-     * Parameter $columns is an associative array where the key is the column name and the value is the column attributes.
-     * A column attribute is a array with the following values:
-     * - type:      (string) The column data type. Data types are as reported by the database.
-     * - size:      (int)    The column size (the maximum number of digits).
-     * - scale:     (int)    The number of digits to the right of the numeric point. It must be no larger than size.
-     * - nullable:  (bool)   Is the column is not marked as NOT NULL.
-     * - default:   (mixed)  The default value for the column.
-     * - collation: (string) The collation of the column.
-     * - comment:   (string) A hidden comment.
-     *
-     * Options have following values:
-     * - temporary: (bool)   The table is temporary.  todo kann raus!
-     * - collation: (string) The default collation of the table.
-     * - comment:   (string) A hidden comment.
-     *
-     * @param  string $table
-     * @param array $columns
-     * @param array $options
-     */
-    public function createTable($table, array $columns, array $options = []);
+The `createTable` method creates a new table on the schema:
 
-The column type should be given as an abstract type, see also [Field Type Mapping](#type-mapping). 
+    database()->schema()->createTable('books', [
+        'id'        => ['type' => 'identity'],
+        'title'     => ['type' => 'string'],
+        'author_id' => ['type' => 'integer'],
+    ], $options);
+    
+Argument $columns is an associative array where the key is the column name and the value is the column attributes.
+A column attribute is a array with the following values:
+- type:      (string) The column data type. It should be given as an abstract type, see also [Field Type Mapping](#type-mapping). 
+- size:      (int)    The column size (the maximum number of digits).
+- scale:     (int)    The number of digits to the right of the numeric point. It must be no larger than size.
+- nullable:  (bool)   Is the column is not marked as NOT NULL.
+- default:   (mixed)  The default value for the column.
+- collation: (string) The collation of the column.
+- comment:   (string) A hidden comment.
+
+The third argument $options is optional and could have following values:
+- temporary: (bool)   The table is temporary.  todo kann raus!
+- collation: (string) The default collation of the table.
+- comment:   (string) A hidden comment.
 
 <a name="method-drop-table"></a>
 #### `dropTable()` {.method}
 
-    /**
-     * Drop a table from the schema.
-     *
-     * @param string $table
-     */
-    public function dropTable($table);
+The `dropTable` method drops a table from the schema:
+
+    database()->schema()->dropTable('books');
 
 <a name="method-rename-table"></a>
 #### `renameTable()` {.method}
 
-    /**
-     * Rename a table on the schema.
-     *
-     * @param string $from old table name
-     * @param string $to new table name
-     */
-    public function renameTable($from, $to);
+The `renameTable` method set a new name for a given table on the schema:
+
+    database()->schema()->renameTable($from, $to);
 
 <a name="method-add-column"></a>
 #### `addColumn()` {.method}
 
-    /**
-     * Add a new column on the table.
-     *
-     * Options have following values:
-     * - type:      (string) The column data type. Data types are as reported by the database.
-     * - size:      (int)    The column size (the maximum number of digits).
-     * - scale:     (int)    The number of digits to the right of the numeric point. It must be no larger than size.
-     * - nullable:  (bool)   The column is not marked as NOT NULL.
-     * - default:   (mixed)  The default value for the column.
-     * - collation: (string) The collation of the column.
-     * - comment:   (string) A hidden comment.
-     *
-     * @param string $table
-     * @param string $column
-     * @param array $options
-     */
-    public function addColumn($table, $column, array $options);
+The `addColumn` method adds a new column to the table. The example below adds a new column "genre_id" to the table "books":
 
-The column type should be given as an abstract type, see also [Field Type Mapping](#type-mapping).
+    database()->schema()->addColumn('books', 'genre_id', $options);
+
+Argument $options is an array and have following values:
+- type:      (string) The column data type. It should be given as an abstract type, see also [Field Type Mapping](#type-mapping). 
+- size:      (int)    The column size (the maximum number of digits).
+- scale:     (int)    The number of digits to the right of the numeric point. It must be no larger than size.
+- nullable:  (bool)   Is the column is not marked as NOT NULL.
+- default:   (mixed)  The default value for the column.
+- collation: (string) The collation of the column.
+- comment:   (string) A hidden comment.
 
 <a name="method-drop-column"></a>
 #### `dropColumn()` {.method}
 
-    /**
-     * Drop a column from the table
-     *
-     * @param string $table
-     * @param string $column
-     */
-    public function dropColumn($table, $column);
+The `dropColumn` method deletes a column from the table:
+
+    database()->schema()->dropColumn('books', 'genre_id');
 
 <a name="method-rename-column"></a>
 #### `renameColumn()` {.method}
 
-    /**
-     * Rename a column for the table.
-     *
-     * @param string $table
-     * @param string $from
-     * @param string $to
-     */
-    public function renameColumn($table, $from, $to);
+The `renameColumn` method set a new name for a given column. The example below change in the table "books" the name of 
+the column "caption" to "title":
+
+    database()->schema()->renameColumn('books', 'caption', 'title');
 
 <a name="method-add-index"></a>
 #### `addIndex()` {.method}
 
-    /**
-     * Create an index on the table.
-     *
-     * Options have following values:
-     * - columns    (string[])  List of column names.
-     * - unique:    (bool)      The index is a unique index.
-     * - primary:   (bool)      The index is the primary key.
-     *
-     * @param string $table Name of the table which the index is for.
-     * @param string|null $name The name of the index. It will be generated automatically if not set and will be ignored by a primary key.
-     * @param array $options
-     */
-    public function addIndex($table, $name, array $options = []);
+The `addIndex` method creates an index for a given table, e.g. for table "books":
+
+    database()->schema()->addIndex('books', null, [
+        'columns' => ['title', 'author_id'], 'unique'  => true
+    ]);
+
+The second argument is the name of the index. It will be generated automatically if not set and will be ignored by a 
+primary key.
+
+The third argument is an array to specify the columns and other options for the index:
+- columns    (string[])  List of column names.
+- unique:    (bool)      The index is a unique index.
+- primary:   (bool)      The index is the primary key.
 
 <a name="method-drop-index"></a>
 #### `dropIndex()` {.method}
 
-    /**
-     * Drop a index from the table.
-     *
-     * Options have following values:
-     * - columns    (string[])  List of column names. Could be null if the index name is given or it's the primary index.
-     * - unique:    (bool)      The index is a unique index. It's needed to generate the name.
-     * - primary:   (bool)      The index is the primary key.
-     *
-     * @param string $table
-     * @param string|null $name The name of the index. It will be generated automatically if not set.
-     * @param array $options
-     */
-    public function dropIndex($table, $name, array $options = []);
+The `dropIndex` method deletes a index from the table by given index name or options:
+
+    database()->schema()->dropIndex('books', null, [
+        'columns' => ['title', 'author_id'], 'unique'  => true
+    ]);
+
+The second argument is the name of the index. It will be generated automatically if not set.
+
+The third argument is an array with index options and is only needed if the index name is not set: 
+- columns    (string[])  List of column names. Could be null if the index name is given or it's the primary index.
+- unique:    (bool)      The index is a unique index. It's needed to generate the name.
+- primary:   (bool)      The index is the primary key.
 
 <a name="method-zero"></a>
 #### `zero()` {.method}
 
-    /**
-     * Get a Zero-Value by given column type.
-     * @param string $type Column Type supported by Database Access Layer
-     * @return string
-     */
-    public function zero($type);
+The `zero` method gets a Zero-Value by given column type.
 
-    
+    database()->schema()->zero('string');
+
+The type should be given as an abstract type, see also [Field Type Mapping](#type-mapping).
+
+
 <a name="misc"></a>
 ## Miscellanea Functions
 
 <div class="method-list" markdown="1">
 
-[config](#method-config)
+[builder](#method-builder)
 [connect](#method-connect)
+[dump](#method-dump)
 [errorCode](#method-error-code)
 [errorInfo](#method-error-info)
 [disconnect](#method-disconnect)
+[lastInsertId](#method-last-insert-id)
 [quote](#method-quote)
 [quoteName](#method-quote-name)
 [reconnect](#method-reconnect)
+[table](#method-table)
 [version](#method-version)
 
 </div>
 
-<a name="method-config"></a>
-#### `config()` {.method .first-method}
+<a name="misc-method-listing"></a>
+### Method Listing
 
-    /**
-     * Gets the database configuration.
-     *
-     * @param string|null $key
-     * @return array|mixed
-     */
-    public function config($key = null);
+<a name="method-builder"></a>
+#### `builder()` {.method .first-method}
 
+The `builder` method creates a new [QueryBuilder](builder) instance:
 
+    $builder = database()->builder();
+    
 <a name="method-connect"></a>
 #### `connect()` {.method}
 
-    /**
-     * Connects to the database.
-     */
-    public function connect();
+The `connect` method connects to the database.
 
+    database()->connect();
+
+<a name="method-dump"></a>
+#### `dump()` {.method}
+
+The method binds the given values to a SQL statement and print it out without executing:
+
+    database->dump('SELECT * FROM users WHERE username = ?', [$username]);
+
+If you set the third argument to true, the method will return the information rather than print it:
+    
+    $dump = database->dump('SELECT * FROM users WHERE username = ?', [$username], true);
+    
 <a name="method-errorCode"></a>
 #### `errorCode()` {.method}
 
-    /**
-     * Gets the most recent error code.
-     *
-     * @return mixed
-     */
-    public function errorCode();
+The `errorCode` method gets the most recent error code:
+
+    $errorCode = database()->errorCode();
 
 <a name="method-errorInfo"></a>
 #### `errorInfo()` {.method}
 
-    /**
-     * Gets the most recent error info.
-     *
-     * @return array
-     */
-    public function errorInfo();    
+The `errorInfo` method  gets the most recent error info:
+
+    $errorInfo = database()->errorInfo();    
     
 <a name="method-disconnect"></a>
 #### `disconnect()` {.method}
 
-    /**
-     * Disconnects from the database.
-     */
-    public function disconnect();
+The `disconnect` method disconnects from the database:
+
+    database()->disconnect();
+    
+<a name="method-last-insert-id"></a>
+#### `lastInsertId()` {.method}
+
+The method returns the last inserted autoincrement sequence value.
+
+If you don't insert any values before, the function returns 0.
+
+If you insert multiple rows using a single insert() call, `lastInsertId()` returns dependency of the driver the first or 
+last inserted row.
+
+Set [PHP manuals](http://php.net/manual/en/pdo.lastinsertid.php) for more information.
 
 <a name="method-quote"></a>
 #### `quote()` {.method}
 
-    /**
-     * Quotes a value for use in an SQL statement.
-     *
-     * This differs from `PDO::quote()` in that it will convert an array into a string of comma-separated quoted values.
-     *
-     * @param mixed $value The value to quote.
-     * @param int $type PDO type
-     * @return string The quoted value.
-     */
-    public function quote($value, $type = PDO::PARAM_STR);
+The `quote` method quotes a value for use in an SQL statement.  
+
+    $quotedValue = database()->quote('Hello world!'); // "'Hello world!'"
 
 <a name="method-quote-name"></a>
 #### `quoteName()` {.method}
 
-    /**
-     * Quotes a single identifier name (e.g. table, column or index name).
-     * @param string $name
-     * @return string
-     */
-    public function quoteName($name);
+The `quoteName` method quotes a identifier name (e.g. table, column or index name):
+
+    $quotedTableName = database()->quoteName('books'); // "`books`"
     
 <a name="method-reconnect"></a>
 #### `reconnect()` {.method}
 
-    /**
-     * Reconnect to the database.
-     *
-     * @return void
-     *
-     * @throws \LogicException
-     */
-    public function reconnect();
+The `reconnect` method reconnects to the database:
+
+    database()->reconnect();
+
+<a name="method-table"></a>
+#### `table()` {.method}
+
+The `table` method returns an instance of `QueryBuilder` for the given table.
+
+    $builder = database()->table('books');
+
+You could also define an alias for your table if you prefer it:
+     
+    $builder = database()->table('books', 't1');
+  
+> <i class="fa fa-lightbulb-o fa-2x" aria-hidden="true"></i>
+> Note, this is equal with that:
+>          
+>     $builder = database()->builder()->from('books', 't1');
 
 <a name="method-version"></a>
 #### `version()` {.method}
 
-    /**
-     * Return server version.
-     *
-     * Returns FALSE if the driver does not support getting attributes.
-     *
-     * @return string|false
-     */
-    public function version();
+The `version` method returns the server version:
+     
+    echo database()->version();
+
+> <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
+> The method returns FALSE if the driver does not support getting attributes.
     

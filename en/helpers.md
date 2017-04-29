@@ -17,6 +17,19 @@ Additional helper function are defined in `vendor/pletfix/core/functions/helpers
 
 You are free to use them in your own applications if you find them convenient.
 
+### Source hints
+
+The `plural`and `singular` functions are based on Laravel's [Str class](https://github.com/illuminate/support/blob/5.3/Str.php Laravel's Str) 
+and Laravel's [Pluralizer](https://github.com/illuminate/support/blob/5.3/Pluralizer.php), which again used the 
+Doctrine's [Inflector](https://github.com/doctrine/inflector/tree/1.1.x Doctrine's), licensed under the
+[MIT License](https://github.com/doctrine/inflector/blob/1.1.x/LICENSE).
+
+`pascal_case`, `limit_string`, `slug` and `utf8_to_ascii` are copied from Laravel's [Str class](https://github.com/illuminate/support/blob/5.3/Str.php Laravel's Str).
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+`$charsArray` of the `utf8_to_ascii` method is adapted from [Stringy](https://github.com/danielstjules/Stringy/blob/master/src/Stringy.php) 
+by Daniel St. Jules, licensed under the [MIT License](https://github.com/danielstjules/Stringy/blob/2.3.1/LICENSE.txt).
+
 
 <a name="available-methods"></a>
 ## Available Methods
@@ -96,9 +109,9 @@ You are free to use them in your own applications if you find them convenient.
 [datetime](#method-datetime)
 [di](#method-di)
 [logger](#method-logger)
+[mailer](#method-mailer)
 [migrator](#method-migrator)
 [plugin_manager](#method-plugin-manager)
-[query_builder](#method-query-builder)
 [request](#method-request)
 [response](#method-response)
 [session](#method-session)
@@ -370,7 +383,7 @@ The `dump` function dumps the given variables:
 
     dump($value);
     
-If you set the third argument to true, dump() will return the information rather than print it:
+If you set the second argument to true, dump() will return the information rather than print it:
 
     $dump = dump($value, true);
     
@@ -381,8 +394,6 @@ If you set the third argument to true, dump() will return the information rather
 The `dd` function dumps the given variables and ends execution of the script:
 
     dd($value);
-
-    dd($value1, $value2, $value3, ...);
 
 If you do not want to halt the execution of your script, use the [dump](#method-dump) function instead.
 
@@ -594,6 +605,14 @@ The `logger` function retrieves the [Logger](logging) instance:
     logger()->log('debug', $message);
 
 
+<a name="method-mailer"></a>
+#### `mailer()` {.method}
+
+The `mailer` function retrieves the [Mailer](mailer) instance:
+
+    mailer()->send($to, $cc, $bcc, $subject, $body, $attachments);
+
+
 <a name="method-migrator"></a>
 #### `migrator()` {.method}
 
@@ -613,14 +632,6 @@ The `plugin_manager` function creates a [PluginManager](plugins) instance for th
 
 > Typically, you do not need access the Plugin Manager programmatically. Instead, use the Pletfix console command 'plugin'.
 
-
-<a name="method-query-builder"></a>
-#### `query_builder()` {.method}
-
-The `query_builder` function retrieves the [QueryBuilder](queries) instance for the given store:
-
-    $builder = query_builder($store);
-    
 
 <a name="method-request"></a>
 #### `request()` {.method}
