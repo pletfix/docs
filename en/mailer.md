@@ -20,8 +20,8 @@ Pletfix mailer is an extension of PHP's [mailer](http://php.net/manual/en/functi
 <a name="configuration"></a>
 ## Configuration
 
-The cache configuration is located at `config/mailer.php`. In this file you may specify which from and reply-to address
-you would like to be used by send a mail.
+The configuration is located at `config/mailer.php`. In this file you may specify which from and reply-to address
+you would like to use sending a mail.
 
     'from' => env('MAIL_FROM'),
 
@@ -29,8 +29,8 @@ you would like to be used by send a mail.
         env('MAIL_REPLY_TO'),
     ],
 
-If you wish to just pretend the sending, set the `pretend` option. In this case, the Mail will be  written to your
-application's logs files so you may inspect the message.
+If you wish to just pretend the sending, set the `pretend` option. In this case, the mail will be written to your
+application's log file so you are able to inspect the message.
 
     'pretend' => false,
     
@@ -55,13 +55,13 @@ You may use the `send` method to send a mail, either as a simple plain text mess
     $mailer = mailer();
     $mailer->send('receiver@eexample.com', 'This is a subject', 'This is a simple text message!');
 
-... or as a HTML mail:
+... or as an HTML mail:
     
     $mailer->send('receiver@eexample.com', 'This is a subject', '<html><body><h1>Hello World!</h1></body></html>');
 
 If you send an HTML file, a plain text is automatically generated from the HTML body so mail clients that can not read 
 HTML (such as mutt & eudora) can also display the message. You may specify the plain text manually with the `altBody` 
-method if you want a differnce plain text message.  
+method if you want a different plain text message.  
      
     $mailer
         ->altBody('*** Hello World! ***')
@@ -89,7 +89,7 @@ parameters:
         ->attach(resource_path('files/agb.pdf'))
         ->send();
 
-Furthermore, you may use the `view` method to render the body of the message with a view:
+Furthermore, you may use the `view` method to render the body of the message:
 
     $mailer->view('confirm', $variables);
     
@@ -98,13 +98,13 @@ Furthermore, you may use the `view` method to render the body of the message wit
 ## Receivers
 
 The Pletfix `Mailer` provides several ways to specify an e-mail address.
-Here for some examples, let the `to` method be representative of `cc` `bcc`,  `replyTo` and `from`:
+Here for example, let the `to` method be representative of `cc`, `bcc`, `replyTo` and `from`:
 
     $mailer->to('user@example.com');
     $mailer->to('User <user@example.com>');
     $mailer->to('user@example.com', 'User');
 
-> Please note that the address have to compatible with [RFC 2822](http://www.faqs.org/rfcs/rfc2822.html).
+> Please note that the address have to be compatible with [RFC 2822](http://www.faqs.org/rfcs/rfc2822.html).
 > e.g. `"user@example.com"` or `"User <user@example.com>"`.
     
 Except for the `from` method, more than one address can be specified:
@@ -131,7 +131,7 @@ Use the `attach` method to add a file to the mail:
 
     $mailer->attach(resource_path('files/info.pdf'));
     
-You may also specify the display name:
+You may also specify the display name of the file:
     
     $mailer->attach(resource_path('files/info.pdf'), 'Information.pdf');
     
@@ -139,7 +139,7 @@ You can use the `detach` method to remove an already attached file:
 
     $mailer->detach(resource_path('files/info.pdf'));
 
-use `clearAttachments` to remove all attachments from the mail:
+Use `clearAttachments` to remove all attachments from the mail:
 
     $mailer->clearAttachments();
       
@@ -157,7 +157,7 @@ write it to the disk.
 ## Embedded Files
 
 In addition to attachments, you can also embed data into HTML mails by using the `embed` method. Above all, this is 
-often used for images. Pletfix offers a convenient way to embed images to your e-mails and retrieve the corresponding 
+often used for images. Pletfix offers a convenient way to embed images into your e-mails and retrieve the corresponding 
 Content-ID. The following example shows how it works:
 
     $mailer
@@ -173,7 +173,7 @@ Content-ID. The following example shows how it works:
         ')
         ->send();
 
-Use `removeEmbeddedFile` and `clearEmbeddedFile` to remove an already embedded file: 
+Use `removeEmbeddedFile` to remove an already embedded file: 
 
     $mailer->removeEmbeddedFile(public_path('images/logo.png'));
 
@@ -196,5 +196,5 @@ If you have a raw data string instead of a file, you may use the `embedData` met
     ');
 
 > <i class="fa fa-info fa-2x" aria-hidden="true"></i>
-> The name of the embedData is shown, if the user extract the embedded file (dependency of tht client, e.g. with a 
-> double click on the image)
+> The name of the embedData is shown, if the user extracts the embedded file (dependent on the client, e.g. with a 
+> double click on the image).

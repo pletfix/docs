@@ -699,27 +699,34 @@ Bulk Mode:
 > <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
 > If you insert multiple rows, the method returns dependency of the driver the first or last inserted id!
 
+The method returns FALSE if the operation was canceled by a [hook](models#hooks). You may disable this behavior via 
+the [disableHooks](#method-disableHooks) method.
+
 <a name="method-update"></a>
 #### `update()` {.method}
 
-The `update` method updates all records of the query result with the given data and return the number of affected 
-records.
+The `update` method updates all records of the query result with the given data and returns the number of affected rows.
 
     database()
         ->table('users')
         ->where('role = ?', ['guest'])
         ->update(['lastname' => 'Hawking']);
     
+The method returns FALSE, if the operation was canceled by a [hook](models#hooks). You may disable this behavior via 
+the [disableHooks](#method-disableHooks) method.
 
 <a name="method-delete"></a>
 #### `delete()` {.method}
 
-The `delete` method deletes all records of the query result and return the number of affected rows.
+The `delete` method deletes all records of the query result and returns the number of affected rows.
 
     database()
         ->table('users')
         ->where('id = ?', [4711])
         ->delete();
+
+The method returns FALSE, if the operation was canceled by a [hook](models#hooks). You may disable this behavior via 
+the [disableHooks](#method-disableHooks) method.
 
 <a name="method-truncate"></a>
 #### `truncate()` {.method}
@@ -730,20 +737,24 @@ The `truncate` method truncates the table.
         ->table('books')
         ->truncate();
 
+The method returns FALSE if the operation was canceled by a [hook](models#hooks). You may disable this behavior via 
+the [disableHooks](#method-disableHooks) method.
         
 <a name="misc"></a>
 ## Miscellanea Functions
 
 <div class="method-list" markdown="1">
 
-[asClass](#asClass)
-[bindings](#bindings)
-[copy](#copy)
-[getClass](#getClass)
-[getTable](#getTable)
-[reset](#reset)
-[toSql](#toSql)
-[with](#with)
+[asClass](#method-asClass)
+[bindings](#method-bindings)
+[copy](#method-copy)
+[disableHooks](#method-disableHooks)
+[enableHooks](#method-enableHooks)
+[getClass](#method-getClass)
+[getTable](#method-getTable)
+[reset](#method-reset)
+[toSql](#method-toSql)
+[with](#method-with)
 
 </div>
 
@@ -758,6 +769,9 @@ The `asClass` method sets the name of the class where the data are mapped to.
 If null is passed, the data will be returned as an array (the default).
 
     $builder->asClass($class);
+    
+If the class implements the `Hookable` contract, the QueryBuilder bind the [hooks](models#hooks) that are provided by 
+this class. You may disable this behavior via the [disableHooks](#method-disableHooks) method.
     
 See also [getClass](#method-getClass) method.  
 
@@ -774,6 +788,28 @@ The `bindings` method get the bindings of the query.
 The `copy` method gets a copy of the instance.
 
     $builder = $builder->copy();
+
+<a name="method-disableHooks"></a>
+#### `disableHooks()` {.method}
+
+The `disableHooks` method disables hooks. You may use this method if you have a class with hooks, but the hooks should 
+be ignored.
+
+    $sql = $builder->disableHooks();
+
+See also the [enableHooks](#method-enableHooks), [asClass](#method-asClass) and [hooks](models#hooks) methods.
+
+<a name="method-enableHooks"></a>
+#### `enableHooks()` {.method}
+
+The `enableHooks` method enables hooks. The hooks of the class you specified using method `asClass` will be invoke, 
+presupposed that the class implements the `Hookable` contract.
+
+    $sql = $builder->enableHooks();
+
+Note, that hooks are enabled by default.
+
+See also the [disableHooks](#method-disableHooks), [asClass](#method-asClass) and [hooks](models#hooks) methods.
 
 <a name="method-getClass"></a>
 #### `getClass()` {.method}
@@ -819,3 +855,4 @@ The `with` method gets the entities of given relationship via [eager load](model
           
 See the [Model](models#relationships) class to learn how you could define the relationship method.         
       
+   

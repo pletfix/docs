@@ -33,7 +33,7 @@ return [
         'responses' => 'HTTP Responses',            // todo Korrektur lesen
         'routing' => 'HTTP Routing',                // todo Korrektur lesen
         'logging' => 'Logging',                     // todo Korrektur lesen
-        'mailer' => 'Mailer',                       // todo Korrektur lesen
+        'mailer' => 'Mailer',
         'events' => 'Notification Events',          // Not implemented yet!
         'sessions' => 'Sessions',                   // todo Korrektur lesen
         'testing' => 'Testing',

@@ -10,17 +10,18 @@
     - [Getter and Setter](#getter-and-setter)
     - [Relationships](#relationships)
     - [Validation Rules](#validations)    
-    - [Events](#events)    
+    - [Hooks](#hooks)    
 - [Retrieving Models](#retrieving)
-    - [Retrieving All Models](#all)
-    - [Retrieving a Single Model](#find)
+    - [Retrieving All Models](#retrieving-all-models)
+    - [Retrieving a Single Model](#retrieving-single-model)
     - [Using Query Builder](#builder)
-    - [Eager Loading](#eager)
+    - [Retrieving Relationships](retrieving-relationships)
 - [Modification Models](#modification)
     - [Creating](#creating)
     - [Updating](#updating)
     - [Deleting](#deleting)
     - [Replicating](#replicating)
+    - [Modification Relationships](modification-relationships)
 - [Miscellanea Functions](#misc)
     
 <a name="introduction"></a>
@@ -511,43 +512,43 @@ Next, let's examine the model definitions needed to build this relationship:
     ];
     
 
-<a name="events"></a>
-### Events
+<a name="hooks"></a>
+### Hooks
     
-<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.9.8
-
-Events allow you to hook into the life cycle of your model, e.g. just before saving:  
+You may to hook into the life cycle of your model, e.g. just before updating:  
 
     class Flight extends Model
     {
         /**
-         * Called before a model is saved.
+         * Called before a model is updated.
          */
-        public function onSaving() {
+        public function beforeUpdate($attributes) 
+        {
             // ...
-        });
+        }
     }
 
-Pletfix support the following event handlers:
+The model supports the following hooks:
  
 #### Before
 
-- `onSaving`:   Called before a model is saved into the database.
-- `onCreating`: Called before a new model is to be inserted into the database.
-- `onUpdating`: Called before an existing model has been updated into the database.
-- `onDeleting`: Called before a model has been deleted from the database
+- `beforeInsert($attributes)`: Called before a new model is to be inserted into the database.
+- `beforeUpdate($attributes)`: Called before an existing model has been updated into the database.
+- `beforeDelete()`:            Called before a model has been deleted from the database
 
 #### After
 
-- `onSaved`:    Called after a model is saved into the database.
-- `onCreated`:  Called after a new model has been inserted into the database.
-- `onUpdated`:  Called after an existing model has been saved into the database.
-- `onDeleted`:  Called after a model has been deleted from the database.
+- `afterInsert($attributes)`:  Called after a new model has been inserted into the database.
+- `afterUpdate($attributes)`:  Called after an existing model has been saved into the database.
+- `afterDelete($id)`:          Called after a model has been deleted from the database.
+
+If one of the hooks returns false, the database operation will be canceled and rollback. Because the hooks are be under 
+a transaction itself, the database operations, which are executed in the hooks, will rollback too.
 
 <a name="retrieving"></a>
 ## Retrieving Models
 
-<a name="find"></a>
+<a name="retrieving-single-model"></a>
 ### Retrieving a Single Model
 
 The `find` method is useful when a model is searched for its ID. The method returns a single model instance, or `null` 
@@ -559,7 +560,7 @@ Sometimes it does not matter which entry you get, e.g. for test purposes. In thi
 
     $flights = Flight::first();
 
-<a name="all"></a>
+<a name="retrieving-all-models"></a>
 ### Retrieving All Models
 
 The `all` method will return a [`Collection`](collections) with all of the results in the model's table:
@@ -592,8 +593,30 @@ query builder. These methods return the appropriate scalar value instead of a fu
 
 See [Query Builder](builder) to learn all the possibilities that the QueryBuilder offers.
 
+<a name="retrieving-relationships"></a>
+### Retrieving Relationships    
+
+You may retrieve the models through the relations like this:
+
+    $books = Author::whereIs('name', 'Douglas Adams')->books;
+    
+The example above returns a [`Collection`](collections) with all of the books of Douglas Adams. You may also get a
+[query builder](builder) for the books of the author as below:
+
+    $builder = Author::whereIs('name', 'Douglas Adams')->books()->builder();
+    $books = $builder->all();
+
+#### Relation Cache
+
+Each relationship that is loaded will be cached, so we'll just return it out of here because there is no need to query 
+within the relations twice.
+
+You may use the `clearRelationCache` method to clears the relationship cache: 
+
+    $this->clearRelationCache();
+
 <a name="eager"></a>
-### Eager Loading
+#### Eager Loading
 
 This point is important to understand! To explain, let's take our [book-author example](#one-to-many) once again. 
 For each book you want to list their author. So you might write something like this:  
@@ -650,11 +673,7 @@ You can also use the `create` method to insert a new record in the database.
 
     $flight = Flight::create(['name' => 'Flight 10']);
 
-The `create` method returns the saved model instance.
-
-> <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
-> If you use the `create` method, you should specify the `guarded` attribute on the model, as all Models protect 
-> against mass-assignment by default.
+The `create` method returns the new model instance or FALSE, if the operation was canceled by a [hook](#hooks).
 
 <a name="updating"></a>
 ### Updating
@@ -673,15 +692,7 @@ You can also use the `update` method to update one or more model instances:
 
 The `update` method expects an array of column and value pairs representing the columns that should be updated.
 
-> <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
-> If you use the `update` method, you should specify the `guarded` attribute on the model, as all Models protect
-> against mass-assignment by default.
-
-#### Fill Existing Model
-
-If you already have a model instance, you may use the fill method to populate it with an array of attributes:
-
-    $flight->fill(['name' => 'Flight 22']);
+The method returns FALSE if the operation was canceled by a [hook](#hooks), otherwise TRUE.
 
 <a name="deleting"></a>
 ### Deleting
@@ -696,6 +707,8 @@ you know the primary key of the model, you may delete the model without retrievi
 
     Flight::destroy(1);
     Flight::destroy([1, 2, 3]);
+
+The method returns FALSE if the operation was canceled by a [hook](#hooks), otherwise TRUE.
 
 <a name="replicating"></a>
 ### Replicating
@@ -713,12 +726,80 @@ You can specify attributes that should be not copied:
 Note, the `replicate` method does not save the new model into the database. Therefore, the new model does not have a 
 primary key yet.
 
+<a name="modification-relationships"></a>
+### Modification Relationships    
+
+<div class="method-list" markdown="1">
+
+[associate](#method-associate)
+[disassociate](#method-disassociate)
+[create](#method-create)
+[update](#method-update)
+[delete](#method-delete)
+
+</div>
+
+<a name="method-associate"></a>
+#### `associate()` {.first-method .method}
+
+The `associate` method adds the relation to the given model.
+
+    $department = Department::create(['name' => 'Development']);
+    Employee::find(4711)->departments()->associate($department);
+
+<a name="method-disassociate"></a>
+#### `disassociate()` {.method}
+
+The `disassociate` method removes the relation to the given model.
+
+    $department = Department::whereIs('name', 'Development');
+    Employee::find(4711)->departments()->disassociate($department);
+    
+You may omit the argument if you want to remove all relations:     
+
+    Employee::find(4711)->departments()->disassociate();
+
+<a name="method-create"></a>
+#### `create()` {.method}
+
+The `create` method creates a new model, set the relation and save it in the database.
+
+    $department = $employee->departments()->create(['name' => 'Development']);
+
+By a [morphTo](#polymorphic) relationship, the new model is of the same class as the previous model.  
+
+<a name="method-update"></a>
+#### `update()` {.method}
+
+The `update` method updates all records of the relation with th given attributes and return the number of affected rows.
+
+    $department->employees()->update(['chief' => 'Leo']);
+
+You may also use the [query builder](builder) to filter the entities for updating as like:
+
+    $department->employees()
+        ->whereIs('id', 4711)
+        ->update(['chief' => 'Leo']);
+
+<a name="method-delete"></a>
+#### `delete()` {.method}
+
+The `delete` method deletes the given model from the database and remove the relation.
+
+    $department = Department::whereIs('name', 'Development');
+    Employee::find(4711)->departments()->delete($department);
+
+<!--
+TODO Überall die resultierenden SQL-Abfragen ausgeben.
+-->
+
 <a name="misc"></a>
 ## Miscellanea Functions
 
 <div class="method-list" markdown="1">
 
 [builder](#method-builder)
+[checkMassAssignment](#method-checkMassAssignment)
 [database](#method-database)
 [getAttribute](#method-getAttribute)
 [getAttributes](#method-getAttributes)
@@ -730,7 +811,9 @@ primary key yet.
 [getTable](#method-getTable)
 [isDirty](#method-isDirty)
 [isFillable](#method-isFillable)
+[reload](#method-relaod)
 [setAttribute](#method-setAttribute)
+[sync](#method-sync)
 
 </div>
 
@@ -750,6 +833,20 @@ The `builder` static method creates a new [QueryBuilder](builder) instance.
 >
 >     $flight = Flight::whereIs('name', 'Albatros')->all();
 
+<a name="method-checkMassAssignment"></a>
+#### `checkMassAssignment()` {.method}
+
+The `checkMassAssignment` method throws a MassAssignmentException if one or more of the given attributes are protected 
+for mass assignment. It is used in the `update` and in the `create` method of the model:
+
+    public function update(array $attributes)
+    {
+        $this->checkMassAssignment($attributes);
+        $this->attributes = array_merge($this->attributes, $attributes);
+
+        return $this->save();
+    }
+    
 <a name="method-database"></a>
 #### `database()` {.method}
 
@@ -858,6 +955,22 @@ The `isFillable` method determines if the given attribute may be mass assigned.
     $isFillable = $flight->isFillable('name');
     
 See also [getGuarded](method-getGuarded).
+
+<a name="method-mergeAttributes"></a>
+#### `mergeAttributes()` {.method}
+
+The `mergeAttributes` method merges the given attributes with the current ones.
+
+    $flight->mergeAttributes(['name' => 'Albatros', 'type' => '1234']);    
+
+See also [setAttributes](method-setAttributes).
+
+<a name="method-relaod"></a>
+#### `relaod()` {.method}
+
+The `relaod` method reload the attributes from the database.
+
+    $flight->relaod();
     
 <a name="method-setAttribute"></a>
 #### `setAttribute()` {.method}
@@ -866,4 +979,21 @@ The `setAttribute` method sets a given attribute of the model.
 
     $flight->setAttribute('name', 'Albatros');
 
-See also [getAttribute](method-setAttribute).
+See also [getAttribute](method-setAttribute) and [setAttributes](method-setAttributes).
+
+<a name="method-setAttributes"></a>
+#### `setAttributes()` {.method}
+
+The `setAttributes` method sets the given attributes to the model.
+
+    $flight->setAttributes(['name' => 'Albatros', 'type' => '1234']);    
+
+See also [setAttribute](method-setAttribute).
+
+<a name="method-sync"></a>
+#### `sync()` {.method}
+
+The `sync` method synchronises the original attributes with the current without reading the database.
+
+    $flight->sync();
+    
