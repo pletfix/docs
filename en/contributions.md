@@ -51,6 +51,8 @@ Pletfix follows...
 - the [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) coding style guide and 
 - the [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) autoloading standard.
 
+See also [www.php-fig.org](http://www.php-fig.org/psr/) for more Standards Recommendations of the PHP Framework Interop Group.
+
 <a name="repositories"></a>
 ## Pletfix Repositories
 

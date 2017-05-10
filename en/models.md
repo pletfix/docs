@@ -522,7 +522,7 @@ You may to hook into the life cycle of your model, e.g. just before updating:
         /**
          * Called before a model is updated.
          */
-        public function beforeUpdate($attributes) 
+        public function beforeUpdate() 
         {
             // ...
         }
@@ -532,18 +532,37 @@ The model supports the following hooks:
  
 #### Before
 
-- `beforeInsert($attributes)`: Called before a new model is to be inserted into the database.
-- `beforeUpdate($attributes)`: Called before an existing model has been updated into the database.
-- `beforeDelete()`:            Called before a model has been deleted from the database
+- `beforeInsert()`: Called before a new model is to be inserted into the database.
+- `beforeUpdate()`: Called before an existing model has been updated into the database.
+- `beforeDelete()`: Called before a model has been deleted from the database
+
+The "before" hooks are useful to validate the given data or to modify the attributes before saving. 
+If the hook returns FALSE, the pending database operation is canceled.   
 
 #### After
 
-- `afterInsert($attributes)`:  Called after a new model has been inserted into the database.
-- `afterUpdate($attributes)`:  Called after an existing model has been saved into the database.
-- `afterDelete($id)`:          Called after a model has been deleted from the database.
+- `afterInsert()`:  Called after a new model has been inserted into the database.
+- `afterUpdate()`:  Called after an existing model has been saved into the database.
+- `afterDelete()`:  Called after a model has been deleted from the database.
 
-If one of the hooks returns false, the database operation will be canceled and rollback. Because the hooks are be under 
-a transaction itself, the database operations, which are executed in the hooks, will rollback too.
+A typical use case for "after" hooks is, when additional database operations have to be performed.
+
+If you define a "after" hook, a transaction will be opened. If the hook returns FALSE or the hook throw an exception,
+the database operation will be rolled back. Because the hooks are be under a transaction itself, the database operations, 
+which are executed in the hooks, will rollback too.
+
+The "after" hooks are called immediately after the database operation and just before to cleaning the model.
+This has the advantage that you can get the old values yet via the `original` property like this:
+
+    public function afterDelete() 
+    {
+        $oldId = $this->original['id'];
+        // ...
+    }
+
+> <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
+> But this also means that if you overwrite an attribute in the "after" hook, the attribute will be marked as clean 
+> without stored in the database.
 
 <a name="retrieving"></a>
 ## Retrieving Models
@@ -813,6 +832,7 @@ TODO Überall die resultierenden SQL-Abfragen ausgeben.
 [isFillable](#method-isFillable)
 [reload](#method-relaod)
 [setAttribute](#method-setAttribute)
+[setAttributes](#method-setAttributes)
 [sync](#method-sync)
 
 </div>
@@ -837,14 +857,13 @@ The `builder` static method creates a new [QueryBuilder](builder) instance.
 #### `checkMassAssignment()` {.method}
 
 The `checkMassAssignment` method throws a MassAssignmentException if one or more of the given attributes are protected 
-for mass assignment. It is used in the `update` and in the `create` method of the model:
+for mass assignment. You should use this method into a controller action before saving a model:
 
     public function update(array $attributes)
     {
-        $this->checkMassAssignment($attributes);
-        $this->attributes = array_merge($this->attributes, $attributes);
+        Flight::checkMassAssignment($attributes);
 
-        return $this->save();
+        return $flight->update($attributes);
     }
     
 <a name="method-database"></a>
@@ -933,7 +952,7 @@ The `getTable` method gets the table name associated with the model.
 <a name="method-isDirty"></a>
 #### `isDirty()` {.method}
 
-The `isDirty` method determines if the model or given attribute(s) have been modified.
+The `isDirty` method determines if the model or given attribute(s) have been modified, but have not yet been saved.
 
     $flight = Flight::find(1);
     $flight->name = 'New Flight Name';
@@ -955,15 +974,6 @@ The `isFillable` method determines if the given attribute may be mass assigned.
     $isFillable = $flight->isFillable('name');
     
 See also [getGuarded](method-getGuarded).
-
-<a name="method-mergeAttributes"></a>
-#### `mergeAttributes()` {.method}
-
-The `mergeAttributes` method merges the given attributes with the current ones.
-
-    $flight->mergeAttributes(['name' => 'Albatros', 'type' => '1234']);    
-
-See also [setAttributes](method-setAttributes).
 
 <a name="method-relaod"></a>
 #### `relaod()` {.method}
