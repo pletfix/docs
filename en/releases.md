@@ -40,7 +40,6 @@ _What are we working on?_
 | Mailer | 0.5.6 | Alpha |
 | Query Builder |  0.6.0 | Alpha |
 | Model | 0.6.0 | Alpha |
-
 | Old Input | 0.6.1 | |
 | Flash Messages | 0.6.2 | |
 | FormBuilder| 0.6.3 | |
@@ -51,7 +50,6 @@ _What are we working on?_
 | Validation| 0.6.7 | |
 | Redirect for HTTP Response | 0.6.8 | |
 | Pagination | 0.6.9 | |
-
 | PSR-7 for HTTP Request/Response, PSR-15 Middleware | 0.7.0 | |
 | Crypt (Encryption and Decryption) | 0.7.1 | |
 | User Authenticate (with Login-Dialog) | 0.7.2 | |
@@ -61,7 +59,6 @@ _What are we working on?_
 | Password Remember Function | 0.7.6 | |
 | Token Authentication with Rate Limiting | 0.7.8 | |
 | **First Stable Release** | **0.8.0** | |
-
 | Scheduled Tasks | 0.8.1 | |
 | Image Manipulation | 0.8.2 | |
 | Zipper | 0.8.3 | |
@@ -78,7 +75,6 @@ _What are we working on?_
 | Optional paramters for HTTP Routing | 0.9.6 | |
 | Notification Events | 0.9.8 | |
 | **Second Stable Release** | **1.0.0** | |
-
 | Named Routes | &gt; 1.0.0 | |
 | LUA Support (Inline Scripting) | &gt; 1.0.0 | |
 | SFTP Client | &gt; 1.0.0 | |
