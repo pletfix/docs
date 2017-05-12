@@ -1,6 +1,6 @@
 # Controllers
 
-[Since 1.0.0]
+[Since 0.5.0]
 
 TODO: Anpassen 
 
@@ -44,6 +44,7 @@ You can define a [route](routing) to this controller action like so:
 
 Now, when a request matches the specified route URI, the `show` method on the `UserController` class will be executed. 
 
+> <i class="fa fa-info fa-2x" aria-hidden="true"></i>
 > You only need to specify the portion of the namespace that comes after the base `\App\Controllers` namespace. 
 > So, if your controller class is `App\Controllers\Admin\UserController`, you should register routes to the 
 > controller like this:

@@ -73,6 +73,7 @@ The member function `index` of `\App\Controllers\HomeController` will receive th
         }
     }
     
+> <i class="fa fa-info fa-2x" aria-hidden="true"></i>    
 > You only need to specify the portion of the namespace that comes after the base `\App\Controllers` namespace.   
 > So, if your controller class is `App\Controllers\Admin\UserController`, you should register routes to the 
 > controller like this:
@@ -123,7 +124,7 @@ GET         | `/photos/{id}/edit` | edit         | photos.edit    | Return an HT
 PUT/PATCH   | `/photos/{id}`      | update       | photos.update  | Update a specific photo.
 DELETE      | `/photos/{id}`      | destroy      | photos.destroy | Delete a specific photo.
 
-
+> <i class="fa fa-info fa-2x" aria-hidden="true"></i>
 > **What is the HTTP OPTIONS method?**
 >
 > To quote the spec: 
@@ -140,6 +141,8 @@ DELETE      | `/photos/{id}`      | destroy      | photos.destroy | Delete a spe
 >
 > Source: <http://zacstewart.com/2012/04/14/http-options-method.html> by Zac Stewart
 
+
+> <i class="fa fa-info fa-2x" aria-hidden="true"></i>
 > **A Note on HTTP HEAD method**
 >
 > To quote the spec ones more: 
@@ -178,7 +181,7 @@ dot (`.`) and underscore (`_`).
 
 To make a segment optional, simply add a `?` mark after the parameter name: 
 	
-	$route->get('/users/{id?}', function ($id = null) {
+	$route->get('users/{id?}', function ($id = null) {
 		// responds to both `/users` and `/users/123`, but not to `/users/`
 	});
 
@@ -187,19 +190,19 @@ To make a segment optional, simply add a `?` mark after the parameter name:
 	
 To make a segment optional, simply wrap in square brackets:
 
-	$route->get('/users[/{id}]', function ($id = null) {
+	$route->get('users[/{id}]', function ($id = null) {
 		// responds to both `/users` and `/users/123`, but not to `/users/`
 	});
 	
 Multiple optional parameters are supported by nesting:
 
-	$route->get('/news[/{year}[/{month}]]', function ($year = null, $month = null) {
+	$route->get('news[/{year}[/{month}]]', function ($year = null, $month = null) {
 		// reponds to `/news`, `/news/2016` and `/news/2016/03`
 	});	
 	
 Optional parts are only supported in a trailing position, not in the middle of a route. As example this route is NOT valid:
 
-	$route->get('/user[/{id:\d+}]/{name}', $callback);
+	$route->get('user[/{id:\d+}]/{name}', $callback);
 ---
 	
 	
@@ -213,7 +216,7 @@ route.
  
 Each [routing method](#http-method) described above returns a `Route` object, and this object exposes a `setName()` method.
 
-	$route->get('/hello/{name}', function ($name) {
+	$route->get('hello/{name}', function ($name) {
 		echo "Hello, " . $name;
 	})->setName('hello');
 	
@@ -227,20 +230,30 @@ You can generate a URL for this named route with the `route()` helper function.
 <a name="middleware"></a>
 ### Middleware
 
-<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.7.0	
+> <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
+> Read [here](middleware) to learn what middleware is and to learn how to write your own middleware.
 
-You can also attach middleware to any route or route group.
+You can also attach middleware to any route. You may set the class name of the middleware at the third argument. 
+The example below adds the middleware `App\Middleware\Authentication` to the base route:
 
-To assign middleware to a route, use the `setMiddleware()` function like this:
-
-	$route->get('/', function () {
+	$route->get('', function () {
 		// Uses Auth Middleware
-	})->setMiddleware('auth');
+	}, 'Authentication');
 
-To set the the middleware for one or more routes, you also could use the `middleware` function:
+> <i class="fa fa-info fa-2x" aria-hidden="true"></i>
+> You only need to specify the portion of the namespace that comes after the base `\App\Middleware` namespace. 
+> So, if your Middleware class is `App\Middleware\Admin\IsAdmin`, you could set the middleware like this:
+>
+>       $route->get('users/{id}', 'Admin\UserController@show', 'Admin\IsAdmin');
+
+It's also possible to specify more as one middleware: 
+
+	$route->get('books/edit/{id}', 'BookController@edit', ['Authentication', 'Csrf']);
 	
-    $route->middleware('auth', function () {
-        $route->get('/', function ()    {
+To set the middleware for one or more routes, you may use the `middleware` method:
+	
+    $route->middleware('Authentication', function () {
+        $route->get('', function ()    {
             // Uses Auth Middleware
         });
 
@@ -248,12 +261,12 @@ To set the the middleware for one or more routes, you also could use the `middle
             // Uses Auth Middleware
         });
     });
-	
+
 
 <a name="caching"></a>
 ### Route Caching
 	
-<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.5.7	
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.8.6
 	
 It’s possible to enable router cache in the `config/app.php` configuration file:
 

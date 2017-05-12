@@ -56,7 +56,7 @@ return [
     'Security' => [
         'authentication' => 'Authentication',       // Not implemented yet!
         'oauth2' => 'OAuth2',                       // Not implemented yet!, evt. umbenennen in Global Token Authentication
-        'middleware' => 'Middleware',               // Not implemented yet!
+        'middleware' => 'Middleware',               // todo Korrektur lesen
         'csrf' => 'CSRF Protection',                // Not implemented yet!
     ],
     'Appendix' => [

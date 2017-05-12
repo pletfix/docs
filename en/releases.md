@@ -40,24 +40,24 @@ _What are we working on?_
 | Mailer | 0.5.6 | Alpha |
 | Query Builder |  0.6.0 | Alpha |
 | Model | 0.6.0 | Alpha |
-| Old Input | 0.6.1 | |
-| Flash Messages | 0.6.2 | |
-| FormBuilder| 0.6.3 | |
-| CSRF Protection | 0.6.4 | |
-| File Upload | 0.6.5 | |
-| File Download | 0.6.5 | |
-| Ajax Request | 0.6.6 | |
-| Validation| 0.6.7 | |
-| Redirect for HTTP Response | 0.6.8 | |
-| Pagination | 0.6.9 | |
-| PSR-7 for HTTP Request/Response, PSR-15 Middleware | 0.7.0 | |
-| Crypt (Encryption and Decryption) | 0.7.1 | |
-| User Authenticate (with Login-Dialog) | 0.7.2 | |
-| User Authorize (Roles and Permissions) | 0.7.3 | |
-| User Registration Dialog | 0.7.4 | |
-| Password Reset Function | 0.7.5 | |
-| Password Remember Function | 0.7.6 | |
-| Token Authentication with Rate Limiting | 0.7.8 | |
+| Middleware | 0.6.1 | Alpha |
+| User Authenticate (with Login-Dialog) | 0.6.3 | |
+| Crypt (Encryption and Decryption) | 0.6.4 | |
+| CSRF Protection | 0.6.5 | |
+| User Authorize (Roles and Permissions) | 0.6.6 | |
+| User Registration Dialog | 0.6.7 | |
+| Password Reset Function | 0.6.8 | |
+| Password Remember Function | 0.7.0| |
+| Old Input | 0.7.1 | |
+| Flash Messages | 0.7.2 | |
+| FormBuilder| 0.7.3 | |
+| File Upload | 0.7.4 | |
+| File Download | 0.7.4 | |
+| Ajax Request | 0.7.5 | |
+| Validation| 0.7.6 | |
+| Redirect for HTTP Response | 0.7.7 | |
+| Pagination | 0.7.8 | |
+| PSR-7 for HTTP Request/Response | 0.7.9 | |
 | **First Stable Release** | **0.8.0** | |
 | Scheduled Tasks | 0.8.1 | |
 | Image Manipulation | 0.8.2 | |
@@ -66,7 +66,8 @@ _What are we working on?_
 | PDF Writer | 0.8.5 | |
 | Route Caching | 0.8.6 | |
 | DI Caching | 0.8.7 | |
-| Benchmark Test (Profiler) | 0.9.0 | |
+| Benchmark Test (Profiler) | 0.8.8 | |
+| Token Authentication with Rate Limiting | 0.8.9 | |
 | SOUP Services | 0.9.1 | |
 | REST Services (with CURL) | 0.9.2 | |
 | WebSocket | 0.9.3 | |
@@ -85,6 +86,7 @@ _What are we working on?_
 | ExcelReader | &gt; 1.0.0 | |
 | Update-Manager | &gt; 1.0.0 | |
 | Extending Blade Feature | &gt; 1.0.0 | |
+| LDAP Authentification | &gt; 1.0.0 | |
 
 > <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i> 
 > This is a living document. The features and release numbers probably will be changed during development. 
