@@ -74,9 +74,11 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 
 [abort](#method-abort)
 [asset](#method-asset)
+[bcrypt](#method-bcrypt)
 [benchmark](#method-benchmark)
 [command](#method-command)
 [config](#method-config)
+[csrf_token](#method-csrf-token)
 [dump](#method-dump)
 [dd](#method-dd)
 [e](#method-e)
@@ -86,6 +88,7 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [is_win](#method-is-win)
 [list_files](#method-list-files)
 [list_classes](#method-list-classes)
+[old](#method-old)
 [remove_dir](#method-remove-dir)
 [t](#method-t)
 [url](#method-url)
@@ -102,6 +105,7 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 <div class="method-list" markdown="1">
 
 [asset_manager](#method-asset-manager)
+[auth](#method-auth)
 [cache](#method-cache)
 [collect](#method-collect)
 [cookie](#method-cookie)
@@ -353,6 +357,14 @@ Furthermore, if you set the third argument to true, benchmark() will return the 
     }, 100, true);    
     
     
+<a name="method-bcrypt"></a>
+#### `bcrypt()` {.method}
+
+The `bcrypt` function creates a password hash using the <b>CRYPT_BLOWFISH</b> algorithm.
+
+    $hash = bcrypt('psss...');  
+      
+    
 <a name="method-command"></a>
 #### `command()` {.method}
 
@@ -375,6 +387,16 @@ A default value may be specified and is returned if the configuration option doe
 
     $debugMode = config('app.debug', 'false'); 
 
+<a name="method-csrf-token"></a>
+#### `csrf_token()` {.method}
+
+The `csrf_token` function gets the session's CSRF token. It's useful for the a web form:
+ 
+    <input type="hidden" name="_token" value="{{csrf_token()}}"/> 
+    
+`csrf_token()` is a shortcut for:
+
+    session()->csrf();
     
 <a name="method-dump"></a>
 #### `dump()` {.method}
@@ -494,6 +516,14 @@ The `list_classes` function reads available PHP classes recursive from given pat
 
     list_classes($result, app_path('Commands'), 'App\Commands');
 
+    
+<a name="method-mail-address"></a>
+#### `mail_address()` {.method}
+
+The `mail_address` function gets the email address without the name:
+
+    $email = mail_address('Webmailer <mail@example.com>'); // "mail@example.com"
+
 
 <a name="method-locale"></a>
 #### `locale()` {.method}
@@ -505,6 +535,18 @@ The `locale` function gets and sets the current locale:
     $locale = locale();
         
         
+<a name="method-old"></a>
+#### `old()` {.method}
+
+The `old` function retrieves an old input item. It is useful in a web form:
+
+    <input type="email" id="email" name="email" value="{{old('email')}}"/>
+            
+`old()` is a shortcut for:
+
+    session()->old($key, $default)
+    
+                
 <a name="method-remove-dir"></a>
 #### `remove_dir()` {.method}
 
@@ -538,11 +580,18 @@ The `url` function generates a absolute URL to the given path.
 The `asset_manager` function gets the [AssetManager](assets) instance:
 
     $assetManager = asset_manager()
-    
-    
+        
 > Typically, you do not need access the Asset Manager programmatically. Instead, use the Pletfix console command 'asset'.     
 
 
+<a name="method-cache"></a>
+#### `auth()` {.method}
+
+The `auth` function gets the [Auth](authentication) object:
+
+    $auth = auth();
+    
+    
 <a name="method-cache"></a>
 #### `cache()` {.method}
 

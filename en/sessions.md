@@ -5,6 +5,8 @@
 - [Introduction](#introduction)
 - [Configuration](#configuration)
 - [Accessing the Session](#accessing)
+- [Flash Data](#flash-data)
+- [Old Input](#old-input)
 - [Available Methods](#available-methods)
 
 <a name="introduction"></a>
@@ -73,7 +75,59 @@ However, you can also use a closure that start and commit the session for you:
         $session->set('bar', $bar);
     });
                
+<a name="flash-data"></a>    
+## Flash Data
+
+> <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
+> For the flash functionality be sure, that the `ageFlash` bootstrap in enabled in `config/boot/bootstrap.php`:
+>
+>     (new Core\Bootstraps\AgeFlash)->boot();
+>
+> If you don't need flash, you may disable the `ageFlash` bootstrap for better performance.
+
+Sometimes you may wish to store items in the session only for the next request. You may do so using the flash method. 
+Data stored in the session using this method will only be available during the subsequent HTTP request, and then will 
+be deleted:
+
+    session()->flash('message', 'Operation was successfull!');
     
+If you set a flash data like above you can get the data until the next request:
+    
+    $message = session()->get('message');
+    
+If you need to keep your flash data for an additional request, you may use the `reflash` method:
+
+    session()->reflash(); // keeps all flash data
+    
+    session()->reflash(['message']);
+    
+You could also use the `flashNow` method to add a value to the flash data only for immediate use:
+
+    session()->flashNow('message', 'Operation was successfull!');    
+    
+<a name="old-input"></a>
+### Old Input    
+ 
+The `session` object provide extended flash methods to hold input values until the next request: 
+
+The `flashInput` method flashes an input array to the session:
+ 
+    session()->flashInput($input);
+
+The values will be available in the next session via the `old` method.
+ 
+    session()->old('name', 'Unknown');
+
+> <i class="fa fa-lightbulb-o fa-2x" aria-hidden="true"></i>         
+> You may also use the `old` helper function, e.g. in a view for a web form. It is a little bit shorter and does the same:
+>
+>     <input type="email" id="email" name="email" value="{{old('email')}}"/>
+     
+The `hasOldInput` method determines if the session contains old input:
+
+    $hasOldInput = session()->hasOldInput('key');  
+        
+        
 <a name="available-methods"></a>
 ## Available Methods
 
@@ -82,16 +136,21 @@ The Session object has these methods:
 <div class="method-list" markdown="1">
 
 [abort](#method-abort)
+[ageFlash](#method-age-flash)
 [clear](#method-clear)
 [commit](#method-commit)
 [csrf](#method-csrf)
 [delete](#method-delete)
 [flash](#method-flash)
+[flashNow](#method-flash-now)
+[flashInput](#method-flash-input)
 [get](#method-get)
 [isStarted](#method-is-started)
 [has](#method-has)
+[has-old-input](#method-has-old-input)
 [kill](#method-kill)
 [lock](#method-lock)
+[old](#method-old)
 [reflash](#method-reflash)
 [regenerate](#method-regenerate)
 [set](#method-set)
@@ -112,6 +171,16 @@ The `cancel` discards the changes made during the current request.
 This function calls `session_abort()` internally.
 
 See also [delete](#method-delete).
+
+
+<a name="method-age-flash"></a>
+#### `ageFlash()` {.method}	
+
+To age the flash data for the session, you may use the `ageFlash` method:
+
+    session()->ageFlash();
+    
+See also [flash](#method-flash).
 
 
 <a name="method-clear"></a>
@@ -159,11 +228,33 @@ Sometimes you may wish to store items in the session only for the next request. 
 Data stored in the session using this method will only be available during the subsequent HTTP request, and then will 
 be deleted:
 
-    session()->flash('key', Operation was successfull!');
+    session()->flash('key', 'Operation was successfull!');
     
-See also [reflash](#method-reflash).
+See also [reflash](#method-reflash) and [ageFlash](#method-age-flash).   
+ 
+ 
+<a name="method-flash-now"></a>
+#### `flashNow()` {.method}	
+
+The `flashNow`method flashes a key/value pair to the session for immediate use.
+
+    session()->flashNow('key', 'Operation was successfull!');
+    
+See also [reflash](#method-flash).
     
     
+<a name="method-flash-input"></a>
+#### `flashInput()` {.method}	
+
+The `flashInput` method flashes an input array to the session:
+
+    session()->flashInput($input);
+    
+The values will be available in the next session via the `old` method.    
+    
+See also [old](#method-old) and [hasOldInput](#method-has-old-input).
+     
+     
 <a name="method-get"></a>
 #### `get()` {.method}	
 
@@ -192,6 +283,16 @@ The `has` method may be used to determine if an item exists in the session:
     }
     
     
+<a name="method-has"></a>
+#### `hasOldInput()` {.method}	
+
+The `hasOldInput` method determines if the session contains old input:
+
+    $hasOldInput = session()->hasOldInput('key');
+        
+See also [old](#method-old) and [flashOldInput](#method-flash-old-input).
+
+    
 <a name="method-is-started"></a>
 #### `isStarted()` {.method}	
 
@@ -212,14 +313,22 @@ The `kill` method removes the session completely (both values as well as session
 #### `lock()` {.method}	
 
 This method will pass a closure for writing session data. The session is started and committed automatically.
-    
-See also [flash](#method-flash).
 
     session()->lock(function(Session $session) use ($foo, $bar) {
         $session->set('foo', $foo);
         $session->set('bar', $bar);
     });
 
+
+<a name="method-old"></a>
+#### `old()` {.method}	
+
+The `old` method gets the requested item from the flashed old input array.
+    
+    session()->old('name', 'Unknown'); 
+    
+See also [flashOldInput](#method-flash-old-input) and [hasOldInput](#method-has-old-input).
+    
     
 <a name="method-reflash"></a>
 #### `reflash()` {.method}	

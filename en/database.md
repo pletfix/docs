@@ -495,6 +495,7 @@ The type should be given as an abstract type, see also [Field Type Mapping](#typ
 <div class="method-list" markdown="1">
 
 [builder](#method-builder)
+[config](#method-config)
 [connect](#method-connect)
 [dump](#method-dump)
 [errorCode](#method-error-code)
@@ -518,6 +519,13 @@ The type should be given as an abstract type, see also [Field Type Mapping](#typ
 The `builder` method creates a new [QueryBuilder](builder) instance:
 
     $builder = database()->builder();
+    
+<a name="method-config"></a>
+#### `config()` {.method}
+
+The `config` method gets the database configuration.
+
+    $driver = database()->config('driver');    
     
 <a name="method-connect"></a>
 #### `connect()` {.method}
