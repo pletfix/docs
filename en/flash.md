@@ -123,6 +123,7 @@ returned.
 
     $value = flash()->get('key');
 
+
 If you wish, you may pass a second argument to the `get` method specifying the default value you wish to be returned if 
 the item doesn't exist:
 
