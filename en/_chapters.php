@@ -27,6 +27,7 @@ return [
         'datetime' => 'DateTime',                   // todo Korrektur lesen
         'di' => 'Dependency Injection',             // todo Korrektur lesen
         'errors' => 'Errors &amp; Exceptions',      // todo Korrektur lesen
+        'flash' => 'Flash',                         // todo Korrektur lesen
         'helpers' => 'Helpers &amp; Services',      // todo Korrektur lesen
         'plugins' => 'Plugins',
         'requests' => 'HTTP Requests',              // todo Korrektur lesen, "various ways to get the url" in der Einführung

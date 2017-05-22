@@ -65,6 +65,7 @@ The Response object has these methods:
 [getStatusText](#method-get-status-test)
 [header](#method-header)
 [output](#method-output)
+[redirect](#method-redirect)
 [send](#method-send)
 [status](#method-status)
 [view](#method-view)
@@ -139,7 +140,24 @@ You can set the response's status and headers as like as:
 
     return response()->output('foo, ['a' => 4711], 200, ['Content-Type' => 'text/plain']);   
         
-        
+
+<a name="method-redirect"></a>
+#### `redirect()` {.method}
+
+The `redirect` method returns a redirect HTTP response to the given URL:
+    
+    $redirect = response()->redirect(url('home'));
+     
+The default HTTP status is 302 for a non-permanently link. You can create a permanently redirekt like this:
+
+    $redirect = response()->redirect(url('home'), 301);   
+  
+> <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>    
+> Note, there is also [helper function](helpers#redirect) to create a redirect response:
+>
+>    $redirect = redirect('home');
+   
+      
 <a name="method-send"></a>
 #### `send()` {.method}
 

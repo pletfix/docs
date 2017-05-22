@@ -83,11 +83,13 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [dd](#method-dd)
 [e](#method-e)
 [env](#method-env)
+[error](#method-error)
 [is_console](#method-is-console)
 [is_testing](#method-is-testing)
 [is_win](#method-is-win)
 [list_files](#method-list-files)
 [list_classes](#method-list-classes)
+[message](#method-message)
 [old](#method-old)
 [remove_dir](#method-remove-dir)
 [t](#method-t)
@@ -116,6 +118,7 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [mailer](#method-mailer)
 [migrator](#method-migrator)
 [plugin_manager](#method-plugin-manager)
+[redirect](#method-redirect)
 [request](#method-request)
 [response](#method-response)
 [session](#method-session)
@@ -387,16 +390,18 @@ A default value may be specified and is returned if the configuration option doe
 
     $debugMode = config('app.debug', 'false'); 
 
+
 <a name="method-csrf-token"></a>
 #### `csrf_token()` {.method}
 
-The `csrf_token` function gets the session's CSRF token. It's useful for the a web form:
+The `csrf_token` function gets the session's [CSRF token value](https://en.wikipedia.org/wiki/Cross-site_request_forgery). 
+It's useful for the a web form:
  
     <input type="hidden" name="_token" value="{{csrf_token()}}"/> 
     
-`csrf_token()` is a shortcut for:
+> <i class="fa fa-info fa-2x" aria-hidden="true"></i>
+> The CSRF token is stored in the session under the `'_csrf_token'´ key.
 
-    session()->csrf();
     
 <a name="method-dump"></a>
 #### `dump()` {.method}
@@ -445,7 +450,19 @@ The `env` function gets the value of an environment variable or returns a defaul
 
 > IMPORTANT:
 > If the config was cached the environment file ".env" is not read. Therefore you should never use this function directly, instead only in the configuration files.
+
     
+<a name="method-error"></a>
+#### `error()` {.method}
+
+The `error` function retrieves an error message from the flash for the given key:
+
+    $error = error('email');
+            
+`error()` is a shortcut for:
+
+    $error = flash()->get('errors.' . $key)        
+        
 <!--
 
 <a name="method-format-datetime"></a>
@@ -534,17 +551,29 @@ The `locale` function gets and sets the current locale:
     
     $locale = locale();
         
-        
+
+<a name="method-message"></a>
+#### `message()` {.method}
+
+The `message` function retrieves an message from the flash:
+
+    message()
+            
+`message()` is a shortcut for:
+
+    flash()->get('message')
+            
+            
 <a name="method-old"></a>
 #### `old()` {.method}
 
-The `old` function retrieves an old input item. It is useful in a web form:
+The `old` function retrieves an old input item from the flash. It is useful in a web form:
 
     <input type="email" id="email" name="email" value="{{old('email')}}"/>
             
 `old()` is a shortcut for:
 
-    session()->old($key, $default)
+    flash()->get('input' . $key)
     
                 
 <a name="method-remove-dir"></a>
@@ -681,6 +710,18 @@ The `plugin_manager` function creates a [PluginManager](plugins) instance for th
 
 > Typically, you do not need access the Plugin Manager programmatically. Instead, use the Pletfix console command 'plugin'.
 
+
+<a name="method-redirect"></a>
+#### `redirect()` {.method}
+
+The `redirect` function returns a redirect HTTP response to the given path:
+    
+    $redirect = redirect('home', ['name' => 'Peter']);
+     
+The default HTTP status is 302 for a non-permanently link. You can create a permanently redirect link like this:
+
+    $redirect = redirect('home', ['name' => 'Peter'], 301);   
+  
 
 <a name="method-request"></a>
 #### `request()` {.method}

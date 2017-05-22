@@ -48,8 +48,7 @@ _What are we working on?_
 | User Registration Dialog | 0.6.7 | |
 | Password Reset Function | 0.6.8 | |
 | Password Remember Function | 0.7.0| |
-| Old Input | 0.7.1 | |
-| Flash Messages | 0.7.2 | |
+| Flash Object | 0.7.1 | |
 | FormBuilder| 0.7.3 | |
 | File Upload | 0.7.4 | |
 | File Download | 0.7.4 | |
