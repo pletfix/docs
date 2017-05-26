@@ -173,13 +173,18 @@ The `has` method may be used to determine if an item exists in the cache:
 <a name="method-set"></a>
 #### `set()` {.method}
 
-The `set` method may be used to store an item in the cache: 
+The `set` method may be used to store an item into the cache: 
 
     $value = cache()->set('key', 'foo');
+    
+If a cache entry with the given id already exists, its data will be replaced.    
         
 You can set a lifetime in number of minutes if the entry should be expire:
          
     $value = cache()->set('key', 'foo', 60);
+
+If the lifetime is equal zero (the default), the entry never expires (although it may be deleted from the cache to make 
+place for other entries).
     
 You can save any type of data whether it is a string, array, object, etc. 
 

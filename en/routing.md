@@ -262,6 +262,12 @@ To set the middleware for one or more routes, you may use the `middleware` metho
         });
     });
 
+If you omit the closure of the `middleware` method, the middleware is used by all the routes defined below:
+
+    $route->middleware('Authentication');
+    
+    // Uses Auth Middleware...
+    $route->get('users/{id}', 'Admin\UserController@show');   
 
 <a name="caching"></a>
 ### Route Caching

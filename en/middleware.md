@@ -12,8 +12,6 @@
 You can run middleware before and after your Pletfix application to manipulate the Request and Response objects as you 
 see fit. A typical use case for a middleware is the user authentication or a CSRF check.
 
-A good place to store the Middleware is the `app/Middleware` directory.
-
 <a name="writing"></a>
 ## Writing Middleware
 
