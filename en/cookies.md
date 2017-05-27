@@ -47,7 +47,7 @@ You may remove a cookie using the `delete` method:
     - If set to '/', the cookie will be available within the entire domain.
     - If set to '/foo/', the cookie will only be available within the /foo/ directory and all sub-directories such as 
       /foo/bar/ of domain.
-    - The default value is the current directory that the cookie is being set in.
+    - The default value is the base directory of the application.
  - `$domain`: The (sub)domain that the cookie is available to.
     Setting this (such as 'example.com') will make the cookie available to that domain and all other
     sub-domains of it (i.e. www.example.com). The default is the current domain.
@@ -94,7 +94,7 @@ You can add a few more arguments, that are pass to PHP's native [setcookie](http
     - If set to '/', the cookie will be available within the entire domain.
     - If set to '/foo/', the cookie will only be available within the /foo/ directory and all sub-directories such as 
       /foo/bar/ of domain.
-    - The default value is the current directory that the cookie is being set in.
+    - The default value is the base directory of the application.
  - `$domain`: The (sub)domain that the cookie is available to.
     Setting this (such as 'example.com') will make the cookie available to that domain and all other
     sub-domains of it (i.e. www.example.com). The default is the current domain.

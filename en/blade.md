@@ -394,17 +394,30 @@ As you can see, we will chain the `format` method onto whatever expression is pa
 @break(condition)               - Break the current iteration if the condition is true (allowed only within a loop)
 </pre>
 
-<a name="quick-check"></a>
+<a name="quick-role-check"></a>
+### User Role Check
+<pre>
+@is($role)                      - Starts a block if the current user have the given role
+@elseis($role)                  - Starts an else block if the current user have the given role
+@elseis                         - Starts an else block
+@endis                          - Ends an the block
+@isnot($role)                   - Starts a block if the current user have not the given role
+@elseisnot($role)               - Starts an else block if the current user have not the given role
+@elseisnot                      - Starts an else block
+@endisnot                       - Ends an is-not block
+</pre>
+
+<a name="quick-ability-check"></a>
 ### User Ability Check
 <pre>
 @can($ability)                  - Starts a block if the current user have the given ability
 @elsecan($ability)              - Starts an else block if the current user have the given ability
 @elsecan                        - Starts an else block
-@endcan                         - Ends an can block
+@endcan                         - Ends the block
 @cannot($ability)               - Starts a block if the current user have not the given ability
 @elsecannot($ability)           - Starts an else block if the current user have not the given ability
 @elsecannot                     - Starts an else block
-@endcannot                      - Ends an cannot block
+@endcannot                      - Ends the block
 </pre>
 
 <a name="quick-php"></a>
