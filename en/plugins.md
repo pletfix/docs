@@ -158,7 +158,9 @@ workbench with a fresh plugin skeleton. After this you are ready to add services
 [Bootstraps](#bootstraps)
 [Commands](#commands)
 [Configuration](#configuration)
+[Controllers](#controllers)
 [Language Files](#language-files)
+[Middleware](#middleware)
 [Migrations](#migrations)
 [Public Folder](#public-folder)
 [Routes](#routes)
@@ -253,6 +255,22 @@ The [registration procedure](#registering) copies the file into the `config` dir
 
 Read chapter [Configuration](configuration) to learn more about configuration and environment variables.  
 
+<a name="controllers"></a>
+### Controllers
+
+You may also add controllers to your plugin. You can save the controller where you like, as long as it has the suffix 
+"Controller", e.g.:
+
+<pre class="tree">
+|-workbench/
+   |-foo/
+      |-bar/
+         |-src/
+            |-YourController.php
+</pre>
+
+Read chapter [Controllers](controllers) to learn how you write controllers.
+
 <a name="language-files"></a>
 ### Language Files
 
@@ -269,6 +287,22 @@ If the plugin have to translate something, save the language files under the plu
 
 Note that the file structure is different from the application's language file structure, but the structure of the 
 language file itself does not differ.
+
+<a name="middleware"></a>
+### Middleware
+
+You may also add middleware to your plugin. The right place for the class files is `src/Middleware`:
+
+<pre class="tree">
+|-workbench/
+   |-foo/
+      |-bar/
+         |-src/
+            |-Middleware/
+                |-YourMiddleware.php
+</pre>
+
+Read chapter [Middleware](middleware) to learn how you write your own middleware.
 
 <a name="migrations"></a>
 ### Migrations
@@ -297,7 +331,7 @@ Note, that the migration won't run automatically. You have to execute the `migra
 Put all things, that finally should be placed in the applications `public` folder, into the `public` folder of your plugin.
  
 <pre class="tree">
-|-vendor/
+|-workbench/
    |-foo/
       |-bar/
          |-public/
@@ -349,6 +383,7 @@ If your plugin needs views, add the templates into the `view` folder under the p
    |-foo/
       |-bar/
          |-views/
+            |-your-view.blade.php
 </pre>
 
 Your embedded view will be overwritten, if the view is stored with the same name in the application's `resources/view` 
@@ -358,8 +393,7 @@ folder as below:
 |-your-app/
    |-resources/
       |-views/
-         |-your-plugin-name/
-            |-your-view.blade.php
+         |-your-view.blade.php
 </pre>
 
 

@@ -209,7 +209,7 @@ Optional parts are only supported in a trailing position, not in the middle of a
 <a name="name"></a>	
 ### Named Routes
 
-Not supported yet, planned in future.
+<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned in future.
 
 Application routes can be assigned a name. This is useful if you want to programmatically generate a URL to a specific 
 route.
@@ -233,26 +233,26 @@ You can generate a URL for this named route with the `route()` helper function.
 > <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
 > Read [here](middleware) to learn what middleware is and to learn how to write your own middleware.
 
-You can also attach middleware to any route. You may set the class name of the middleware at the third argument. 
+You can attach middleware to any route. You may set the class name of the middleware at the third argument. 
 The example below adds the middleware `App\Middleware\Authentication` to the base route:
 
 	$route->get('', function () {
 		// Uses Auth Middleware
-	}, 'Authentication');
+	}, 'Auth');
 
 > <i class="fa fa-info fa-2x" aria-hidden="true"></i>
-> You only need to specify the portion of the namespace that comes after the base `\App\Middleware` namespace. 
+> You only need to specify the portion of the namespace that comes after `\App\Middleware` or `\Core\Middleware` 
 > So, if your Middleware class is `App\Middleware\Admin\IsAdmin`, you could set the middleware like this:
 >
 >       $route->get('users/{id}', 'Admin\UserController@show', 'Admin\IsAdmin');
 
 It's also possible to specify more as one middleware: 
 
-	$route->get('books/edit/{id}', 'BookController@edit', ['Authentication', 'Csrf']);
+	$route->get('books/edit/{id}', 'BookController@edit', ['Auth', 'Csrf']);
 	
 To set the middleware for one or more routes, you may use the `middleware` method:
 	
-    $route->middleware('Authentication', function () {
+    $route->middleware('Auth', function () {
         $route->get('', function ()    {
             // Uses Auth Middleware
         });
@@ -264,10 +264,18 @@ To set the middleware for one or more routes, you may use the `middleware` metho
 
 If you omit the closure of the `middleware` method, the middleware is used by all the routes defined below:
 
-    $route->middleware('Authentication');
+    $route->middleware('Auth');
     
     // Uses Auth Middleware...
     $route->get('users/{id}', 'Admin\UserController@show');   
+
+You may also add arguments to the middleware separated by a colon like this:   
+    
+    $route->get('users/{id}', 'Admin\UserController@show', 'Role:admin');
+
+Other arguments are separated by comma:
+
+    $route->get('users/{id}', 'Admin\UserController@show', 'WhatEver:bar,foo');
 
 <a name="caching"></a>
 ### Route Caching
