@@ -148,7 +148,7 @@ The `redirect` method returns a redirect HTTP response to the given URL:
     
     $redirect = response()->redirect(url('home'));
      
-The default HTTP status is 302 for a non-permanently link. You can create a permanently redirekt like this:
+The default HTTP status is 302 for a temporarily link. You can create a permanently redirekt like this:
 
     $redirect = response()->redirect(url('home'), 301);   
   

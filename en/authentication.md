@@ -9,6 +9,26 @@ _Making sure you build secure applications_
 See also:
 - <https://www.php-einfach.de/experte/php-sicherheit/authentifizierung-und-autorisierung-in-php/>
 
+<!--
+Authentication is the mechanism by which callers prove that they are acting on behalf of specific users or systems. 
+Authentication answers the question, "Who are you?" using credentials such as username/password combinations.
+
+In WebLogic Server, Authentication providers are used to prove the identity of users or system processes. 
+Authentication providers also remember, transport, and make that identity information available to various components 
+of a system (via subjects) when needed. During the authentication process, a Principal Validation provider provides 
+additional security protections for the principals (users and groups) contained within the subject by signing and 
+verifying the authenticity of those principals. (For more information, see Chapter 6, "Principal Validation Providers.")
+
+The following sections describe Authentication provider concepts and functionality, and provide step-by-step 
+instructions for developing a custom Authentication provider:
+
+- Authentication Concepts
+- The Authentication Process
+- Do You Need to Develop a Custom Authentication Provider?
+- How to Develop a Custom Authentication Provider
+
+Quelle: <https://docs.oracle.com/cd/E15523_01/web.1111/e13718/atn.htm#DEVSP205>
+-->
 
 ## Configuration
 

@@ -91,6 +91,7 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [list_classes](#method-list-classes)
 [message](#method-message)
 [old](#method-old)
+[redirect](#method-redirect)
 [remove_dir](#method-remove-dir)
 [t](#method-t)
 [url](#method-url)
@@ -118,7 +119,6 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [mailer](#method-mailer)
 [migrator](#method-migrator)
 [plugin_manager](#method-plugin-manager)
-[redirect](#method-redirect)
 [request](#method-request)
 [response](#method-response)
 [session](#method-session)
@@ -574,7 +574,23 @@ The `old` function retrieves an old input item from the flash. It is useful in a
 `old()` is a shortcut for:
 
     flash()->get('input' . $key)
+
     
+<a name="method-redirect"></a>
+#### `redirect()` {.method}
+
+The `redirect` function returns a redirect HTTP response to the given path:
+    
+    $redirect = redirect('home', ['name' => 'Peter']);
+    
+You may also set flash date for the next request at the third argument:
+    
+    $redirect = redirect('home', ['name' => 'Peter'], ['message' => 'Operation successful!']);
+     
+The default HTTP status is 302 for a temporarily link. You can create a permanently redirect link like this:
+
+    $redirect = redirect('home', ['name' => 'Peter'], [], 301);   
+  
                 
 <a name="method-remove-dir"></a>
 #### `remove_dir()` {.method}
@@ -710,18 +726,6 @@ The `plugin_manager` function creates a [PluginManager](plugins) instance for th
 
 > Typically, you do not need access the Plugin Manager programmatically. Instead, use the Pletfix console command 'plugin'.
 
-
-<a name="method-redirect"></a>
-#### `redirect()` {.method}
-
-The `redirect` function returns a redirect HTTP response to the given path:
-    
-    $redirect = redirect('home', ['name' => 'Peter']);
-     
-The default HTTP status is 302 for a non-permanently link. You can create a permanently redirect link like this:
-
-    $redirect = redirect('home', ['name' => 'Peter'], 301);   
-  
 
 <a name="method-request"></a>
 #### `request()` {.method}
