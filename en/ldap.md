@@ -1,4 +1,4 @@
-# OAuth2
+# LDAP
 
 [Since 0.5.0]
 
@@ -8,10 +8,6 @@
 
 Erklären, wie es funktioniert
 
-## OAuth2 Service
 
-Erklären, wie man es für den eignen Webservice einsetzen kann.
 
-## OAuth2 Client
 
-Erklären, wie man einen Client aufsetzt

@@ -56,7 +56,8 @@ return [
     ],
     'Security' => [
         'authentication' => 'Authentication',       // Not implemented yet!
-        'oauth2' => 'OAuth2',                       // Not implemented yet!, evt. umbenennen in Global Token Authentication
+        'ldap' => 'ldap',                           // Not implemented yet!
+        'oauth' => 'OAuth',                         // Not implemented yet!, evt. umbenennen in Global Token Authentication
         'middleware' => 'Middleware',               // todo Korrektur lesen
         'csrf' => 'CSRF Protection',                // Not implemented yet!
     ],

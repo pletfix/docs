@@ -115,9 +115,11 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [database](#method-database)
 [datetime](#method-datetime)
 [di](#method-di)
+[ldap](#method-ldap)
 [logger](#method-logger)
 [mailer](#method-mailer)
 [migrator](#method-migrator)
+[oauth](#method-oauth)
 [plugin_manager](#method-plugin-manager)
 [request](#method-request)
 [response](#method-response)
@@ -629,7 +631,7 @@ The `asset_manager` function gets the [AssetManager](assets) instance:
 > Typically, you do not need access the Asset Manager programmatically. Instead, use the Pletfix console command 'asset'.     
 
 
-<a name="method-cache"></a>
+<a name="method-auth"></a>
 #### `auth()` {.method}
 
 The `auth` function gets the [Auth](authentication) object:
@@ -691,6 +693,14 @@ The `di` function retrieves the [Dependency Injector](di) instance:
     $di = di();
     
 
+<a name="method-ldap"></a>
+#### `ldap()` {.method}
+
+The `ldap` function gets the [Ldap](ldap) object:
+
+    $ldap = ldap();
+    
+    
 <a name="method-logger"></a>
 #### `logger()` {.method}
 
@@ -717,6 +727,14 @@ The `migrator` function retrieves the [Migrator](migrations) instance for the gi
 > Typically, you do not need access the Migrator programmatically. Instead, use the Pletfix console command 'migrate'.
 
 
+<a name="method-oauth"></a>
+#### `oauth()` {.method}
+
+The `oauth` function gets the [OAuth](oauth) object:
+
+    $oauth = oauth();
+    
+    
 <a name="method-plugin-manager"></a>
 #### `plugin_manager()` {.method}
 
