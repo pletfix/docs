@@ -66,7 +66,7 @@ For example, enter this command in your terminal to register our `Hello` plugin:
 #### Registration Procedure
 	
 If you register a plugin, the following things will happen:
-  
+ 
 1. **Publish configuration**
 
    If available and if not already done, the configuration file of the plugin will be copied into the `config` directory.
@@ -92,7 +92,7 @@ If you register a plugin, the following things will happen:
 
    If available, the commands embedded in the plugin will be added to the `.manifest/plugins/commands.php` manifest.   
    The command factory reads this manifest if you enter `php console` to list all files.
-   
+    
 5. **Publish migration files**
 
    If available, the migration files embedded in the plugin will be added to the `.manifest/plugins/migrations.php` manifest.   
@@ -112,6 +112,45 @@ If you register a plugin, the following things will happen:
 
    If available, the embedded route entries will be added to the `.manifest/plugins/routes.php` manifest.   
    When the application is started, the [HTTP router](routing) loads this manifest.
+   
+4. **Publish classes**
+
+   All classes that stored in a subdirectory under the plugin's `./src` directory will be added to the 
+   `.manifest/plugins/classes.php` manifest, grouped to the top subdirectory. This is useful to add classes for specific 
+   use cases, such like controllers or middleware classes. Classes that stored directly into `./src` directory (without 
+   subdirectory), are not add to this manifest.
+   
+   For example, you have the following classes:   
+   
+       <pre class="tree">
+       |-workbench/
+          |-your-vendor/
+             |-your-pluging/
+                |-src/
+                   |-Controllers/
+                   |  |-YourController.php
+                   |-Middleware/
+                   |  |-YourMiddleware.php
+            
+       </pre>
+
+   The `.manifest/plugins/classes.php` file looks like this:
+    
+       <?php return array (
+         'Controllers' => 
+         array (
+           'YourController' => 'Pletfix\\YourPlugin\\Controllers\\YourController',
+         ),
+         'Middleware' => 
+         array (
+           'YourMiddleware' => 'Pletfix\\YourPlugin\\Middleware\\YourMiddleware',
+         ),
+       );
+
+   As an example, you can now define all the controls provided by plugins, like this:
+    
+        $classes = include manifest_path('plugins/classes.php');
+        $controllers = isset($classes['Controllers']) ? $classes['Controllers'] : [];
    
 9. **Publish services**
 
@@ -176,8 +215,8 @@ You may add assets to the plugin by creating the asset build file under `assets/
 
 <pre class="tree">
 |-workbench/
-   |-foo/                       
-      |-bar/                    
+   |-your-vendor/
+      |-your-pluging/
          |-assets/
             |-js/
             |-css/
@@ -196,8 +235,8 @@ If you like to modify the boot process, write a class that inherit from `Bootabl
  
 <pre class="tree">
 |-workbench/
-   |-foo/
-      |-bar/
+   |-your-vendor/
+      |-your-pluging/
          |-src/
             |-Bootstraps/
                 |-Whatever.php
@@ -228,8 +267,8 @@ You may also add commands to your plugin. The right place for the class files is
 
 <pre class="tree">
 |-workbench/
-   |-foo/
-      |-bar/
+   |-your-vendor/
+      |-your-pluging/
          |-src/
             |-Commands/
                 |-WhateverCommand.php
@@ -245,8 +284,8 @@ under `config/config.php`:
 
 <pre class="tree">
 |-workbench/
-   |-foo/
-      |-bar/
+   |-your-vendor/
+      |-your-pluging/
          |-config/
             |-config.php
 </pre>
@@ -258,15 +297,15 @@ Read chapter [Configuration](configuration) to learn more about configuration an
 <a name="controllers"></a>
 ### Controllers
 
-You may also add controllers to your plugin. You can save the controller where you like, as long as it has the suffix 
-"Controller", e.g.:
+Add your controllers into the plugin's `src/Controllers` directory: 
 
 <pre class="tree">
 |-workbench/
-   |-foo/
-      |-bar/
+   |-your-vendor/
+      |-your-pluging/
          |-src/
-            |-YourController.php
+            |-Controllers/
+                |-YourController.php
 </pre>
 
 Read chapter [Controllers](controllers) to learn how you write controllers.
@@ -278,8 +317,8 @@ If the plugin have to translate something, save the language files under the plu
  
 <pre class="tree">
 |-workbench/
-   |-foo/
-      |-bar/
+   |-your-vendor/
+      |-your-pluging/
          |-lang/
             |-de.php
             |-en.php
@@ -295,8 +334,8 @@ You may also add middleware to your plugin. The right place for the class files 
 
 <pre class="tree">
 |-workbench/
-   |-foo/
-      |-bar/
+   |-your-vendor/
+      |-your-pluging/
          |-src/
             |-Middleware/
                 |-YourMiddleware.php
@@ -312,8 +351,8 @@ folder.
  
 <pre class="tree">
 |-workbench/
-   |-foo/
-      |-bar/
+   |-your-vendor/
+      |-your-pluging/
          |-migrations/
             |-20170204121100_CreateWhatever.php
 </pre>
@@ -332,12 +371,11 @@ Put all things, that finally should be placed in the applications `public` folde
  
 <pre class="tree">
 |-workbench/
-   |-foo/
-      |-bar/
+   |-your-vendor/
+      |-your-pluging/
          |-public/
             |-images/
-                |-whatever.png
-            
+                |-whatever.png       
 </pre>
 
 <a name="routes"></a>
@@ -347,8 +385,8 @@ Add default route entries to the plugin's `config/routes.php` file.
 
 <pre class="tree">
 |-workbench/
-   |-foo/
-      |-bar/
+   |-your-vendor/
+      |-your-pluging/
          |-config/
             |-routes.php
 </pre>
@@ -365,8 +403,8 @@ As like the services of the application, you may register the services in the Pl
 
 <pre class="tree">
 |-workbench/
-   |-foo/
-      |-bar/
+   |-your-vendor/
+      |-your-pluging/
          |-config/
             |-services.php
 </pre>
@@ -380,8 +418,8 @@ If your plugin needs views, add the templates into the `view` folder under the p
 
 <pre class="tree">
 |-workbench/
-   |-foo/
-      |-bar/
+   |-your-vendor/
+      |-your-pluging/
          |-views/
             |-your-view.blade.php
 </pre>
