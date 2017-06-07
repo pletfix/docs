@@ -74,8 +74,8 @@ loading the rest of the framework.
          * Register routes.
          */
         call_user_func(function() {
-            @include __DIR__ . '/../../../../.manifest/plugins/routes.php';
             require __DIR__ . '/../../../../config/boot/routes.php';
+            @include __DIR__ . '/../../../../.manifest/plugins/routes.php';
         });
 
 4. Once the application has been bootstrapped and all service providers have been registered, the HTTP request will be 
