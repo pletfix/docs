@@ -115,7 +115,6 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [database](#method-database)
 [datetime](#method-datetime)
 [di](#method-di)
-[ldap](#method-ldap)
 [logger](#method-logger)
 [mailer](#method-mailer)
 [migrator](#method-migrator)
@@ -691,14 +690,6 @@ The `datetime` function creates a advanced [DateTime](datetime) instance:
 The `di` function retrieves the [Dependency Injector](di) instance:
 
     $di = di();
-    
-
-<a name="method-ldap"></a>
-#### `ldap()` {.method}
-
-The `ldap` function gets the [Ldap](ldap) object:
-
-    $ldap = ldap();
     
     
 <a name="method-logger"></a>

@@ -35,21 +35,24 @@ _What are we working on?_
 | DateTime | 0.5.1 | Alpha |
 | Translator (l18n) | 0.5.2 | Alpha |
 | Session Handling | 0.5.3 | Alpha |
+| Flash Object | 0.5.3 | Alpha |
 | Cookies | 0.5.4 | Alpha |
 | String Capitalization, Pluralizer | 0.5.5 | Alpha |
 | Mailer | 0.5.6 | Alpha |
-| Query Builder |  0.6.0 | Alpha |
+| Query Builder | 0.6.0 | Alpha |
 | Model | 0.6.0 | Alpha |
 | Middleware | 0.6.1 | Alpha |
-| User Authenticate (with Login-Dialog) | 0.6.3 | |
-| Crypt (Encryption and Decryption) | 0.6.4 | |
-| CSRF Protection | 0.6.5 | |
-| User Authorize (Roles and Permissions) | 0.6.6 | |
-| User Registration Dialog | 0.6.7 | |
-| Password Reset Function | 0.6.8 | |
-| Password Remember Function | 0.7.0| |
-| Flash Object | 0.7.1 | |
-| FormBuilder| 0.7.3 | |
+| Authentication with Roles and Abilities | 0.6.3 | Alpha |
+| User Login | 0.6.4 | Alpha |
+| Remember-Me Function | 0.6.5| Alpha |
+| User Double Opt-in Registration | 0.6.6 | Alpha |
+| Password Reset Function | 0.6.7 | Alpha |
+| Change Passwort Function | 0.6.7 | Alpha |
+| LDAP Authentication | 0.6.8 | Alpha |
+| Socialite OAuth2 Authentication | 0.6.9 | Alpha |
+| CSRF Protection | 0.6.2 | !!!!!!!!!!!!!!!! |
+| Pletfix Plugin Page| 0.7.0 | |
+| Pletfix Blog| 0.7.1 | |
 | File Upload | 0.7.4 | |
 | File Download | 0.7.4 | |
 | Ajax Request | 0.7.5 | |
@@ -67,6 +70,7 @@ _What are we working on?_
 | DI Caching | 0.8.7 | |
 | Benchmark Test (Profiler) | 0.8.8 | |
 | Token Authentication with Rate Limiting | 0.8.9 | |
+| Crypt/Blowfish (Encryption and Decryption) | 0.9.0 | |
 | SOUP Services | 0.9.1 | |
 | REST Services (with CURL) | 0.9.2 | |
 | WebSocket | 0.9.3 | |
@@ -75,17 +79,16 @@ _What are we working on?_
 | Optional paramters for HTTP Routing | 0.9.6 | |
 | Notification Events | 0.9.8 | |
 | **Second Stable Release** | **1.0.0** | |
+| FormBuilder| &gt; 1.0.0 | |
 | Named Routes | &gt; 1.0.0 | |
 | LUA Support (Inline Scripting) | &gt; 1.0.0 | |
 | SFTP Client | &gt; 1.0.0 | |
-| OAuth2 | &gt; 1.0.0 | |
 | reCAPTCHA | &gt; 1.0.0 | |
 | Agent (User agent information) | &gt; 1.0.0 | |
 | ExcelWriter | &gt; 1.0.0 | |
 | ExcelReader | &gt; 1.0.0 | |
 | Update-Manager | &gt; 1.0.0 | |
 | Extending Blade Feature | &gt; 1.0.0 | |
-| LDAP Authentification | &gt; 1.0.0 | |
 
 > <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i> 
 > This is a living document. The features and release numbers probably will be changed during development. 

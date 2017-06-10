@@ -1,6 +1,6 @@
 # Flash
 
-[Since 0.7.1]
+[Since 0.5.3]
 
 - [Introduction](#introduction)
 - [Configuration](#configuration)
