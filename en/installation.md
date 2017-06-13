@@ -18,7 +18,7 @@ The Pletfix framework has a few system requirements:
 - [NPM/Bower Dependency Manager for Composer](https://github.com/fxpio/composer-asset-plugin/blob/master/Resources/doc/index.md) (a global scope installation is required!)
 
 <a name="installation"></a>
-## Installing Pletfix Application
+## Installing Pletfix Application Skeleton
 
 ![Fresh Pletfix Application](https://raw.githubusercontent.com/pletfix/docs/master/images/pletfix_application.png)
 

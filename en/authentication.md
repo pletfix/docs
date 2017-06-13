@@ -2,208 +2,145 @@
 
 _Making sure you build secure applications_
 
-[Since 0.5.0]
+[Since 0.6.3]
 
-<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.7.2
+- [Introduction](#introduction)
+- [Configuration](#configuration)
+- [Create a Auth Instance](#instance)
+- [Login and Logout](#login)
+- [Determine the Role and Abilities](#check)
+- [View](#view)
+- [Middleware](#middleware)
 
-See also:
-- <https://www.php-einfach.de/experte/php-sicherheit/authentifizierung-und-autorisierung-in-php/>
+<a name="introduction"></a>
+## Introduction
 
-<!--
-Authentication is the mechanism by which callers prove that they are acting on behalf of specific users or systems. 
-Authentication answers the question, "Who are you?" using credentials such as username/password combinations.
+Postfix provides a simple way to manage the user roles and to control the access to the application. 
 
-In WebLogic Server, Authentication providers are used to prove the identity of users or system processes. 
-Authentication providers also remember, transport, and make that identity information available to various components 
-of a system (via subjects) when needed. During the authentication process, a Principal Validation provider provides 
-additional security protections for the principals (users and groups) contained within the subject by signing and 
-verifying the authenticity of those principals. (For more information, see Chapter 6, "Principal Validation Providers.")
+For this purpose there is the `Auth` service out of the box, with which the user can be logged in and, of course, can 
+also be logged out. In addition, there are a few middleware to control the user access. This middleware, in turn, uses 
+the `Auth` service to find out which skills the user has. 
 
-The following sections describe Authentication provider concepts and functionality, and provide step-by-step 
-instructions for developing a custom Authentication provider:
+In addition, the template system offers the possibility to design the view in dependency of the logged on user. Again, 
+the Auth object is accessed to determine the user's abilities.
 
-- Authentication Concepts
-- The Authentication Process
-- Do You Need to Develop a Custom Authentication Provider?
-- How to Develop a Custom Authentication Provider
-
-Quelle: <https://docs.oracle.com/cd/E15523_01/web.1111/e13718/atn.htm#DEVSP205>
--->
-
+<a name="configuration"></a>
 ## Configuration
 
-`config/auth.php`:
+The configuration is located at `config/auth.php`. In this file you may specify the user roles the access control list.
 
-    return [
-    
-        /**
-         * ----------------------------------------------------------------
-         * User Roles
-         * ----------------------------------------------------------------
-         *
-         * Here you may specify the available user roles.
-         */
-    
-        'roles' => [
-            //'guest'=> 'Gast',
-            'user'   => 'Benutzer',
-            'editor' => 'Redakteur',
-            'admin'  => 'Administrator',
-        ],
-    
-        /**
-         * ----------------------------------------------------------------
-         * Access Control List
-         * ----------------------------------------------------------------
-         *
-         * To control the access you may define the user abilities.
-         */
-    
-        'acl' => [
-            // 'login'           => ['guest'],
-            'save-comment'       => ['admin', 'editor', 'user'],
-            'delete-own-comment' => ['admin', 'editor', 'user'],
-            'manage'             => ['admin', 'editor'],
-            'manage-blog'        => ['admin', 'editor'],
-            'manage-user'        => ['admin'],
-        ],
-    
-        /**
-         * ----------------------------------------------------------------
-         * Model
-         * ----------------------------------------------------------------
-         *
-         * Here you may specify the model which stores the user accounts.
-         *
-         * If you omit this option, you need additional services such as LDAP, Twitter or Facebook, to authorize the user.
-         */
-    
-        'model' => [
-            'class'    => 'App\Models\User',
-            'identity' => 'email', // Find the user by this column, usually "email" or "name".
-        ]
-    ];
+In addtional you can set the user model which stores the user accounts. The user model should be provides the following 
+attributes: 
+<pre>
+- name               (string) The display name of the user.
+- email              (string) The email address of the user.
+- password           (string) Password hash created with the [`bcrypt()`](helpers#method-bcrypt) function.
+- principal          (string) Reserved for an addtional unique identifier, could be used by third party plugins.   
+- confirmation_token (string) Reserved for an double opt-in registration process, could be used by third party plugins.
+- remember_token     (string) "Remember-Me" token, is used if the user ticks the "remember-me" flag. 
+</pre>
 
-### Model
+The default user model is `App\Models\User`. If you have installed the [Pletfix Application Skeleton](https://github.com/pletfix/app), 
+the model and the database table are already created.
 
-    /**
-     * @property integer $id
-     * @property string $name
-     * @property string $email
-     * @property string $password
-     * @property string $role
-     * @property string $principal
-     * @property string $confirmation_token
-     * @property string $remember_token
-     * @property DateTime $created_at
-     * @property DateTime $updated_at
-     */
-    class User extends Model
-    {
-        /**
-         * The attributes that aren't mass assignable.
-         *
-         * @var array
-         */
-        protected static $guarded = ['id', 'role', 'confirmation_token', 'remember_token', 'created_at', 'updated_at'];
-    }
-    
-    
-## General Usage
-    
-### Auth-Service
-    
-    /**
-     * Authenticate and log a user into the application.
-     *
-     * @param array $credentials
-     * @return bool
-     */
-    public function login(array $credentials);
+> <i class="fa fa-lightbulb-o fa-2x" aria-hidden="true"></i>
+> The [Authenticaton Plugin](https://github.com/pletfix/authentication) contains a forms to manage the user 
+> accounts stored in this table.
 
-    /**
-     * Log the user out of the application.
-     */
+<a name="instance"></a>
+## Create a Auth Instance
+   
+You may use the `auth()` function to access a `Auth` instance:
+
+    $auth = auth();
+    
+> The `auth()` function is just a shortcut to get the `Auth` instance supported by [Dependency Injector](di): 
+>    
+>       $auth = DI::getInstance()->get('auth');
+   
+   
+<a name="login"></a>
+## Login and Logout
+
+#### `login()` {.method}
+
+You may login the user with the `login` method:        
+
+    $auth->login($credentials);
+    
+The argument `$credentials` is an array to hold the email or name of the user and the password.
+
+Pletfix does not provide the way to receive this user credentials out of the box, because there are too many possibilities.
+Instead you may install a Plugin such like [Authenticaton Plugin](https://github.com/pletfix/authentication) for basic 
+web login, [Ldap Plugin](https://github.com/pletfix/ldap) for authentication through an Active Directory or 
+[OAuth Plugin](https://github.com/pletfix/oauth) for authorizing through a Socialite provider as like Facebook or Dropbox.
+
+![Login](https://raw.githubusercontent.com/pletfix/registration/master/docs/screenshot4.png)
+
+The credentials could be an additional attribute names 'remember'. If this attribute true, the `Auth` service creates a
+a long life (5 years) cookie on the browser. In this case the user will be re-login automaticaly after the PHP session 
+expires (because has close the browser and opens it later for example).
+
+#### `logout()` {.method}
+
+Use the `logout` method to log the user out of the application:
+
     public function logout();
 
-    /**
-     * Set the attributes of the principal and store it in the session.
-     *
-     * @param int $id
-     * @param string $name
-     * @param string $role
-     */
+#### `setPrincipal()` {.method}
+
+If you have check the credentials already (e.g. through an another authentication server), you can set the user 
+principal like this: 
+
     public function setPrincipal($id, $name, $role);
 
-    /**
-     * Determine if the current user is authenticated.
-     *
-     * @return bool
-     */
-    public function isLoggedIn();
+The first argument `$id` is a unique identifier of the user. If you use a database model to store the user accounts as 
+the default [Pletfix Application Skeleton](https://github.com/pletfix/app) does, the `$id` should be the user ID of the 
+model. If you don't use a model, you could use any other unique user attribute or you could generate a unique id just 
+in time like PHP's `uniqid()` function.
 
-    /**
-     * Get the id of the current user.
-     *
-     * @return int|null
-     */
-    public function id();
+The second argument `$name` is the display name of the user. The last argument `$role` should be a role which is defined 
+in the configuration file `config/auth.php`.
 
-    /**
-     * Get the display name of the current user.
-     *
-     * @return string|null
-     */
-    public function name();
 
-    /**
-     * Get the role of the current user.
-     *
-     * @return string|null
-     */
-    public function role();
+<a name="check"></a>
+## Determine the Role and Abilities
 
-    /**
-     * Get the abilities of the current user.
-     *
-     * @return array|null
-     */
-    public function abilities();
+#### `isLoggedIn()` {.method}
+    
+Determine if the current user is authenticated like this:
 
-    /**
-     * Determine if the current user is the given role.
-     *
-     * @param string|array $role
-     * @return bool
-     */
-    public function is($role);
+    $isLoggedIn = $auth->isLoggedIn();
 
-    /**
-     * Determine if the user has the given ability.
-     *
-     * @param $ability
-     * @return bool
-     */
-    public function can($ability);
+#### `role()` {.method}
 
-    /**
-     * Change the display name of the current user.
-     *
-     * @param string $name
-     */
-    public function changeName($name);
+Get the role of the current user:
 
-    /**
-     * Change the role of the current user.
-     *
-     * @param string $role
-     */
-    public function changeRole($role);
-        
-        
-### View
+    $role = $auth->role();
 
-#### User Role Check
+#### `is()` {.method}
+
+Determine if the current user is the given role, e.g. an admin:
+
+    $isAdmin = $auth->is('admin');
+
+#### `abilities()` {.method}
+
+Get the abilities of the current user:
+     
+    $abilities = $auth->abilities();
+
+#### `can()` {.method}
+
+Determine if the user has the given ability, e.g. "manage-user":
+
+    $canManageUser = $auth->can('manage-user');
+     
+     
+<a name="view"></a>            
+## View
+
+### User Role Check
 
 You can use the Blade directive `@is` to check the role within in the view:
 
@@ -217,7 +154,7 @@ You can use the Blade directive `@is` to check the role within in the view:
 
 Read the [Blade Quick Reference](blade#quick-role-check) to leran more about `@is` related directives. 
 
-#### User Ability Check
+### User Ability Check
 
 You can check the abilities of the user within the view like this:
         
@@ -229,28 +166,33 @@ You can check the abilities of the user within the view like this:
     
 Read the [Blade Quick Reference](blade#quick-ability-check) to leran more about `@can` related directives. 
   
-        
-### User Registration and Login
+  
+<a name="middleware"></a>
+## Middleware
 
-There is a [Authentication Plugin for Pletfix](https://github.com/pletfix/authentication) that provides forms that allow 
-the user to register via Double opt-in process and to log in. The user can also reset or change their password. 
-In addition, the plugin provides the "remember-me" functionality. 
+Pletfix provides the following middleware out of the box to control the user access. 
 
-![Login](https://raw.githubusercontent.com/pletfix/registration/master/docs/screenshot4.png)
+> <i class="fa fa-lightbulb-o fa-2x" aria-hidden="true"></i>
+> Read [here](middleware) to learn more about how middleware works.
 
+### Auth
 
-### User Management
+You can use the `Auth` middleware to provide routes to authorized users only:
 
-Furthermore, the plugin above contains a complete user administration.
+    $route->middleware('Auth', function(Route $route) {
+        // members only...
+    });
 
-![User Management](https://raw.githubusercontent.com/pletfix/user-manager/master/table.png)
+### Role
 
+If you have routes for a specific user role, use the `Role` middleware: 
 
-<!--
-### User Profile
+    $route->middleware('Role:admin', function (Route $route) {
+    });
 
-if you install the ![Fresh Pletfix Application](https://raw.githubusercontent.com/pletfix/docs/master/images/pletfix_application.png),
-a User Profile Page is generated by default.
+### Ability
 
-TODO: Move to the plugin
--->
+And if the route is only for users with a certain ability, use the `Ability` middleware: 
+
+    $route->middleware('Ability:manage-user', function(Route $route) {
+    });  

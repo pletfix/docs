@@ -1,32 +1,22 @@
+[Since 0.6.9]
+
 # OAuth
-
-[Since 0.5.0]
-
-<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: &gt; 1.0.0
 
 ## Introduction
 
-Erklären, wie es funktioniert
+Pletfix provides a [OAuth Plugin](https://github.com/pletfix/oauth) to authenticate the user through a socialite 
+provider such like Facebook or Dropbox.
 
+![screenshot](https://raw.githubusercontent.com/pletfix/oauth/master/screenshot1.png)
 
-## OAuth1
+You can fetch the package by running the following terminal command under the application's directory:
 
-### OAuth1 Service
+    composer require pletfix/oauth
 
-Erklären, wie man es für den eignen Webservice einsetzen kann.
+After downloading, enter this command in your terminal to register the plugin:
 
-### OAuth1 Client
+    php console plugin pletfix/oauth 
 
-Erklären, wie man einen Client aufsetzt
+Read [here](https://github.com/pletfix/oauth) to learn how the service works.
 
-
-## OAuth2
-
-### OAuth2 Service
-
-Erklären, wie man es für den eignen Webservice einsetzen kann.
-
-### OAuth2 Client
-
-Erklären, wie man einen Client aufsetzt
 

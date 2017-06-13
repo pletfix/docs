@@ -118,7 +118,8 @@ If you register a plugin, the following things will happen:
    All classes that stored in a subdirectory under the plugin's `./src` directory will be added to the 
    `.manifest/plugins/classes.php` manifest, grouped to the top subdirectory. This is useful to add classes for specific 
    use cases, such like controllers or middleware classes. Classes that stored directly into `./src` directory (without 
-   subdirectory), are not add to this manifest.
+   subdirectory) or into the subdirectory 'Bootstraps', 'Commands' or 'Services', are not added to this manifest. 
+   Contracts (classes that are stored in a `Contracts` folder) are not listed too.
    
    For example, you have the following classes:   
    

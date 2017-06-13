@@ -3,7 +3,6 @@
 [Since 0.5.0]
 
 - [Introduction](#introduction)
-- [Middleware Out of the Box](#out-of-the-box)
 - [Writing Middleware](#writing)
 - [Invoke Middleware](#routes)
 
@@ -13,34 +12,6 @@
 You can run middleware before and after your Pletfix application to manipulate the Request and Response objects as you 
 see fit. A typical use case for a middleware is the user authentication or a CSRF check.
 
-
-<a name="out-of-the-box"></a>
-## Middleware Out of the Box
-
-Pletfix provides the following middleware out of the box.
-
-### Auth
-
-You can use the `Auth` middleware to provide routes to authorized users only:
-
-    $route->middleware('Auth', function(Route $route) {
-        // members only...
-    });
-
-### Role
-
-If you have routes for a specific user role, use the `Role` middleware: 
-
-    $route->middleware('Role:admin', function (Route $route) {
-    });
-
-### Ability
-
-And if the route is only for users with a certain ability, use the `Ability` middleware: 
-
-    $route->middleware('Ability:manage-user', function(Route $route) {
-    });
-    
 
 <a name="writing"></a>
 ## Writing Middleware
