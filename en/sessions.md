@@ -156,7 +156,7 @@ the item doesn't exist:
 
     $value = session()->get('key', 'default');
     
-There is also a shortlier way to get a session value:
+There is also a shorter way to get a session value:
     
      session('key', 'default');
  

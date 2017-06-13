@@ -759,6 +759,10 @@ The `session` function retrieves the [Session](sessions) instance:
 
     $session = session();
 
+If you read a specify value from the session, you may do it like this:
+    
+    $value = session('key', 'default');
+
 
 <a name="method-stdio"></a>
 #### `stdio()` {.method}
