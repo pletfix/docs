@@ -26,9 +26,7 @@ The Pletfix framework has a few system requirements:
 
     Install Pletfix by entering the Composer create-project command in your terminal:
     
-    ~~~
-    composer create-project pletfix/app --repository=https://raw.githubusercontent.com/pletfix/app/master/packages.json my-project-name
-    ~~~
+       composer create-project pletfix/app --repository=https://raw.githubusercontent.com/pletfix/app/master/packages.json my-project-name
     
     The command above will create a fresh Pletfix Application in the directory you specify (here "my-project-name").
     
@@ -39,22 +37,18 @@ The Pletfix framework has a few system requirements:
 
     After you have downloaded Pletfix, you may create the folder `storage` with following subfolders:
     
-    ~~~
-    storage/
-        cache/
-        logs/
-    ~~~
+       storage/
+          cache/
+          logs/
     
     **Important:** All directories within the storage have to be writable by your web server! 
     
     You may change the permissions as below:
     
-    ~~~
-    cd storage
-    chgrp www-data *
-    chmod 775 *
-    chmod g+s *
-    ~~~
+       cd storage
+       chgrp www-data *
+       chmod 775 *
+       chmod g+s *
 
 3. Environment
 
@@ -64,13 +58,32 @@ The Pletfix framework has a few system requirements:
 
     Customize the configuration files stored in `config` folder.
 
-5. That's all! Now the application is ready for the first request.
+5. Install Composer Packages
 
-    Open your browser and enter the URL of the application's public folder, e.g.
+    Enter this command to install the packages in the `vendor` folder:
+        
+       composer install
+        
+    > For the production system you should using the `no-dev` option:        
+    >    
+    >     composer install --no-dev
     
-    ~~~
+6. Create the database
+
+    Create the database according to your configuration. If you didn't change the default setting, a SQLite database has 
+    been configured and you can create the database by entering this shell command:
+  
+        touch storage/db/sqlite.db
+
+    After then, enter the following command in your terminal to migrate the database:
+
+        php console migrate
+        
+That's all! Now the application is ready for the first request. 
+
+Open your browser and enter the URL of the application's public folder, e.g.
+    
     http://localhost/my-app/public/
-    ~~~
     
 <a name="web-server"></a>
 ## Web Server Configuration
@@ -78,7 +91,8 @@ The Pletfix framework has a few system requirements:
 <a name="apache"></a>
 ### Apache
 
-Enable the `mod_rewrite` module so the `.htaccess` file in the `public` folder will be loaded correctly by the apache server.
+Enable the `mod_rewrite` module so the `.htaccess` file in the `public` folder will be loaded correctly by the apache 
+server.
 
 <a name="nginx"></a>
 ### Nginx
