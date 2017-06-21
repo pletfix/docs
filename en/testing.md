@@ -44,11 +44,11 @@ Just enter `vendor/bin/phpunit` in the terminal to run all tests you have define
 
 You can enter a class as argument to run only one test case:
 
-    vendor/bin/phpunit ExampleTest
+    vendor/bin/phpunit tests/ExampleTest
     
 To run a test that comes with a plugin (or another third party package), set the path to the plugin as argument:
     
-    vendor/bin/phpunit ./vendor/pletfix/hello/
+    vendor/bin/phpunit vendor/pletfix/core
     
 The following code shows how to run tests with the PHPUnit command-line test runner:
 
@@ -82,7 +82,7 @@ Create the test class in folder `tests`, e.g.:
 
     <?php
     
-    use Core\Testing\MinkTestCase;
+    use Core\Testing\TestCase;
     
     class ExampleTest extends TestCase
     {

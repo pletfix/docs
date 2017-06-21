@@ -181,10 +181,9 @@ the manifest files, for our `Hello` plugin like so:
 
 Use the `--remove` option to unregister the plugin. Again the example with our `Hello` plugin:
 
-    php console plugin pletfix/hello --update 
+    php console plugin pletfix/hello --remove 
     
-> The plugin package remains in the vendor directory. So you can register the plugin at any time again.
-            
+> The plugin package remains in the vendor directory. So you can register the plugin at any time again.         
             
 <a name="writing"></a>
 ## Writing Plugins

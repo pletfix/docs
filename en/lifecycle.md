@@ -215,7 +215,7 @@ testing environment.
 ### Bootstrap
     
 PHPUnit runs the bootstrap before tests are executed. The bootstrap is defined in `vendor/pletfix/core/tests/bootstrap.php`.
-It starts in principle just the autoloader:
+It starts the autoloader, the services and bootstraps defined in your application and in the registered plugins:
      
     /*
      * Save the start time for benchmark tests.
@@ -234,28 +234,29 @@ It starts in principle just the autoloader:
      */
     require __DIR__ . '/../../../../vendor/autoload.php';    
  
+    /*
+     * Push the Services into the Dependency Injector.
+     */
+    call_user_func(function() {
+        @include __DIR__ . '/../../../../.manifest/plugins/services.php';
+        require __DIR__ . '/../../../../config/boot/services.php';
+     });
+
+    /*
+     * Bootstrap the framework
+     */
+    call_user_func(function() {
+        require __DIR__ . '/../../../../config/boot/bootstrap.php';
+        @include __DIR__ . '/../../../../.manifest/plugins/bootstrap.php';
+    });
+
 ### Test Case
  
-1. After executing the bootstrap the `setUp` method of `TestCase` (or `MinkTestCase`) is called by PHPUnit to load the 
-   services defined in `config/boot/services.php` and your application bootstraps defined in `config/boot/bootstrap.php`: 
+1. After executing the bootstrap the `setUp` method of `TestCase` (or `MinkTestCase`) is called by PHPUnit. Be default, 
+   the method is empty:
 
         protected function setUp()
         {
-            /*
-             * Push the Services into the Dependency Injector.
-             */
-            call_user_func(function() {
-                @include __DIR__ . '/../../../../../.manifest/plugins/services.php';
-                require __DIR__ . '/../../../../../config/boot/services.php';
-            });
-    
-            /*
-             * Bootstrap the framework
-             */
-            call_user_func(function() {
-                require __DIR__ . '/../../../../../config/boot/bootstrap.php';
-                @include __DIR__ . '/../../../../../.manifest/plugins/bootstrap.php';
-            });
         }
   
 2. After setup the test cases are calling:
@@ -265,3 +266,8 @@ It starts in principle just the autoloader:
             $this->assertEquals(1, 1);
         }
   
+3. At last the `tearDown` method is invoked:
+  
+       protected function tearDown()
+       {
+       }

@@ -6,7 +6,8 @@ _Make your application support multiple languages_
 
 - [Introduction](#introduction)
 - [Configuration](#configuration)
-    - [Changing Localization at Runtime](#runtime)
+- [Changing Localization](#change)
+    - [Middleware](#middleware)
 - [Translation Files](#files) 
 - [Usage](#usage)
     - [Placeholders](#placeholders)
@@ -29,8 +30,8 @@ translation string:
 
     'fallback_locale' => 'en',
 
-<a name="runtime"></a>
-### Changing Localization at Runtime
+<a name="change"></a>
+## Changing Localization
 
 Use the global `locale` function to change the active language at runtime:
 
@@ -39,6 +40,26 @@ Use the global `locale` function to change the active language at runtime:
 You may also use the `local` function to determine the current localization:
 
     $locale = locale();
+
+<a name="middleware"></a>
+### Middleware
+
+Pletfix provides a middleware out of the box to change the language. You may add this middleware into your route 
+file like this:
+
+    $route->middleware('locale');
+
+If you have bind this middleware like above, the language is set depended from a cookie names `locale`.  
+
+You may set the cookie if the user changes the default language. The [Pletfix Application Skeleton](https://github.com/pletfix/app) 
+includes already a `HomeController` that is doing that:
+
+    public function locale($lang)
+    {
+        cookie()->setForever('locale', $lang);
+
+        return redirect('');
+    }
 
 <a name="files"></a>
 ## Translation Files

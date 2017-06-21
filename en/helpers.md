@@ -86,7 +86,7 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [error](#method-error)
 [is_console](#method-is-console)
 [is_testing](#method-is-testing)
-[is_win](#method-is-win)
+[is_windows](#method-is-windows)
 [list_files](#method-list-files)
 [list_classes](#method-list-classes)
 [message](#method-message)
@@ -511,12 +511,12 @@ The `is_testing` function determines if we are running unit tests.
     }
 
     
-<a name="method-is-win"></a>
-#### `is_win()` {.method}
+<a name="method-is-windows"></a>
+#### `is_windows()` {.method}
 
-The `is_win` function determines if the os is windows:
+The `is_windows` function determines if the os is windows:
 
-    $win = is_win();
+    $win = is_windows();
 
     
 <a name="method-list-files"></a>

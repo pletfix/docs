@@ -2,26 +2,53 @@
 
 [Since 0.5.0]
 
-<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet! - Planned release: 0.6.4
-
 - [Introduction](#introduction)
+- [Form](#form)
+- [Middleware](#middleware)
+- [Ajax](#ajax)
+- [Exception List](#except)
 
 <a name="introduction"></a>
 ## Introduction
 
-TODO
+Read this [article from Wikipedia](https://en.wikipedia.org/wiki/Cross-site_request_forgery) to learn what a 
+Cross-site request forgery is.
 
-<a name="method-csrf-field"></a>
-#### `csrf_field()` {.method}
+To protect your application for CSRF attacks, consider the following.
 
-The `csrf_field` function generates an HTML `hidden` input field containing the value of the CSRF token. 
-For example, using [Blade syntax](blade):
+<a name="form"></a>
+### Form
 
-    {{ csrf_field() }}
+You should add a hidden field with a CSRF token in each form like this:
 
-<a name="method-csrf-token"></a>
-#### `csrf_token()` {.method}
+    <input name="_token" value="{{csrf_token()}}" type="hidden"/>
 
-The `csrf_token` function retrieves the value of the current CSRF token:
+<a name="middleware"></a>
+### Middleware
 
-    $token = csrf_token();
+Pletfix provides a middleware out of the box to check the CSRF token. You may add this middleware into your route 
+file like this:
+
+    $route->middleware('csrf');
+
+If you have bind the CSRF middleware like above, a POST request are only accepted if it has a valid CSRF token.  
+
+<a name="ajax"></a>
+### Ajax
+
+The `csrf` middleware read the token also from the header "X-CSRF-TOKEN". Therefore, if you use the jQuery library, you 
+could set the CSRF token globally like this to send the token by every request automatically:
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    
+If you have installed the [Pletfix Application Skeleton](https://github.com/pletfix/app), this setup above is already
+done.
+
+<a name="except"></a>
+### Exception List      
+
+TODO      

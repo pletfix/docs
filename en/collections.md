@@ -94,8 +94,8 @@ For the remainder of this documentation, we'll discuss each method available on 
 [unique](#method-unique)
 [values](#method-values)
 [where](#method-where)
-[whereEqual](#method-whereequal)
 [whereIn](#method-wherein)
+[whereNotIn](#method-wherenotin)
 [zip](#method-zip)
 
 </div>
@@ -1322,30 +1322,7 @@ The `where` method filters the collection by a given key / value pair and operat
         ['product' => 'Door', 'price' => 100],
     ]);
 
-    $filtered = $collection->where('price', '=', 100);
-
-    $filtered->all();
-
-    /*
-    [
-        ['product' => 'Chair', 'price' => 100],
-        ['product' => 'Door', 'price' => 100],
-    ]
-    */
-
-<a name="method-whereequal"></a>
-#### `whereEqual()` {.method}
-
-The `whereEqual` method is a shortcut for `where` with operator `=`:
-
-    $collection = collect([
-        ['product' => 'Desk', 'price' => 200],
-        ['product' => 'Chair', 'price' => 100],
-        ['product' => 'Bookcase', 'price' => 150],
-        ['product' => 'Door', 'price' => 100],
-    ]);
-
-    $filtered = $collection->where('price', 100);
+    $filtered = $collection->where('price', 100, '==');
 
     $filtered->all();
 
@@ -1377,6 +1354,29 @@ The `whereIn` method filters the collection by a given key / value contained wit
         ['product' => 'Bookcase', 'price' => 150],
         ['product' => 'Desk', 'price' => 200],
     ]
+    */
+  
+<a name="method-wherenotin"></a>
+#### `whereNotIn()` {.method}
+    
+The whereNotIn method filters the collection by a given key / value not contained within the given array:
+
+    $collection = collect([
+        ['product' => 'Desk', 'price' => 200],
+        ['product' => 'Chair', 'price' => 100],
+        ['product' => 'Bookcase', 'price' => 150],
+        ['product' => 'Door', 'price' => 100],
+    ]);
+    
+    $filtered = $collection->whereNotIn('price', [150, 200]);
+    
+    $filtered->all();
+    
+    /*
+        [
+            ['product' => 'Chair', 'price' => 100],
+            ['product' => 'Door', 'price' => 100],
+        ]
     */
 
 <a name="method-zip"></a>

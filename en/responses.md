@@ -60,7 +60,7 @@ The Response object has these methods:
 
 [cache](#method-cache)
 [clear](#method-clear)
-[getHeaders](#method-get-headers)
+[getHeader](#method-get-header)
 [getStatusCode](#method-get-status-code)
 [getStatusText](#method-get-status-test)
 [header](#method-header)
@@ -94,12 +94,14 @@ The `clear` method clears the response:
     response()->clear();
         
         
-<a name="method-get-headers"></a>
-#### `getHeaders()` {.method}
+<a name="method-get-header"></a>
+#### `getHeader()` {.method}
 
-The `getHeaders` method returns the headers from the response:
+The `getHeader` method returns the header from the response:
 
-    $headers = response()->getHeaders();
+    $header = response()->getHeader();
+
+    $url = response()->getHeader('location');
         
         
 <a name="method-get-status-code"></a>
