@@ -16,7 +16,9 @@ _Test your code with PHPUnit and Mink_
 [Since 0.5.0]
 
 - [Introduction](#introduction)
+- [Configuration](#configuration)
 - [Running Tests](#cli)
+- [Code Coverage](#code-coverage)
 - [Writing Unit Tests](#unit-tests)
     - [Available Unit Test Methods](#unit-test-methods)
 - [Writing Integration Tests](#integration-tests)
@@ -28,27 +30,35 @@ _Test your code with PHPUnit and Mink_
 Pletfix comes with [PHPUnit](https://phpunit.de/) for [Unit Testing](https://en.wikipedia.org/wiki/Unit_testing)
 and [Mink](http://mink.behat.org/) for [Integration Testing](https://en.wikipedia.org/wiki/Integration_testing).
 
-You can open the `phpunit.xml` file (or within plugins `phpunit.xml.dist`) file to modify the test environment.
-  
-Please note that the test cases have some conventions:
+<a name="configuration"></a>
+## Configuration
 
-- PHP files containing tests should be in your `tests` directory.
-- The names of these files should end in "Test.php".
-- The classes containing tests should extend `Core\Testing\TestCase` (for unit tests) or `Core\Testing\MinkTestCase` (for integration tests).
-- The name of any method containing a test should begin with "test". 
+The default test options for your application are stored in `phpunit.xml.dist` under the application root folder.
+In addition, all plugins should include a `phpunit.xml.dist` with test settings.
+
+Read [The Appendix C - The XML Configuration File](https://phpunit.de/manual/5.7/en/appendixes.configuration.html#appendixes.configuration.whitelisting-files)  
+by the official PHPUnit Page to learn what options are available.
+
+> <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
+> Don't modify this files directly because it comes with the git repository. The changes would be overwritten by the next 
+> update! Rather, you should copy `phpunit.xml.dist` to `phpunit.xml` (without ".dist") which you can edit.
+>
+> `phpunit.xml.dist` is ignored by PHPUnit if `phpunit.xml` exists in the same directory. 
 
 <a name="cli"></a>
 ## Running Tests
 
-Just enter `vendor/bin/phpunit` in the terminal to run all tests you have defined.
+Just enter this command in the terminal to run all tests you have defined:
+
+    vendor/bin/phpunit
 
 You can enter a class as argument to run only one test case:
 
     vendor/bin/phpunit tests/ExampleTest
     
-To run a test that comes with a plugin (or another third party package), set the path to the plugin as argument:
+Use switch `-c` to run the test suites that comes with a plugin (or another third party package) like below:
     
-    vendor/bin/phpunit vendor/pletfix/core
+    vendor/bin/phpunit -c ./vendor/pletfix/core
     
 The following code shows how to run tests with the PHPUnit command-line test runner:
 
@@ -69,12 +79,24 @@ For each test run, the PHPUnit command-line tool prints one character to indicat
 - S - The test has been skipped.
 - I - Test is marked as being incomplete or not yet implemented.
 
->The `--testdox` option prints all possible tests:
->
->     vendor/bin/phpunit --testdox
+See <https://phpunit.de/manual/5.7/en/textui.html> for more information.
 
-See <https://phpunit.de/manual/current/en/textui.html> for more information.
+<a name="code-coverage"></a>
+## Code Coverage
 
+By default the ![Pletfix Application](https://raw.githubusercontent.com/pletfix/docs/master/images/pletfix_application.png) 
+has pre-configured the unit test to generate a code coverage. The files for that are stored in `storage/coverfage` as HTML report.
+
+Without a route entry, these pages can not be displayed with the browser. Either you change the default, or you create 
+a symlink anywhere under the web root but outside the application. To do this, change to the application directory and 
+enter a command in the terminal such like:
+    
+    ln -s .storage/temp/coverage/ ../coverage
+    
+Now you can view the report with the browser by visiting this folder.
+    
+![Code Coverage Report](https://raw.githubusercontent.com/pletfix/docs/master/images/testing_coverage.png)
+    
 <a name="unit-tests"></a>
 ## Writing Unit Tests
 
@@ -94,6 +116,13 @@ Create the test class in folder `tests`, e.g.:
             $this->assertEquals(1, 1);
         }
     }
+    
+Please note that the test cases have some conventions:
+
+- PHP files containing tests should be in your `tests` directory.
+- The names of these files should end in "Test.php".
+- The classes containing tests should extend `Core\Testing\TestCase` (for unit tests) or `Core\Testing\MinkTestCase` (for integration tests).
+- The name of any method containing a test should begin with "test".     
 
 <a name="unit-test-methods"></a>
 ### Available Unit Test Methods
