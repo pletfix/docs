@@ -89,6 +89,8 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [is_windows](#method-is-windows)
 [list_files](#method-list-files)
 [list_classes](#method-list-classes)
+[locale](#method-locale)
+[mail-address](#method-mail-address)
 [message](#method-message)
 [old](#method-old)
 [redirect](#method-redirect)
@@ -534,14 +536,6 @@ The `list_classes` function reads available PHP classes recursive from given pat
     list_classes($result, app_path('Commands'), 'App\Commands');
 
     
-<a name="method-mail-address"></a>
-#### `mail_address()` {.method}
-
-The `mail_address` function gets the email address without the name:
-
-    $email = mail_address('Webmailer <mail@example.com>'); // "mail@example.com"
-
-
 <a name="method-locale"></a>
 #### `locale()` {.method}
 
@@ -551,6 +545,14 @@ The `locale` function gets and sets the current locale:
     
     $locale = locale();
         
+
+<a name="method-mail-address"></a>
+#### `mail_address()` {.method}
+
+The `mail_address` function gets the email address without the name:
+
+    $email = mail_address('Webmailer <mail@example.com>'); // "mail@example.com"
+
 
 <a name="method-message"></a>
 #### `message()` {.method}

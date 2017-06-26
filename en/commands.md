@@ -60,7 +60,7 @@ Every command includes a help screen. For example, enter this to view available 
     php console migrate --help
 
 ![Pletfix Console](https://raw.githubusercontent.com/pletfix/docs/master/images/console.png)    
-    
+
     
 <a name="writing"></a>
 ## Writing Commands

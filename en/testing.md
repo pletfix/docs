@@ -85,7 +85,7 @@ See <https://phpunit.de/manual/5.7/en/textui.html> for more information.
 ## Code Coverage
 
 By default the [Pletfix Application Skeleton](https://github.com/pletfix/app) has pre-configured the unit test to 
-generate a code coverage. The files for that are stored in `storage/coverfage` as HTML report.
+generate a code coverage. The files for that are stored in `storage/coverage` as HTML report.
 
 Without a route entry, these pages can not be displayed with the browser. Either you change the default, or you create 
 a symlink anywhere under the web root but outside the application. To do this, change to the application directory and 
