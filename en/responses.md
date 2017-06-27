@@ -60,6 +60,7 @@ The Response object has these methods:
 
 [cache](#method-cache)
 [clear](#method-clear)
+[getContent](#method-get-content)
 [getHeader](#method-get-header)
 [getStatusCode](#method-get-status-code)
 [getStatusText](#method-get-status-test)
@@ -81,7 +82,7 @@ The Response object has these methods:
 
 The `cache` sets caching headers for the response:
 
-    response()->cache();
+    response()->cache(false); // no-cache
     
     response()->cache('2017-02-25 00:00:00);
     
@@ -93,7 +94,15 @@ The `clear` method clears the response:
 
     response()->clear();
         
-        
+
+<a name="method-get-content"></a>
+#### `getContent()` {.method}
+
+The `getContent` method returns the content from the response:
+
+    $content = response()->getContent();
+            
+            
 <a name="method-get-header"></a>
 #### `getHeader()` {.method}
 
