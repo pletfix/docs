@@ -88,10 +88,9 @@ By default the [Pletfix Application Skeleton](https://github.com/pletfix/app) ha
 generate a code coverage. The files for that are stored in `storage/coverage` as HTML report.
 
 Without a route entry, these pages can not be displayed with the browser. Either you change the default, or you create 
-a symlink anywhere under the web root but outside the application. To do this, change to the application directory and 
-enter a command in the terminal such like:
+a symlink anywhere under the web root but outside the application. To do this, enter the following command in the terminal:
     
-    ln -s .storage/temp/coverage/ ../coverage
+    ln -s <path-to-your-application>/storage/temp/coverage <path-to-your-web-root>/coverage
     
 Now you can view the report with the browser by visiting this folder.
     

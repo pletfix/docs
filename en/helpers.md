@@ -91,6 +91,7 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [list_classes](#method-list-classes)
 [locale](#method-locale)
 [mail-address](#method-mail-address)
+[make_dir](#method-make-dir)
 [message](#method-message)
 [old](#method-old)
 [redirect](#method-redirect)
@@ -554,6 +555,14 @@ The `mail_address` function gets the email address without the name:
     $email = mail_address('Webmailer <mail@example.com>'); // "mail@example.com"
 
 
+<a name="method-make-dir"></a>
+#### `make_dir()` {.method}
+
+The `make_dir` function creates a folder recursive:
+
+    make_dir(storage_path('temp'), 0777);
+
+
 <a name="method-message"></a>
 #### `message()` {.method}
 
@@ -597,7 +606,7 @@ The default HTTP status is 302 for a temporarily link. You can create a permanen
 <a name="method-remove-dir"></a>
 #### `remove_dir()` {.method}
 
-The `remove_dir` function deletes a folder (or file):
+The `remove_dir` function deletes a folder (or file). The folder does not have to be empty.
 
     remove_dir(storage_path('temp'));
 

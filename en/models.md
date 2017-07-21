@@ -293,7 +293,7 @@ to be define like below:
     }
         
 If you have set this property, the controller is able to call the `search` method that takes the search terms as 
-argument and returns a [`QueryBuilder`](builder) instance:
+argument and returns a [`Builder`](builder) instance:
 
     /**
      * Lists all articles.
@@ -610,7 +610,7 @@ query builder. These methods return the appropriate scalar value instead of a fu
     $count = App\Flight::count();
     $max   = App\Flight::where('active', 1)->max('price');
 
-See [Query Builder](builder) to learn all the possibilities that the QueryBuilder offers.
+See [Query Builder](builder) to learn all the possibilities that the Query Builder offers.
 
 <a name="retrieving-relationships"></a>
 ### Retrieving Relationships    
@@ -657,11 +657,10 @@ access them. So, if you run the code above, you would be execute the following d
 You see, that is not very efficient. If you have 100 books, your database would be running 100 + 1 queries to run 
 this little chunk of code. This is also known as the N + 1 problem.  
 
-In this case it is better to use **"eager loading"** by calling the `with` method. 
-The `with` method takes the relation table as argument and returns a [`QueryBuilder`](builder) instance, so you get 
-all books as below:
+In this case it is better to use **"eager loading"** by calling the `with` method.  The `with` method takes the relation
+method as argument:
 
-    $books = Books::with('authors')->all();    // todo or ->get()? 
+    $books = Books::with('authors')->all();
     foreach($books as $book) {
         echo $book->author->name;
     }
@@ -843,12 +842,12 @@ TODO Überall die resultierenden SQL-Abfragen ausgeben.
 <a name="method-builder"></a>
 #### `builder()` {.first-method .method}
 
-The `builder` static method creates a new [QueryBuilder](builder) instance.
+The `builder` static method creates a new [Query Builder](builder) instance.
 
     $builder = Flight::builder();
 
 > <i class="fa fa-lightbulb-o fa-2x" aria-hidden="true"></i>
-> The model provides the methods of QueryBuilder, that are suitable for this purpose, as static methods. So you can 
+> The model provides the methods of the Query Builder, that are suitable for this purpose, as static methods. So you can 
 > start with them without explicitly invoke the `builder`method, such as:
 >
 >     $flight = Flight::whereIs('name', 'Albatros')->all();

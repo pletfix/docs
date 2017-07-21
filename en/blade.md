@@ -59,22 +59,17 @@ layout across various pages, it's convenient to define this layout as a single B
 
     <html>
         <head>
-            <title>App Name - @yield('title')</title>
+            <title>@yield('title')</title>
         </head>
-        <body>
-            @section('sidebar')
-                This is the master sidebar.
-            @show
-
+        <body
             <div class="container">
                 @yield('content')
             </div>
         </body>
     </html>
 
-As you can see, this file contains typical HTML mark-up. However, take note of the `@section` and `@yield` directives. 
-The `@section` directive, as the name implies, defines a section of content, while the `@yield` directive is used to 
-display the contents of a given section.
+As you can see, this file contains typical HTML mark-up. However, take note of the `@yield` directives, it is a kind of 
+placeholder, which content is defined in the child pages.
 
 Now that we have defined a layout for our application, let's define a child page that inherits the layout.
 
@@ -91,18 +86,9 @@ as seen in the example above, the contents of these sections will be displayed i
 
     @section('title', 'Page Title')
 
-    @section('sidebar')
-        @@parent
-
-        <p>This is appended to the master sidebar.</p>
-    @endsection
-
     @section('content')
         <p>This is my body content.</p>
     @endsection
-
-In this example, the `sidebar` section is utilizing the `@@parent` directive to append (rather than overwriting) content 
-to the layout's sidebar. The `@@parent` directive will be replaced by the content of the layout when the view is rendered.
 
 Blade views may be returned from routes using the global `view` helper:
 
@@ -113,8 +99,8 @@ Blade views may be returned from routes using the global `view` helper:
 <a name="including"></a>
 ### Including Partials
 
-Blade's `@include` directive allows you to include a Blade view from within another view. All variables that are available 
-to the parent view will be made available to the included view:
+Blade's `@include` directive allows you to include a Blade view from within another view. All variables that are 
+available to the parent view will be made available to the included view:
 
     <div>
         @include('shared.errors')
@@ -358,8 +344,7 @@ As you can see, we will chain the `format` method onto whatever expression is pa
 @yield('section', 'default')    - Yields content of a section with a default value
 @section('name', 'content')     - Section
 @section('name')                - Starts a section block
-@endsection                     - Ends section block
-&#64;@parent                         - Include the parent section (allowed only within a section) 
+@endsection                     - Ends section block 
 </pre>
 
 <a name="quick-including"></a>
@@ -423,6 +408,7 @@ As you can see, we will chain the `format` method onto whatever expression is pa
 <a name="quick-php"></a>
 ### Embedded PHP
 <pre>
+@php(phpcode)                   - PHP code
 @php                            - Starts a block of PHP code
 @endphp                         - Ends PHP code
 </pre>
@@ -436,6 +422,7 @@ As you can see, we will chain the `format` method onto whatever expression is pa
 @inject (Service Injection)
 $lang
 $loop (Loop variables)
+@parent
 @push, @endpush (Stacks)
 @unless, @endunless
 @verbatim, @endverbatim

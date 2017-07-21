@@ -98,7 +98,7 @@ The day of week is an integer between 0 (for Sunday) and 6 (for Saturday).
 However, you could determine and redefine the first day of week at runtime:
 	
 	$dow = DateTime::getFirstDayOfWeek();	
-	DateTime::setFirstDayOfWeek('0); // Sunday
+	DateTime::setFirstDayOfWeek(DateTime::MONDAY);
 	  
 <a name="locale"></a>
 ### Locale & Date Format
@@ -322,8 +322,8 @@ You may set the parts of the datetime like this:
 		->setSecond(0);
 
     $hallowen = datetime()
-        ->setDate (2015, 10, 31)
-        ->setTime (20, 30, 0);
+        ->setDate(2015, 10, 31)
+        ->setTime(20, 30, 0);
 
     $hallowen = datetime()
         ->setDateTime(2015, 10, 31, 20, 30, 0);

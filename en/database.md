@@ -275,28 +275,28 @@ The matrix contains the mapping information for how a specific abstract type is 
 The Table based on [Doctrine's Mapping Matrix](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html#mapping-matrix).
     
 | Abstract    | PHP      | MySql                                            | PostgreSQL                     | SQL Server                                | SQLite                                     |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-------------|----------|--------------------------------------------------|--------------------------------|-------------------------------------------|--------------------------------------------|
 | identity    | integer  | INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT | SERIAL                         | INT NOT NULL IDENTITY(1,1) PRIMARY KEY    | INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL | 
 | bigidentity | integer  | BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT       | BIGSERIAL                      | BIGINT NOT NULL IDENTITY(1,1) PRIMARY KEY | INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL | 
-| smallint    | integer  | SMALLINT                                         | SMALLINT                       | SMALLINT                                  | INTEGER                                    | 
-| integer     | integer  | INT                                              | INTEGER                        | INT                                       | INTEGER                                    | 
-| unsigned    | integer  | INT UNSIGNED                                     | INTEGER                        | INT                                       | INTEGER UNSIGNED                           | 
-| bigint      | string   | BIGINT                                           | BIGINT                         | BIGINT                                    | INTEGER                                    | 
+| smallint    | integer  | SMALLINT                                         | SMALLINT                       | SMALLINT                                  | SMALLINT                                   | 
+| integer     | integer  | INT                                              | INTEGER                        | INT                                       | INT                                        | 
+| unsigned    | integer  | INT UNSIGNED                                     | INTEGER                        | INT                                       | INT UNSIGNED                               | 
+| bigint      | string   | BIGINT                                           | BIGINT                         | BIGINT                                    | BIGINT                                     | 
 | numeric     | string   | DECIMAL(p, s)                                    | NUMERIC(p, s)                  | NUMERIC(p, s)                             | NUMERIC(p, s)                              |
-| float       | float    | DOUBLE                                           | DOUBLE PRECISION               | FLOAT                                     | DOUBLE PRECISION                           | 
-| string      | string   | VARCHAR(n)                                       | VARCHAR(n)                     | NVARCHAR(n), NCHAR(n)                     | CHAR(n)                                    |
-| text        | string   | TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT             | TEXT                           | TEXT, VARCHAR(MAX)                        | CLOB                                       |
-| guid        | string   | VARCHAR(36)                                      | UUID                           | UNIQUEIDENTIFIER                          | VARCHAR(36)                                | 
-| binary      | resource | VARBINARY(n)                                     | BYTEA                          | VARBINARY(n), BINARY(n)                   | BLOB                                       |
+| float       | float    | DOUBLE                                           | DOUBLE PRECISION               | FLOAT                                     | DOUBLE                                     | 
+| string      | string   | VARCHAR(n)                                       | VARCHAR(n)                     | NVARCHAR(n), NCHAR(n)                     | VARCHAR(n)                                 |
+| text        | string   | TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT             | TEXT                           | TEXT, VARCHAR(MAX)                        | TEXT                                       |
+| guid        | string   | VARCHAR(36)                                      | UUID                           | UNIQUEIDENTIFIER                          | UUID                                       |
+| binary      | resource | VARBINARY(n)                                     | BYTEA                          | VARBINARY(n), BINARY(n)                   | VARBINARY(n)                               |
 | blob        | resource | TINYBLOB, BLOB, MEDIUMBLOB, LONGBLOB             | BYTEA                          | IMAGEVARBINARY(MAX)                       | BLOB                                       |
 | boolean     | boolean  | TINYINT(1)                                       | BOOLEAN                        | BIT                                       | BOOLEAN                                    | 
 | date        | DateTime | DATE                                             | DATE                           | DATE (#1)                                 | DATE                                       |
 | datetime    | DateTime | DATETIME                                         | TIMESTAMP(0) WITHOUT TIME ZONE | DATETIME                                  | DATETIME                                   | 
-| timestamp   | DateTime | TIMESTAMP (#2)                                   | TIMESTAMP(0) WITH TIME ZONE    | DATETIMEOFFSET(6) (#1)                    | DATETIME                                   |
+| timestamp   | DateTime | TIMESTAMP (#2)                                   | TIMESTAMP(0) WITH TIME ZONE    | DATETIMEOFFSET(6) (#1)                    | TIMESTAMP                                  |
 | time        | DateTime | TIME                                             | TIME(0) WITHOUT TIME ZONE      | TIME(0) (#1)                              | TIME                                       |
-| array       | array    | TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT             | TEXT                           | TEXT, VARCHAR(MAX)                        | CLOB                                       |
-| json        | array    | JSON (#3)                                        | JSONB  (#4)                    | TEXT, VARCHAR(MAX)                        | CLOB                                       |
-| object      | object   | TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT             | TEXT                           | TEXT, VARCHAR(MAX)                        | CLOB                                       |
+| array       | array    | TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT             | TEXT                           | TEXT, VARCHAR(MAX)                        | TEXT                                       |
+| json        | array    | JSON (#3)                                        | JSONB  (#4)                    | TEXT, VARCHAR(MAX)                        | TEXT                                       |
+| object      | object   | TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT             | TEXT                           | TEXT, VARCHAR(MAX)                        | TEXT                                       |
 
 - (#1) Before SQL Server 2008: DATETIME 
 - (#2) Extra: ON UPDATE CURRENT_TIMESTAMP; Default: CURRENT_TIMESTAMP
