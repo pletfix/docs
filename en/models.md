@@ -617,12 +617,12 @@ See [Query Builder](builder) to learn all the possibilities that the Query Build
 
 You may retrieve the models through the relations like this:
 
-    $books = Author::whereIs('name', 'Douglas Adams')->books;
+    $books = Author::where('name', 'Douglas Adams')->books;
     
 The example above returns a [`Collection`](collections) with all of the books of Douglas Adams. You may also get a
 [query builder](builder) for the books of the author as below:
 
-    $builder = Author::whereIs('name', 'Douglas Adams')->books()->builder();
+    $builder = Author::where('name', 'Douglas Adams')->books()->builder();
     $books = $builder->all();
 
 #### Relation Cache
@@ -770,7 +770,7 @@ The `associate` method adds the relation to the given model.
 
 The `disassociate` method removes the relation to the given model.
 
-    $department = Department::whereIs('name', 'Development');
+    $department = Department::where('name', 'Development');
     Employee::find(4711)->departments()->disassociate($department);
     
 You may omit the argument if you want to remove all relations:     
@@ -796,7 +796,7 @@ The `update` method updates all records of the relation with th given attributes
 You may also use the [query builder](builder) to filter the entities for updating as like:
 
     $department->employees()
-        ->whereIs('id', 4711)
+        ->where('id', 4711)
         ->update(['chief' => 'Leo']);
 
 <a name="method-delete"></a>
@@ -804,7 +804,7 @@ You may also use the [query builder](builder) to filter the entities for updatin
 
 The `delete` method deletes the given model from the database and remove the relation.
 
-    $department = Department::whereIs('name', 'Development');
+    $department = Department::where('name', 'Development');
     Employee::find(4711)->departments()->delete($department);
 
 <!--
@@ -850,7 +850,7 @@ The `builder` static method creates a new [Query Builder](builder) instance.
 > The model provides the methods of the Query Builder, that are suitable for this purpose, as static methods. So you can 
 > start with them without explicitly invoke the `builder`method, such as:
 >
->     $flight = Flight::whereIs('name', 'Albatros')->all();
+>     $flight = Flight::where('name', 'Albatros')->all();
 
 <a name="method-checkMassAssignment"></a>
 #### `checkMassAssignment()` {.method}
@@ -955,8 +955,8 @@ The `isDirty` method determines if the model or given attribute(s) have been mod
 
     $flight = Flight::find(1);
     $flight->name = 'New Flight Name';
-    if ($flight->isDirty(['name'])) {
-        echo 'The name was modified.!';
+    if ($flight->isDirty(['name', 'type'])) {
+        echo 'The flight was modified.!';
     }
 
 If you omit the argument, all attributes are checked.

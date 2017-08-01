@@ -20,6 +20,8 @@ _Test your code with PHPUnit and Mink_
 - [Running Tests](#cli)
 - [Code Coverage](#code-coverage)
 - [Writing Unit Tests](#unit-tests)
+    - [Database](#database)
+    - [Access to non-public Functions and Methods](#unit-test-methods)
     - [Available Unit Test Methods](#unit-test-methods)
 - [Writing Integration Tests](#integration-tests)
     - [Available Integration Test Methods](#integration-test-methods)
@@ -123,6 +125,31 @@ Please note that the test cases have some conventions:
 - The classes containing tests should extend `Core\Testing\TestCase` (for unit tests) or `Core\Testing\MinkTestCase` (for integration tests).
 - The name of any method containing a test should begin with "test".     
 
+<a name="unit-test-database"></a>
+### Database
+
+If you willtesting database operations, it is the easiest to use a SQLite database. The method below 
+override  the database configuration, so the SQLite database is the default which is be stored in memory.
+
+    $this->defineMemoryAsDefaultDatabase()
+    $db = database();
+    
+The database is created purely in memory. The database ceases to exist as soon as the database connection is closed. 
+Every :memory: database is distinct from every other. So, opening database connections will create two independent 
+in-memory databases.
+
+<a name="unit-test-private"></a>
+### Private and protected properties and methods
+
+You may use the following methods if you need access to a non-public property:
+
+    $value = $this->getPrivateProperty($object, $property);
+    
+    $this->setPrivateProperty($object, $property, $value);
+    
+    $this->invokePrivateMethod($object, $method, $arguments);
+
+
 <a name="unit-test-methods"></a>
 ### Available Unit Test Methods
 
@@ -165,6 +192,7 @@ See the [PHPUnit Documentation](https://phpunit.de/manual/current/en/appendixes.
 [assertNan](#method-assertNan)
 [assertNull](#method-assertNull)
 [assertObjectHasAttribute](#method-assertObjectHasAttribute)
+[assertRedirectedTo](#method-assertRedirectedTo)
 [assertRegExp](#method-assertRegExp)
 [assertSame](#method-assertSame)
 [assertStringMatchesFormat](#method-assertStringMatchesFormat)
@@ -489,6 +517,14 @@ Reports an error if $object->attributeName does not exist.
     $this->assertObjectHasAttribute('foo', new stdClass);
     
     
+<a name="method-assertRedirectedTo"></a>
+#### `assertRedirectedTo()` {.method}
+
+Reports an error if the client is not redirected to the given URL.
+
+    $this->assertRedirectedTo('https://pletfix.com');  
+      
+      
 <a name="method-assertRegExp"></a>
 #### `assertRegExp()` {.method}
 

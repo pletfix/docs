@@ -142,15 +142,6 @@ You can use the `detach` method to remove an already attached file:
 Use `clearAttachments` to remove all attachments from the mail:
 
     $mailer->clearAttachments();
-      
-#### Attach Raw Data
-
-<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet!
-
-Use the `attachData` method if you have created a PDF in memory and want to attach it to the e-mail without having to 
-write it to the disk.
-    
-    $mailer->attachData($data, 'info.pdf', 'application/pdf');
 
 
 <a name="embedded"></a>
@@ -180,21 +171,3 @@ Use `removeEmbeddedFile` to remove an already embedded file:
 Remove all embedded files by calling `clearEmbeddedFile`:
 
     $mailer->clearEmbeddedFile();
-   
-#### Embedded Raw Data
-
-<i class="fa fa-wrench fa-2x" aria-hidden="true"></i> Not implemented yet!
-    
-If you have a raw data string instead of a file, you may use the `embedData` method to embed it into the HTML mail:
-
-    $mailer->body('
-        <html>
-            <body>
-                <img src="' . $mailer->embedData($data, $name, $mimeType) . '"/>
-            </body>
-        </html>
-    ');
-
-> <i class="fa fa-info fa-2x" aria-hidden="true"></i>
-> The name of the embedData is shown, if the user extracts the embedded file (dependent on the client, e.g. with a 
-> double click on the image).

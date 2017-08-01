@@ -16,7 +16,6 @@ _An object oriented Query Builder_
     - [Insert](#insert)
     - [Update](#update)
     - [Delete](#delete)
-    - [Truncate](#truncate)
 - [Miscellanea Functions](#misc)
 
 <a name="introduction"></a>
@@ -67,17 +66,17 @@ fluency. Some methods may also be called several times.
         ->select('b.id, b.title, a.name AS author')   
         ->from('author', 'a)
         ->join('books', 'a.id = b.author_id', 'b')
-        ->where('a.id = ?', [4711]);
+        ->whereCondition('a.id = ?', [4711]);
 
 #### Bindings
 
 The most methods for specify a SQL clause pass binding values at the last argument.
 
-    $users = $builder->where('role = ?', ['guest']);
+    $users = $builder->whereCondition('role = ?', ['guest']);
 
 Instead of using `?` to represent your parameter bindings, you may use named bindings:
 
-    $users = $builder->where('role = :role', ['role => 'guest]);
+    $users = $builder->whereCondition('role = :role', ['role => 'guest]);
 
 > <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
 > No matter how, it is highly recommended to use parameter binding because its provides protection against 
@@ -96,8 +95,8 @@ Instead of using `?` to represent your parameter bindings, you may use named bin
 [rightJoin](#rightJoin)
 [where](#where)
 [orWhere](#orWhere)
-[whereIs](#whereIs)
-[orWhereIs](#orWhereIs)
+[whereCondition](#whereCondition)
+[orWhereCondition](#orWhereCondition)
 [whereSubQuery](#whereSubQuery)
 [orWhereSubQuery](#orWhereSubQuery)
 [whereExists](#whereExists)
@@ -112,10 +111,10 @@ Instead of using `?` to represent your parameter bindings, you may use named bin
 [orWhereBetween](#orWhereBetween)
 [whereNotBetween](#whereNotBetween)
 [orWhereNotBetween](#orWhereNotBetween)
-[whereIsNull](#whereIsNull)
-[orWhereIsNull](#orWhereIsNull)
-[whereIsNotNull](#whereIsNotNull)
-[orWhereIsNotNull](#orWhereIsNotNull)
+[whereNull](#whereNull)
+[orWhereNull](#orWhereNull)
+[whereNotNull](#whereNotNull)
+[orWhereNotNull](#orWhereNotNull)
 [groupBy](#groupBy)
 [having](#having)
 [orHaving](#orHaving)
@@ -189,7 +188,7 @@ Examples:
     $builder->from(function($builder2) { return $builder2->from('table1'); }, 't1')
     
     // from subquery with placeholders:
-    $builder->from($builder2->from('table1')->where('column1 > ?'), 't1', [$foo])
+    $builder->from($builder2->from('table1')->whereCondition('column1 > ?'), 't1', [$foo])
 
 > <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
 > Note, that subqueries are not quoted, because the Builder of the subquery should do this work.
@@ -216,7 +215,7 @@ Examples:
     $builder->join(function(Builder $builder2) { return $builder2->from('table2'); }, 't1.id = t2.table1_id', 't2')
     
     // from subquery with placeholders:
-    $builder->join($builder2->from('table2')->where('column1 > ?'), 't1.id = t2.table1_id', 't2', [$foo])
+    $builder->join($builder2->from('table2')->whereCondition('column1 > ?'), 't1.id = t2.table1_id', 't2', [$foo])
 
 > <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
 > Note, that subqueries are not quoted, because the Builder of the subquery should do this work.
@@ -242,48 +241,48 @@ See the [join](#method-join) method for details and examples.
 <a name="method-where"></a>
 #### `where()` {.method}
 
-The `where` method adds a WHERE condition to the query.
+The `where` method adds a comparison operation into the WHERE clause.
+
+The operator is the third argument and could be one of this: 
+`'='`, `'<'`, `'>'`, `'<='`, `'>='`, `'<>'`, `'!='`, `'IN'`, `'NOT IN'`, `'LIKE'` or `'NOT LIKE'`. 
+The default is `'='`.
+
+    $builder->where('column1', 4711, '>')
+
+<a name="method-orWhere"></a>
+#### `orWhere()` {.method}
+
+The `orWhere` method adds a comparison operation into the WHERE clause by OR.
+
+    $builder->orWhere($column, $value, $operator);
+
+See the [where](#method-where) method for details and examples.
+
+<a name="method-whereCondition"></a>
+#### `whereCondition()` {.method}
+
+The `whereCondition` method adds a WHERE condition to the query.
 
 You should only use standard [SQL operators and functions](#sql-functions), so that the database drivers can translate 
 the expression correctly.
 
 Examples:
 
-    $builder->where('column1 = ? OR t1.column2 LIKE "%?%"', [$foo, $bar])
-    $builder->where('column1 = (SELECT MAX(i) FROM table2 WHERE c1 = ?)', [$foo])
-    $builder->where(function(Builder $builder2) { return $builder2->where('c1 = ?')->orWhere('c2 = ?'); }, [$foo, $bar])
+    $builder->whereCondition('column1 = ? OR t1.column2 LIKE "%?%"', [$foo, $bar])
+    $builder->whereCondition('column1 = (SELECT MAX(i) FROM table2 WHERE c1 = ?)', [$foo])
+    $builder->whereCondition(function(Builder $builder2) { return $builder2->whereCondition('c1 = ?')->orWhereCondition('c2 = ?'); }, [$foo, $bar])
 
 > <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
 > Note, that subqueries are not quoted, because the Builder of the subquery should do this work.
 
-<a name="method-orWhere"></a>
-#### `orWhere()` {.method}
+<a name="method-orWhereCondition"></a>
+#### `orWhereCondition()` {.method}
 
-The `orWhere` method adds a WHERE condition to the query by OR.
+The `orWhereCondition` method adds a WHERE condition to the query by OR.
 
-    $builder->orWhere($condition, $bindings);
+    $builder->orWhereCondition($condition, $bindings);
 
-See the [where](#method-where) method for details and examples.
-
-<a name="method-whereIs"></a>
-#### `whereIs()` {.method}
-
-The `whereIs` method adds a comparison operation into the WHERE clause.
-
-The operator is the third argument and could be one of this: 
-`'='`, `'<'`, `'>'`, `'<='`, `'>='`, `'<>'`, `'!='`, `'IN'`, `'NOT IN'`, `'LIKE'` or `'NOT LIKE'`. 
-The default is `'='`.
-
-    $builder->whereIs('column1', 4711, '>')
-
-<a name="method-orWhereIs"></a>
-#### `orWhereIs()` {.method}
-
-The `orWhereIs` method adds a comparison operation into the WHERE clause by OR.
-
-    $builder->orWhereIs($column, $value, $operator);
-
-See the [whereIs](#method-whereIs) method for details and examples.
+See the [whereCondition](#method-whereCondition) method for details and examples.
 
 <a name="method-whereSubQuery"></a>
 #### `whereSubQuery()` {.method}
@@ -297,8 +296,8 @@ The default is `'='`.
 Examples:
 
     $builder->whereSubQuery('column1', 'SELECT MAX(i) FROM table2 WHERE c1 = ?', '<=', [$foo])
-    $builder->whereSubQuery('column1', database()->createBuilder()->select('MAX(i)')->from('table2')->where('c1 = ?'), [$foo])
-    $builder->whereSubQuery('column1', function(Builder $builder2) { return $builder2->select('MAX(i)')->from('table2')->where('c1 = ?'); }, [$foo])
+    $builder->whereSubQuery('column1', database()->createBuilder()->select('MAX(i)')->from('table2')->whereCondition('c1 = ?'), [$foo])
+    $builder->whereSubQuery('column1', function(Builder $builder2) { return $builder2->select('MAX(i)')->from('table2')->whereCondition('c1 = ?'); }, [$foo])
 
 > <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
 > Note, that subqueries are not quoted, because the Builder of the subquery should do this work.
@@ -320,8 +319,8 @@ The `whereExists` method adds "WHERE EXISTS( SELECT... )" to the query.
 Examples:
 
     $builder->whereSubQuery('column1', 'SELECT MAX(i) FROM table2 WHERE c1 = ?', [$foo])
-    $builder->whereSubQuery('column1', database()->createBuilder()->select('MAX(i)')->from('table2')->where('c1 = ?'), [$foo])
-    $builder->whereSubQuery('column1', function(Builder $builder) { return $builder->select('MAX(i)')->from('table2')->where('c1 = ?'); }, [$foo])
+    $builder->whereSubQuery('column1', database()->createBuilder()->select('MAX(i)')->from('table2')->whereCondition('c1 = ?'), [$foo])
+    $builder->whereSubQuery('column1', function(Builder $builder) { return $builder->select('MAX(i)')->from('table2')->whereCondition('c1 = ?'); }, [$foo])
 
 > <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
 > Note, that subqueries are not quoted, because the Builder of the subquery should do this work.
@@ -421,33 +420,33 @@ The `orWhereNotBetween` method adds "WHERE column NOT BETWEEN ? AND ?" to the qu
 
 See the [whereBetween](#method-whereBetween) method for an example.
 
-<a name="method-whereIsNull"></a>
-#### `whereIsNull()` {.method}
+<a name="method-whereNull"></a>
+#### `whereNull()` {.method}
 
-The `whereIsNull` method adds "WHERE column IS NULL to the query.
+The `whereNull` method adds "WHERE column IS NULL to the query.
 
-    $builder->whereIsNull($column);
+    $builder->whereNull($column);
 
-<a name="method-orWhereIsNull"></a>
-#### `orWhereIsNull()` {.method}
+<a name="method-orWhereNull"></a>
+#### `orWhereNull()` {.method}
 
-The `orWhereIsNull` method adds "WHERE column IS NULL to the query by OR.
+The `orWhereNull` method adds "WHERE column IS NULL to the query by OR.
 
-    $builder->orWhereIsNull($column);
+    $builder->orWhereNull($column);
 
-<a name="method-whereIsNotNull"></a>
-#### `whereIsNotNull()` {.method}
+<a name="method-whereNotNull"></a>
+#### `whereNotNull()` {.method}
 
-The `whereIsNotNull` method adds "WHERE column IS NOT NULL to the query.
+The `whereNotNull` method adds "WHERE column IS NOT NULL to the query.
 
-    $builder->whereIsNotNull($column);
+    $builder->whereNotNull($column);
 
-<a name="method-orWhereIsNotNull"></a>
-#### `orWhereIsNotNull()` {.method}
+<a name="method-orWhereNotNull"></a>
+#### `orWhereNotNull()` {.method}
 
-The `orWhereIsNotNull` method adds "WHERE column IS NOT NULL to the query by OR.
+The `orWhereNotNull` method adds "WHERE column IS NOT NULL to the query by OR.
 
-    $builder->orWhereIsNotNull($column);
+    $builder->orWhereNotNull($column);
 
 <a name="method-groupBy"></a>
 #### `groupBy()` {.method}
@@ -673,7 +672,6 @@ TODO
 [insert](#method-insert)
 [update](#method-update)
 [delete](#method-delete)
-[truncate](#method-truncate)
 
 </div>
 
@@ -709,7 +707,7 @@ The `update` method updates all records of the query result with the given data 
 
     database()
         ->table('users')
-        ->where('role = ?', ['guest'])
+        ->whereCondition('role = ?', ['guest'])
         ->update(['lastname' => 'Hawking']);
     
 The method returns FALSE, if the operation was canceled by a [hook](models#hooks). You may disable this behavior via 
@@ -722,22 +720,10 @@ The `delete` method deletes all records of the query result and returns the numb
 
     database()
         ->table('users')
-        ->where('id = ?', [4711])
+        ->whereCondition('id = ?', [4711])
         ->delete();
 
 The method returns FALSE, if the operation was canceled by a [hook](models#hooks). You may disable this behavior via 
-the [disableHooks](#method-disableHooks) method.
-
-<a name="method-truncate"></a>
-#### `truncate()` {.method}
-
-The `truncate` method truncates the table.
-
-    database()
-        ->table('books')
-        ->truncate();
-
-The method returns FALSE if the operation was canceled by a [hook](models#hooks). You may disable this behavior via 
 the [disableHooks](#method-disableHooks) method.
         
 <a name="misc"></a>

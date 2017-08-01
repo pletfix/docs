@@ -184,7 +184,7 @@ Sends a HTTP response:
 
 The `status` method sets the HTTP status code:
 
-    response()->status(HTTP_STATUS_NOT_FOUND);     
+    response()->status(Response::HTTP_NOT_FOUND);     
     
     
 <a name="method-view"></a>

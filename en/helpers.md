@@ -46,6 +46,7 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [resource_path](#method-resource-path)
 [storage_path](#method-storage-path)
 [vendor_path](#method-vendor-path)
+[workbench_path](#method-workbench-path)
 
 </div>
 
@@ -84,6 +85,7 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [e](#method-e)
 [env](#method-env)
 [error](#method-error)
+[is_absolute_path](#method-absolute-path)
 [is_console](#method-is-console)
 [is_testing](#method-is-testing)
 [is_windows](#method-is-windows)
@@ -96,6 +98,7 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [old](#method-old)
 [redirect](#method-redirect)
 [remove_dir](#method-remove-dir)
+[http_status_text](#method-http-status-text)
 [t](#method-t)
 [url](#method-url)
 <!--
@@ -218,6 +221,17 @@ You may also use the `vendor_path` function to generate a fully qualified path t
     $file = vendor_path('npm-asset/jquery/dist/jquery.min.js');
 
 
+<a name="method-workbench-path"></a>
+#### `workbench_path()` {.method}
+
+The `workbench_path` function returns the fully qualified path to the workbench directory. 
+You may also use the `workbench_path` function to generate a fully qualified path to a given file relative to the workbench directory:
+
+    $path = workbench_path();
+
+    $file = workbench_path('npm-asset/jquery/dist/jquery.min.js');
+
+
 <a name="strings"></a>
 ### Strings
 
@@ -331,11 +345,11 @@ Transliterate a UTF-8 value to ASCII.
 
 The `abort` function throws a HTTP exception which will be rendered by the exception handler:
 
-    abort(HTTP_STATUS_UNAUTHORIZED);
+    abort(Response::HTTP_UNAUTHORIZED);
 
 You may also provide the exception's response text:
 
-    abort(HTTP_STATUS_UNAUTHORIZED, 'Unauthorized.');
+    abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized.');
 
 
 <a name="method-asset"></a>
@@ -493,6 +507,14 @@ Returns the given time formatted by the apps settings.
 -->
   
 
+<a name="method-is-absolute-path"></a>
+#### `is__absolute_path()` {.method}
+
+The `is_absolute_path` function determines if the given path given is an absolute path:
+
+    $isAbs = is_absolute_path('/tmp'));
+    
+    
 <a name="method-is-console"></a>
 #### `is_console()` {.method}
 
@@ -611,6 +633,14 @@ The `remove_dir` function deletes a folder (or file). The folder does not have t
     remove_dir(storage_path('temp'));
 
     
+<a name="method-http-status-text"></a>
+#### `http_status_text()` {.method}
+
+The `http_status_text` function translates a HTTP Status code to plain text:
+
+    echo http_status_text(Response::HTTP_BAD_REQUEST);
+            
+            
 <a name="method-t"></a>
 #### `t()` {.method}
 

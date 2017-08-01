@@ -35,7 +35,7 @@ The code comes in part from the following sources:
     - The `read()` method based on [CakePHP's ConsoleInput](https://github.com/cakephp/cakephp/blob/3.next/src/Console/ConsoleInput.php),
     - The VERBOSITY constants of the `Stdio` class and the methods `ask()`, `choice()`, `getInput()` and `hr()` are from 
       [CakePHP's ConsoleIo](https://github.com/cakephp/cakephp/blob/3.next/src/Console/ConsoleIo.php).
-    - The `clear` function is copied from [CakePHP's Shell](https://github.com/cakephp/cakephp/blob/3.next/src/Console/Shell.php).
+    - The `clearTerminal` function is copied from [CakePHP's Shell](https://github.com/cakephp/cakephp/blob/3.next/src/Console/Shell.php).
 - Symfony, licensed under [MIT License](https://github.com/symfony/console/blob/master/LICENSE):
     - The verbosity functions are from [Symfony's Console Output Interface](https://github.com/symfony/console/blob/3.2/Output/OutputInterface.php).
     - The `hasColorSupport()` method is copied from [Symfony's StreamOutput](https://github.com/symfony/console/blob/3.2/Output/StreamOutput.php).
@@ -242,12 +242,12 @@ It's poosible to extends the default help screen:
 <div class="method-list" markdown="1">
 
 [ask](#method-ask)
-[canRead](#method-can-read)
 [choice](#method-choice)
 [confirm](#method-confirm)
 [read](#method-read)
 [secret](#method-secret)
 
+<!-- [canRead](#method-can-read) -->
 </div>
 
 ### Output
@@ -263,7 +263,6 @@ It's poosible to extends the default help screen:
 [notice](#method-notice)
 [question](#method-question)
 [quiet](#method-quiet)
-[table](#method-table)
 [verbose](#method-verbose)
 [warn](#method-warn)
 [write](#method-write)
@@ -275,7 +274,7 @@ It's poosible to extends the default help screen:
 <div class="method-list" markdown="1">
 
 [arguments](#method-arguments)
-[clear](#method-clear)
+[clearTerminal](#method-clear-terminal)
 [description](#method-description)
 [input](#method-input)
 [isDebug](#method-is-debug)
@@ -302,12 +301,14 @@ Prompts the user for input, and returns it.
 
     public function ask($prompt, $default = null);
 
+<!--
 <a name="method-can-read"></a>
 #### `canRead()` {.method}
 
 Check if data is available on standard input.
 
     public function canRead($timeout = 0);
+-->
 
 <a name="method-choice"></a>
 #### `choice()` {.method}
@@ -465,26 +466,6 @@ Check if data is available on standard input.
      */
     public function quiet($text, array $styles = []);
 
-<a name="method-table"></a>
-#### `table()` {.method}
-
-    /**
-     * Formats a table.
-     *
-     * Example:
-     * +---------------+-----------------------+------------------+
-     * | ISBN          | Title                 | Author           |
-     * +---------------+-----------------------+------------------+
-     * | 99921-58-10-7 | Divine Comedy         | Dante Alighieri  |
-     * | 9971-5-0210-0 | A Tale of Two Cities  | Charles Dickens  |
-     * | 960-425-059-0 | The Lord of the Rings | J. R. R. Tolkien |
-     * +---------------+-----------------------+------------------+
-     *
-     * @param array $headers
-     * @param array $rows
-     */
-    public function table(array $headers, array $rows);
-
 <a name="method-verbose"></a>
 #### `verbose()` {.method}
 
@@ -547,13 +528,13 @@ Change verbosity of messages
      */
     public function arguments();
 
-<a name="method-clear"></a>
-#### `clear()` {.method}
+<a name="method-clear-terminal"></a>
+#### `clearTerminal()` {.method}
 
     /**
-     * Clear the console
+     * Clear the teminal screen.
      */
-    public function clear();
+    public function clearTerminal();
 
 <a name="method-description"></a>
 #### `description()` {.method}

@@ -226,7 +226,7 @@ function will roll back the transaction.
         $db->commit();
 
     } catch (\Exception $e) {
-        $db->rollBack();
+        $db->rollback();
     }
 
 The `supportsSavepoints` method determines if the database driver can marks the current point within a transaction.
@@ -239,7 +239,7 @@ number of active transactions:
     $db->beginTransaction();
     echo $db->transactionLevel(); // 2
     ...
-    $db->rollBack();
+    $db->rollback();
     echo $db->transactionLevel(); // 1
     ...
     $db->commit();
@@ -315,6 +315,7 @@ The Table based on [Doctrine's Mapping Matrix](http://docs.doctrine-project.org/
 [createTable](#method-create-table)
 [dropTable](#method-drop-table)
 [renameTable](#method-rename-table)
+[truncateTable](#truncate-table)
 [addColumn](#method-add-column)
 [dropColumn](#method-drop-column)
 [renameColumn](#method-rename-column)
@@ -415,6 +416,13 @@ The `renameTable` method set a new name for a given table on the schema:
 
     database()->schema()->renameTable($from, $to);
 
+<a name="method-truncate-table"></a>
+#### `truncateTable()` {.method}
+
+The `truncateTable` method truncates the table.
+
+    database()->schema()->truncateTable('books');
+        
 <a name="method-add-column"></a>
 #### `addColumn()` {.method}
 
@@ -498,8 +506,6 @@ The type should be given as an abstract type, see also [Field Type Mapping](#typ
 [config](#method-config)
 [connect](#method-connect)
 [dump](#method-dump)
-[errorCode](#method-error-code)
-[errorInfo](#method-error-info)
 [disconnect](#method-disconnect)
 [lastInsertId](#method-last-insert-id)
 [quote](#method-quote)
@@ -507,6 +513,11 @@ The type should be given as an abstract type, see also [Field Type Mapping](#typ
 [reconnect](#method-reconnect)
 [table](#method-table)
 [version](#method-version)
+
+<!--
+[errorCode](#method-error-code)
+[errorInfo](#method-error-info)
+-->
 
 </div>
 
@@ -545,6 +556,7 @@ If you set the third argument to true, the method will return the information ra
     
     $dump = database->dump('SELECT * FROM users WHERE username = ?', [$username], true);
     
+<!--    
 <a name="method-errorCode"></a>
 #### `errorCode()` {.method}
 
@@ -558,6 +570,7 @@ The `errorCode` method gets the most recent error code:
 The `errorInfo` method  gets the most recent error info:
 
     $errorInfo = database()->errorInfo();    
+-->
     
 <a name="method-disconnect"></a>
 #### `disconnect()` {.method}
