@@ -23,7 +23,7 @@ _An object oriented Query Builder_
 
 Pletfix provides an easy to use and powerful QueryBuilder for 
 - MySQL
-- Postgres
+- PostgreSQL
 - SQLite and 
 - Microsoft SQL Server.
 

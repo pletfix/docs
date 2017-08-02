@@ -27,10 +27,10 @@ Pletfix has studied these libraries, picked up ideas from them, and partly adopt
 
 Currently, Pletfix provides a Database Access Layer for the the following database driver: 
 
+- MSSQL
 - MySQL
-- Postgres
+- PostgreSQL
 - SQLite
-- SQL Server
 
 <a name="configuration"></a>
 ## Configuration
@@ -42,12 +42,23 @@ As you can see, the most entries are environment variables.
 
 ### Available Database Drivers
 
+[MSSQL](#mssql)
 [MySQL](#mysql)
-[Postgres](#postgres)
+[PostgreSQL](#postgresql)
 [SQLite](#sqlite)
-[SQL Server](#sqlserver)
 
 </div>
+
+<a name="mssql"></a>
+#### MSSQL {.method}
+
+Microsoft SQL Server also requires the typical connection parameters:
+
+    DB_STORE=sqlsrv
+    DB_MSSQL_HOST=127.0.0.1
+    DB_MSSQL_DATABASE=mydatabase
+    DB_MSSQL_USERNAME=sa
+    DB_MSSQL_PASSWORD=xxxx   
 
 <a name="mysql"></a>
 #### MySQL {.method .first-method}
@@ -60,10 +71,10 @@ The required connection parameters for a MySQL database are:
     DB_MYSQL_USERNAME=myusername
     DB_MYSQL_PASSWORD=mypassword
 
-<a name="postgres"></a>
-#### Postgres {.method}
+<a name="postgresql"></a>
+#### PostgreSQL {.method}
 
-Postgres requires the same information:
+PostgreSQL requires the same information:
 
     DB_STORE=pgsql
     DB_PGSQL_HOST=localhost
@@ -85,18 +96,6 @@ The path for the database file is relative to the storage folder.
 >  
 >     touch storage/db/sqlite.db
   
-<a name="sqlserver"></a>
-#### SQL Server {.method}
-
-Microsoft SQL Server also requires the typical connection parameters:
-
-    DB_STORE=sqlsrv
-    DB_SQLSRV_HOST=127.0.0.1
-    DB_SQLSRV_DATABASE=mydatabase
-    DB_SQLSRV_USERNAME=sa
-    DB_SQLSRV_PASSWORD=xxxx   
-
-
 <a name="connections"></a>
 ## Connections
 
@@ -274,7 +273,7 @@ The following table shows an overview of the Pletfix's type abstraction for the 
 The matrix contains the mapping information for how a specific abstract type is mapped to the database and back to PHP.
 The Table based on [Doctrine's Mapping Matrix](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html#mapping-matrix).
     
-| Abstract    | PHP      | MySql                                            | PostgreSQL                     | SQL Server                                | SQLite                                     |
+| Abstract    | PHP      | MySql                                            | PostgreSQL                     | MSSQL                                     | SQLite                                     |
 |-------------|----------|--------------------------------------------------|--------------------------------|-------------------------------------------|--------------------------------------------|
 | identity    | integer  | INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT | SERIAL                         | INT NOT NULL IDENTITY(1,1) PRIMARY KEY    | INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL | 
 | bigidentity | integer  | BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT       | BIGSERIAL                      | BIGINT NOT NULL IDENTITY(1,1) PRIMARY KEY | INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL | 
@@ -298,7 +297,7 @@ The Table based on [Doctrine's Mapping Matrix](http://docs.doctrine-project.org/
 | json        | array    | JSON (#3)                                        | JSONB  (#4)                    | TEXT, VARCHAR(MAX)                        | TEXT                                       |
 | object      | object   | TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT             | TEXT                           | TEXT, VARCHAR(MAX)                        | TEXT                                       |
 
-- (#1) Before SQL Server 2008: DATETIME 
+- (#1) Before MS SQL Server 2008: DATETIME 
 - (#2) Extra: ON UPDATE CURRENT_TIMESTAMP; Default: CURRENT_TIMESTAMP
 - (#3) Before MySql 5.7.8: TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT 
 - (#4) Before PostgreSQL 9.2: TEXT; before PostgreSQL 9.4: JSON 
@@ -459,15 +458,12 @@ the column "caption" to "title":
 
 The `addIndex` method creates an index for a given table, e.g. for table "books":
 
-    database()->schema()->addIndex('books', null, [
-        'columns' => ['title', 'author_id'], 'unique'  => true
-    ]);
+    database()->schema()->addIndex('books', ['title', 'author_id'], ['unique' => true]);
 
-The second argument is the name of the index. It will be generated automatically if not set and will be ignored by a 
-primary key.
+The second argument is the list of columns.
 
 The third argument is an array to specify the columns and other options for the index:
-- columns    (string[])  List of column names.
+- name:      (string)    The name of the index. It will be generated automatically if not set. It will be ignored by a primary key.
 - unique:    (bool)      The index is a unique index.
 - primary:   (bool)      The index is the primary key.
 
@@ -476,14 +472,12 @@ The third argument is an array to specify the columns and other options for the 
 
 The `dropIndex` method deletes a index from the table by given index name or options:
 
-    database()->schema()->dropIndex('books', null, [
-        'columns' => ['title', 'author_id'], 'unique'  => true
-    ]);
+    database()->schema()->dropIndex('books', ['title', 'author_id'], ['unique' => true]);
 
-The second argument is the name of the index. It will be generated automatically if not set.
+The second argument is the list of columns. Could be null if the index name is given or it's the primary index.
 
 The third argument is an array with index options and is only needed if the index name is not set: 
-- columns    (string[])  List of column names. Could be null if the index name is given or it's the primary index.
+- name:      (string)    The name of the index. It will be generated automatically if not set.
 - unique:    (bool)      The index is a unique index. It's needed to generate the name.
 - primary:   (bool)      The index is the primary key.
 

@@ -14,34 +14,35 @@ _What are we working on?_
 | Dependency Injection | 0.0.2 | Release Candidate | 
 | Environment Support | 0.0.2 | Release Candidate |
 | Configuration | 0.0.2 | Release Candidate |
-| Testing (PHP Unit, Mink and Travic CI) | 0.0.3 | Alpha |
+| Testing (PHP Unit, Mink) | 0.0.3 | Release Candidate |
 | HTTP Routing | 0.0.4 | Alpha |
-| Controller | 0.0.4 | Alpha |
+| Controller | 0.0.4 | Release Candidate |
 | HTTP Request Services | 0.0.5 | Alpha |
 | HTTP Response Services | 0.0.5 | Alpha |
-| Logging | 0.0.6 | Alpha |
-| Exception Handling | 0.0.7 | Alpha |
-| Pretty Error Reporting |  0.0.7 | Alpha |
+| Logging | 0.0.6 | Release Candidate |
+| Exception Handling | 0.0.7 | Release Candidate |
+| Pretty Error Reporting |  0.0.7 | Release Candidate |
 | Facades | 0.0.8 | Deprecated |
-| Caching | 0.0.9 | Alpha |
-| View Template Engine | 0.1.0 | Alpha |
-| Database Access Layer | 0.2.0 | Alpha |
-| Migrator | 0.2.2 | Alpha |
-| Collection | 0.2.4 | Alpha |
-| Console (Command line Interface) | 0.3.0 | Alpha | 
-| Plugin Management | 0.4.0 | Alpha |
-| Markdown Parser | 0.4.2 | Alpha |
-| Asset Management | 0.5.0 | Alpha |
-| DateTime | 0.5.1 | Alpha |
+| Caching | 0.0.9 | Release Candidate |
+| View Template Engine | 0.1.0 | Release Candidate |
+| Database Access Layer | 0.2.0 | Release Candidate |
+| Migrator | 0.2.2 | Release Candidate |
+| Collection | 0.2.4 | Release Candidate |
+| Console (Command line Interface) | 0.3.0 | Release Candidate | 
+| Plugin Management | 0.4.0 | Release Candidate |
+| Markdown Parser | 0.4.2 | Release Candidate |
+| Asset Management | 0.5.0 | Release Candidate |
+| DateTime | 0.5.1 | Release Candidate |
 | Translator (l18n) | 0.5.2 | Alpha |
-| Session Handling | 0.5.3 | Alpha |
-| Flash Object | 0.5.3 | Alpha |
-| Cookies | 0.5.4 | Alpha |
-| String Capitalization, Pluralizer | 0.5.5 | Alpha |
-| Mailer | 0.5.6 | Alpha |
+| Session Handling | 0.5.3 | Release Candidate |
+| Flash Object | 0.5.3 | Release Candidate |
+| Cookies | 0.5.4 | Release Candidate |
+| String Capitalization, Pluralizer | 0.5.5 | Release Candidate |
+| Mailer | 0.5.6 | Release Candidate |
 | Query Builder | 0.6.0 | Alpha |
 | Model | 0.6.0 | Alpha |
-| Middleware | 0.6.1 | Alpha |
+| Middleware | 0.6.1 | Release Candidate |
+| CSRF Protection | 0.6.2 | Release Candidate |
 | Authentication with Roles and Abilities | 0.6.3 | Alpha |
 | User Login | 0.6.4 | Alpha |
 | Remember-Me Function | 0.6.5| Alpha |
@@ -50,14 +51,12 @@ _What are we working on?_
 | Change Passwort Function | 0.6.7 | Alpha |
 | LDAP Authentication | 0.6.8 | Alpha |
 | Socialite OAuth2 Authentication | 0.6.9 | Alpha |
-| CSRF Protection | 0.6.2 | !!!!!!!!!!!!!!!! |
 | Pletfix Plugin Page| 0.7.0 | |
 | Pletfix Blog| 0.7.1 | |
 | File Upload | 0.7.4 | |
 | File Download | 0.7.4 | |
 | Ajax Request | 0.7.5 | |
 | Validation| 0.7.6 | |
-| Redirect for HTTP Response | 0.7.7 | |
 | Pagination | 0.7.8 | |
 | PSR-7 for HTTP Request/Response | 0.7.9 | |
 | **First Stable Release** | **0.8.0** | |
