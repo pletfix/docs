@@ -22,7 +22,7 @@ to be used by default throughout your application. The cache configuration file 
 which are documented within the file, so make sure to read over these options. 
 
 Pletfix supports following popular cache driver:
-- [APC](#configuration-apc)
+- [APCu](#configuration-apcu)
 - [Array](#configuration-array) 
 - [File](#configuration-file)          
 - [Memcached](#configuration-memcached)
@@ -32,11 +32,11 @@ By default, Pletfix is configured to use the `file` cache driver, which stores t
 filesystem. For larger applications, it is recommended that you use a more robust driver such as Memcached or Redis. 
 You may even configure multiple cache configurations for the same driver.
 
-<a name="configuration-apc"></a>
-### APC
+<a name="configuration-apcu"></a>
+### APCu
 
-In order to use the APC cache driver you must have it compiled and enabled in your php.ini. 
-You can read about APC in the [PHP Documentation](http://us2.php.net/apc). 
+In order to use the APCu cache driver you must have it compiled and enabled in your php.ini. 
+You can read about APCu in the [PHP Documentation](http://us2.php.net/apc). 
 It will give you a little background information about what it is and how you can use it as well as how to install it.
 
 There's nothing to configuration in `config/cache.php`.

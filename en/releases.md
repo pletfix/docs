@@ -58,7 +58,6 @@ _What are we working on?_
 | Ajax Request | 0.7.5 | |
 | Validation| 0.7.6 | |
 | Pagination | 0.7.8 | |
-| PSR-7 for HTTP Request/Response | 0.7.9 | |
 | **First Stable Release** | **0.8.0** | |
 | Scheduled Tasks | 0.8.1 | |
 | Image Manipulation | 0.8.2 | |
@@ -76,6 +75,7 @@ _What are we working on?_
 | Process Handling (inkl. Daemons) | 0.9.4 | |
 | Database Import, Export, Backup and Restore | 0.9.5 | |
 | Optional paramters for HTTP Routing | 0.9.6 | |
+| PSR-7 Adapter for HTTP Request/Response | 0.9.7 | |
 | Notification Events | 0.9.8 | |
 | **Second Stable Release** | **1.0.0** | |
 | FormBuilder| &gt; 1.0.0 | |
