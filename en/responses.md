@@ -65,11 +65,17 @@ The Response object has these methods:
 [getStatusCode](#method-get-status-code)
 [getStatusText](#method-get-status-test)
 [header](#method-header)
+[json](#method-json)
 [output](#method-output)
 [redirect](#method-redirect)
 [send](#method-send)
 [status](#method-status)
 [view](#method-view)
+[withFlash](#method-with-flash)
+[withInput](#method-with-input)
+[withMessage](#method-with-message)
+[withError](#method-with-error)
+[withErrors](#method-with-errors)
 [write](#method-write)
 
 </div>
@@ -138,7 +144,42 @@ The `header` method adds a header to the response:
                 ->header('Content-Type', $type)
                 ->header('X-Header-One', 'Header Value')
                 ->header('X-Header-Two', 'Header Value');
+         
+         
+<a name="method-json"></a>
+#### `json()` {.method}
+
+The `json` method gets a new JSON response:
+
+    return response()->json($data);         
+
+
+<a name="method-download"></a>
+#### `download()` {.method}
+
+The `download` method gets a new file download response:
+
+    return response()->download($pathToFile);
         
+You may set a file name as the second argument that is seen by the user downloading the file: 
+
+    return response()->download($pathToFile, $name);
+
+> <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>   
+> If you like to display the file directly in the browser, use the [file](#method-file) method instead.
+
+
+<a name="method-file"></a>
+#### `file()` {.method}
+
+The `file` method gets the raw contents of a binary file. It may be used to display a file, such as an image or PDF, 
+directly in the user's browser instead of initiating a download.
+
+    return response()->file($pathToFile);
+   
+> <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>        
+> If you like initiating a download, use the [download](#method-download) method instead.         
+     
         
 <a name="method-output"></a>
 #### `output()` {.method}
@@ -190,7 +231,7 @@ The `status` method sets the HTTP status code:
 <a name="method-view"></a>
 #### `view()` {.method}
 
-The `view` method gets the evaluated view contents for the given view:
+The `view` method renders the output by the given view:
 
     return response()->view($name);   
 
@@ -201,8 +242,85 @@ If you need control over the response's status and headers but also need to retu
 Of course, if you do not need to pass a custom HTTP status code or custom headers, you should use the global `view` helper function:
        
     return view($name);   
-       
     
+    
+<a name="method-with-flash"></a>
+#### `withFlash()` {.method}
+
+The `withFlash` method flashes a piece of data to the session:
+
+    return response()->withFlash('foo', 'bar');   
+
+An array is not overridden but merged with the flash data:
+
+    return response()
+        ->withFlash('foo', ['bar', 'baz'])
+        ->withFlash('foo', ['boo']); // foo = ['bar', 'baz', 'boo']   
+ 
+ 
+<a name="method-with-input"></a>
+#### `withInput()` {.method}
+
+The `withInput` method flashes an array of input to the session:
+
+    return response()->withInput($input);   
+
+You may omit the argument to flash all of the current input:
+
+    return response()->withInput();   
+
+Use the [old() function](helpers#method-old) during the subsequent HTTP request to retrieve the input from 
+the flash:
+    
+    $email = old('email);
+
+
+<a name="method-with-message"></a>
+#### `withMessage()` {.method}
+
+The `withMessage` method flashes a message to the session:
+
+    return response()->withMessage('Operation successfull.');
+
+Use the [message() function](helpers#method-message) during the subsequent HTTP request to retrieve the message from 
+the flash:
+    
+    $message = message();
+    
+
+<a name="method-with-error"></a>
+#### `withError()` {.method}
+
+The `withError` method flashes an error message to the session:
+
+    return response()->withError('Operation failed.');   
+    
+If the error is related to a input field, you may set the fields name as second argument:
+
+    return response()->withError('The e-mail is invalid.', 'email');   
+          
+Use the [error() function](helpers#method-error) during the subsequent HTTP request to retrieve the error message from 
+the flash:
+    
+    $error = error('email');
+    
+    
+<a name="method-with-errors"></a>
+#### `withErrors()` {.method}
+
+The `withErrors` method flashes a list of error messages to the session:
+
+    return response()->withErrors([
+        'email'    => 'The e-mail is invalid.',
+        'password' => 'The password is required.',
+    ]);   
+
+Use the [error() function](helpers#method-error) during the subsequent HTTP request to retrieve the error message from 
+the flash:
+    
+    $error = error();
+
+     
 <a name="method-write"></a>
 #### `write()` {.method}
 

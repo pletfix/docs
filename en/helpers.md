@@ -85,6 +85,8 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [e](#method-e)
 [env](#method-env)
 [error](#method-error)
+[guess_file_extension](#method-guess-file-extension)
+[http_status_text](#method-http-status-text)
 [is_absolute_path](#method-absolute-path)
 [is_console](#method-is-console)
 [is_testing](#method-is-testing)
@@ -98,7 +100,6 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [old](#method-old)
 [redirect](#method-redirect)
 [remove_dir](#method-remove-dir)
-[http_status_text](#method-http-status-text)
 [t](#method-t)
 [url](#method-url)
 <!--
@@ -124,6 +125,7 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [logger](#method-logger)
 [mailer](#method-mailer)
 [migrator](#method-migrator)
+[mime_type](#method-mime-type)
 [plugin_manager](#method-plugin-manager)
 [request](#method-request)
 [response](#method-response)
@@ -479,6 +481,9 @@ The `error` function retrieves an error message from the flash for the given key
 `error()` is a shortcut for:
 
     $error = flash()->get('errors.' . $key)        
+     
+You can set the error message with the [withError](response#method-with-error) or [withErrors](response#method-with-errors)
+method of the `Response` object.
         
 <!--
 
@@ -506,7 +511,24 @@ Returns the given time formatted by the apps settings.
 
 -->
   
+   
+<a name="method-guess-file-extension"></a>
+#### `guess_file_extension()` {.method}
 
+The `guess_file_extension` function returns the file extension based on the mime type. If the mime type is unknown, 
+returns null.
+
+    $ext = guess_file_extension('image/gif'); // 'gif'
+  
+  
+<a name="method-http-status-text"></a>
+#### `http_status_text()` {.method}
+
+The `http_status_text` function translates a HTTP Status code to plain text:
+
+    echo http_status_text(Response::HTTP_BAD_REQUEST);
+            
+   
 <a name="method-is-absolute-path"></a>
 #### `is__absolute_path()` {.method}
 
@@ -595,6 +617,8 @@ The `message` function retrieves an message from the flash:
 `message()` is a shortcut for:
 
     flash()->get('message')
+           
+See also [withMessage](responses#method-with-message) method of `Response` object.
             
             
 <a name="method-old"></a>
@@ -608,21 +632,24 @@ The `old` function retrieves an old input item from the flash. It is useful in a
 
     flash()->get('input' . $key)
 
+See also [withInput](responses#method-with-input) method of `Response` object.
+    
     
 <a name="method-redirect"></a>
 #### `redirect()` {.method}
 
-The `redirect` function returns a redirect HTTP response to the given path:
+The `redirect` function returns a redirect HTTP response to the given path. The path should be relative to 
+[request()->baseUrl()](requests#method-base-url):
+    
+    $redirect = redirect('home');
+
+If you wish you could set GET parameters as second argument:
     
     $redirect = redirect('home', ['name' => 'Peter']);
-    
-You may also set flash date for the next request at the third argument:
-    
-    $redirect = redirect('home', ['name' => 'Peter'], ['message' => 'Operation successful!']);
-     
+
 The default HTTP status is 302 for a temporarily link. You can create a permanently redirect link like this:
 
-    $redirect = redirect('home', ['name' => 'Peter'], [], 301);   
+    $redirect = redirect('home', ['name' => 'Peter'], 301);   
   
                 
 <a name="method-remove-dir"></a>
@@ -632,15 +659,7 @@ The `remove_dir` function deletes a folder (or file). The folder does not have t
 
     remove_dir(storage_path('temp'));
 
-    
-<a name="method-http-status-text"></a>
-#### `http_status_text()` {.method}
-
-The `http_status_text` function translates a HTTP Status code to plain text:
-
-    echo http_status_text(Response::HTTP_BAD_REQUEST);
-            
-            
+               
 <a name="method-t"></a>
 #### `t()` {.method}
 
@@ -758,6 +777,14 @@ The `migrator` function retrieves the [Migrator](migrations) instance for the gi
 > Typically, you do not need access the Migrator programmatically. Instead, use the Pletfix console command 'migrate'.
 
 
+<a name="method-mime_type"></a>
+#### `mime_type()` {.method}
+
+The `mime_type` function gets the MIME Type of the given file. The file must be exists.
+
+    $mime = mime_type(storage_path('upload/image123.gif'));
+
+
 <a name="method-plugin-manager"></a>
 #### `plugin_manager()` {.method}
 
@@ -807,6 +834,12 @@ The `stdio` function retrieves the Stdio instance for the Pletfix [console](cons
 <a name="method-view"></a>
 #### `view()` {.method}
 
-The `view` function creates a [View](views) instance for the given template:
+Create a response with the given [View](view).
 
     return view('welcome', ['name' => 'Frank']);
+
+If no arguments are passed, the function returns a new View instance. So, the example below is the same like above:
+
+    $output = view()->render('welcome', ['name' => 'Frank']);
+    
+    return $this->output($output);

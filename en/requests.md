@@ -40,6 +40,7 @@ The Request object has these methods:
 [fullUrl](#method-full-url)
 [input](#method-input)
 [ip](#method-ip)
+[isAjax](#method-is-ajax)
 [isJson](#method-is-json)
 [isSecure](#method-is-secure)
 [method](#method-method)
@@ -161,6 +162,7 @@ The `input` method retrieves an input item from the request ($_GET and $_POST).:
 The `ip` method returns the client IP address:
 
     echo request()->ip();
+
     
 
 <a name="method-is-json"></a>
