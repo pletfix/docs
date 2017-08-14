@@ -8,9 +8,7 @@
 - [Data Queries](#queries)
 - [Transactions](#transactions)
 - [Schema](#schema)
-- [Table](#table)
 - [Miscellanea Functions](#misc)
-
 
 <a name="introduction"></a>
 ## Introduction

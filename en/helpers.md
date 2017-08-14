@@ -516,7 +516,7 @@ Returns the given time formatted by the apps settings.
 #### `guess_file_extension()` {.method}
 
 The `guess_file_extension` function returns the file extension based on the mime type. If the mime type is unknown, 
-returns null.
+returns false.
 
     $ext = guess_file_extension('image/gif'); // 'gif'
   
@@ -780,7 +780,8 @@ The `migrator` function retrieves the [Migrator](migrations) instance for the gi
 <a name="method-mime_type"></a>
 #### `mime_type()` {.method}
 
-The `mime_type` function gets the MIME Type of the given file. The file must be exists.
+The `mime_type` function gets the MIME Type of the given file. Returns false, if the file does not exist or the mime
+type is unknown.
 
     $mime = mime_type(storage_path('upload/image123.gif'));
 

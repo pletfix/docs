@@ -149,7 +149,7 @@ The `header` method adds a header to the response:
 <a name="method-json"></a>
 #### `json()` {.method}
 
-The `json` method gets a new JSON response:
+The `json` method gets a JSON response:
 
     return response()->json($data);         
 
@@ -157,7 +157,7 @@ The `json` method gets a new JSON response:
 <a name="method-download"></a>
 #### `download()` {.method}
 
-The `download` method gets a new file download response:
+The `download` method gets a file download response:
 
     return response()->download($pathToFile);
         

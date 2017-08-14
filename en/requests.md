@@ -37,6 +37,7 @@ The Request object has these methods:
 [canonicalUrl](#method-canonical-url)
 [cookie](#method-cookie)
 [file](#method-file)
+[files](#method-files)
 [fullUrl](#method-full-url)
 [input](#method-input)
 [ip](#method-ip)
@@ -47,7 +48,7 @@ The Request object has these methods:
 [path](#method-path)
 [url](#method-url)
 [wantsJson](#method-wants-json)
-
+<!-- [hasFile](#method-has-file) -->
 </div>
 
 <a name="method-listing"></a>
@@ -121,14 +122,71 @@ The `cookie` method retrieves a cookie from the request:
 
     echo request()->cookie($key, $default);
     
+<!--
+<a name="method-has-file"></a>
+#### `hasFile()` {.method}
+
+The `hasFile` method checks that the uploaded file exists by given key.
+
+    $imageIsUploaded = request()->hasFile('image');
+-->
 
 <a name="method-file"></a>
 #### `file()` {.method}
 
-The `file` method retrieves a file from the request:
+The `file` method gets an uploaded file by given key and returns an `UploadedFile` instance. If the key does not exist 
+in $_FILES, null is returned. 
 
-    echo request()->file($key, $default);
+    $uploadedFile = request()->file('image');
     
+`UploadedFile` provides the following methods to get information about the uploaded file:
+
+    $uploadedFile->originalName();      // Get the original name of the uploaded file.
+    $uploadedFile->size();              // Get the file size in bytes. Returns false, if the file was not uploaded 
+                                        // successfully.
+    $uploadedFile->modificationTime();  // Get the modification time of the uploaded file. Returns false, if the file 
+                                        // was not uploaded successfully.
+    $uploadedFile->mimeType();          // Get the MIME type of the uploaded file. Returns false, if the file was not 
+                                        // uploaded successfully or the MIME type is unknown.
+    $uploadedFile->guessExtension();    // Guess the file extension based on the mime type. Returns false, if the file 
+                                        // was not uploaded successfully or the MIME type is unknown.
+    $uploadedFile->hash();              // Get the unique 32 character hash value of the file. Returns false, if the 
+                                        // file was not uploaded successfully.
+    $uploadedFile->errorCode();         // Get the error code, see http://php.net/manual/en/features.file-upload.errors.php
+                                        // for description.
+    $uploadedFile->errorMessage();      // Get the error message.
+    $uploadedFile->isValid();           // Determine if the file was uploaded successfully via HTTP POST and is ready to 
+                                        // move. The method returns false if the file has already been moved from the  
+                                        // temporary directory.
+
+Use the `move` method of `UploadedFile` to move the uploaded file from the temporary directory to the target folder.
+The method returns the new file path:
+
+    $fileName = request()->file('image')->move($targetFolder);
+    
+You may set a file name as the second parameter if you don't like to save the file under the original file name: 
+
+    $fileName = request()->file('image')->move($targetFolder, 'logo.png'); 
+
+An `UploadException` is thrown, if the file is not valid or if, for any reason, the file could not have been saved.
+
+If multiple files have been uploaded, use the [files](#method-files) method instead.
+
+
+<a name="method-files"></a>
+#### `files()` {.method}
+
+The `files` method is useful, if multiple files have been uploaded. The method gets an array of `UploadedFile` instances 
+by given key. 
+
+    foreach (request()->files('image') as $uploadedFile) {
+        $uploadedFile->move($targetFolder);
+    }
+
+If the key does not exist in $_FILES, an empty array is returned. 
+
+See also [file](#method-file).
+   
 
 <a name="method-full-url"></a>
 #### `fullUrl()` {.method}

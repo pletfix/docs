@@ -628,7 +628,7 @@ all functions that get the users input (except: `secret`).
 You can access the most of the methods of the `Stdio` class directly from the `AbstractCommand` so you normally do not 
 need the roundabout way over `stdio()`. Exception are the following functions which are not served by the command class: 
      
-    $stdio->err($text = null);    // Prints text to Standard Error.
+    $stdio->err($text);           // Prints text to Standard Error.
     $stdio->getStdin();           // Returns the Standard Input handle.     
     $stdio->setStdin($stdin);     // Set a Standard Input handle    
     $stdio->getStdout();          // Returns the Standard Output handle.      
