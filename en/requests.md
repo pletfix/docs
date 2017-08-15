@@ -48,7 +48,6 @@ The Request object has these methods:
 [path](#method-path)
 [url](#method-url)
 [wantsJson](#method-wants-json)
-<!-- [hasFile](#method-has-file) -->
 </div>
 
 <a name="method-listing"></a>
@@ -122,22 +121,30 @@ The `cookie` method retrieves a cookie from the request:
 
     echo request()->cookie($key, $default);
     
-<!--
-<a name="method-has-file"></a>
-#### `hasFile()` {.method}
-
-The `hasFile` method checks that the uploaded file exists by given key.
-
-    $imageIsUploaded = request()->hasFile('image');
--->
 
 <a name="method-file"></a>
 #### `file()` {.method}
 
-The `file` method gets an uploaded file by given key and returns an `UploadedFile` instance. If the key does not exist 
-in $_FILES, null is returned. 
+The `file` method gets an uploaded file which has been sent via HTML form.  
 
-    $uploadedFile = request()->file('image');
+The [http://php.net/manual/en/features.file-upload.post-method.php](official PHP page) shows how you can build a
+File Upload Form:
+    
+    <form enctype="multipart/form-data" action="{{url('upload')}}" method="POST">
+        <input name="_token" value="{{csrf_token()}}" type="hidden"/>
+        <input type="hidden" name="MAX_FILE_SIZE" value="30000"/>
+        File: <input name="userfile" type="file"/>
+        <input type="submit" value="Send File"/>
+    </form>
+
+Note, that the data encoding type must be specified as "multipart/form-data". Furthermore, the MAX_FILE_SIZE, if used, 
+must precede the file input field. 
+
+If the the file was uploades via the form like above, you can get the file information like this:
+ 
+    $uploadedFile = request()->file('userfile');
+    
+The `file` method returns an `UploadedFile` instance. If the passed key does not exist, null is returned. 
     
 `UploadedFile` provides the following methods to get information about the uploaded file:
 
@@ -159,8 +166,8 @@ in $_FILES, null is returned.
                                         // move. The method returns false if the file has already been moved from the  
                                         // temporary directory.
 
-Use the `move` method of `UploadedFile` to move the uploaded file from the temporary directory to the target folder.
-The method returns the new file path:
+The uploaded file is stored in a temporary directory first of all. Use the `move` method of `UploadedFile` to move this 
+file to your target folder. The method returns the new file path:
 
     $fileName = request()->file('image')->move($targetFolder);
     
@@ -168,25 +175,33 @@ You may set a file name as the second parameter if you don't like to save the fi
 
     $fileName = request()->file('image')->move($targetFolder, 'logo.png'); 
 
-An `UploadException` is thrown, if the file is not valid or if, for any reason, the file could not have been saved.
+An `UploadException` is thrown by the `move`method, if the file is not valid or if, for any reason, the file could not 
+have been saved.
 
-If multiple files have been uploaded, use the [files](#method-files) method instead.
+#### Nested Input
 
+The input may also using array notation for the name like this:
 
-<a name="method-files"></a>
-#### `files()` {.method}
+    <input type="file" name="my-form[details][avatar]"/>
 
-The `files` method is useful, if multiple files have been uploaded. The method gets an array of `UploadedFile` instances 
-by given key. 
+In this case you can get the file information with the "dot" notation:
+ 
+    $uploadedFile = request()->file('my-form.details.avatar');
 
-    foreach (request()->files('image') as $uploadedFile) {
+#### Multiple File Upload
+    
+The input may also specify an array of files:    
+    
+    <input type="file" name="articles[]"/>
+    <input type="file" name="articles[]"/>
+
+In this case, if multiple files have been uploaded under the same key, the `file` method gets an array of `UploadedFile` 
+instances: 
+                     
+    foreach (request()->file('articles') as $uploadedFile) {
         $uploadedFile->move($targetFolder);
     }
-
-If the key does not exist in $_FILES, an empty array is returned. 
-
-See also [file](#method-file).
-   
+ 
 
 <a name="method-full-url"></a>
 #### `fullUrl()` {.method}
