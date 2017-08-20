@@ -126,6 +126,7 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [mailer](#method-mailer)
 [migrator](#method-migrator)
 [mime_type](#method-mime-type)
+[paginator](#method-paginator)
 [plugin_manager](#method-plugin-manager)
 [request](#method-request)
 [response](#method-response)
@@ -786,6 +787,22 @@ type is unknown.
     $mime = mime_type(storage_path('upload/image123.gif'));
 
 
+<a name="method-paginator"></a>
+#### `paginator()` {.method}
+
+The `paginator` function creates a [Paginator](pagination) instance for generating pagination controls, typical used in 
+an `index` action:
+
+    public function index()
+    {
+        $builder   = User::builder();
+        $paginator = paginator($builder->count());
+        $users     = $builder->offset($paginator->offset())->limit($paginator->limit())->all();
+        
+        return view('admin.users.index', compact('paginator', 'users'));
+    }
+    
+    
 <a name="method-plugin-manager"></a>
 #### `plugin_manager()` {.method}
 

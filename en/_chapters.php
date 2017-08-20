@@ -45,13 +45,13 @@ return [
         'assets' => 'Asset Manager',
         'localization' => 'Localization',           // todo Korrektur lesen
         'forms' => 'Forms',                         // todo Korrektur lesen, Validation
-        'cookies' => 'Cookies',                     // todo Korrektur lesen evtl nach Request und Response verlegen (s. https://laravel.com/docs/5.4/requests#cookies)
+        'pagination' => 'Pagination',               // todo Korrektur lesen
+        'cookies' => 'Cookies',                     // todo Korrektur lesen
     ],
     'Database' => [
         'database' => 'Database Access Layer',      // todo Korrektur lesen, Misc und Scheam ausformulieren
         'builder' => 'Query Builder',               // todo Korrektur lesen
         'models' => 'Models',                       // todo Korrektur lesen, Validation
-        'pagination' => 'Pagination',               // Not implemented yet!, evtl zu Frontend hinzufügen
         'migrations' => 'Migrations',
     ],
     'Security' => [

@@ -75,7 +75,7 @@ Instead you may install a Plugin such like [Authenticaton Plugin](https://github
 web login, [Ldap Plugin](https://github.com/pletfix/ldap) for authentication through an Active Directory or 
 [OAuth Plugin](https://github.com/pletfix/oauth) for authorizing through a Socialite provider as like Facebook or Dropbox.
 
-![Login](https://raw.githubusercontent.com/pletfix/registration/master/docs/screenshot4.png)
+![Login](https://raw.githubusercontent.com/pletfix/authentication/master/docs/screenshot4.png)
 
 The credentials could be an additional attribute names 'remember'. If this attribute true, the `Auth` service creates a
 a long life (5 years) cookie on the browser. In this case the user will be re-login automaticaly after the PHP session 

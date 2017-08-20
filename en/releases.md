@@ -51,13 +51,13 @@ _What are we working on?_
 | Change Passwort Function | 0.6.7 | Alpha |
 | LDAP Authentication | 0.6.8 | Alpha |
 | Socialite OAuth2 Authentication | 0.6.9 | Alpha |
-| Pletfix Plugin Page| 0.7.0 | |
-| Pletfix Blog| 0.7.1 | |
-| File Upload | 0.7.4 | |
-| File Download | 0.7.4 | |
-| Ajax Request | 0.7.5 | |
-| Validation| 0.7.6 | |
-| Pagination | 0.7.8 | |
+| File Download | 0.7.0 | Alpha |
+| File Upload | 0.7.1 | Alpha |
+| Pagination | 0.7.2 | Alpha |
+| Validation| 0.7.3 | |
+| Ajax Request | 0.7.4 | |
+| Pletfix Plugin Page| 0.7.5 | |
+| Pletfix Blog| 0.7.6 | |
 | **First Stable Release** | **0.8.0** | |
 | Scheduled Tasks | 0.8.1 | |
 | Image Manipulation | 0.8.2 | |
@@ -74,8 +74,7 @@ _What are we working on?_
 | WebSocket | 0.9.3 | |
 | Process Handling (inkl. Daemons) | 0.9.4 | |
 | Database Import, Export, Backup and Restore | 0.9.5 | |
-| Optional paramters for HTTP Routing | 0.9.6 | |
-| PSR-7 Adapter for HTTP Request/Response | 0.9.7 | |
+| Optional parameters for HTTP Routing | 0.9.6 | |
 | Notification Events | 0.9.8 | |
 | **Second Stable Release** | **1.0.0** | |
 | FormBuilder| &gt; 1.0.0 | |

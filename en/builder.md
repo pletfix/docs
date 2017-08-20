@@ -503,17 +503,24 @@ Examples:
 <a name="method-limit"></a>
 #### `limit()` {.method}
 
-The `limit` method sets a limit count on the query.
+The `limit` method sets a limit count for the result set.
 
     $builder->limit($limit);
+
+> <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
+> Note, that LIMIT does not see the query, it is just see the result set. Therefore, LIMIT has no effect on the 
+> calculation of aggregate functions such like MIN or MAX.
 
 <a name="method-offset"></a>
 #### `offset()` {.method}
 
-The `offset` method sets a limit offset on the query.
+The `offset` method sets a limit offset for the result set.
 
     $builder->offset($offset);
 
+> <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
+> Note, that OFFSET does not see the query, it is just see the result set. Therefore, OFFSET has no effect on the 
+> calculation of aggregate functions such like MIN or MAX.
   
 <a name="execute"></a>
 ### Execute Query
