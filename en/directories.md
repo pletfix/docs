@@ -22,9 +22,11 @@
    |  |-plugins/                Informationen über die registrierten Plugins
    |-[app](#app)/               Autoload-Verzeichnis nach PSR-4-Standard, Namespace \App
    |  |-Commands/               Konsolenbefehle
-   |  |-Controller/             Controller der Anwendung
+   |  |-Controllers/            Controller der Anwendung
+   |  |-Drivers/                Treiber (können durch Factories geladen werden)
    |  |-Exceptions/             Anwendungsspezifische Exception-Klassen
    |  |-Handler/                Event- und Exception-Handler
+   |  |-Middleware/             Middleware der Anwendung
    |  |-Models/                 Models der Anwendung
    |  |-Services/               Anwendungsspezifische Service (werden im DI direkt oder indirekt bereitgestellt)
    |-config/                    Konfigurationsdateien
@@ -37,10 +39,12 @@
    |  |-database.php            Konfiguration der Datenbank(en)
    |  |-hello.php               Konfigurationsdateien des Plugins "hello" (exemplarisch für eine Plugin Konfiguration)
    |  |-mail.php                Konfiguration des Mailers
+   |  |-session.php             Konfiguration der PHP Session
    |-library/                   Daten, auf die die Anwendung serverseitig zugreift
    |  |-classes/                Klassen, die per Classmap geladen werden (weil diese nicht dem PSR-4-Standard folgen)
    |  |-facades/                Facaden (deprecated)
    |  |-functions/              Autoload-Verzeichnis für Funktionen (jede Datei muss einzeln in composer.json eingetragen werden!)
+   |  |  |-helpers.php          Helper Funktionen
    |-public                     Daten, auf die die der Browser direkt zugreifen darf.
    |  |-build/                  Versionierte Assetdateien (werden durch den Asset-Manager generiert)
    |  |-css/                    Stylesheets
@@ -87,7 +91,9 @@
    |-composer.json              Composer Konfiguration
    |-composer.lock              Composer Lock File
    |-console                    Shell-Script zum Starten des Konsolenprogramms (ruft Core\Console auf)
-   |-license.md                 Lizenzinformationen
+   |-LICENSE                    Lizenzinformationen
+   |-phpunit.xml                Test settings (ignored by git)
+   |-phpunit.xml.dist           Test settings (fallback, if phpunit.xml not exists)
    |-packages.json              Package Informationen (für Composer's create-project command)
    |-README.md                  Kurzanleitung zur Installation und Nutzung des Frameworks
 </pre>
@@ -107,8 +113,9 @@
          |-src/                 Autoload-Verzeichnis nach PSR-4-Standard, Namespace \Core
          |  |-Bootsraps/        Bootstrapper
          |  |-Commands/         Konsolenbefehle
-         |  |-Controller/       AbstractController-Klasse
+         |  |-Controllers/      AbstractController-Klasse
          |  |-Exceptions/       Exception-Klassen
+         |  |-Middleware/       Middleware-Klassen
          |  |-Models/           AbstractModel-Klasse
          |  |-Services/         Service-Klassen (werden im DI direkt oder indirekt bereitgestellt)
          |  |-Testing/          TestCase and MinkTestCase Definition
@@ -116,9 +123,10 @@
          |  |-Console.php       Konsolenprogramm (lädt ein Konsolenbefehl und führt diesen aus)
          |-tests/               The tests directory contains your automated tests.
          |  |-bootstrap.php     Bootstrap for PHPUNit
-         |-.gitignore           Liste der von git ausgeschlossenen Dateien und Ordner
          |-composer.json        Composer Konfiguration
-         |-phpunit.xml.dist     PHPUnit Configuration File
+         |-helpers.php          Helper Functions
+         |-LICENSE              Lizenzinformationen
+         |-phpunit.xml.dist     Test settings
          |-README.md            Kurzanleitung zur Installation und Nutzung des Frameworks
 </pre>
 
@@ -143,10 +151,15 @@
          |-src/                 Autoload-Verzeichnis nach PSR-4-Standard, Namespace \&lt;vendor&gt;\&lt;plugin&gt;
          |  |-Bootstraps/       Plugin-spezifische Bootstrapper
          |  |-Commands/         Konsolenbefehle
+         |  |-Controllers/      Controller-Klassen
+         |  |-Drivers/          Treiber (können durch Factories geladen werden)
+         |  |-Middleware/       Middleware-Klassen
+         |  |-Services/         Service-Klassen (werden im DI direkt oder indirekt bereitgestellt)
          |-tests/               The tests directory contains your automated tests.
          |-views/               Views (werden beim ersten Zugriff kompiliert und im Cache abgelegt)
          |-.gitignore           Liste der von git ausgeschlossenen Dateien und Ordner
          |-composer.json        Composer Konfiguration
+         |-LICENSE              Lizenzinformationen
          |-phpunit.xml.dist     PHPUnit Configuration File
          |-README.md            Kurzanleitung zur Installation und Nutzung des Plugins
 </pre>

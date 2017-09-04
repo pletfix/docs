@@ -216,13 +216,13 @@ route.
  
 Each [routing method](#http-method) described above returns a `Route` object, and this object exposes a `setName()` method.
 
-	$route->get('hello/{name}', function ($name) {
-		echo "Hello, " . $name;
+	$route->get('hello/{name}', function ($greeting) {
+		echo "Hello, " . $greeting;
 	})->setName('hello');
 	
 You can generate a URL for this named route with the `route()` helper function.
 
-	echo route('hello', ['name' => 'Josh']);
+	echo route('hello', ['greeting' => 'Josh']);
 	
 	// Outputs "/hello/Josh"
 	

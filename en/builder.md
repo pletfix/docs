@@ -451,7 +451,7 @@ The `orWhereNotNull` method adds "WHERE column IS NOT NULL to the query by OR.
 <a name="method-groupBy"></a>
 #### `groupBy()` {.method}
 
-The `groupBy` method adds GROUP BY clause to the query.
+The `groupBy` method adds GROUP BY clause to the SELECT query.
 
 Examples:
 
@@ -464,7 +464,7 @@ Examples:
 <a name="method-having"></a>
 #### `having()` {.method}
 
-The `having` method adds a HAVING condition to the query.
+The `having` method adds a HAVING condition to the SELECT query.
 
 You should only use standard [SQL operators and functions](#sql-functions), so that the database drivers can translate 
 the expression correctly.
@@ -481,7 +481,7 @@ Examples:
 <a name="method-orHaving"></a>
 #### `orHaving()` {.method}
 
-The `orHaving` method adds a HAVING condition to the query by OR.
+The `orHaving` method adds a HAVING condition to the SELECT query by OR.
 
     $builder->orHaving($condition, $bindings);
 
@@ -490,7 +490,7 @@ See the [having](#method-having) method for details and examples.
 <a name="method-orderBy"></a>
 #### `orderBy()` {.method}
 
-The `orderBy` method adds a ORDER BY clause to the query.
+The `orderBy` method adds a ORDER BY clause to the SELECT query.
 
 Examples:
 
@@ -503,7 +503,7 @@ Examples:
 <a name="method-limit"></a>
 #### `limit()` {.method}
 
-The `limit` method sets a limit count for the result set.
+The `limit` method sets a limit count for the result set of the SELECT query.
 
     $builder->limit($limit);
 
@@ -514,7 +514,7 @@ The `limit` method sets a limit count for the result set.
 <a name="method-offset"></a>
 #### `offset()` {.method}
 
-The `offset` method sets a limit offset for the result set.
+The `offset` method sets a limit offset for the result set of the SELECT query.
 
     $builder->offset($offset);
 
