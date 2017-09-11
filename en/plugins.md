@@ -122,11 +122,17 @@ When you register a plugin, the following things are happened:
 
 </div>
 
+> <i class="fa fa-info fa-2x" aria-hidden="true"></i>
+> **Definition of a term:** What exactly is the name of the plugin?
+>
+> The name of the plug-in is the name of the package without a vendor, and if present, without "pletfix-" as prefix 
+> and "-plugin" as suffix.
+
 <a name="configuration"></a>
 ### 1. Configuration
 
 If available and if not already done, the configuration file of the plugin is copied to the `config` directory under 
-the name of the plugin, e.g. `config/hello.php` for our` Hello` plugin.
+the name of the plugin, e.g. `config/hello.php` for our `Hello` plugin.
 
 <pre class="tree">
 |-myapp/
@@ -221,10 +227,11 @@ If available, the language files of the plugin will be added to the `.manifest/p
       ),
     );
 
-Pletfix loads this manifest for translating, so you may retrieve the translation string lines from the plugin like this:
+Pletfix loads this manifest for translating, so you may retrieve the translation entries from the plugin as follows,
+where the top key is the plugin name:
 
     echo t('hello.greeting');
-     
+    
 <a name="views"></a>
 ### 7. Views
 
@@ -235,7 +242,8 @@ this manifest to find the template for rendering.
       'admin.hello' => 'vendor/pletfix/hello/views/welcome.blade.php',
     );
 
-For example, the `hello` plugin provides a view `welcome.blade.php`, so you may referred it like so:
+For example, the `hello` plugin provides a view `welcome.blade.php`, so you may referred it as follows,
+where the top key is the plugin name:
 
     return view('hello.welcome');
 
@@ -397,6 +405,9 @@ been registered successfully.
 If you want to write your own plugin, follow the instructions on <https://github.com/pletfix/hello> to create a
 workbench with a fresh plugin skeleton. After this you are ready to add services, assets, commands or what ever you like.  
 
+> If you preferred it, you could use "pletfix-" as prefix and "-plugin" as suffix for the plugin name. This parts are 
+> ignored while the registration procedure. 
+
 <div class="method-list" markdown="1">
 
 [Assets](#writing-assets)
@@ -556,15 +567,6 @@ Read chapter [Controllers](controllers) to learn how you write controllers.
 > As long as it is unique within the application, you can reference the controller with the name without "My-Vender/My-Plugin/Controllers/" portion. 
 > If your plugin uses only one controller, you could use the name of the plugin as a prefix of the controller name. 
 > For example, our `hello` plugin provides the controller `Pletfix\Hello\Controllers\HelloController.php`.	
-> Multiple controllers should be placed in a subfolder named as your plugin. For example, take a look at the Pletfix Auth plugin.
-> |-vendor/
->    |-pletfix/
->       |-auth/
->          |-src/
->             |-Controllers/
->                |-Auth
->                   |-LoginController.php
->                   |-PasswortController.php
 			
 <a name="writing-drivers"></a>
 ### Drivers
@@ -705,8 +707,11 @@ If your plugin needs views, add the templates into the `view` folder under the p
 <a name="deploying"></a>
 ## Deploying Plugins
 
-When you have finished your plugin, you can upload it on [Packagist](https://packagist.org/) to share with the community.
-Do not forget to set the hash tag "Pletfix" so that the Plugin is automatically listed on the [Pletfix plugin page](https://pletfix.com/plugins).
+When you have finished your plugin, you can submit it on [Packagist](https://packagist.org/) to share with the community.
+Do not forget to set the keyword "pletfix" in the `composer.json`file so that the plugin is automatically listed on the 
+[Pletfix plugin page](https://pletfix.com/plugins).
+
+    "keywords": ["pletfix", "plugin"],
 
 > <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
 > Don't forget to [test](testing) before uploading the plugin. 
