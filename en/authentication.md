@@ -44,7 +44,7 @@ The default user model is `App\Models\User`. If you have installed the [Pletfix 
 the model and the database table are already created.
 
 > <i class="fa fa-lightbulb-o fa-2x" aria-hidden="true"></i>
-> The [Authenticaton Plugin](https://github.com/pletfix/authentication) contains a forms to manage the user 
+> The [Authenticaton Plugin](https://github.com/pletfix/auth-plugin) contains a forms to manage the user 
 > accounts stored in this table.
 
 <a name="instance"></a>
@@ -71,11 +71,11 @@ You may login the user with the `login` method:
 The argument `$credentials` is an array to hold the email or name of the user and the password.
 
 Pletfix does not provide the way to receive this user credentials out of the box, because there are too many possibilities.
-Instead you may install a Plugin such like [Authenticaton Plugin](https://github.com/pletfix/authentication) for basic 
-web login, [Ldap Plugin](https://github.com/pletfix/ldap) for authentication through an Active Directory or 
-[OAuth Plugin](https://github.com/pletfix/oauth) for authorizing through a Socialite provider as like Facebook or Dropbox.
+Instead you may install a Plugin such like [Authenticaton Plugin](https://github.com/pletfix/auth-plugin) for basic 
+web login, [Ldap Plugin](https://github.com/pletfix/ldap-plugin) for authentication through an Active Directory or 
+[OAuth Plugin](https://github.com/pletfix/oauth-plugin) for authorizing through a Socialite provider as like Facebook or Dropbox.
 
-![Login](https://raw.githubusercontent.com/pletfix/authentication/master/docs/screenshot4.png)
+![Login](https://raw.githubusercontent.com/pletfix/auth-plugin/master/docs/screenshot4.png)
 
 The credentials could be an additional attribute names 'remember'. If this attribute true, the `Auth` service creates a
 a long life (5 years) cookie on the browser. In this case the user will be re-login automaticaly after the PHP session 

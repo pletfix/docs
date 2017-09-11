@@ -54,7 +54,7 @@ For example, let's install the actual useless Pletfix `hello` plugin as below:
        "repositories": [
            {
                "type": "git",
-               "url": "git@github.com:pletfix/hello.git"
+               "url": "git@github.com:pletfix/hello-plugin.git"
            }
        ],
 
@@ -63,7 +63,7 @@ For example, let's install the actual useless Pletfix `hello` plugin as below:
 
 2. Fetch the package by running the following terminal command:
 
-       composer require pletfix/hello
+       composer require pletfix/hello-plugin
 
 <a name="registering"></a>
 ### Registering
@@ -72,7 +72,7 @@ After downloading, the plugin has to be registered.
 
 For example, enter this command in your terminal to register our `hello` plugin:
 
-    php console plugin pletfix/hello 
+    php console plugin pletfix/hello-plugin 
  
 > <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
 > If the plugin provides a migration file, you have to execute the `migrate` command after the registration procedure,
@@ -86,14 +86,14 @@ For example, enter this command in your terminal to register our `hello` plugin:
 If the plugin is already installed, you cannot install it once more. But you can use the `--update` option to update 
 the manifest files, for our `hello` plugin like so:
 
-    php console plugin pletfix/hello --update        
+    php console plugin pletfix/hello-plugin --update        
       
 <a name="removing"></a>            
 ### Removing
 
 Use the `--remove` option to unregister the plugin. Again the example with our `hello` plugin:
 
-    php console plugin pletfix/hello --remove 
+    php console plugin pletfix/hello-plugin --remove 
     
 > The plugin package remains in the vendor directory. So you can register the plugin at any time again.         
             
@@ -172,7 +172,7 @@ script which will be published to `public/js/hello.js`.
       array (
         'js/hello.js' => 
         array (
-          0 => 'vendor/pletfix/hello/assets/js/hello.js',
+          0 => 'vendor/pletfix/hello-plugin/assets/js/hello.js',
         ),
       ),
     );
@@ -206,7 +206,7 @@ You can execute the commands provided by plugins like all other commands:
 If available, the migration files embedded in the plugin will be added to the `.manifest/plugins/migrations.php` manifest.   
 
     <?php return array (
-      '20170204121100_CreateHelloTable' => 'vendor/pletfix/hello/migrations/20170204121100_CreateHelloTable.php',
+      '20170204121100_CreateHelloTable' => 'vendor/pletfix/hello-plugin/migrations/20170204121100_CreateHelloTable.php',
     );
 
 Pletfix loads this manifest if you [run the migration](migrations#running).
@@ -219,11 +219,11 @@ If available, the language files of the plugin will be added to the `.manifest/p
     <?php return array (
       'de' => 
       array (
-        'hello' => 'vendor/pletfix/hello/lang/de.php',
+        'hello' => 'vendor/pletfix/hello-plugin/lang/de.php',
       ),
       'en' => 
       array (
-        'hello' => 'vendor/pletfix/hello/lang/en.php',
+        'hello' => 'vendor/pletfix/hello-plugin/lang/en.php',
       ),
     );
 
@@ -239,7 +239,7 @@ If available, the path of the plugin's views will be added to the `.manifest/plu
 this manifest to find the template for rendering.
 
     <?php return array (
-      'admin.hello' => 'vendor/pletfix/hello/views/welcome.blade.php',
+      'admin.hello' => 'vendor/pletfix/hello-plugin/views/welcome.blade.php',
     );
 
 For example, the `hello` plugin provides a view `welcome.blade.php`, so you may referred it as follows,
@@ -344,7 +344,7 @@ If available, the embedded route entries will be added to the `.manifest/plugins
     $route = \Core\Application::route();
     
     ///////////////////////////////////////////////////////////////////////////////
-    // pletfix/hello
+    // pletfix/hello-plugin
     
     $route->get('hello-service', function() {
         return di('hello')->sayHello();
@@ -366,7 +366,7 @@ If available, the services, provided by the plugin, will be added to the `.manif
     $di = \Core\Services\DI::getInstance();
     
     ///////////////////////////////////////////////////////////////////////////////
-    // pletfix/hello
+    // pletfix/hello-plugin
     
     $di->set('hello', \Pletfix\Hello\HelloService::class, true);
 
@@ -382,7 +382,7 @@ If available, the bootstraps, which the plugin includes, will be added to the `.
     <?php
     
     ///////////////////////////////////////////////////////////////////////////////
-    // pletfix/hello
+    // pletfix/hello-plugin
     
     (new Pletfix\Hello\Bootstraps\Plugin)->boot();
 
@@ -395,14 +395,14 @@ Finally, the plugin will be added to the `.manifest/plugins/packages.php` manife
 been registered successfully. 
    
     <?php return array (
-      'pletfix/hello' => 'vendor/pletfix/hello',
+      'pletfix/hello-plugin' => 'vendor/pletfix/hello-plugin',
     );   
    
    
 <a name="writing"></a>
 ## Writing Plugins
  
-If you want to write your own plugin, follow the instructions on <https://github.com/pletfix/hello> to create a
+If you want to write your own plugin, follow the instructions on <https://github.com/pletfix/hello-plugin> to create a
 workbench with a fresh plugin skeleton. After this you are ready to add services, assets, commands or what ever you like.  
 
 > If you preferred it, you could use "pletfix-" as prefix and "-plugin" as suffix for the plugin name. This parts are 

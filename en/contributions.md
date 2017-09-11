@@ -70,7 +70,7 @@ If you are interested in contributing a translation this documents, read the REA
 ### Plugin Example
 
 Do you have an idea to extend the framework? Then write a plugin. Read the chapter [Plugins](plugins#writing) to learn 
-how you can do it. You can download a example from [GitHub](https://github.com/pletfix/hello).
+how you can do it. You can download a example from [GitHub](https://github.com/pletfix/hello-plugin).
 
 <a name="core"></a>
 ### Core
