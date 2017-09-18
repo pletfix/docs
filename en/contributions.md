@@ -10,8 +10,8 @@ _Make sure you read this before sending a pull request._
 - [Pletfix Repositories](#repositories)
     - [Application Skeleton](#app)
     - [Core](#core)
-    - [Documentation](#docs)
     - [Plugins](#plugins)
+    - [Documentation](#docs)
 
 <a name="introduction"></a>
 ## Introduction
@@ -60,17 +60,6 @@ See also [www.php-fig.org](http://www.php-fig.org/psr/) for more Standards Recom
 ### Application Skeleton
 
 Fork the repository <https://github.com/pletfix/app> if you want to develop at the Pletfix Application Skeleton.
-
-<a name="docs"></a>
-### Documentation
-
-If you are interested in contributing a translation this documents, read the README of <https://github.com/pletfix/docs>.  
-
-<a name="plugins"></a>
-### Plugin Example
-
-Do you have an idea to extend the framework? Then write a plugin. Read the chapter [Plugins](plugins#writing) to learn 
-how you can do it. You can download a example from [GitHub](https://github.com/pletfix/hello-plugin).
 
 <a name="core"></a>
 ### Core
@@ -143,4 +132,18 @@ an application:
                 "Core\\": "workbench/pletfix/core/src/",
             }
         }    
-    
+
+5. Update the autoloader by entering this command:
+ 
+       compose dump
+
+<a name="plugins"></a>
+### Plugins
+
+Do you have an idea to extend the framework? Then write a plugin. Read the chapter [Plugins](plugins#writing) to learn 
+how you can do it. You can download a example from [GitHub](https://github.com/pletfix/hello-plugin).
+
+<a name="docs"></a>
+### Documentation
+
+If you are interested in contributing a translation this documents, read the README of <https://github.com/pletfix/docs>.  

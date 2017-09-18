@@ -73,7 +73,8 @@ The argument `$credentials` is an array to hold the email or name of the user an
 Pletfix does not provide the way to receive this user credentials out of the box, because there are too many possibilities.
 Instead you may install a Plugin such like [Authenticaton Plugin](https://github.com/pletfix/auth-plugin) for basic 
 web login, [Ldap Plugin](https://github.com/pletfix/ldap-plugin) for authentication through an Active Directory or 
-[OAuth Plugin](https://github.com/pletfix/oauth-plugin) for authorizing through a Socialite provider as like Facebook or Dropbox.
+[OAuth Plugin](https://github.com/pletfix/oauth-plugin) for authorizing through a Socialite provider as like Facebook or 
+Dropbox.
 
 ![Login](https://raw.githubusercontent.com/pletfix/auth-plugin/master/docs/screenshot4.png)
 

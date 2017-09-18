@@ -49,8 +49,8 @@ loading the rest of the framework.
          * Push the Services into the Dependency Injector.
          */
         call_user_func(function() {
-            @include __DIR__ . '/../../../../.manifest/plugins/services.php';
-            require __DIR__ . '/../../../../config/boot/services.php';
+            @include self::$basePath . '/.manifest/plugins/services.php';
+            require self::$basePath . '/config/boot/services.php';
         });
 
 2. Execute Bootstraps 
@@ -62,8 +62,8 @@ loading the rest of the framework.
          * Bootstrap the framework
          */
         call_user_func(function() {
-            require __DIR__ . '/../../../../config/boot/bootstrap.php';
-            @include __DIR__ . '/../../../../.manifest/plugins/bootstrap.php';
+            require self::$basePath . '/config/boot/bootstrap.php';
+            @include self::$basePath . '/.manifest/plugins/bootstrap.php';
         });
 
 3. Register Routes
@@ -74,8 +74,8 @@ loading the rest of the framework.
          * Register routes.
          */
         call_user_func(function() {
-            require __DIR__ . '/../../../../config/boot/routes.php';
-            @include __DIR__ . '/../../../../.manifest/plugins/routes.php';
+            require self::$basePath . '/config/boot/routes.php';
+            @include self::$basePath . '/.manifest/plugins/routes.php';
         });
 
 4. Once the application has been bootstrapped and all service providers have been registered, the HTTP request will be 
@@ -150,8 +150,8 @@ rest of the framework.
          * Push the Services into the Dependency Injector.
          */
         call_user_func(function() {
-            @include __DIR__ . '/../../../../.manifest/plugins/services.php';
-            require __DIR__ . '/../../../../config/boot/services.php';
+            @include self::$basePath . '/.manifest/plugins/services.php';
+            require self::$basePath . '/config/boot/services.php';
         });
 
 2. Execute Bootstraps 
@@ -163,8 +163,8 @@ rest of the framework.
          * Bootstrap the framework
          */
         call_user_func(function() {
-            require __DIR__ . '/../../../../config/boot/bootstrap.php';
-            @include __DIR__ . '/../../../../.manifest/plugins/bootstrap.php';
+            require self::$basePath . '/config/boot/bootstrap.php';
+            @include self::$basePath . '/.manifest/plugins/bootstrap.php';
         });
 
 
@@ -207,14 +207,14 @@ The command, which is created by the Command Factory, will handle the request an
 
 ### Executable Script
     
-The executable script to start a Pletfix test is the `vendow/bin/phpunit` file. 
+The executable script to start a Pletfix test is the `vendor/bin/phpunit` file. 
   
 The script reads `phpunit.xml` (or `phpunit.xml.dist`, if the file not exists) and executes a bootstrap to set the 
 testing environment.
     
 ### Bootstrap
     
-PHPUnit runs the bootstrap before tests are executed. The bootstrap is defined in `vendor/pletfix/core/tests/bootstrap.php`.
+PHPUnit runs the bootstrap before tests are executed. The bootstrap is defined in `tests/bootstrap.php`.
 It starts the autoloader, the services and bootstraps defined in your application and in the registered plugins:
      
     /*
@@ -223,33 +223,48 @@ It starts the autoloader, the services and bootstraps defined in your applicatio
     define('APP_STARTTIME', microtime(true));
     
     /*
-     * Set the base path for the application.
+     * Set the base path of the application.
      */
-    define('BASE_PATH', realpath(__DIR__ . '/../../../..'));
+    define('BASE_PATH', realpath(__DIR__ . '/..'));
     
     /*
-     * Register the Composer Autoloader
-     *
-     * @link https://getcomposer.org/
+     * Register the Composer Autoloader.
      */
-    require __DIR__ . '/../../../../vendor/autoload.php';    
- 
+    require __DIR__ . '/../vendor/autoload.php';
+    
     /*
-     * Push the Services into the Dependency Injector.
+     * Load the test environment.
      */
-    call_user_func(function() {
-        @include __DIR__ . '/../../../../.manifest/plugins/services.php';
-        require __DIR__ . '/../../../../config/boot/services.php';
-     });
+    Core\Testing\Environment::load();
 
-    /*
-     * Bootstrap the framework
-     */
-    call_user_func(function() {
-        require __DIR__ . '/../../../../config/boot/bootstrap.php';
-        @include __DIR__ . '/../../../../.manifest/plugins/bootstrap.php';
-    });
+### Environment
 
+1. Load Services
+
+    `Environment::load()` pushes the services into the [Dependency Injector](di). The services are defined in 
+    `config/boot/services.php` and in enabled plugins.
+
+        /*
+         * Push the Services into the Dependency Injector.
+         */
+        call_user_func(function() {
+            @include self::$basePath . '/.manifest/plugins/services.php';
+            require self::$basePath . '/config/boot/services.php';
+        });
+
+2. Execute Bootstraps 
+
+    After loading the services the bootstraps will be executed. THe bootsraps are defined in `config/boot/bootstrap.php` 
+    and in enabled plugins:
+
+        /*
+         * Bootstrap the framework
+         */
+        call_user_func(function() {
+            require self::$basePath . '/config/boot/bootstrap.php';
+            @include self::$basePath . '/.manifest/plugins/bootstrap.php';
+        });
+        
 ### Test Case
  
 1. After executing the bootstrap the `setUp` method of `TestCase` (or `MinkTestCase`) is called by PHPUnit. Be default, 
@@ -268,6 +283,6 @@ It starts the autoloader, the services and bootstraps defined in your applicatio
   
 3. At last the `tearDown` method is invoked:
   
-       protected function tearDown()
-       {
-       }
+        protected function tearDown()
+        {
+        }

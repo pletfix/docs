@@ -4,77 +4,82 @@
  * Table of Contents
  */
 
-// todo
-// Alle Inhaltsverzeichnisse angleichen
-
 // Revision Mark einführen:
 // [Revision 0.6.3]
 
 return [
-
+    
     'Getting Started' => [
         'index' => 'Overview, Licenses',
         'installation' => 'Installation',
         'upgrade' => 'Upgrade Guide',
-        'hello' => 'Hello World',                   // todo "Create a Table", "Add a Model" beschreiben
+        'hello' => 'Hello World',                   // "Create a Table", "Add a Model" beschreiben
     ],
     'General' => [ // General Topics
-        'cache' => 'Cache',                         // todo Kapitel ändern: "Introduction" ("Configuration", "Creating Cache"), "Available Methods"
-        'collections' => 'Collections',             // todo Korrektur lesen, kennzeichnen, welche Funktionen mutable sind
+        'cache' => 'Cache',                         // Kapitel ändern: "Introduction" ("Configuration", "Creating Cache"), "Available Methods"
+        'collections' => 'Collections',             // (*), kennzeichnen, welche Funktionen mutable sind
         'configuration' => 'Configuration',
-        'commands' => 'Commands',                   // todo Korrektur lesen, Ausformulieren, Querverweise setzen
-        'controllers' => 'Controllers',             // todo Korrektur lesen
-        'datetime' => 'DateTime',                   // todo Korrektur lesen
-        'di' => 'Dependency Injection',             // todo Korrektur lesen
-        'errors' => 'Errors &amp; Exceptions',      // todo Korrektur lesen
-        'flash' => 'Flash',                         // todo Korrektur lesen
-        'helpers' => 'Helpers &amp; Services',      // todo Korrektur lesen
-        'plugins' => 'Plugins',
-        'requests' => 'HTTP Requests',              // todo Korrektur lesen, "various ways to get the url" in der Einführung
-        'responses' => 'HTTP Responses',            // todo Korrektur lesen
-        'routing' => 'HTTP Routing',                // todo Korrektur lesen
-        'logging' => 'Logging',                     // todo Korrektur lesen
+        'commands' => 'Commands',                   // (*), Ausformulieren, Querverweise setzen
+        'controllers' => 'Controllers',             // (*)
+        'datetime' => 'DateTime',                   // (*)
+        'di' => 'Dependency Injection',             // (*)
+        'errors' => 'Errors &amp; Exceptions',      // (*)
+        'flash' => 'Flash',                         // (*)
+        'helpers' => 'Helpers &amp; Services',      // (*)
+        'plugins' => 'Plugins',                     // Beschreibung aus Hello-plugin/readme übernehmen
+        'requests' => 'HTTP Requests',              // (*), "various ways to get the url" in der Einführung
+        'responses' => 'HTTP Responses',            // (*)
+        'routing' => 'HTTP Routing',                // (*)
+        'logging' => 'Logging',                     // (*)
         'mailer' => 'Mailer',
-        'events' => 'Notification Events',          // Not implemented yet!
-        'sessions' => 'Sessions',                   // todo Korrektur lesen
+        'sessions' => 'Sessions',                   // (*)
         'testing' => 'Testing',
     ],
     'Frontend' => [
-        'views' => 'Views',                         // todo Korrektur lesen
-        'blade' => 'Blade Templates',               // todo Korrektur lesen
-        'assets' => 'Asset Manager',
-        'localization' => 'Localization',           // todo Korrektur lesen
-        'forms' => 'Forms',                         // todo Korrektur lesen, Validation
-        'pagination' => 'Pagination',               // todo Korrektur lesen
-        'cookies' => 'Cookies',                     // todo Korrektur lesen
+        'views' => 'Views',                         // (*)
+        'blade' => 'Blade Templates',               // (*)
+        'assets' => 'Assets',
+        'localization' => 'Localization',           // (*)
+        'forms' => 'Forms',                         // (*), Validation
+        'pagination' => 'Pagination',               // (*)
+        'cookies' => 'Cookies',                     // (*)
     ],
     'Database' => [
-        'database' => 'Database Access Layer',      // todo Korrektur lesen, Misc und Scheam ausformulieren
-        'builder' => 'Query Builder',               // todo Korrektur lesen
-        'models' => 'Models',                       // todo Korrektur lesen, Validation
+        'database' => 'Database Access Layer',      // (*), Misc und Scheam ausformulieren
+        'builder' => 'Query Builder',               // (*)
+        'models' => 'Models',                       // (*), Validation
         'migrations' => 'Migrations',
     ],
     'Security' => [
-        'authentication' => 'Authentication',       // Not implemented yet!
-        'login' => 'Basic Web Login',               // Not implemented yet!
-        'ldap' => 'LDAP',                           // Not implemented yet!
-        'oauth' => 'OAuth',                         // Not implemented yet!, evt. umbenennen in Global Token Authentication
-        'middleware' => 'Middleware',               // todo Korrektur lesen
-        'csrf' => 'CSRF Protection',                // Not implemented yet!
+        'authentication' => 'Authentication',       // (*)
+        'login' => 'Basic Web Login',               // (*)
+        'ldap' => 'LDAP',                           // (*)
+        'oauth' => 'OAuth',                         // (*)
+        'middleware' => 'Middleware',               // (*)
+        'csrf' => 'CSRF Protection',                // (*)
     ],
     'Appendix' => [
         'releases' => 'Release Notes',
-        'directories' => 'Directory Structure',     // todo Übersetzen
-        'contributions' => 'Contribution Guide',    // todo Link für Git Workflow, Pull Request erwähnen
-        'git' => 'Git Guide',                       // todo in den Block verschieben
-        'lifecycle' => 'Lifecycle',                 // todo Auf Request- und Repsonse-Objekt eingehen
+        'directories' => 'Directory Structure',
+        'contributions' => 'Contribution Guide',
+        'lifecycle' => 'Lifecycle',
         'facades' => 'Facades',
-        'scaffolder' => 'Scaffolder',               // Not implemented yet!
-        'rest' => 'REST Service',                   // Not implemented yet!, inkl. Clients, evtl zu "Getting Started" packen
-        'soap' => 'SOAP Service',                   // Not implemented yet!, inkl. Clients, evtl zu "Getting Started" packen
-        'websocket' => 'WebSockets',                // Not implemented yet!, inkl. Clients, evtl zu "Getting Started" packen
-        'scheduler' => 'Scheduler',                 // Not implemented yet!
-        'daemons' => 'Daemons',                     // Not implemented yet!
     ],
+
+    // (*) todo Korrektur lesen
+
+    /*
+      Not implemented yet:
+        'scaffolder' => 'Scaffolder',
+        'rest' => 'REST Service',
+        'soap' => 'SOAP Service',
+        'websocket' => 'WebSockets',
+        'scheduler' => 'Scheduler',
+        'daemons' => 'Daemons',
+        'events' => 'Notification Events',
+    */
+
+    // gehört in den Blog:
+    //   'git' => 'Git Guide',
 
 ];

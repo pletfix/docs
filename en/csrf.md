@@ -47,8 +47,4 @@ could set the CSRF token globally like this to send the token by every request a
     
 If you have installed the [Pletfix Application Skeleton](https://github.com/pletfix/app), this setup above is already
 done.
-
-<a name="except"></a>
-### Exception List      
-
-TODO      
+   
