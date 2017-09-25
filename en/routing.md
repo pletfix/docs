@@ -11,6 +11,7 @@ _Route a URI request to a controller action_
 	- [HTTP Method](#http-method)
 	- [Route Parameters](#parameters)
 	- [Named Routes](#name)
+	- [Prefixes](#prefixes)
 	- [Middleware](#middleware)
 - [Caching](#caching)
 	
@@ -226,6 +227,27 @@ You can generate a URL for this named route with the `route()` helper function.
 	
 	// Outputs "/hello/Josh"
 	
+	
+<a name="prefixes"></a>
+### Prefixes
+
+The prefix method may be used to prefix each route in a group with a given URI. For example, you may want to prefix 
+all route URIs within the group with admin:
+
+	$route->prefix('admin', function (Route $route) {
+		$route->get('users', function () {
+            // Matches the "/admin/users" URL
+        });
+	});
+	
+
+If you omit the closure of the `prefix` method, the prefix is used by all the routes defined below:
+
+    $route->prefix('admin');
+    
+    // Prefix each route...
+    $route->get('users', 'UserController@index'); // matches "/admin/users" URL
+    
 
 <a name="middleware"></a>
 ### Middleware
@@ -236,7 +258,7 @@ You can generate a URL for this named route with the `route()` helper function.
 You can attach middleware to any route. You may set the class name of the middleware at the third argument. 
 The example below adds the middleware `App\Middleware\Authentication` to the base route:
 
-	$route->get('', function () {
+	$route->get('', function (Route $route) {
 		// Uses Auth Middleware
 	}, 'Auth');
 
@@ -252,7 +274,7 @@ It's also possible to specify more as one middleware:
 	
 To set the middleware for one or more routes, you may use the `middleware` method:
 	
-    $route->middleware('Auth', function () {
+    $route->middleware('Auth', function (Route $route) {
         $route->get('', function ()    {
             // Uses Auth Middleware
         });

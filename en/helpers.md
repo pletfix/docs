@@ -76,6 +76,7 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [abort](#method-abort)
 [asset](#method-asset)
 [bcrypt](#method-bcrypt)
+[canonical_url](#method-canonical-url)
 [benchmark](#method-benchmark)
 [command](#method-command)
 [config](#method-config)
@@ -87,8 +88,11 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [error](#method-error)
 [guess_file_extension](#method-guess-file-extension)
 [http_status_text](#method-http-status-text)
-[is_absolute_path](#method-absolute-path)
+[is_absolute_path](#method-is-absolute-path)
+[is_active](#method-is-active)
 [is_console](#method-is-console)
+[is_supported_locale](#method-is-supported-locale)
+[is_multilingual](#method-is-multilingual)
 [is_testing](#method-is-testing)
 [is_windows](#method-is-windows)
 [list_files](#method-list-files)
@@ -388,6 +392,26 @@ The `bcrypt` function creates a password hash using the <b>CRYPT_BLOWFISH</b> al
     $hash = bcrypt('psss...');  
       
     
+<a name="method-canonical-url"></a>
+#### `canonical_url()` {.method}
+
+The `canonical_url()` method always returns the same URL for a particular page, even if the page is accessible through 
+different URLs. To do this, the base URL from the configuration `config('app.url')`and the path of the actual request 
+are joined together (without any parameters).
+
+Furthermore, if your application is [multilingual](helpers#is-multilingual), this function prefixes the path with the 
+current language code. Be sure the corresponding route entry exists!
+
+For example if we have a request `http://www.example.com/path?a=3`, the canonical_url could be `https://example.de/path/en`. 
+
+> This URL is very important for SEO (Search Engine Optimizing), see the article 
+> [Use canonical URLs](https://support.google.com/webmasters/answer/139066?hl=en) by Googles Help Forum for more details.
+
+The following link sets the Canonical URL for a page:
+ 
+     <link rel="canonical" href="@yield('canonical-url', canonical_url())"/>
+    
+    
 <a name="method-command"></a>
 #### `command()` {.method}
 
@@ -531,11 +555,21 @@ The `http_status_text` function translates a HTTP Status code to plain text:
             
    
 <a name="method-is-absolute-path"></a>
-#### `is__absolute_path()` {.method}
+#### `is_absolute_path()` {.method}
 
 The `is_absolute_path` function determines if the given path given is an absolute path:
 
-    $isAbs = is_absolute_path('/tmp'));
+    $isAbs = is_absolute_path('/tmp');
+    
+       
+<a name="method-is-active"></a>
+#### `is_active()` {.method}
+
+The `is_active` function determines if the given path is the one of the current url.
+
+    <li {!! is_active('abort') ? 'class="active"' : '' !!}>
+        <a href="{{url('abort')}}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> About</a>
+    </li>
     
     
 <a name="method-is-console"></a>
@@ -546,7 +580,29 @@ The `is_console` function determines if we are running in the console:
     if (is_console()) {
         echo 'This is a console!';
     }
+    
+    
+<a name="method-is-supported-locale"></a>
+#### `is_supported_locale()` {.method}
 
+The `is_supported_locale` function determines if the given language code is supported by the application:
+
+    if (is_supported_locale('de')) {
+        echo 'The application speaks German.';
+    }
+
+You can specify the supported languages in the configuration file `config/locale.php`.     
+
+
+<a name="method-is-multilingual"></a>
+#### `is_multilingual()` {.method}
+
+The `is_multilingual` function determines if the application is multilingual:
+
+    $isMultilang = is_multilingual();
+
+The function returns true, if more as one language is supported, specified in the configuration file `config/locale.php`.
+    
     
 <a name="method-is-testing"></a>
 #### `is_testing()` {.method}
@@ -585,12 +641,26 @@ The `list_classes` function reads available PHP classes recursive from given pat
 <a name="method-locale"></a>
 #### `locale()` {.method}
 
-The `locale` function gets and sets the current locale:
+The `locale` function gets and sets the current locale from and to the cookie:
 
     locale('fr');
     
     $locale = locale();
         
+The argument must be a two-letter language code according to [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).
+The function does not validate the code. Be sure the language is supported by the application. You can check this with 
+the function `is_supported_locale()`. 
+
+
+<a name="method-locale-url"></a>
+#### `locale_url()` {.method}
+
+The `locale_url` function prefixes the current URL with the given language code.
+
+    locale_url('fr');
+        
+The argument must be a two-letter language code according to [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).
+
 
 <a name="method-mail-address"></a>
 #### `mail_address()` {.method}

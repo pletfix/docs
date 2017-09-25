@@ -34,10 +34,8 @@ The Request object has these methods:
 
 [baseUrl](#method-base-url)
 [body](#method-body)
-[canonicalUrl](#method-canonical-url)
 [cookie](#method-cookie)
 [file](#method-file)
-[files](#method-files)
 [fullUrl](#method-full-url)
 [input](#method-input)
 [ip](#method-ip)
@@ -46,6 +44,7 @@ The Request object has these methods:
 [isSecure](#method-is-secure)
 [method](#method-method)
 [path](#method-path)
+[segment](#method-segment)
 [url](#method-url)
 [wantsJson](#method-wants-json)
 </div>
@@ -78,7 +77,7 @@ Per JavaScript kann die Base-URL nun leicht ausgelesen werden:
 
     window.baseUrl = $('meta[name="base-url"]').attr('content').replace(/\/$/, '') + '/';
 
-See also [canonicalUrl](#method-canonical-url), [fullUrl](#method-full-url) and [url](#method-url).
+See also [fullUrl](#method-full-url) and [url](#method-url).
 
 
 <a name="method-body"></a>
@@ -88,32 +87,6 @@ The `body` method gets the raw HTTP request body of the request:
 
     echo request()->body();
     
-
-<a name="method-canonical-url"></a>
-#### `canonicalUrl()` {.method}
-
-The `canonicalUrl` gets method the canonical URL for the request:
-
-    //Example: fullUrl = "http://www.example.com/path?a=3"
-
-    echo request()->canonicalUrl();
-
-    // https://example.de/path
-  
-Der Unterschied zu `url()` ist, dass `canonicalUrl()` die Base-URL aus der Konfiguration `config('app.url')` ausliest 
-und nur den Pfad aus dem Request übernimmt , während `url()` die URL ausschließlich aus der Anfrage des Browsers ermittelt.
-
-`canonicalUrl()` liefert also für eine bestimmte Seite immer die selbe URL, selbst wenn die Seite über verschiedene URLs erreichbar ist.
-
-> This URL is very important for SEO (Search Engine Optimizing), see the article 
-> [Use canonical URLs](https://support.google.com/webmasters/answer/139066?hl=en) by Googles Help Forum for more details.
-
-Über folgenden Verweis wird die Canonical URL für eine Seite festgelegt:
- 
-     <link rel="canonical" href="@yield('canonical-url', request()->canonicalUrl())"/>
-     
-See also [baseUrl](#method-base-url), [fullUrl](#method-full-url) and [url](#method-url).
-
 
 <a name="method-cookie"></a>
 #### `cookie()` {.method}
@@ -219,7 +192,7 @@ The `fullUrl` method gets the full [Uniform Resource Identifier](https://en.wiki
 > - It will not show the default port 80 for HTTP and port 443 for HTTPS.
 > - The #fragment_id is not sent to the server by the client (browser) and will not be added to the full URL.    
 
-See also [baseUrl](#method-full-url), [canonicalUrl](#method-canonical-url) and [url](#method-url).
+See also [baseUrl](#method-full-url) and [url](#method-url).
 
 
 <a name="method-input"></a>
@@ -283,7 +256,19 @@ The `path` method gets the path for the request without query string:
 
     // test
     
+    
+<a name="method-segment"></a>
+#### `segment()` {.method}
 
+The `segment` method gets a segment from the path (zero based index).
+
+    // Example: path = "foo/bar/baz"
+    
+    echo request()->segment(1);
+
+    // bar
+    
+    
 <a name="method-url"></a>
 #### `url()` {.method}
 
@@ -293,7 +278,7 @@ The `url` method gets the the URL for the request without query string:
 
     // https://www.example.com/path
   
-See also [baseUrl](#method-base-url), [canonicalUrl](#method-canonical-url) and [fullUrl](#method-full-url).
+See also [baseUrl](#method-base-url) and [fullUrl](#method-full-url).
 
     
 <a name="method-wants-json"></a>

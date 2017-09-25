@@ -67,7 +67,6 @@ includes already a `HomeController` that is doing that:
 Translation files are stored in the `resources/lang` directory.
 Within this directory there should be a subdirectory for each language supported by the application as 
 [two-letter language code (ISO 639-1)](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes):
-
    |-resources/
       |-lang/
       |  |-de/

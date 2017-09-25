@@ -26,7 +26,11 @@ The Pletfix framework has a few system requirements:
 
 Install Pletfix by entering the Composer's create-project command in your terminal:
 
+<!--
     composer create-project pletfix/app --repository=https://raw.githubusercontent.com/pletfix/app/master/packages.json my-project-name
+-->
+    
+    composer create-project pletfix/app my-project-name
 
 The command above creates a directory you specify (here "my-project-name") and downloads the package in this folder.
 
@@ -51,7 +55,7 @@ this:
 
 In addition, you are asked if a SQLite database should be created.
 If you answer yes, the migration procedure will be executed at the end of the installation.
- 
+
 **Remove VCS**
 
 Composer loads all dependent packages into the vendor folder. It could take a few minutes.
