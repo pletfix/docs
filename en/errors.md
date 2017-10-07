@@ -22,7 +22,7 @@ You may customize the handler and the error messages as you wish.
 
 The [Pletfix Application Skeleton](https://github.com/pletfix/app) provides an exception handler that stored in `app/Handler/ExceptionHandler.php`.
 
-If you wish you can define an another exception-handler. For do this open the `config/boot/services.php` file. 
+If you wish you can define an another exception-handler. For do this open the `boot/services.php` file. 
 In this file is the handler bound to the [Dependency Injection Container](di).
 
     $di->set('exception-handler', \App\Handler\ExceptionHandler::class, true);
@@ -54,7 +54,7 @@ First the default handler write a report to the log file. After then the excepti
 ### Logging
 
 The handler uses the [Pletfix Logger](logging) to write the log files. To configure the Logger, you should modify the 
-`log` option in your `config/app.php` configuration file. Read the [manual](logging) for details.
+`log` option in your `config/logger.php` configuration file. Read the [manual](logging) for details.
 
 <a name="pages"></a>
 ### Error Pages

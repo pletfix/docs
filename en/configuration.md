@@ -58,7 +58,7 @@ Pletfix will update the cache at the next browser request.
 <a name="boot-files"></a>
 ## Boot Files
 
-The following files are stored in the `config/boot` folder. They will be loaded during the boot process.
+The following files are stored in the `boot` folder. They will be loaded during the boot process.
 
 - `bootstrap.php` - Registers the bootstrapper to load the configuration and registers the Exception Handler(errors).
 - `routes.php`    - [Defines the HTTP Routing](routing).
@@ -70,5 +70,5 @@ You may edit this files to modify the boot process as you wish.
 > Furthermore, the services, bootstraps and default routes of the installed plugins will be loaded during the boot process.
 > To find out what these plugins serve, look in the `.manifest` folder. But do not carry out any change manually in this folder! 
 > The files are automatically generated and changed when you [register or remove plugins](plugins#registering).
-> Instead, you can override the services and routes of a plugin by adding the entries in `config/boot/services.php` and 
-> `config/boot/services.php`.
+> Instead, you can override the services and routes of a plugin by adding the entries in `boot/services.php` and 
+> `boot/services.php`.

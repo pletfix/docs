@@ -211,6 +211,16 @@ The `ip` method returns the client IP address:
     echo request()->ip();
 
     
+<a name="method-is-ajax"></a>
+#### `isAjax()` {.method}
+
+The `isAjax` method determines if the request is the result of an AJAX call:
+
+    echo request()->isAjax();
+
+It works if your JavaScript library sets an X-Requested-With HTTP header. It is known to work with common
+[JavaScript frameworks](http://en.wikipedia.org/wiki/List_of_Ajax_frameworks#JavaScript).
+
 
 <a name="method-is-json"></a>
 #### `isJson()` {.method}

@@ -32,7 +32,7 @@ The router will dispatch again the request to a function or controller action.
 <a name="defining"></a>
 ## Defining Routes
 
-You can create the routing table in `config/boot/routes.php`. 
+You can create the routing table in `boot/routes.php`. 
 As example, the [Pletfix Application Skeleton](https://github.com/pletfix/app) have two route entries by default:
 
     $route = \Core\Application::route();

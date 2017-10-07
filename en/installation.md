@@ -5,7 +5,6 @@
 - [Requirements](#requirements)
 - [Installing Pletfix Application Skeleton](#installation)
 - [Customizing](#customizing)
-- [Trouble Shooting](#trouble-shooting)
 - [Web Server Configuration](#web-server)
     - [Apache](#apache)
     - [Nginx](#nginx)
@@ -15,24 +14,37 @@
 <a name="requirements"></a>
 ## Requirements
 
-The Pletfix framework has a few system requirements:
+The Pletfix framework has just a few system requirements:
 
+- Web server with URL rewriting
 - PHP >= 5.6.4
 - [Composer](https://getcomposer.org/)
-- [NPM/Bower Dependency Manager for Composer](https://github.com/fxpio/composer-asset-plugin/blob/master/Resources/doc/index.md) (a global scope installation is required!)
 
 <a name="installation"></a>
 ## Installing Pletfix Application Skeleton
 
 Install Pletfix by entering the Composer's create-project command in your terminal:
 
-<!--
-    composer create-project pletfix/app --repository=https://raw.githubusercontent.com/pletfix/app/master/packages.json my-project-name
--->
-    
-    composer create-project pletfix/app my-project-name
+The latest stable release:
 
-The command above creates a directory you specify (here "my-project-name") and downloads the package in this folder.
+<pre>    
+composer create-project pletfix/app my-app-name
+</pre>
+
+The current development version (may be unstable):
+<pre>
+composer create-project pletfix/app --stability=dev my-app-name
+</pre>
+    
+<!--
+composer create-project pletfix/app --repository=https://raw.githubusercontent.com/pletfix/app/master/packages.json my-app-name
+-->
+
+> Pletfix uses the [Asset Packagist](https://asset-packagist.org/) by [HiQDev](https://hiqdev.com/) to download Bower and NPM packages via Composer. 
+> It's licensed under [BSD 3-clause](https://github.com/hiqdev/asset-packagist/blob/master/LICENSE). 
+> Thanks for this great work!
+
+The command above creates a directory you specify (here "my-app-name") and downloads the package in this folder.
 
 ![Screenshot - Installation started](https://raw.githubusercontent.com/pletfix/app/master/resources/docs/screenshot_started.png)     
 
@@ -90,6 +102,8 @@ Customize the configuration files stored in `config` folder.
 <a name="web-server"></a>
 ## Web Server Configuration
 
+A web server with URL rewriting is required, e.g. Apache or Nginx.
+
 <a name="apache"></a>
 ### Apache
 
@@ -105,14 +119,3 @@ front controller:
     location / {
         try_files $uri $uri/ /index.php?$query_string;
     }
-
-
-<a name="trouble-shooting"></a>    
-## Trouble Shooting
-
-"Your requirements could not be resolved to an installable set of packages."
-       
-![Screenshot - Error Message](https://raw.githubusercontent.com/pletfix/app/master/resources/docs/screenshot_error.png)        
-
-If you receive this error message during installation, [NPM/Bower Dependency Manager for Composer](https://github.com/fxpio/composer-asset-plugin/blob/master/Resources/doc/index.md) 
-may not be installed. Note, that a **global scope installation** of this Dependency Manager is required!

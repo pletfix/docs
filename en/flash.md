@@ -14,7 +14,7 @@ Sometimes you may wish to store items in the session only for the next request. 
 Flash data stored in the session will only be available during the subsequent HTTP request, and then will be deleted.
 
 > <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
-> For the flash functionality be sure, that the `ageFlash` bootstrap in enabled in `config/boot/bootstrap.php`:
+> For the flash functionality be s                      ure, that the `ageFlash` bootstrap in enabled in `boot/bootstrap.php`:
 >
 >     (new Core\Bootstraps\AgeFlash)->boot();
 >

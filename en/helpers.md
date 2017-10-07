@@ -655,7 +655,7 @@ the function `is_supported_locale()`.
 <a name="method-locale-url"></a>
 #### `locale_url()` {.method}
 
-The `locale_url` function prefixes the current URL with the given language code.
+The `locale_url` function prefixes the path of the current URL with the given language code.
 
     locale_url('fr');
         

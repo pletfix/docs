@@ -28,7 +28,7 @@ You may also use the global `di()` function:
 
 A service is an class or an object bound in the Dependency Injection Container under a unique name. 
 
-The services are registered in `config/boot/services.php`. Feel free to add your own services to this file 
+The services are registered in `boot/services.php`. Feel free to add your own services to this file 
 like this:
 
     $di = \Core\Services\DI::getInstance();

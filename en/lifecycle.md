@@ -43,38 +43,38 @@ loading the rest of the framework.
 1. Load Services
 
     The `Application::run()` pushes services into the [Dependency Injector](di).
-    The services are defined in `config/boot/services.php` and in enabled plugins.
+    The services are defined in `boot/services.php` and in enabled plugins.
 
         /*
          * Push the Services into the Dependency Injector.
          */
         call_user_func(function() {
             @include self::$basePath . '/.manifest/plugins/services.php';
-            require self::$basePath . '/config/boot/services.php';
+            require self::$basePath . '/boot/services.php';
         });
 
 2. Execute Bootstraps 
 
-    After loading the services the bootstraps, which are defined in `config/boot/bootstrap.php` (and in enabled plugins), 
+    After loading the services the bootstraps, which are defined in `boot/bootstrap.php` (and in enabled plugins), 
     will be executed:
 
         /*
          * Bootstrap the framework
          */
         call_user_func(function() {
-            require self::$basePath . '/config/boot/bootstrap.php';
+            require self::$basePath . '/boot/bootstrap.php';
             @include self::$basePath . '/.manifest/plugins/bootstrap.php';
         });
 
 3. Register Routes
 
-    Next the routes will be loaded. They are defined in `config/boot/routes.php` and in enabled plugins.
+    Next the routes will be loaded. They are defined in `boot/routes.php` and in enabled plugins.
        
         /*
          * Register routes.
          */
         call_user_func(function() {
-            require self::$basePath . '/config/boot/routes.php';
+            require self::$basePath . '/boot/routes.php';
             @include self::$basePath . '/.manifest/plugins/routes.php';
         });
 
@@ -144,26 +144,26 @@ rest of the framework.
 1. Load Services
 
     The `Console::run()` pushes the services into the [Dependency Injector](di). The services are defined in 
-    `config/boot/services.php` and in enabled plugins.
+    `boot/services.php` and in enabled plugins.
 
         /*
          * Push the Services into the Dependency Injector.
          */
         call_user_func(function() {
             @include self::$basePath . '/.manifest/plugins/services.php';
-            require self::$basePath . '/config/boot/services.php';
+            require self::$basePath . '/boot/services.php';
         });
 
 2. Execute Bootstraps 
 
-    After loading the services the bootstraps will be executed. THe bootsraps are defined in `config/boot/bootstrap.php` 
+    After loading the services the bootstraps will be executed. THe bootsraps are defined in `boot/bootstrap.php` 
     and in enabled plugins:
 
         /*
          * Bootstrap the framework
          */
         call_user_func(function() {
-            require self::$basePath . '/config/boot/bootstrap.php';
+            require self::$basePath . '/boot/bootstrap.php';
             @include self::$basePath . '/.manifest/plugins/bootstrap.php';
         });
 
@@ -242,26 +242,26 @@ It starts the autoloader, the services and bootstraps defined in your applicatio
 1. Load Services
 
     `Environment::load()` pushes the services into the [Dependency Injector](di). The services are defined in 
-    `config/boot/services.php` and in enabled plugins.
+    `boot/services.php` and in enabled plugins.
 
         /*
          * Push the Services into the Dependency Injector.
          */
         call_user_func(function() {
             @include self::$basePath . '/.manifest/plugins/services.php';
-            require self::$basePath . '/config/boot/services.php';
+            require self::$basePath . '/boot/services.php';
         });
 
 2. Execute Bootstraps 
 
-    After loading the services the bootstraps will be executed. THe bootsraps are defined in `config/boot/bootstrap.php` 
+    After loading the services the bootstraps will be executed. THe bootsraps are defined in `boot/bootstrap.php` 
     and in enabled plugins:
 
         /*
          * Bootstrap the framework
          */
         call_user_func(function() {
-            require self::$basePath . '/config/boot/bootstrap.php';
+            require self::$basePath . '/boot/bootstrap.php';
             @include self::$basePath . '/.manifest/plugins/bootstrap.php';
         });
         

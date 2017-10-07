@@ -354,7 +354,7 @@ If available, the embedded route entries will be added to the `.manifest/plugins
  
 When the application is started, the [HTTP router](routing) loads this manifest.
  
-You could overwrite this route entries in the application's route file `config/boot/routes.php`.
+You could overwrite this route entries in the application's route file `boot/routes.php`.
  
 <a name="services"></a>
 ### 12. Services
@@ -372,7 +372,7 @@ If available, the services, provided by the plugin, will be added to the `.manif
 
 The [Dependency Injector](di) loads this manifest when the application is started. 
 
-You could overwrite this entries in the application's service file `config/boot/swervices.php`.
+You could overwrite this entries in the application's service file `boot/swervices.php`.
 
 <a name="bootstraps"></a>
 ### 13. Bootstraps
@@ -531,14 +531,13 @@ Read chapter [Commands](commands) to learn how you write commands.
 ### Configuration
 
 Of course, you can configure your plugin in a similar way as the application itself. Save the plugin's configuration 
-under `config/config.php`:
+under `config.php`:
 
 <pre class="tree">
 |-workbench/
    |-my-vendor/
       |-my-plugin/
-         |-config/
-            |-config.php
+         |-config.php
 </pre>
 
 The [registration procedure](#registering) copies the file into the `config` directory under the name of the plugin.
@@ -662,13 +661,13 @@ plugin.
 <a name="writing-routes"></a>
 ### Routes
 
-Add default route entries to the plugin's `config/routes.php` file.
+Add default route entries to the plugin's `boot/routes.php` file.
 
 <pre class="tree">
 |-workbench/
    |-my-vendor/
       |-my-plugin/
-         |-config/
+         |-boot/
             |-routes.php
 </pre>
 
@@ -678,17 +677,17 @@ Read chapter [HTTP Routing](routing) for details on routing.
 ### Services
 
 You should set the services, which are provided by the plugin, into the [Dependency Injection Container](di). 
-As like the services of the application, you may register the services in the Plugin's `config/services.php` file.
+As like the services of the application, you may register the services in the Plugin's `boot/services.php` file.
 
 <pre class="tree">
 |-workbench/
    |-my-vendor/
       |-my-plugin/
-         |-config/
+         |-boot/
             |-services.php
 </pre>
 
-Note, the Dependency Injection entries of the plugin could be overwritten by the application's `config/boot/services.php`. 
+Note, the Dependency Injection entries of the plugin could be overwritten by the application's `boot/services.php`. 
 
 <a name="writing-views"></a>
 ### Views

@@ -16,7 +16,7 @@ Ok, let's start like this with Pletfix:
 
 1. Install a fresh [Pletfix Application](https://github.com/pletfix/app).
 
-2. Open `config/boot/routes.php` and add a new route:
+2. Open `boot/routes.php` and add a new route:
 
     ~~~php
     $route->get('hello', function() {
@@ -49,7 +49,7 @@ Pletfix is a MVC (Model-View-Controller) framework, so we will use a `View` for 
     @endsection
     ~~~
  
-5. Modify the route in `config/boot/routes.php` so that the view is called and the output string is not returned directly:
+5. Modify the route in `boot/routes.php` so that the view is called and the output string is not returned directly:
  
     ~~~php
     $route->get('hello', function() {

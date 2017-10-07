@@ -58,6 +58,7 @@ The Response object has these methods:
 
 <div class="method-list" markdown="1">
 
+[back](#method-back)
 [cache](#method-cache)
 [clear](#method-clear)
 [getContent](#method-get-content)
@@ -67,6 +68,7 @@ The Response object has these methods:
 [header](#method-header)
 [json](#method-json)
 [output](#method-output)
+[plaintext](#method-plaintext)
 [redirect](#method-redirect)
 [send](#method-send)
 [status](#method-status)
@@ -83,8 +85,23 @@ The Response object has these methods:
 <a name="method-listing"></a>
 ### Method Listing
 
+<a name="method-back"></a>
+#### `back()` {.method .first-method}
+
+The `back` method gets a redirect to the previous page on which the user clicked a link to the current page.
+
+    return response()->back();
+    
+You can specify a fallback url that is used if the HTTP_REFERER is not set in the request header because the user did 
+not clicked a link before: 
+     
+    return response()->back('home');         
+
+See also the [redirect](responses#method-redirect) method.
+
+
 <a name="method-cache"></a>
-#### `cache()` {.method .first-method}
+#### `cache()` {.method}
 
 The `cache` sets caching headers for the response:
 
@@ -192,6 +209,13 @@ You can set the response's status and headers as like as:
 
     return response()->output('foo, ['a' => 4711], 200, ['Content-Type' => 'text/plain']);   
         
+<a name="method-plaintext"></a>
+#### `plaintext()` {.method}
+
+The `plaintext` method gets a plaintext response:
+
+    return response()->plaintext('Hello World!);  
+              
 
 <a name="method-redirect"></a>
 #### `redirect()` {.method}

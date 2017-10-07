@@ -13,6 +13,12 @@ Pletfix is a modern framework written in PHP, with proven concepts like
 The main principle is [KISS](https://en.wikipedia.org/wiki/KISS_principle) - Keep it simple, stupid!
 What does that mean? Read the [Contribution Guide](contributions) to learn more Pletfix philosophy.
 
+### Source
+
+All source is available at the
+
+<a href="https://github.com/pletfix" target="_blank" class="icon"><i class="fa fa-github fa-2x" aria-hidden="true"></i> GitHub repository</a>.
+
 ### Licenses
 
 Pletfix is free and open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)

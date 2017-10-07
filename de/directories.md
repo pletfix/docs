@@ -17,10 +17,10 @@
 
 <pre class="tree">
 |-[base](#base)/
-   |-[.manifest](#manifest)/    Manifest Dateien (werden durch bestimmte Konsolenbefehle generiert)
+   |-.manifest/                 Manifest Dateien (werden durch bestimmte Konsolenbefehle generiert)
    |  |-assets/                 Informationen über die Versionierung der Assets
    |  |-plugins/                Informationen über die registrierten Plugins
-   |-[app](#app)/               Autoload-Verzeichnis nach PSR-4-Standard, Namespace \App
+   |-app/                       Autoload-Verzeichnis nach PSR-4-Standard, Namespace \App
    |  |-Commands/               Konsolenbefehle
    |  |-Controllers/            Controller der Anwendung
    |  |-Drivers/                Treiber (können durch Factories geladen werden)
@@ -82,6 +82,8 @@
    |  |-db/                     SQLite-Datenbank-Datei
    |  |-logs/                   Logdateien
    |  |-sessions/               Sessions
+   |  |-temp/                   Temporare Dateien
+   |  |-upload/                 Heruntergeladene Dateien
    |-tests/                     Beinhaltet die Unit-Tests
    |-vendor/                    Pletfix Core, Plugins und Packages von Drittanbietern - Ändern Sie diesen Code nicht!
    |-workbench/                 Ordner für Kern- oder Plugin-Entwicklung
@@ -107,22 +109,34 @@
       |-core/
          |-bin/                 Binaries
          |  |-hiddeninput.exe   Wird unter Windows für eine Hiddeneingabe in Konsolenprogrammen benötigt
-         |-functions/           Funktionen, die automatisch geladen werden
-         |  |-helpers.php       Hilfsfunktionen für Views
-         |  |-services.php      Funktionen, die den Zugriff auf die Service vereinfacht
+         |-config/              Configuration files
+         |  |-boot/             Files that are already loaded during the boot process
+         |  |  |-bootstrap.php  List of the bootstrappers that are active for the application
+         |  |  |-routes.php     Route entries of the application
+         |  |  |-services.php   Registration of application-specific services
+         |  |-app.php           Basic configuration of the application
+         |  |-cache.php         Configuration of the cache
+         |  |-database.php      Configuration of the database
+         |  |-mail.php          Configuration of the cache
+         |  |-session.php       Configuration of the PHP Session
          |-src/                 Autoload-Verzeichnis nach PSR-4-Standard, Namespace \Core
          |  |-Bootsraps/        Bootstrapper
          |  |-Commands/         Konsolenbefehle
          |  |-Controllers/      AbstractController-Klasse
          |  |-Exceptions/       Exception-Klassen
+         |  |-Handler/          Event- and exception handler
          |  |-Middleware/       Middleware-Klassen
          |  |-Models/           AbstractModel-Klasse
          |  |-Services/         Service-Klassen (werden im DI direkt oder indirekt bereitgestellt)
          |  |-Testing/          TestCase and MinkTestCase Definition
          |  |-Application.php   Webapplikation (leitet die Anfrage an die angeforde Route weiter)
          |  |-Console.php       Konsolenprogramm (lädt ein Konsolenbefehl und führt diesen aus)
+         |  |-Framework.php     Base class for Application und Console
          |-tests/               Beinhaltet die Unit-Tests
          |  |-bootstrap.php     Bootstrap for PHPUNit
+         |-.build.sh            Build script for Travic CI
+         |-.gitignore           List of files and folders ignored by git
+         |-.travis.yml          Configuration for Travic CI
          |-composer.json        Composer Konfiguration
          |-helpers.php          Helper-Funktionen
          |-LICENSE              Lizenzinformationen

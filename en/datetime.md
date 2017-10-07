@@ -44,7 +44,7 @@ to worry about the underlying data being unintentionally changed by another enti
 <a name="timezone"></a>
 ### Timezone
 
-You may set the default timezone in `config/app.php`:
+You may set the default timezone in `config/locale.php`:
 
     /**
      * ----------------------------------------------------------------
@@ -82,7 +82,7 @@ See also [List of time zone abbreviations](https://en.wikipedia.org/wiki/List_of
 According to international standard ISO 8601, Monday is the first day of the week.
 Yet several countries, including the United States and Canada, consider Sunday as the start of the week.
 
-Like the timezone, you can set the first day of week in `config/app.php`:
+Like the timezone, you can set the first day of week in `config/locale.php`:
  
     /**
      * ----------------------------------------------------------------

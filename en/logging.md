@@ -17,39 +17,13 @@ See also [PSR-3 Specification](http://www.php-fig.org/psr/psr-3).
  
 <a name="configuration"></a>
 ## Configuration
-
-Pletfix create the log files in the `storage/logs` directory. 
-To configure the Pletfix Logger, you should modify the `log` option in your `config/app.php` configuration file: 
-
-    /*
-    |--------------------------------------------------------------------------
-    | Logging Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure the log settings for your application. Out of
-    | the box, Laravel uses the Monolog PHP logging library. This gives
-    | you a variety of powerful log handlers / formatters to utilize.
-    |
-    | Available Settings:
-    | type:         Can be set to "single", "daily", "syslog" or "errorlog"
-    | level:        The minimum PSR-3 logging level at which this handler will be triggered.
-    |               Can be set to "debug", "info", "notice", "warning", "error", "critical", "alert" or "emergency"
-    | max_files:    Only for daily log: Maximum files to use in the daily logging format (0 means unlimited).
-    | permission:   Optional file permissions (null == 0644 are only for owner read/write)
-    |
-    */
-
-    'log' => [
-        'type'       => env('LOG_TYPE',  'daily'),
-        'level'      => env('LOG_LEVEL', 'debug'),
-        'max_files'  => 5,
-        'app_file'   => 'app.log',
-        'cli_file'   => 'cli.log',
-        'permission' => 0664,
-    ],
+ 
+To configure the Pletfix Logger, you may modify the options in your `config/logger.php` configuration file.
 
 <a name="usage"></a>
 ## Usage the Logger
+
+Pletfix create the log files in the `storage/logs` directory.
 
 You may write information to the logs using the global helper function `logger()`:
 

@@ -29,11 +29,11 @@
    |  |-Middleware/             Middleware of the application
    |  |-Models/                 Models of the application
    |  |-Services/               Application-specific Services (are provided directly or indirectly by the DI)
+   |-boot/                      Files that are already loaded during the boot process
+   |  |-bootstrap.php           List of the bootstrappers that are active for the application
+   |  |-routes.php              Route entries of the application
+   |  |-services.php            Registration of application-specific services
    |-config/                    Configuration files
-   |  |-boot/                   Files that are already loaded during the boot process
-   |  |  |-bootstrap.php        List of the bootstrappers that are active for the application
-   |  |  |-routes.php           Route entries of the application
-   |  |  |-services.php         Registration of application-specific services
    |  |-app.php                 Basic configuration of the application
    |  |-cache.php               Configuration of the cache
    |  |-database.php            Configuration of the database
@@ -109,11 +109,11 @@
       |-core/
          |-bin/                 Binaries
          |  |-hiddeninput.exe   Required on Windows for a hidden input in console programs
+         |-boot/                Files that are already loaded during the boot process
+         |  |-bootstrap.php     List of the bootstrappers that are active for the application
+         |  |-routes.php        Route entries of the application
+         |  |-services.php      Registration of application-specific services
          |-config/              Configuration files
-         |  |-boot/             Files that are already loaded during the boot process
-         |  |  |-bootstrap.php  List of the bootstrappers that are active for the application
-         |  |  |-routes.php     Route entries of the application
-         |  |  |-services.php   Registration of application-specific services
          |  |-app.php           Basic configuration of the application
          |  |-cache.php         Configuration of the cache
          |  |-database.php      Configuration of the database
@@ -153,10 +153,9 @@
       |-bar/                    Plugin name (here "bar" for example)
          |-assets/              Files that are copied to the public folder using an asset manager
          |  |-build.php         Asset Build Information File
-         |-config/              Configuration files
+         |-boot/                Boot files
          |  |-routes.php        Route entries of the plugin
          |  |-services.php      Registration of the services provided by the plugin
-         |  |-config.php        Configuration file of the plugins
          |-lang/                Translation files Translation files (compiled at first access and stored in cache)
          |  |-de.php            German translation
          |  |-en.php            English translation
@@ -172,6 +171,7 @@
          |-tests/               Contains your automated tests
          |-views/               Views (compiled at first access and stored in cache)
          |-composer.json        Composer configuration
+         |-config.php           Configuration file of the plugins
          |-helpers.php          Helper functions
          |-LICENSE              License information
          |-phpunit.xml.dist     Test settings
