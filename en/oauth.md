@@ -4,8 +4,8 @@
 
 ## Introduction
 
-Pletfix provides a [OAuth Plugin](https://github.com/pletfix/oauth-plugin) to authenticate the user through a socialite 
-provider such like Facebook or Dropbox.
+Pletfix provides a [OAuth Plugin](https://github.com/pletfix/oauth-plugin) to authenticate the user through a social 
+media provider such like Facebook or Dropbox.
 
 You can fetch the package by running the following terminal command under the application's directory:
 
