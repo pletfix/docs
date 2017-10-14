@@ -1,9 +1,5 @@
 # Controllers
 
-[Since 0.5.0]
-
-TODO: Anpassen 
-
 - [Introduction](#introduction)
 - [Basic Controllers](#basic)
 - [Resource Controllers](#resource)
@@ -38,7 +34,7 @@ Note that the controller is only a simple class and does not need to extend a co
 <a name="routes"></a>
 ### Routes
 
-You can define a [route](routing) to this controller action like so:
+You can define a [route](routing) to this controller action like below:
 
     $route->get('users/{id}', 'UserController@show');
 
@@ -50,7 +46,6 @@ Now, when a request matches the specified route URI, the `show` method on the `U
 > controller like this:
 >
 >       $route->get('users/{id}', 'Admin\UserController@show');
-
 
 <a name="resource"></a>
 ## Resource Controllers

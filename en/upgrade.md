@@ -2,7 +2,7 @@
 
 _How do I upgrade an existing Pletfix application._
 
-[Since 0.5.0]
+## From 0.7.3
 
 Nothing to upgrade at the moment. It's just the first version now :-) 
 

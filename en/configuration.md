@@ -1,7 +1,5 @@
 # Configuration
 
-[Since 0.5.0]
-
 - [Introduction](#introduction)
 - [Configuration](#configuration)
 - [Environment](#environment)
@@ -66,9 +64,13 @@ The following files are stored in the `boot` folder. They will be loaded during 
 
 You may edit this files to modify the boot process as you wish.
 
-> <i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i>
-> Furthermore, the services, bootstraps and default routes of the installed plugins will be loaded during the boot process.
-> To find out what these plugins serve, look in the `.manifest` folder. But do not carry out any change manually in this folder! 
-> The files are automatically generated and changed when you [register or remove plugins](plugins#registering).
-> Instead, you can override the services and routes of a plugin by adding the entries in `boot/services.php` and 
-> `boot/services.php`.
+<a name="plugins"></a>
+### Plugins
+
+If you have installed plugins that include services, bootstraps or default routes, they will be loaded during the boot p
+rocess, too.
+
+To find out what these plugins serve, look in the `.manifest` folder. But do not carry out any change manually in this 
+folder! The files are automatically generated and changed when you [register or remove plugins](plugins#registering).
+Instead, you can override the services and routes of a plugin by adding the entries in `boot/services.php` and 
+`boot/routes.php`.

@@ -1,7 +1,5 @@
 # Dependency Injection
 
-[Since 0.5.0]
-
 - [Introduction](#introduction)
 - [Registering Services](#registering)
 - [Receiving a Service](#receiving)
@@ -22,7 +20,6 @@ You may also use the global `di()` function:
       
     $di = di();      
 
-
 <a name="registering"></a>
 ## Registering Services
 
@@ -40,7 +37,7 @@ time you get the service.
 
 #### Shared Service
  
-If you like to bind the service as singleton service, set `true` as the second argument:
+If you like to bind the service as singleton service, set `true` as the third argument:
   
     $di->set('my-service', \App\Services\MyService::class, true);
 
@@ -63,7 +60,6 @@ Another way to create a service is to define a function, not the preferred but q
     $di->set('stupid', function() {
         echo 'I am just a stupid service!';
     }, true);
-
 
 <a name="receiving"></a>
 ## Receiving a Service
@@ -88,6 +84,4 @@ Pletfix provides [helper functions](helpers) for an easy access to the most serv
 As example you may get a collection like this:
 
     $collect = collect($items);
-    
-Study the function library in `vendor/pletfix/core/functions/services.php` to learn more.    
-    
+      

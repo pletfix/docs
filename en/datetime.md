@@ -2,8 +2,6 @@
 
 _Working with dates, times and timezones_
 
-[Since 0.5.1]
-
 - [Introduction](#introduction)
 - [Configuration](#configuration)
     - [Timezone](#timezone)
@@ -130,7 +128,6 @@ Of course, there are also the getters:
 	
     $lang = DateTime::getLocale();    
 	
-
 <a name="instance"></a>	
 ## Create a DateTime Instance
 
@@ -334,7 +331,6 @@ See PHP' [setISODate](http://php.net/manual/en/datetime.setisodate.php) to read 
 
 > Note that these methods modifies their own instance. No new instance is created.
 
-
 <a name="calculation"></a>	
 ## Date Calculation
 			
@@ -416,7 +412,6 @@ You may set the value to the start/end of a unit of time.
 	$dt->endOfHour();      // set to now, but with 59 mins, 59 secs
 	$dt->endOfMinute();    // set to now, but with 59 seconds
 
-	
 <a name="comparison"></a>
 ### Comparison Methods
 	

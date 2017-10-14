@@ -1,7 +1,5 @@
 # Cache
 
-[Since 0.5.0]
-
 - [Introduction](#introduction)
 - [Configuration](#configuration)
 - [Create a Cache Instance](#instance)

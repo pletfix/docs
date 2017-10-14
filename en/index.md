@@ -1,7 +1,5 @@
 # Documentation
 
-[Since 0.5.0]
-
 This is the official and community editable documentation for the Pletfix framework. 
 
 ## About Pletfix

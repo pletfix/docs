@@ -1,7 +1,5 @@
 # Collections
 
-[Since 0.5.0]
-
 - [Introduction](#introduction)
 - [Creating Collections](#creating)
 - [Available Methods](#available-methods)

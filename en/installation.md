@@ -1,9 +1,8 @@
 # Installation
 
-[Since 0.5.0]
-
 - [Requirements](#requirements)
-- [Installing Pletfix Application Skeleton](#installation)
+- [Installing Pletfix Application Skeleton](#install)
+- [Start the Application](#start)
 - [Customizing](#customizing)
 - [Web Server Configuration](#web-server)
     - [Apache](#apache)
@@ -20,31 +19,32 @@ The Pletfix framework has just a few system requirements:
 - PHP >= 5.6.4
 - [Composer](https://getcomposer.org/)
 
-<a name="installation"></a>
+<a name="install"></a>
 ## Installing Pletfix Application Skeleton
 
 Install Pletfix by entering the Composer's create-project command in your terminal:
 
 The latest stable release:
 
-<pre>    
-composer create-project pletfix/app my-app-name
-</pre>
+```bash
+composer create-project pletfix/app myapp
+```
 
 The current development version (may be unstable):
-<pre>
-composer create-project pletfix/app --stability=dev my-app-name
-</pre>
-    
+
+```bash
+composer create-project pletfix/app --stability=dev myapp
+```
+
 <!--
-composer create-project pletfix/app --repository=https://raw.githubusercontent.com/pletfix/app/master/packages.json my-app-name
+composer create-project pletfix/app --repository=https://raw.githubusercontent.com/pletfix/app/master/packages.json myapp
 -->
 
 > Pletfix uses the [Asset Packagist](https://asset-packagist.org/) by [HiQDev](https://hiqdev.com/) to download Bower and NPM packages via Composer. 
 > It's licensed under [BSD 3-clause](https://github.com/hiqdev/asset-packagist/blob/master/LICENSE). 
 > Thanks for this great work!
 
-The command above creates a directory you specify (here "my-app-name") and downloads the package in this folder.
+The command above creates a directory you specify (here "myapp") and downloads the package in this folder.
 
 ![Screenshot - Installation started](https://raw.githubusercontent.com/pletfix/app/master/resources/docs/screenshot_started.png)     
 
@@ -58,10 +58,12 @@ Note, that the directories within the storage folder must be writable by your we
 Enter "-" to skip this part. In this case you have to set the permissions after the installation procedure manually like 
 this:
     
-    cd storage
-    chgrp www-data *
-    chmod 775 *
-    chmod g+s *
+```bash    
+cd storage
+chgrp www-data *
+chmod 775 *
+chmod g+s *
+```
 
 **Database**
 
@@ -77,13 +79,26 @@ with **Y** (the default).
 
 ![Screenshot - Installation completed](https://raw.githubusercontent.com/pletfix/app/master/resources/docs/screenshot_completed.png)     
 
-That's all! Now the application is ready for the first request. 
+Now the application is ready for the first request. 
 
-Open your browser and enter the URL of the application's public folder, e.g.
-    
-    http://localhost/my-app/public/
-    
-    
+<a name="start"></a>
+## Start the Application
+
+Before you open the application with your browser, you should configure the document root of the web server to be the 
+`public` directory.
+
+If you have not installed a web server on your development environment, or if you do not have time or desire to  
+configure your server, you can start up the PHP's built-in web server with the following command: 
+
+```bash
+php -S localhost:8000 -t public/ router.php
+```
+
+> Note, that the built-in web server should never be used in a production environment. It is only intended as a basic 
+> development server!
+
+That's all! This command will serve your application at `http://localhost:8000`.
+  
 <a name="customizing"></a>    
 ## Customizing
 
@@ -97,12 +112,11 @@ Therefore, be sure, that this file is registered in `.gitignore`.
 ### Additional Configuration
 
 Customize the configuration files stored in `config` folder.
-    
-    
+
 <a name="web-server"></a>
 ## Web Server Configuration
 
-A web server with URL rewriting is required, e.g. Apache or Nginx.
+For the production environment a web server with URL rewriting is required, e.g. Apache or Nginx.
 
 <a name="apache"></a>
 ### Apache

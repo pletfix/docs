@@ -13,19 +13,19 @@ return [
         'index' => 'Overview, Licenses',
         'installation' => 'Installation',
         'upgrade' => 'Upgrade Guide',
-        'hello' => 'Hello World',                   // "Create a Table", "Add a Model" beschreiben
+        'hello' => 'Hello World Tutorial',
     ],
     'General' => [ // General Topics
-        'cache' => 'Cache',                         // Kapitel ändern: "Introduction" ("Configuration", "Creating Cache"), "Available Methods"
-        'collections' => 'Collections',             // (*), kennzeichnen, welche Funktionen mutable sind
+        'cache' => 'Cache',
+        'collections' => 'Collections',             // (*) kennzeichnen, welche Funktionen mutable sind
         'configuration' => 'Configuration',
-        'commands' => 'Commands',                   // (*), Ausformulieren, Querverweise setzen
+        'commands' => 'Commands',                   // (*) !!!! This manual is not finished yet !!!!!
         'controllers' => 'Controllers',             // (*)
         'datetime' => 'DateTime',                   // (*)
         'di' => 'Dependency Injection',             // (*)
         'errors' => 'Errors &amp; Exceptions',      // (*)
         'flash' => 'Flash',                         // (*)
-        'helpers' => 'Helpers &amp; Services',      // (*)
+        'helpers' => 'Helpers &amp; Services',      // (*) Misc und Services zusammen auflisten
         'plugins' => 'Plugins',                     // Beschreibung aus Hello-plugin/readme übernehmen
         'requests' => 'HTTP Requests',              // (*), "various ways to get the url" in der Einführung
         'responses' => 'HTTP Responses',            // (*)
