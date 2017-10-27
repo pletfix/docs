@@ -2,23 +2,14 @@
 
 _How do I upgrade an existing Pletfix application._
 
-## From 0.7.3
+- [Upgrading from 0.7.3](#0.7.3)
 
-Nothing to upgrade at the moment. It's just the first version now :-) 
+<a name="0.7.3"></a>
+## Upgrading from 0.7.3 to 0.7.4
 
-<!--
+This section describes what has changed from version 0.7.3 to version 0.7.4.
 
-- [Upgrading from 0.1.5 to 0.2.0](#0.1.5_to_0.2.0)
-- [Upgrading from 0.1.1 to 0.1.5](#0.1.1_to_0.1.5)
+Add this entry to `boot/services.php` (preferably below the comment "Multiple Instance"):
 
-<a name="0.1.5_to_0.2.0"></a>
-## Upgrading from 0.1.5 to 0.2.0
+    $di->set('http-client', \Core\Services\HttpClient::class, false);
 
-Hier wird bescchrieben, was sich von Version 0.1.5 zu Version 0.2.0 geändert hat.
-
-<a name="0.1.1_to_0.1.5"></a>
-## Upgrading from 0.1.1 to 0.1.5
-
-Hier wird bescchrieben, was sich von Version 0.1.1 zu Version 0.1.5 geändert hat.
-
--->

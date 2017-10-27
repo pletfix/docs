@@ -126,6 +126,7 @@ by Daniel St. Jules, licensed under the [MIT License](https://github.com/daniels
 [database](#method-database)
 [datetime](#method-datetime)
 [di](#method-di)
+[http_client](#method-http-client)
 [logger](#method-logger)
 [mailer](#method-mailer)
 [migrator](#method-migrator)
@@ -544,8 +545,8 @@ The `guess_file_extension` function returns the file extension based on the mime
 returns false.
 
     $ext = guess_file_extension('image/gif'); // 'gif'
-  
-  
+           
+     
 <a name="method-http-status-text"></a>
 #### `http_status_text()` {.method}
 
@@ -822,6 +823,14 @@ The `di` function retrieves the [Dependency Injector](di) instance:
     $di = di();
     
     
+<a name="method-http-client"></a>
+#### `http_client()` {.method}
+
+The `http_client` function creates a [HTTP Client](httpclient) to send a request e.g. to a REST service:
+
+    $result = http_client()->post('service-url', ['id' => 4711]);
+
+
 <a name="method-logger"></a>
 #### `logger()` {.method}
 

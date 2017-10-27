@@ -25,6 +25,7 @@ return [
         'di' => 'Dependency Injection',             // (*)
         'errors' => 'Errors &amp; Exceptions',      // (*)
         'flash' => 'Flash',                         // (*)
+        'httpclient' => 'HTTP Client',              // (*) Ausformulieren!
         'helpers' => 'Helpers &amp; Services',      // (*) Misc und Services zusammen auflisten
         'plugins' => 'Plugins',                     // Beschreibung aus Hello-plugin/readme übernehmen
         'requests' => 'HTTP Requests',              // (*), "various ways to get the url" in der Einführung

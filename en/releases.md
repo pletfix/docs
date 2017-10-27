@@ -2,8 +2,6 @@
 
 _What are we working on?_
 
-[Since 0.5.0]
-
 ## Feature List
 
 | Feature  | Release | Status |
@@ -54,20 +52,22 @@ _What are we working on?_
 | File Download | 0.7.0 | Alpha |
 | File Upload | 0.7.1 | Alpha |
 | Pagination | 0.7.2 | Alpha |
-| Pletfix Plugin Page| 0.7.2 | Alpha |
-| Validation| 0.7.3 | |
-| Ajax Request | 0.7.4 | |
-| REST Client | 0.7.5 | |
-| **First Stable Release** | **0.8.0** | |
-| SOUP Services | 0.8.1 | |
-| WebSocket | 0.8.2 | |
-| Zipper | 0.8.3 | |
-| PDF Writer | 0.8.5 | |
-| Route Caching | 0.8.6 | |
-| DI Caching | 0.8.7 | |
+| Pletfix Plugin Page| 0.7.3 | Alpha |
+| **Alpha Version** | **0.7.3** | |
+| WebSocket | 0.7.3 | |
+| HTTP Client | 0.7.4 | |
+| Validation| 0.7.6 | |
+| Ajax Request | 0.7.8 | |
+| SOUP Service | 0.7.9 | |
+| **Beta Version** | **0.8.0** | |
+| Zipper | 0.8.1 | |
+| PDF Writer | 0.8.2 | |
+| Route Caching | 0.8.4 | |
+| DI Caching | 0.8.6 | |
 | Benchmark Test (Profiler) | 0.8.8 | |
 | Token Authentication with Rate Limiting | 0.8.9 | |
 | Crypt/Blowfish (Encryption and Decryption) | 0.9.0 | |
+| **Release Candidate** | **0.9.0** | |
 | Scheduled Tasks | 0.9.1 | |
 | Image Manipulation | 0.9.2 | |
 | Scaffolder | 0.9.3 | |
@@ -76,7 +76,7 @@ _What are we working on?_
 | Optional parameters for HTTP Routing | 0.9.6 | |
 | Notification Events | 0.9.8 | |
 | Pletfix Blog| 0.9.9 | |
-| **Second Stable Release** | **1.0.0** | |
+| **Stable Release** | **1.0.0** | |
 | FormBuilder| &gt; 1.0.0 | |
 | Named Routes | &gt; 1.0.0 | |
 | LUA Support (Inline Scripting) | &gt; 1.0.0 | |

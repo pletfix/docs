@@ -32,10 +32,16 @@ GET       | `/photos/{photo}/edit` | edit         | photos.edit
 PUT/PATCH | `/photos/{photo}`      | update       | photos.update
 DELETE    | `/photos/{photo}`      | destroy      | photos.destroy
 
+TODO:
+Sinnvolle Status Codes 
+
+Verweis auf [Routing](routing#http-method) und
+[Resource Controllers](controllers#resource)
+
 <a name="client"></a>
 ## RESTful Client
 
 TODO...
 
-Curl - Load external data using the Curl library
+Verweis auf [HTTP Client](httpclient)
 

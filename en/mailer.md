@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
 - [Configuration](#configuration)
-- [Create a Mailer Instance](#instance)
+- [Create a Mailer](#instance)
 - [Send a Mail](#send)
 - [Receivers](#receivers)
 - [Attachments](#attachments)
@@ -36,7 +36,7 @@ application's log file so you are able to inspect the message.
     
 	
 <a name="instance"></a>
-## Create a Mailer Instance
+## Create a Mailer
 
 You may use the `mailer()` function to access a mailer instance:
 

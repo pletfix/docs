@@ -50,7 +50,7 @@ Now, when a request matches the specified route URI, the `show` method on the `U
 <a name="resource"></a>
 ## Resource Controllers
 
-You may register a [resourceful route](routing) to a controller:
+You may register a [resourceful route](routing#http-method) to a controller:
 
     $route->resource('articles', 'ArticleController');
 
