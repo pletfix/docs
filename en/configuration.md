@@ -58,7 +58,7 @@ Pletfix will update the cache at the next browser request.
 
 The following files are stored in the `boot` folder. They will be loaded during the boot process.
 
-- `bootstrap.php` - Registers the bootstrapper to load the configuration and registers the Exception Handler(errors).
+- `bootstrap.php` - Registers the bootstrapper to load the configuration and registers the Exception Handlers.
 - `routes.php`    - [Defines the HTTP Routing](routing).
 - `services.php`  - Binds [services](helpers) to the [Dependency Injection](di).
 

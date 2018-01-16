@@ -5,7 +5,7 @@ _Handling errors in your application_
 [Since 0.5.0]
 
 - [Introduction](#introduction)
-- [Exception Handler](#handler)
+- [Exception Handlers](#handlers)
     - [Logging](#logging)
     - [Error Pages](#pages)
 - [Exceptions](#exceptions)
@@ -17,19 +17,19 @@ If an exception is occur an exception handler will be triggered by the Pletfix a
 
 You may customize the handler and the error messages as you wish.
 
-<a name="handler"></a>
-## Exception Handler
+<a name="handlers"></a>
+## Exception Handlers
 
-The [Pletfix Application Skeleton](https://github.com/pletfix/app) provides an exception handler that stored in `app/Handler/ExceptionHandler.php`.
+The [Pletfix Application Skeleton](https://github.com/pletfix/app) provides an exception handler that stored in `app/Handlers/ExceptionHandler.php`.
 
 If you wish you can define an another exception-handler. For do this open the `boot/services.php` file. 
 In this file is the handler bound to the [Dependency Injection Container](di).
 
-    $di->set('exception-handler', \App\Handler\ExceptionHandler::class, true);
+    $di->set('exception-handler', \App\Handlers\ExceptionHandler::class, true);
 
 You can change the class as you like.
 
-The exception handler must extends `Core\Handler\Contracts\ExceptionHandler`. There is only the handler's invoke method 
+The exception handler must extends `Core\Handlers\Contracts\ExceptionHandler`. There is only the handler's invoke method 
 `handle()` defined. The default handler of the Pletfix Application looks like this:
 
     public function handle(Exception $e)

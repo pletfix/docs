@@ -892,7 +892,15 @@ The `plugin_manager` function creates a [PluginManager](plugins) instance for th
 > Typically, you do not need access the Plugin Manager programmatically. Instead, use the Pletfix console command 'plugin'.
 
 
-<a name="method-request"></a>
+<a name="method-process"></a>
+#### `process()` {.method}
+
+The `process` function creates a [Process](process) instance:
+
+    $process = process('ls -l')
+    
+    
+a name="method-request"></a>
 #### `request()` {.method}
 
 The `request` function retrieves the [Request](requests) instance:

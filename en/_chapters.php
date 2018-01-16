@@ -28,6 +28,7 @@ return [
         'httpclient' => 'HTTP Client',              // (*) Ausformulieren!
         'helpers' => 'Helpers &amp; Services',      // (*) Misc und Services zusammen auflisten
         'plugins' => 'Plugins',                     // Beschreibung aus Hello-plugin/readme übernehmen
+        'processes' => 'Processes',                 // (*)
         'requests' => 'HTTP Requests',              // (*), "various ways to get the url" in der Einführung
         'responses' => 'HTTP Responses',            // (*)
         'routing' => 'HTTP Routing',                // (*)
@@ -76,7 +77,6 @@ return [
         'soap' => 'SOAP Service',
         'websocket' => 'WebSockets',
         'scheduler' => 'Scheduler',
-        'daemons' => 'Daemons',
         'events' => 'Notification Events',
     */
 

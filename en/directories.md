@@ -25,7 +25,7 @@
    |  |-Controllers/            Controllers of the application
    |  |-Drivers/                Drivers (can be loaded by Factories)
    |  |-Exceptions/             Application-specific exception classes
-   |  |-Handler/                Event- and exception handler
+   |  |-Handlers/               Event- and exception handlers
    |  |-Middleware/             Middleware of the application
    |  |-Models/                 Models of the application
    |  |-Services/               Application-specific Services (are provided directly or indirectly by the DI)
@@ -124,7 +124,7 @@
          |  |-Commands/         Console commands
          |  |-Controllers/      Controllers
          |  |-Exceptions/       Exception classes
-         |  |-Handler/          Event- and exception handler
+         |  |-Handlers/         Event- and exception handlers
          |  |-Middleware/       Middleware classes
          |  |-Models/           Model classees
          |  |-Services/         Service classes (are provided directly or indirectly by the DI)

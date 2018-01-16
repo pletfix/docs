@@ -63,14 +63,15 @@ You can specify a HTTP proxy to tunnel requests through:
     
 You may set the address like "addr:port". 
 
-Username and password are optional. The possible authentication methods are `CURLAUTH_BASIC` (default) and/or 
-`CURLAUTH_NTLM`. The bitwise `|` operator can be used to combine more than one method. 
-
-If this method is not used, the environment variable `HTTPS_PROXY` and `HTTP_PROXY` is read to determine the HTTP proxy 
-address.
+Username and password are optional. The `$authMethod` argument is `CURLAUTH_BASIC` (default) and/or `CURLAUTH_NTLM`. 
+The bitwise `|` operator can be used to combine more than one method. 
 
 The optional `$type` argument could be either `CURLPROXY_HTTP`, `CURLPROXY_SOCKS4`, `CURLPROXY_SOCKS5`, `CURLPROXY_SOCKS4A`
 or `CURLPROXY_SOCKS5_HOSTNAME`.
+
+> <i class="fa fa-info fa-2x" aria-hidden="true"></i>
+> If this method is not used, the environment variable `HTTPS_PROXY` and `HTTP_PROXY` is read to determine the HTTP 
+> proxy address automatically.
 
 <a name="options"></a>
 ### Additional Options

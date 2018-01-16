@@ -7,8 +7,8 @@ _Route a URI request to a controller action_
 - [Introduction](#introduction)
 - [Defining Routes](#defining)
 	- [Accessing](#accessing)
-	- [Route Handler](#handler)	
-	- [HTTP Method](#http-method)
+	- [Route Handlers](#handlers)	
+	- [HTTP Methods](#http-methods)
 	- [Route Parameters](#parameters)
 	- [Named Routes](#name)
 	- [Prefixes](#prefixes)
@@ -51,8 +51,8 @@ As you can see in the example above, you get an instance of the HTTP Route direc
     $route = \Core\Application::route();
 
 	
-<a name="handler"></a>	
-### Route Handler
+<a name="handlers"></a>	
+### Route Handlers
 	
 The most basic Pletfix routes simply accept a URI and a Closure:
 
@@ -82,8 +82,8 @@ The member function `index` of `\App\Controllers\HomeController` will receive th
 >       $route->get('users/{id}', 'Admin\UserController@show');
 	
 	
-<a name="http-method"></a>	
-### HTTP Method
+<a name="http-methods"></a>	
+### HTTP Methods
 	
 The router allows you to register routes that respond to any HTTP verb:
 

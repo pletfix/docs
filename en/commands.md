@@ -202,6 +202,25 @@ Additional, the Command class provides a [variety of methods](#available-methods
         }
     }
 
+<a name="handle"></a>
+#### Termination Signal
+
+You can determine if a SIGTERM signal has been triggered to terminate the process like this:
+
+    public function handle()
+    {
+        while (!$this->isTerminated()) {
+            // do whatever you want
+        }
+    }            
+    
+To send a SIGTERM signal to PID `1234` enter this into your terminal:
+
+    kill -SIGTERM 1234
+    
+See also [process->terminate()](process#method-terminate).    
+
+    
 <a name="exit-code"></a>
 #### Exit Code
 
