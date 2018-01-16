@@ -10,7 +10,7 @@
 Pletfix `Process` class starts a backround process using PHP's [proc_open] (http://php.net/manual/en/function.proc-open.php).
 
 <a name="instance"></a>
-## Create a Cache Instance
+## Create a Process Instance
 
 You may use the `process()` function to create a process:
 
